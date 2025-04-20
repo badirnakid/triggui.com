@@ -1,38 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Triggui</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #ffffff;
+      color: #111;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      background-color: #ffffff;
-      color: #000;
+      flex-direction: column;
       text-align: center;
+      transition: background-color 0.3s ease;
     }
-    h1 { font-size: 3em; }
-    p { font-size: 1.2em; margin-bottom: 20px; }
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+    p {
+      font-size: 1.25rem;
+      margin-bottom: 2em;
+      opacity: 0;
+      animation: fadeIn 1.6s ease forwards;
+    }
     button {
-      padding: 10px 20px;
-      font-size: 1em;
+      padding: 14px 28px;
+      font-size: 1rem;
       background-color: #000;
       color: #fff;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+    button:hover {
+      background-color: #222;
+      transform: scale(1.04);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.8rem;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
   <h1>Triggui</h1>
   <p>¿Ya abriste un libro físico hoy?</p>
-  <button onclick="alert('¡Gracias por abrir un libro físico!')">📖 Chócalas</button>
+  <button onclick="alert('Eso. Abre cualquiera. Aunque sea por una página.')">📖 Chócalas</button>
+  <footer>Hecho con intención, no con prisa</footer>
 </body>
 </html>
