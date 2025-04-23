@@ -4,23 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui – Un libro. Un lugar.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --c1: #1A535C;
-      --c2: #FF6B6B;
-      --c3: #FFE66D;
-      --c4: #4ECDC4;
-      --bg: #ffffff;
-      --text: #111;
-      --gray: #555;
+      --bg: #000000;
+      --text: #ffffff;
+      --gray: #e0e0e0;
+      --soft: #888888;
+      --accent: #4ecdc4;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
+      font-family: 'Archivo', sans-serif;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
@@ -30,70 +33,93 @@
       margin: auto;
       opacity: 0;
       transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      transition: all 1s ease-out;
     }
+
     section.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    h1, h2 {
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--accent);
+    }
+
+    h2 {
+      font-size: 2.2rem;
       font-weight: 700;
       margin-bottom: 20px;
     }
-    h1 {
-      font-size: 3rem;
-      color: var(--c1);
-      text-align: center;
-    }
-    h2 {
-      font-size: 2rem;
-      color: var(--c1);
-    }
+
     p {
-      font-size: 1.2rem;
-      line-height: 1.8;
+      font-size: 1.3rem;
       color: var(--gray);
+      margin-bottom: 20px;
     }
 
     .quote {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
       font-style: italic;
-      color: var(--c2);
-      margin: 40px 0;
+      color: var(--text);
+      padding: 40px 30px;
+      background: #111;
+      border-left: 5px solid var(--accent);
+      margin: 60px 0;
+    }
+
+    .highlight {
+      font-size: 1.8rem;
+      color: var(--accent);
+      font-weight: bold;
+      margin: 40px 0 10px;
+      text-align: center;
+    }
+
+    ul {
+      list-style: none;
       padding-left: 20px;
-      border-left: 4px solid var(--c2);
+      margin: 20px 0;
+    }
+
+    ul li::before {
+      content: "☉ ";
+      color: var(--accent);
     }
 
     .cta-button {
       display: block;
-      margin: 60px auto;
-      background: var(--c1);
-      color: white;
-      padding: 15px 35px;
+      margin: 80px auto 0;
+      background: var(--accent);
+      color: black;
+      padding: 18px 40px;
+      font-size: 1.1rem;
       font-weight: bold;
-      font-size: 1rem;
+      border-radius: 30px;
       border: none;
-      border-radius: 40px;
       cursor: pointer;
       text-decoration: none;
       transition: background 0.3s ease;
     }
+
     .cta-button:hover {
-      background: var(--c4);
+      background: #33bbb0;
     }
 
     footer {
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       font-size: 0.9rem;
-      color: #888;
+      color: var(--soft);
     }
 
     @media (max-width: 600px) {
-      h1 { font-size: 2.2rem; }
-      h2 { font-size: 1.5rem; }
-      p  { font-size: 1rem; }
+      h1 { font-size: 2.4rem; }
+      h2 { font-size: 1.6rem; }
+      p  { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -101,43 +127,43 @@
 
   <section id="intro">
     <h1>Un libro. Un lugar.</h1>
-    <p>Triggui es un sistema de lectura premium que transforma espacios cotidianos en detonadores de conciencia. Seleccionamos un solo libro. Lo colocamos estratégicamente. Y dejamos que haga su trabajo.</p>
-    <div class="quote">“Justo dejé mis libros en casa… y ahí estaba ese. Me senté, lo abrí en cualquier página… y me atrapó.”</div>
+    <p>Triggui transforma el mundo físico con un acto de conciencia silencioso: colocar un libro justo donde alguien lo necesita. No es una campaña. Es una conexión.</p>
+    <div class="quote">“Lo abrí en cualquier página. No supe por qué... pero era justo lo que necesitaba.”</div>
   </section>
 
   <section>
-    <h2>Por qué funciona</h2>
-    <p>La paradoja de la elección es clara: menos opciones, más conexión. Triggui presenta un solo libro, alineado con niveles de conciencia, energía y estado emocional del espacio. Y por eso impacta.</p>
-    <div class="quote">“Un solo libro tiene más poder que cien opciones. Porque no compite: invita.”</div>
+    <h2>¿Por qué solo uno?</h2>
+    <p>La paradoja de la elección lo confirma: menos opciones, más impacto. Triggui solo muestra un libro. Y por eso funciona.</p>
+    <div class="highlight">80% más probabilidad de que sea leído.</div>
   </section>
 
   <section>
-    <h2>Modelos de activación</h2>
-    <p>Los libros se seleccionan bajo modelos energéticos y de conciencia. Algunos de ellos:</p>
-    <ul style="margin: 20px 0; padding-left: 20px;">
-      <li>📘 Punto Cero · Punto Creativo · Punto Activo · Punto Máximo</li>
-      <li>📗 7 Pilares del Desarrollo Humano</li>
-      <li>📕 Centros de Energía · Chakra</li>
-      <li>📙 Mapa de Conciencia (David Hawkins)</li>
+    <h2>Modelos de selección</h2>
+    <p>Detrás de cada libro hay una lógica energética y emocional. Estos son algunos de nuestros modelos:</p>
+    <ul>
+      <li>Punto Cero | Creativo | Activo | Máximo</li>
+      <li>7 Pilares del Desarrollo Humano</li>
+      <li>Centros de Energía (chakra)</li>
+      <li>Mapa de Conciencia (David R. Hawkins)</li>
     </ul>
-    <div class="quote">“¿En qué punto estás hoy? Triggui responde con el libro que necesitas.”</div>
+    <div class="quote">“El libro no es aleatorio. Es resonancia pura.”</div>
   </section>
 
   <section>
-    <h2>Espacios que cobran vida</h2>
-    <p>En salas de espera, cafeterías, hoteles, consultorios... donde haya silencio y oportunidad. Triggui no interrumpe. Está. Inspira. Y se va con quien lo necesita.</p>
-    <div class="quote">“No sé quién lo puso ahí, pero me cambió el día.”</div>
+    <h2>En qué espacios vive Triggui</h2>
+    <p>En lugares donde hay tiempo muerto, espera, silencio, pausa: cafés, salas, hoteles, clínicas, terminales. Triggui no interrumpe. Se manifiesta.</p>
+    <div class="quote">“No sé quién lo dejó ahí. Pero me hizo bien.”</div>
   </section>
 
   <section>
-    <h2>¿Y lo digital?</h2>
-    <p>Triggui tiene una dimensión digital. Pero no es una app más. Es un eco de lo físico. Una experiencia paralela que no se anuncia… se descubre.</p>
+    <h2>¿Y la dimensión digital?</h2>
+    <p>Triggui tiene una extensión en el mundo digital. No se anuncia. Se descubre. Es una continuación sutil del mismo principio.</p>
     <a href="https://app.triggui.com" class="cta-button">Explora más</a>
   </section>
 
   <footer>
-    © 2025 Triggui · Hecho para volver al libro.<br>
-    Un sistema tan simple que te desconecta… para reconectarte.
+    © 2025 Triggui · Un sistema de lectura premium.  
+    <br>Hecho para dejar el celular. Hecho para volver al libro.
   </footer>
 
   <script>
@@ -149,7 +175,6 @@
         }
       });
     }, { threshold: 0.1 });
-
     sections.forEach(sec => observer.observe(sec));
   </script>
 </body>
