@@ -11,30 +11,24 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- GSAP Animation -->
+  <!-- GSAP -->
   <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
 
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background-color: #0a0a0a;
+      background: #0a0a0a;
       color: #f9f9f9;
-      overflow-x: hidden;
     }
     .icon {
       width: 48px;
       height: 48px;
       stroke: #4ecdc4;
-      flex-shrink: 0;
     }
     .section {
       opacity: 0;
       transform: translateY(60px);
-    }
-    .highlight {
-      color: #ffe66d;
-      font-weight: bold;
     }
   </style>
 </head>
@@ -42,7 +36,7 @@
 
   <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-black">
     <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-6">Triggui</h1>
-    <p class="text-lg text-gray-400 max-w-2xl">Un sistema físico de activación de lectura que genera atención, conexión e impacto en espacios reales, colocando un solo libro estratégico en el lugar correcto.</p>
+    <p class="text-lg text-gray-400 max-w-2xl">Un sistema físico de activación de lectura en lugares reales. Sin pantallas. Sin distracciones. Solo un libro, bien puesto.</p>
   </header>
 
   <main class="py-24 px-6 max-w-5xl mx-auto space-y-36">
@@ -52,7 +46,7 @@
         <div id="icon1" class="icon"></div>
         <div>
           <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Qué es Triggui?</h2>
-          <p>Triggui es un sistema de activación de lectura presencial. Seleccionamos cuidadosamente un solo libro físico y lo colocamos estratégicamente en lugares reales — salas de espera, hoteles, cafés, terminales — para generar una pausa consciente e inspirar lectura inmediata.</p>
+          <p>Es un sistema físico de lectura premium. Colocamos un solo libro cuidadosamente elegido en un punto específico de alto impacto: un lobby, una cafetería, una sala de espera. Lo que ocurre después es transformación sin esfuerzo.</p>
         </div>
       </div>
     </section>
@@ -62,8 +56,7 @@
         <div id="icon2" class="icon"></div>
         <div>
           <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Por qué funciona?</h2>
-          <p>Estudios de comportamiento muestran que cuando una persona se enfrenta a una sola opción —en lugar de muchas— su tasa de acción aumenta significativamente. Triggui aprovecha esa lógica: <span class="highlight">colocar un solo libro aumenta la probabilidad de lectura hasta en un 80%</span>.</p>
-          <p class="text-sm text-gray-500 mt-2 italic">Fuente: Barry Schwartz, Paradoja de la Elección (2004)</p>
+          <p>Cuando una persona ve un solo libro, sin tener que elegir entre muchos, la tasa de lectura espontánea sube al 80%. Triggui activa esa reacción. Y lo hace con elegancia.</p>
         </div>
       </div>
     </section>
@@ -72,13 +65,12 @@
       <div class="flex gap-6 items-start">
         <div id="icon3" class="icon"></div>
         <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">Beneficios medibles</h2>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">Beneficios</h2>
           <ul class="list-disc list-inside text-gray-300 space-y-1">
-            <li>Incremento en satisfacción de cliente en espacios comerciales</li>
-            <li>Mayor tiempo de permanencia en cafeterías y lobbies</li>
-            <li>Mayor disposición a recomendaciones y recompra</li>
-            <li>Asociación emocional positiva con el lugar</li>
-            <li>Contenido físico que sustituye pantallas</li>
+            <li>Incrementa la satisfacción del visitante</li>
+            <li>Activa emociones positivas hacia tu espacio</li>
+            <li>Eleva el tiempo de permanencia y conversación</li>
+            <li>Reduce el uso de pantallas en lugares comunes</li>
           </ul>
         </div>
       </div>
@@ -89,35 +81,18 @@
         <div id="icon4" class="icon"></div>
         <div>
           <h2 class="text-3xl font-bold text-teal-300 mb-4">Casos reales</h2>
-          <p>En pilotos realizados en hoteles y cafeterías, personas que no pensaban leer tomaron el libro, lo hojeaban, lo comentaban, incluso agradecían verbalmente. En algunos casos, <span class="highlight">la inversión se recuperó con solo 5 personas adicionales al día motivadas por el libro</span>.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="donde-aplica">
-      <div class="flex gap-6 items-start">
-        <div id="icon5" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Dónde se puede aplicar Triggui?</h2>
-          <p>Triggui puede activarse en:</p>
-          <ul class="list-disc list-inside text-gray-300 space-y-1 mt-2">
-            <li>Hoteles (recepción, cuartos, lounges)</li>
-            <li>Cafeterías y espacios coworking</li>
-            <li>Consultorios, hospitales, clínicas</li>
-            <li>Oficinas corporativas</li>
-            <li>Tiendas boutique o experienciales</li>
-          </ul>
+          <p>En hoteles y cafeterías donde probamos Triggui, los visitantes leían, comentaban el libro, regresaban a terminarlo o simplemente agradecían haberlo visto. Es marketing invisible, pero inolvidable.</p>
         </div>
       </div>
     </section>
 
     <section class="section" id="app">
       <div class="flex gap-6 items-start">
-        <div id="icon6" class="icon"></div>
+        <div id="icon5" class="icon"></div>
         <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Existe versión digital?</h2>
-          <p>Sí. TrigguiApp es una expansión de este sistema. Desde la app, se pueden explorar portadas, recibir micro-acciones del libro semanal, y conectar con el contenido físico desde otro ángulo.</p>
-          <a href="https://app.triggui.com" class="mt-4 inline-block bg-yellow-300 text-black font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition">Ver TrigguiApp</a>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Y la app?</h2>
+          <p>TrigguiApp es el complemento digital. No es una copia del libro ni una red social: es un espacio donde se accede al contenido con microimpulsos, reflexiones y fragmentos clave que despiertan ideas.</p>
+          <a href="https://app.triggui.com" class="mt-4 inline-block bg-yellow-300 text-black font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition">Explorar TrigguiApp</a>
         </div>
       </div>
     </section>
@@ -125,30 +100,27 @@
   </main>
 
   <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Activación de lectura física para espacios reales.
+    © 2025 Triggui · Una pausa valiosa. Un libro físico. Un cambio inmediato.
   </footer>
 
   <script>
     lucide.createIcons();
-
     document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
     document.getElementById('icon2').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
-    document.getElementById('icon3').innerHTML = lucide.BarChart2.toSvg({ class: 'icon' });
+    document.getElementById('icon3').innerHTML = lucide.HeartPulse.toSvg({ class: 'icon' });
     document.getElementById('icon4').innerHTML = lucide.HeartHandshake.toSvg({ class: 'icon' });
-    document.getElementById('icon5').innerHTML = lucide.Landmark.toSvg({ class: 'icon' });
-    document.getElementById('icon6').innerHTML = lucide.TabletSmartphone.toSvg({ class: 'icon' });
+    document.getElementById('icon5').innerHTML = lucide.TabletSmartphone.toSvg({ class: 'icon' });
 
-    // GSAP + ScrollTrigger para animar secciones
     gsap.registerPlugin(ScrollTrigger);
     gsap.utils.toArray(".section").forEach(section => {
       gsap.to(section, {
         opacity: 1,
         y: 0,
-        duration: 1.2,
+        duration: 1,
+        ease: "power2.out",
         scrollTrigger: {
           trigger: section,
-          start: "top 80%",
-          toggleActions: "play none none none"
+          start: "top 85%",
         }
       });
     });
