@@ -8,7 +8,7 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Animate On Scroll -->
+  <!-- AOS Animate On Scroll -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -18,28 +18,42 @@
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background: #000;
-      color: #f1f1f1;
+      background: #0f0f1a;
+      color: #fefefe;
     }
+
     .glass {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 16px;
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
     }
+
     .icon {
-      width: 42px;
-      height: 42px;
-      stroke: #4ecdc4;
+      width: 48px;
+      height: 48px;
+      stroke: #6c5ce7;
+    }
+
+    h1, h2 {
+      text-shadow: 0 2px 10px rgba(108, 92, 231, 0.4);
+    }
+
+    a.cta-button {
+      background: #6c5ce7;
+      color: white;
+    }
+
+    a.cta-button:hover {
+      background: #a29bfe;
     }
   </style>
 </head>
-<body class="bg-black text-white">
+<body>
 
-  <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-b from-black to-zinc-900">
-    <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-4" data-aos="fade-down">Triggui</h1>
-    <p class="text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">Un sistema físico y emocional que detona conciencia con un solo libro. Seleccionado cuidadosamente. Colocado en lugares estratégicos.</p>
+  <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-b from-[#0f0f1a] to-[#1a1a2e]">
+    <h1 class="text-5xl md:text-6xl font-bold text-purple-400 mb-4" data-aos="fade-down">Triggui</h1>
+    <p class="text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">Una pausa estratégica en forma de libro. Un disparador de conciencia donde menos lo esperas.</p>
   </header>
 
   <section class="py-24 px-6 max-w-6xl mx-auto space-y-24">
@@ -47,28 +61,28 @@
     <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-right">
       <div id="icon1" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Un libro. No más. 📖</h2>
-        <p class="text-gray-300">La teoría de la elección lo respalda: cuando hay menos opciones, la probabilidad de acción aumenta. Un solo libro colocado estratégicamente genera 80% más probabilidad de ser leído.</p>
+        <h2 class="text-3xl font-semibold text-purple-300 mb-3">Un solo libro. 📘</h2>
+        <p class="text-gray-200">Colocar un solo libro no es minimalismo, es estrategia. Reducir las opciones elimina el ruido. Lo que queda: conexión real, lectura espontánea, descubrimiento.</p>
       </div>
     </div>
 
     <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-left">
       <div id="icon2" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Lugares que detonan presencia 🌍</h2>
-        <p class="text-gray-300">Hoteles, salas de espera, cafeterías, terminales. Triggui no interrumpe. Se manifiesta. Una portada visible. Una pausa provocada. Un párrafo revelador.</p>
+        <h2 class="text-3xl font-semibold text-purple-300 mb-3">Puntos de Activación 📍</h2>
+        <p class="text-gray-200">Cafés. Terminales. Recepciones. Lugares de espera se transforman en portales al ahora. La portada llama. La pausa sucede.</p>
       </div>
     </div>
 
     <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-right">
       <div id="icon3" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Modelos de selección 🧘‍♀️</h2>
+        <h2 class="text-3xl font-semibold text-purple-300 mb-3">Modelo Triggui 🌌</h2>
         <ul class="list-disc list-inside text-gray-300 space-y-1">
-          <li>Punto Cero · Creativo · Activo · Máximo</li>
-          <li>7 Pilares del Desarrollo Humano</li>
-          <li>Centros de Energía (chakras)</li>
-          <li>Mapa de Conciencia (David R. Hawkins)</li>
+          <li>📈 Punto Cero · Creativo · Activo · Máximo</li>
+          <li>🧠 Mapa de Conciencia (David R. Hawkins)</li>
+          <li>🌀 Centros Energéticos (chakras)</li>
+          <li>🧭 7 Pilares del Desarrollo Humano</li>
         </ul>
       </div>
     </div>
@@ -76,10 +90,10 @@
     <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-left">
       <div id="icon4" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-3xl font-semibold text-teal-400 mb-3">¿Y la app? 🚪</h2>
-        <p class="text-gray-300">Triggui tiene una dimensión digital. Pero no se promociona. Se descubre. Como todo lo poderoso.</p>
-        <a href="https://app.triggui.com" class="mt-6 inline-block bg-teal-400 text-black font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition">
-          Inspírate con TrigguiApp
+        <h2 class="text-3xl font-semibold text-purple-300 mb-3">Dimensión Digital 🧭</h2>
+        <p class="text-gray-200">Triggui no es solo físico. Pero tampoco es solo digital. La experiencia en línea se accede, si se siente. Y continúa lo físico desde otro ángulo.</p>
+        <a href="https://app.triggui.com" class="mt-6 inline-block cta-button font-bold py-3 px-8 rounded-full hover:scale-105 transition">
+          Explora TrigguiApp
         </a>
       </div>
     </div>
@@ -88,23 +102,23 @@
 
   <section class="px-6 pt-12 pb-32 max-w-4xl mx-auto" data-aos="fade-up">
     <div class="glass p-10 text-center">
-      <p class="text-lg text-gray-300 italic mb-4">“Ya estamos pasando demasiado tiempo en el celular... Este libro me recordó que aún hay cosas que me mueven.”</p>
-      <p class="text-sm text-gray-500">— Comentario real durante piloto en hotel</p>
+      <p class="text-lg text-gray-300 italic mb-4">“Que Dios te bendiga por esta idea. Vi el libro en la recepción y no supe por qué… pero lo tomé.”</p>
+      <p class="text-sm text-gray-500">– Testimonio real durante piloto en hotel</p>
     </div>
   </section>
 
   <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Un sistema tan simple que te desconecta para reconectarte.
+    © 2025 Triggui · Leer es recordar quién eres.
   </footer>
 
   <script>
     AOS.init();
     lucide.createIcons();
 
-    document.getElementById('icon1').innerHTML = lucide.BookOpen.toSvg({ class: 'icon' });
-    document.getElementById('icon2').innerHTML = lucide.MapPin.toSvg({ class: 'icon' });
+    document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
+    document.getElementById('icon2').innerHTML = lucide.Map.toSvg({ class: 'icon' });
     document.getElementById('icon3').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
-    document.getElementById('icon4').innerHTML = lucide.DoorOpen.toSvg({ class: 'icon' });
+    document.getElementById('icon4').innerHTML = lucide.Compass.toSvg({ class: 'icon' });
   </script>
 
 </body>
