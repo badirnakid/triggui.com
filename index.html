@@ -43,7 +43,7 @@
 
     .bg-conic {
       background: conic-gradient(from 180deg at 50% 50%, #0a0a0a, #1a1a2e, #0a0a0a);
-      animation: glow 20s infinite linear;
+      animation: glow 40s infinite linear;
     }
 
     @keyframes glow {
@@ -55,6 +55,12 @@
       width: 48px;
       height: 48px;
       stroke: #ffe66d;
+      transition: transform 0.3s ease, stroke 0.3s ease;
+    }
+
+    .icon:hover {
+      transform: scale(1.1);
+      stroke: #4ecdc4;
     }
 
     .aura-float::before {
@@ -73,6 +79,26 @@
       0%, 100% { transform: translateY(0px); opacity: 0.4; }
       50% { transform: translateY(20px); opacity: 0.8; }
     }
+
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .paragraph {
+      color: #ddd;
+    }
+
+    .bullet-list {
+      list-style: disc;
+      padding-left: 1.25rem;
+      color: #ccc;
+    }
+
+    .bullet-list li {
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -80,39 +106,57 @@
   <header class="h-screen bg-conic flex flex-col justify-center items-center text-center px-6 relative z-10">
     <h1 class="text-5xl md:text-6xl font-bold text-acento mb-4" data-aos="fade-down">Triggui</h1>
     <p class="text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">
-      Una tecnología emocional. Energía física y lectora activada estratégicamente para despertar.
+      Un solo libro. En el lugar correcto. Un sistema físico que transforma espacios y momentos sin depender de pantallas.
     </p>
   </header>
 
-  <main class="space-y-24 py-24 px-6 max-w-6xl mx-auto relative z-10">
+  <main class="space-y-28 py-24 px-6 max-w-5xl mx-auto relative z-10">
 
-    <section class="relative aura-float" data-aos="fade-up">
+    <section class="relative" data-aos="fade-up">
       <div id="icon1" class="icon mb-4"></div>
-      <h2 class="text-3xl font-bold text-acento mb-2">Un solo libro. 📘</h2>
-      <p class="text-gray-300">No necesitas una biblioteca, necesitas un disparador. Un solo libro, colocado con intención, tiene más poder que una plataforma entera.</p>
+      <h2 class="section-title text-acento">¿Qué es Triggui?</h2>
+      <p class="paragraph">Triggui es una herramienta de impacto inmediato. Colocamos libros físicos —uno solo— en puntos estratégicos dentro de hoteles, cafeterías, oficinas o salas de espera para activar lectura real y emocional.</p>
     </section>
 
     <section data-aos="fade-up">
       <div id="icon2" class="icon mb-4"></div>
-      <h2 class="text-3xl font-bold text-acento mb-2">Detonadores físicos 🚪</h2>
-      <p class="text-gray-300">El libro puede estar en una mesa de café, una salita de espera, una habitación o una banca. Y todo cambia. Porque provoca lo más humano: detenerse y mirar hacia dentro.</p>
+      <h2 class="section-title text-acento">¿Por qué solo un libro?</h2>
+      <p class="paragraph">Cuando hay una sola opción, la probabilidad de acción crece. Usamos esta lógica para aumentar la lectura espontánea. Nada distrae. Solo atrae.</p>
+      <ul class="bullet-list mt-4">
+        <li>80% más probabilidad de ser leído</li>
+        <li>Despierta curiosidad natural</li>
+        <li>Activa el pensamiento sin presionar</li>
+      </ul>
     </section>
 
     <section data-aos="fade-up">
       <div id="icon3" class="icon mb-4"></div>
-      <h2 class="text-3xl font-bold text-acento mb-2">Modelos energéticos 🔮</h2>
-      <ul class="list-disc pl-6 text-gray-400 space-y-1">
-        <li>Punto Cero | Creativo | Activo | Máximo</li>
-        <li>Centros de energía: Chakra · Percepción · Conciencia</li>
-        <li>Mapa de conciencia (Dr. David R. Hawkins)</li>
-        <li>7 Pilares del Desarrollo Humano</li>
+      <h2 class="section-title text-acento">Aplicaciones del sistema</h2>
+      <p class="paragraph">Triggui puede implementarse en:</p>
+      <ul class="bullet-list mt-4">
+        <li>Hoteles (cuartos, lobby, lounges)</li>
+        <li>Cafés y coworks</li>
+        <li>Recepciones corporativas</li>
+        <li>Consultorios, salas de espera</li>
       </ul>
     </section>
 
     <section data-aos="fade-up">
       <div id="icon4" class="icon mb-4"></div>
-      <h2 class="text-3xl font-bold text-acento mb-2">Puerta Digital 🧭</h2>
-      <p class="text-gray-300">Si lo físico impacta, lo digital expande. TrigguiApp no es una app más. Es una prolongación invisible, inteligente y emocional del universo físico.</p>
+      <h2 class="section-title text-acento">Modelo de selección</h2>
+      <p class="paragraph">No es cualquier libro. Elegimos ejemplares con base en:</p>
+      <ul class="bullet-list mt-4">
+        <li>Puntos energéticos: Cero · Creativo · Activo · Máximo</li>
+        <li>Mapa de Conciencia – Dr. David R. Hawkins</li>
+        <li>7 Pilares del Desarrollo Humano</li>
+        <li>Resonancia emocional con el entorno</li>
+      </ul>
+    </section>
+
+    <section data-aos="fade-up">
+      <div id="icon5" class="icon mb-4"></div>
+      <h2 class="section-title text-acento">La versión digital</h2>
+      <p class="paragraph">TrigguiApp es una extensión sutil. Desde ahí puedes recibir microlecturas, reflexiones o continuar lo que comenzaste físicamente.</p>
       <a href="https://app.triggui.com" class="mt-6 inline-block bg-luz text-black font-bold py-3 px-8 rounded-full hover:bg-acento transition">
         Explora TrigguiApp
       </a>
@@ -122,22 +166,23 @@
 
   <section class="px-6 pt-12 pb-32 max-w-4xl mx-auto" data-aos="fade-up">
     <div class="p-10 text-center border border-gray-700 rounded-xl backdrop-blur-md bg-white/5">
-      <p class="text-lg text-gray-300 italic mb-4">“Vi el libro. No lo planeaba. Pero al abrirlo, entendí algo de mí que estaba dormido.”</p>
-      <p class="text-sm text-gray-500">– Comentario real durante piloto Triggui</p>
+      <p class="text-lg text-gray-300 italic mb-4">“Esperaba 30 minutos. Tenía el celular en la mano. Vi el libro. Lo abrí al azar. Ese párrafo cambió mi día.”</p>
+      <p class="text-sm text-gray-500">– Testimonio real durante piloto Triggui</p>
     </div>
   </section>
 
   <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Un sistema de lectura emocional y físico. Tecnología humana, minimalista y energética.
+    © 2025 Triggui · Un libro en el momento preciso. Una lectura que no olvidas.
   </footer>
 
   <script>
     AOS.init();
     lucide.createIcons();
-    document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
-    document.getElementById('icon2').innerHTML = lucide.Landmark.toSvg({ class: 'icon' });
-    document.getElementById('icon3').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
-    document.getElementById('icon4').innerHTML = lucide.Compass.toSvg({ class: 'icon' });
+    document.getElementById('icon1').innerHTML = lucide.BookOpen.toSvg({ class: 'icon' });
+    document.getElementById('icon2').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
+    document.getElementById('icon3').innerHTML = lucide.Map.toSvg({ class: 'icon' });
+    document.getElementById('icon4').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
+    document.getElementById('icon5').innerHTML = lucide.Compass.toSvg({ class: 'icon' });
   </script>
 
 </body>
