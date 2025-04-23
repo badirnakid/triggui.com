@@ -12,13 +12,10 @@
       --gray: #e0e0e0;
       --soft: #888888;
       --accent: #4ecdc4;
+      --lightblue: #87F1FF;
     }
 
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       background-color: var(--bg);
       color: var(--text);
@@ -34,6 +31,7 @@
       opacity: 0;
       transform: translateY(30px);
       transition: all 1s ease-out;
+      position: relative;
     }
 
     section.visible {
@@ -109,6 +107,33 @@
       background: #33bbb0;
     }
 
+    .animated-circle {
+      position: absolute;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent), transparent);
+      animation: pulse 5s infinite;
+      opacity: 0.2;
+      z-index: -1;
+    }
+
+    .animated-circle.left {
+      top: -80px;
+      left: -80px;
+    }
+
+    .animated-circle.right {
+      top: 50px;
+      right: -80px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 0.2; }
+      50% { transform: scale(1.3); opacity: 0.1; }
+      100% { transform: scale(1); opacity: 0.2; }
+    }
+
     footer {
       text-align: center;
       padding: 60px 20px;
@@ -120,24 +145,28 @@
       h1 { font-size: 2.4rem; }
       h2 { font-size: 1.6rem; }
       p  { font-size: 1.1rem; }
+      .animated-circle { width: 100px; height: 100px; }
     }
   </style>
 </head>
 <body>
 
   <section id="intro">
+    <div class="animated-circle left"></div>
     <h1>Un libro. Un lugar.</h1>
     <p>Triggui transforma el mundo físico con un acto de conciencia silencioso: colocar un libro justo donde alguien lo necesita. No es una campaña. Es una conexión.</p>
     <div class="quote">“Lo abrí en cualquier página. No supe por qué... pero era justo lo que necesitaba.”</div>
   </section>
 
   <section>
+    <div class="animated-circle right"></div>
     <h2>¿Por qué solo uno?</h2>
     <p>La paradoja de la elección lo confirma: menos opciones, más impacto. Triggui solo muestra un libro. Y por eso funciona.</p>
     <div class="highlight">80% más probabilidad de que sea leído.</div>
   </section>
 
   <section>
+    <div class="animated-circle left"></div>
     <h2>Modelos de selección</h2>
     <p>Detrás de cada libro hay una lógica energética y emocional. Estos son algunos de nuestros modelos:</p>
     <ul>
@@ -150,15 +179,17 @@
   </section>
 
   <section>
+    <div class="animated-circle right"></div>
     <h2>En qué espacios vive Triggui</h2>
     <p>En lugares donde hay tiempo muerto, espera, silencio, pausa: cafés, salas, hoteles, clínicas, terminales. Triggui no interrumpe. Se manifiesta.</p>
     <div class="quote">“No sé quién lo dejó ahí. Pero me hizo bien.”</div>
   </section>
 
   <section>
+    <div class="animated-circle left"></div>
     <h2>¿Y la dimensión digital?</h2>
-    <p>Triggui tiene una extensión en el mundo digital. No se anuncia. Se descubre. Es una continuación sutil del mismo principio.</p>
-    <a href="https://app.triggui.com" class="cta-button">Explora más</a>
+    <p>Triggui tiene una extensión en el mundo digital. No se anuncia. Se descubre. Es una continuación sutil del mismo principio. Si te llama, adelante.</p>
+    <a href="https://app.triggui.com" class="cta-button">Inspírate con TrigguiApp</a>
   </section>
 
   <footer>
