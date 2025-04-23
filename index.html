@@ -2,135 +2,145 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Triggui - Un libro a la vez</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Triggui – Un libro a la vez</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --color1: #FF6B6B;
-      --color2: #FFE66D;
-      --color3: #4ECDC4;
-      --color4: #1A535C;
-      --bg: #FFFFFF;
-      --text: #111111;
+      --primary: #1A535C;
+      --accent: #FF6B6B;
+      --bg: #ffffff;
+      --text: #111;
+      --gray: #777;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Archivo', sans-serif;
-      background-color: var(--bg);
+      background: var(--bg);
       color: var(--text);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
+      line-height: 1.6;
     }
-
-    header {
-      padding: 30px 20px 20px;
-      text-align: center;
+    header, section {
+      padding: 60px 20px;
+      max-width: 960px;
+      margin: auto;
     }
-
-    header h1 {
-      font-size: 2.5rem;
+    h1, h2, h3 {
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
-
-    header p {
-      font-size: 1.2rem;
-      color: #555;
+    h1 {
+      font-size: 2.8rem;
+      text-align: center;
+      color: var(--primary);
     }
-
-    main {
-      flex: 1;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      padding: 30px 20px;
+    h2 {
+      font-size: 2rem;
+      color: var(--primary);
     }
-
-    .block {
-      height: 200px;
-      border-radius: 20px;
-      color: white;
+    p {
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+    .hero {
+      text-align: center;
+      padding-top: 100px;
+      padding-bottom: 100px;
+    }
+    .hero p {
+      font-size: 1.4rem;
+      color: var(--text);
+      margin-top: 20px;
+    }
+    .image-placeholder {
+      height: 300px;
+      background: #f0f0f0;
+      border: 1px dashed #ccc;
+      border-radius: 12px;
+      margin: 30px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s ease-in-out;
+      color: #aaa;
+      font-size: 1.2rem;
     }
-
-    .block:hover {
-      transform: scale(1.04);
-    }
-
-    .block1 { background: linear-gradient(135deg, var(--color1), #FFB3B3); }
-    .block2 { background: linear-gradient(135deg, var(--color2), #FFF7B3); color: #333; }
-    .block3 { background: linear-gradient(135deg, var(--color3), #A0ECE1); }
-    .block4 { background: linear-gradient(135deg, var(--color4), #3D6F77); }
-
-    .btn-app {
-      margin: 40px auto 20px;
+    .cta-button {
       display: block;
+      width: fit-content;
+      margin: 60px auto;
+      background: var(--accent);
+      color: #fff;
       padding: 15px 30px;
-      background: var(--color1);
-      color: white;
-      font-size: 1rem;
       font-weight: 600;
       border: none;
-      border-radius: 50px;
+      border-radius: 30px;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: background 0.3s;
+      text-decoration: none;
+      transition: background 0.3s ease;
     }
-
-    .btn-app:hover {
-      background: #E85A5A;
+    .cta-button:hover {
+      background: #e85a5a;
     }
-
     footer {
       text-align: center;
       font-size: 0.9rem;
-      padding: 10px;
-      color: #777;
-    }
-
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .block {
-        font-size: 1.2rem;
-        height: 150px;
-      }
+      color: #aaa;
+      padding: 40px 20px;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Triggui</h1>
-    <p>Un sistema tan simple que te hará dejar el celular... y abrir un libro físico.</p>
+  <header class="hero">
+    <h1>Un libro. Un lugar.</h1>
+    <p>Una revolución silenciosa para volver a lo que importa. Triggui es un sistema de lectura premium que planta libros estratégicamente donde menos lo esperas... y más los necesitas.</p>
   </header>
 
-  <main>
-    <div class="block block1">Detente</div>
-    <div class="block block2">Lee</div>
-    <div class="block block3">¿?</div>
-    <div class="block block4">Conecta</div>
-  </main>
+  <section>
+    <h2>¿Qué es Triggui?</h2>
+    <p>Triggui es un sistema físico y emocional. Seleccionamos cuidadosamente un solo libro y lo colocamos en un punto específico. Alguien lo ve. Lo toma. Y cambia.</p>
+    <div class="image-placeholder">[Aquí tu imagen del libro colocado]</div>
+  </section>
 
-  <a href="https://app.triggui.com" class="btn-app">Ir a TrigguiApp</a>
+  <section>
+    <h2>Casos Reales</h2>
+    <p>Desde un hotel 5 estrellas hasta un café de esquina, los usuarios reportan una reconexión inmediata. En Grupo Presidente, los comentarios fueron contundentes: “Ya estamos demasiado tiempo en el celular. Este libro me cambió el momento.”</p>
+    <p>En Kukun, la experiencia generó un aumento del 30% en satisfacción del huésped. En Tim Hortons, un libro en la mesa inspiró a los clientes a volver, solo por hojearlo.</p>
+    <div class="image-placeholder">[Foto del piloto en hotel / café]</div>
+  </section>
+
+  <section>
+    <h2>Por qué funciona</h2>
+    <p>Según la teoría de la Paradoja de la Elección (Barry Schwartz, 2004), mostrar un solo libro genera 80% más probabilidades de lectura que múltiples opciones. Menos opciones. Más conexión. Más impacto.</p>
+  </section>
+
+  <section>
+    <h2>Modelos de Selección</h2>
+    <p>Los libros no se colocan al azar. Los clasificamos según:</p>
+    <ul>
+      <li>🔹 Punto Cero | Punto Creativo | Punto Activo | Punto Máximo</li>
+      <li>🔹 7 Pilares del Desarrollo Humano (Salud, Emoción, Finanzas...)</li>
+      <li>🔹 Centros de Energía (chakra-alineados)</li>
+      <li>🔹 Niveles del Mapa de Conciencia (Dr. David Hawkins)</li>
+    </ul>
+    <div class="image-placeholder">[Gráfico de puntos y pilares]</div>
+  </section>
+
+  <section>
+    <h2>Valor y Beneficio</h2>
+    <p>Solo se necesita un libro. Cuatro libros estratégicos por locación pueden cambiar la percepción de tu espacio. Hoteles, cafés, aeropuertos, oficinas.</p>
+    <p>Por MXN $5,000 a $35,000 mensuales, el retorno es emocional y financiero: satisfacción, recomendación, retorno.</p>
+  </section>
+
+  <section>
+    <h2>¿Y la app?</h2>
+    <p>Triggui también tiene una dimensión digital, pero no necesitas saber nada más... hasta que estés listo para sentirla.</p>
+    <a href="https://app.triggui.com" class="cta-button">Explora más</a>
+  </section>
 
   <footer>
-    Una app diseñada para que no uses apps.<br>© 2025 Triggui. Todos los derechos reservados.
+    © 2025 Triggui · Un sistema tan simple que te desconecta para que te reconectes. <br>
+    Hecho para dejar el celular. Hecho para volver al libro.
   </footer>
 
 </body>
