@@ -11,37 +11,31 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- GSAP -->
-  <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
-  <script src="https://unpkg.com/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
-
   <style>
     body {
       font-family: 'Archivo', sans-serif;
       background: #0a0a0a;
-      color: #f9f9f9;
+      color: #fefefe;
     }
+
     .icon {
       width: 48px;
       height: 48px;
       stroke: #4ecdc4;
-    }
-    .section {
-      opacity: 0;
-      transform: translateY(60px);
+      flex-shrink: 0;
     }
   </style>
 </head>
 <body>
 
-  <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-black">
+  <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-black">
     <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-6">Triggui</h1>
     <p class="text-lg text-gray-400 max-w-2xl">Un sistema físico de activación de lectura en lugares reales. Sin pantallas. Sin distracciones. Solo un libro, bien puesto.</p>
   </header>
 
   <main class="py-24 px-6 max-w-5xl mx-auto space-y-36">
 
-    <section class="section" id="que-es">
+    <section id="que-es">
       <div class="flex gap-6 items-start">
         <div id="icon1" class="icon"></div>
         <div>
@@ -51,7 +45,7 @@
       </div>
     </section>
 
-    <section class="section" id="por-que-funciona">
+    <section id="por-que-funciona">
       <div class="flex gap-6 items-start">
         <div id="icon2" class="icon"></div>
         <div>
@@ -61,7 +55,7 @@
       </div>
     </section>
 
-    <section class="section" id="beneficios">
+    <section id="beneficios">
       <div class="flex gap-6 items-start">
         <div id="icon3" class="icon"></div>
         <div>
@@ -76,7 +70,7 @@
       </div>
     </section>
 
-    <section class="section" id="casos">
+    <section id="casos">
       <div class="flex gap-6 items-start">
         <div id="icon4" class="icon"></div>
         <div>
@@ -86,7 +80,7 @@
       </div>
     </section>
 
-    <section class="section" id="app">
+    <section id="app">
       <div class="flex gap-6 items-start">
         <div id="icon5" class="icon"></div>
         <div>
@@ -110,20 +104,6 @@
     document.getElementById('icon3').innerHTML = lucide.HeartPulse.toSvg({ class: 'icon' });
     document.getElementById('icon4').innerHTML = lucide.HeartHandshake.toSvg({ class: 'icon' });
     document.getElementById('icon5').innerHTML = lucide.TabletSmartphone.toSvg({ class: 'icon' });
-
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.utils.toArray(".section").forEach(section => {
-      gsap.to(section, {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: section,
-          start: "top 85%",
-        }
-      });
-    });
   </script>
 
 </body>
