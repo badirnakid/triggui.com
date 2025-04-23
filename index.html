@@ -2,197 +2,143 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui – Un libro. Un lugar.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            archivo: ['Archivo', 'sans-serif'],
+          },
+          colors: {
+            fondo: '#0a0a0a',
+            acento: '#6c5ce7',
+            luz: '#ffe66d',
+            suave: '#1f1f1f',
+            aura: '#4ecdc4'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Animate On Scroll -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
   <style>
-    :root {
-      --bg: #0b0b0c;
-      --text: #f7f7f7;
-      --accent: #4ecdc4;
-      --highlight: #ffe66d;
-      --gray: #aaaaaa;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
+    html, body {
       font-family: 'Archivo', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
+      background: #0a0a0a;
+      color: #fefefe;
+      overflow-x: hidden;
     }
 
-    header {
-      padding: 100px 20px;
-      text-align: center;
-      background: var(--bg);
+    .bg-conic {
+      background: conic-gradient(from 180deg at 50% 50%, #0a0a0a, #1a1a2e, #0a0a0a);
+      animation: glow 20s infinite linear;
     }
 
-    header h1 {
-      font-size: 3.5rem;
-      color: var(--accent);
-      font-weight: 700;
+    @keyframes glow {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
     }
 
-    header p {
-      font-size: 1.25rem;
-      color: var(--gray);
-      max-width: 600px;
-      margin: 20px auto 0;
+    .icon {
+      width: 48px;
+      height: 48px;
+      stroke: #ffe66d;
     }
 
-    section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
+    .aura-float::before {
+      content: "";
+      position: absolute;
+      top: -80px;
+      left: -40px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(108,92,231,0.25), transparent);
+      z-index: 0;
+      animation: float 16s ease-in-out infinite;
     }
 
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-      color: var(--highlight);
-    }
-
-    p {
-      font-size: 1.1rem;
-      color: var(--text);
-      margin-bottom: 20px;
-    }
-
-    ul {
-      margin-top: 10px;
-      padding-left: 20px;
-      color: var(--gray);
-    }
-
-    ul li {
-      margin-bottom: 10px;
-    }
-
-    .block {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
-
-    .block span.icon {
-      font-size: 2rem;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-
-    .cta {
-      display: inline-block;
-      background: var(--highlight);
-      color: #000;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 30px;
-      text-decoration: none;
-      margin-top: 20px;
-      transition: background 0.3s ease;
-    }
-
-    .cta:hover {
-      background: #f5d940;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: var(--gray);
-      padding: 40px 20px;
-      margin-top: 60px;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-
-      h2 {
-        font-size: 1.5rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-
-      .block {
-        flex-direction: column;
-      }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); opacity: 0.4; }
+      50% { transform: translateY(20px); opacity: 0.8; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>Triggui</h1>
-    <p>Un sistema físico de activación de lectura. Un libro. Un lugar. Y una pausa que cambia todo.</p>
+  <header class="h-screen bg-conic flex flex-col justify-center items-center text-center px-6 relative z-10">
+    <h1 class="text-5xl md:text-6xl font-bold text-acento mb-4" data-aos="fade-down">Triggui</h1>
+    <p class="text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">
+      Una tecnología emocional. Energía física y lectora activada estratégicamente para despertar.
+    </p>
   </header>
 
-  <section>
-    <div class="block">
-      <span class="icon">📘</span>
-      <div>
-        <h2>¿Qué es Triggui?</h2>
-        <p>Triggui es una intervención real, no digital. Seleccionamos un solo libro y lo colocamos donde puede causar el mayor impacto: cafés, salas de espera, hoteles. Sin apps. Sin distracciones. Con intención.</p>
-      </div>
-    </div>
+  <main class="space-y-24 py-24 px-6 max-w-6xl mx-auto relative z-10">
 
-    <div class="block">
-      <span class="icon">🧠</span>
-      <div>
-        <h2>¿Por qué funciona?</h2>
-        <p>El 80% de las personas es más propensa a interactuar con una sola opción clara que con muchas. Un solo libro = acción inmediata. El usuario no escoge: responde.</p>
-      </div>
-    </div>
+    <section class="relative aura-float" data-aos="fade-up">
+      <div id="icon1" class="icon mb-4"></div>
+      <h2 class="text-3xl font-bold text-acento mb-2">Un solo libro. 📘</h2>
+      <p class="text-gray-300">No necesitas una biblioteca, necesitas un disparador. Un solo libro, colocado con intención, tiene más poder que una plataforma entera.</p>
+    </section>
 
-    <div class="block">
-      <span class="icon">📍</span>
-      <div>
-        <h2>¿Dónde lo usamos?</h2>
-        <ul>
-          <li>Hoteles: recepción o cuartos</li>
-          <li>Cafeterías y coworks</li>
-          <li>Salas de espera</li>
-          <li>Consultorios o clínicas</li>
-        </ul>
-      </div>
-    </div>
+    <section data-aos="fade-up">
+      <div id="icon2" class="icon mb-4"></div>
+      <h2 class="text-3xl font-bold text-acento mb-2">Detonadores físicos 🚪</h2>
+      <p class="text-gray-300">El libro puede estar en una mesa de café, una salita de espera, una habitación o una banca. Y todo cambia. Porque provoca lo más humano: detenerse y mirar hacia dentro.</p>
+    </section>
 
-    <div class="block">
-      <span class="icon">📈</span>
-      <div>
-        <h2>Beneficios</h2>
-        <ul>
-          <li>+30% satisfacción del visitante</li>
-          <li>Más conversación y conexión en sitio</li>
-          <li>Asociación emocional positiva con tu marca</li>
-          <li>Desconexión de pantallas = conexión con el momento</li>
-        </ul>
-      </div>
-    </div>
+    <section data-aos="fade-up">
+      <div id="icon3" class="icon mb-4"></div>
+      <h2 class="text-3xl font-bold text-acento mb-2">Modelos energéticos 🔮</h2>
+      <ul class="list-disc pl-6 text-gray-400 space-y-1">
+        <li>Punto Cero | Creativo | Activo | Máximo</li>
+        <li>Centros de energía: Chakra · Percepción · Conciencia</li>
+        <li>Mapa de conciencia (Dr. David R. Hawkins)</li>
+        <li>7 Pilares del Desarrollo Humano</li>
+      </ul>
+    </section>
 
-    <div class="block">
-      <span class="icon">📲</span>
-      <div>
-        <h2>¿Y la app?</h2>
-        <p>TrigguiApp complementa la experiencia física con fragmentos del libro semanal, pequeñas reflexiones y triggers aleatorios. Nada sustituye el libro, pero sí lo prolonga.</p>
-        <a href="https://app.triggui.com" class="cta">Explorar TrigguiApp</a>
-      </div>
+    <section data-aos="fade-up">
+      <div id="icon4" class="icon mb-4"></div>
+      <h2 class="text-3xl font-bold text-acento mb-2">Puerta Digital 🧭</h2>
+      <p class="text-gray-300">Si lo físico impacta, lo digital expande. TrigguiApp no es una app más. Es una prolongación invisible, inteligente y emocional del universo físico.</p>
+      <a href="https://app.triggui.com" class="mt-6 inline-block bg-luz text-black font-bold py-3 px-8 rounded-full hover:bg-acento transition">
+        Explora TrigguiApp
+      </a>
+    </section>
+
+  </main>
+
+  <section class="px-6 pt-12 pb-32 max-w-4xl mx-auto" data-aos="fade-up">
+    <div class="p-10 text-center border border-gray-700 rounded-xl backdrop-blur-md bg-white/5">
+      <p class="text-lg text-gray-300 italic mb-4">“Vi el libro. No lo planeaba. Pero al abrirlo, entendí algo de mí que estaba dormido.”</p>
+      <p class="text-sm text-gray-500">– Comentario real durante piloto Triggui</p>
     </div>
   </section>
 
-  <footer>
-    © 2025 Triggui · Lectura en el mundo real. Impacto en el mundo interior.
+  <footer class="text-center text-gray-500 text-sm py-16 px-6">
+    © 2025 Triggui · Un sistema de lectura emocional y físico. Tecnología humana, minimalista y energética.
   </footer>
+
+  <script>
+    AOS.init();
+    lucide.createIcons();
+    document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
+    document.getElementById('icon2').innerHTML = lucide.Landmark.toSvg({ class: 'icon' });
+    document.getElementById('icon3').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
+    document.getElementById('icon4').innerHTML = lucide.Compass.toSvg({ class: 'icon' });
+  </script>
 
 </body>
 </html>
