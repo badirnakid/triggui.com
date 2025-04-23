@@ -5,25 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui – Un libro. Un lugar.</title>
 
-  <!-- TailwindCSS CDN -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AOS Animate On Scroll CDN -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Animate On Scroll -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <!-- Lucide Icons (SVG minimalist icons) -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background-color: #0a0a0a;
-      color: #f4f4f4;
+      background: #000;
+      color: #f1f1f1;
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 16px;
     }
     .icon {
-      width: 48px;
-      height: 48px;
+      width: 42px;
+      height: 42px;
       stroke: #4ecdc4;
     }
   </style>
@@ -31,76 +38,73 @@
 <body class="bg-black text-white">
 
   <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-gradient-to-b from-black to-zinc-900">
-    <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-4" data-aos="fade-up">Un libro. Un lugar.</h1>
-    <p class="text-lg md:text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">
-      Triggui transforma espacios silenciosamente con un solo libro. Energía colocada. Atención restaurada.
-    </p>
+    <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-4" data-aos="fade-down">Triggui</h1>
+    <p class="text-xl text-gray-300 max-w-xl" data-aos="fade-up" data-aos-delay="200">Un sistema físico y emocional que detona conciencia con un solo libro. Seleccionado cuidadosamente. Colocado en lugares estratégicos.</p>
   </header>
 
-  <section class="py-24 px-6 max-w-5xl mx-auto">
-    <div class="flex items-start gap-6 mb-12" data-aos="fade-right">
-      <div id="icon-1" class="icon shrink-0"></div>
+  <section class="py-24 px-6 max-w-6xl mx-auto space-y-24">
+
+    <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-right">
+      <div id="icon1" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-2xl font-semibold text-teal-400 mb-2">¿Qué es Triggui?</h2>
-        <p class="text-gray-300">Un sistema de lectura premium que coloca libros físicos donde más impacto tienen: salas de espera, hoteles, cafeterías. Libros que no distraen: detonan.</p>
+        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Un libro. No más. 📖</h2>
+        <p class="text-gray-300">La teoría de la elección lo respalda: cuando hay menos opciones, la probabilidad de acción aumenta. Un solo libro colocado estratégicamente genera 80% más probabilidad de ser leído.</p>
       </div>
     </div>
 
-    <div class="flex items-start gap-6 mb-12" data-aos="fade-left">
-      <div id="icon-2" class="icon shrink-0"></div>
+    <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-left">
+      <div id="icon2" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-2xl font-semibold text-teal-400 mb-2">¿Por qué solo uno?</h2>
-        <p class="text-gray-300">Cuando se muestra un solo libro (en vez de muchos), la probabilidad de lectura sube a un 80%. Menos opciones, más conexión. Eso es Triggui.</p>
+        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Lugares que detonan presencia 🌍</h2>
+        <p class="text-gray-300">Hoteles, salas de espera, cafeterías, terminales. Triggui no interrumpe. Se manifiesta. Una portada visible. Una pausa provocada. Un párrafo revelador.</p>
       </div>
     </div>
 
-    <div class="flex items-start gap-6 mb-12" data-aos="fade-right">
-      <div id="icon-3" class="icon shrink-0"></div>
+    <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-right">
+      <div id="icon3" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-2xl font-semibold text-teal-400 mb-2">Modelos de selección</h2>
-        <ul class="list-disc pl-6 text-gray-300 space-y-1">
-          <li>Punto Cero | Creativo | Activo | Máximo</li>
+        <h2 class="text-3xl font-semibold text-teal-400 mb-3">Modelos de selección 🧘‍♀️</h2>
+        <ul class="list-disc list-inside text-gray-300 space-y-1">
+          <li>Punto Cero · Creativo · Activo · Máximo</li>
           <li>7 Pilares del Desarrollo Humano</li>
           <li>Centros de Energía (chakras)</li>
-          <li>Mapa de Conciencia de David R. Hawkins</li>
+          <li>Mapa de Conciencia (David R. Hawkins)</li>
         </ul>
       </div>
     </div>
 
-    <div class="flex items-start gap-6 mb-12" data-aos="fade-left">
-      <div id="icon-4" class="icon shrink-0"></div>
+    <div class="flex flex-col md:flex-row gap-12 items-start" data-aos="fade-left">
+      <div id="icon4" class="icon shrink-0"></div>
       <div>
-        <h2 class="text-2xl font-semibold text-teal-400 mb-2">Presencia sin pantalla</h2>
-        <p class="text-gray-300">Triggui no compite con el celular. Lo ignora. Porque lo supera. Detona una pausa, una inspiración, una lectura no convencional: abre cualquier página, y ahí está lo que necesitabas.</p>
+        <h2 class="text-3xl font-semibold text-teal-400 mb-3">¿Y la app? 🚪</h2>
+        <p class="text-gray-300">Triggui tiene una dimensión digital. Pero no se promociona. Se descubre. Como todo lo poderoso.</p>
+        <a href="https://app.triggui.com" class="mt-6 inline-block bg-teal-400 text-black font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition">
+          Inspírate con TrigguiApp
+        </a>
       </div>
     </div>
 
-    <div class="text-center mt-16" data-aos="zoom-in">
-      <a href="https://app.triggui.com" class="inline-block bg-teal-400 text-black font-bold py-3 px-8 rounded-full hover:bg-yellow-300 transition">
-        Inspírate con TrigguiApp
-      </a>
+  </section>
+
+  <section class="px-6 pt-12 pb-32 max-w-4xl mx-auto" data-aos="fade-up">
+    <div class="glass p-10 text-center">
+      <p class="text-lg text-gray-300 italic mb-4">“Ya estamos pasando demasiado tiempo en el celular... Este libro me recordó que aún hay cosas que me mueven.”</p>
+      <p class="text-sm text-gray-500">— Comentario real durante piloto en hotel</p>
     </div>
   </section>
 
   <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Lo que lees, te lee. Hecho para desconectarte. Y reconectarte.
+    © 2025 Triggui · Un sistema tan simple que te desconecta para reconectarte.
   </footer>
 
   <script>
     AOS.init();
-    lucide.createIcons({
-      icons: {
-        "BookOpen": lucide.BookOpen,
-        "Eye": lucide.Eye,
-        "Sparkles": lucide.Sparkles,
-        "Target": lucide.Target
-      }
-    });
+    lucide.createIcons();
 
-    document.getElementById('icon-1').innerHTML = lucide.BookOpen.toSvg({ class: 'icon' });
-    document.getElementById('icon-2').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
-    document.getElementById('icon-3').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
-    document.getElementById('icon-4').innerHTML = lucide.Target.toSvg({ class: 'icon' });
+    document.getElementById('icon1').innerHTML = lucide.BookOpen.toSvg({ class: 'icon' });
+    document.getElementById('icon2').innerHTML = lucide.MapPin.toSvg({ class: 'icon' });
+    document.getElementById('icon3').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
+    document.getElementById('icon4').innerHTML = lucide.DoorOpen.toSvg({ class: 'icon' });
   </script>
 
 </body>
