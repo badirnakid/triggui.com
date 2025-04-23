@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,171 +7,162 @@
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0d0d;
-      --text: #ffffff;
-      --accent1: #ff6b6b;
-      --accent2: #ffe66d;
-      --accent3: #4ecdc4;
-      --accent4: #1a535c;
+      --bg: #0a0a0a;
+      --text: #f5f5f5;
+      --accent: #4ecdc4;
+      --subtle: #1f1f1f;
+      --highlight: #ffe66d;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
       font-family: 'Archivo', sans-serif;
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      animation: backgroundFlow 25s infinite alternate;
-    }
-
-    @keyframes backgroundFlow {
-      0% { background: linear-gradient(145deg, #0d0d0d, #1a1a1a); }
-      50% { background: linear-gradient(145deg, #1a1a1a, #0d0d0d); }
-      100% { background: linear-gradient(145deg, #0d0d0d, #1a1a1a); }
     }
 
     header {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      background: radial-gradient(circle, var(--accent3), transparent 60%);
-      animation: pulse 12s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.95; }
-      50% { transform: scale(1.03); opacity: 1; }
+      padding: 120px 20px 80px;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
     }
 
     header h1 {
-      font-size: 3.5rem;
-      color: var(--accent1);
-      text-shadow: 0 0 15px var(--accent2);
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 700px;
+      margin: 0 auto;
     }
 
     section {
+      padding: 80px 30px;
       max-width: 920px;
       margin: auto;
-      padding: 100px 30px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease-out;
-    }
-
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     h2 {
-      font-size: 2.4rem;
-      color: var(--accent3);
+      font-size: 2rem;
+      color: var(--accent);
       margin-bottom: 20px;
-      text-shadow: 0 0 10px var(--accent3);
     }
 
     p {
-      font-size: 1.3rem;
-      color: #eee;
+      font-size: 1.2rem;
+      color: #ddd;
       margin-bottom: 20px;
     }
 
     .quote {
       font-style: italic;
-      font-size: 1.5rem;
-      background: rgba(255,255,255,0.05);
+      font-size: 1.3rem;
       padding: 25px;
-      border-left: 4px solid var(--accent1);
-      margin: 50px 0;
+      background: var(--subtle);
+      border-left: 4px solid var(--accent);
+      margin: 40px 0;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    ul li {
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    ul li::before {
+      content: "✨ ";
+      color: var(--highlight);
+    }
+
+    .emoji-block {
+      font-size: 2rem;
+      margin: 30px 0;
+      text-align: center;
     }
 
     .cta-button {
-      display: inline-block;
-      margin-top: 40px;
-      background: var(--accent1);
-      color: #000;
+      display: block;
+      margin: 60px auto 0;
+      background: var(--accent);
+      color: black;
       padding: 15px 40px;
       font-weight: bold;
       font-size: 1.1rem;
-      text-decoration: none;
+      border: none;
       border-radius: 30px;
-      box-shadow: 0 0 20px var(--accent1);
+      text-decoration: none;
       transition: all 0.3s ease;
     }
 
     .cta-button:hover {
-      background: var(--accent2);
-      box-shadow: 0 0 40px var(--accent2);
-      transform: scale(1.05);
+      background: #33bbb0;
     }
 
     footer {
       text-align: center;
       padding: 60px 20px;
       font-size: 0.9rem;
-      color: #999;
+      color: #888;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Triggui<br>Un libro. Un lugar.<br><span style="font-size:1.3rem;font-weight:400;">Una chispa de conciencia donde menos la esperas</span></h1>
+    <h1>Un libro. Un lugar.</h1>
+    <p>Triggui transforma el espacio y la energía con un solo libro, cuidadosamente colocado en el punto exacto para generar presencia, pausa e inspiración real.</p>
   </header>
 
   <section>
-    <h2>Triggui es energía colocada</h2>
-    <p>No es contenido. No es campaña. Es energía. Un solo libro colocado estratégicamente genera un cambio silencioso y real. Así de simple. Así de extraordinario.</p>
-    <div class="quote">“Lo abrí en cualquier página. Y entendí algo profundo de mí.”</div>
+    <h2>¿Qué es Triggui? 📚</h2>
+    <p>Es un sistema de lectura premium que coloca libros físicos en lugares estratégicos como cafés, hoteles o salas de espera. El objetivo: reconectar a las personas con el acto sagrado de leer.</p>
+    <div class="quote">“Ya estamos demasiado tiempo en el celular. Este libro me dio algo que ni sabía que necesitaba.”</div>
   </section>
 
   <section>
-    <h2>Un libro. No más.</h2>
-    <p>Mostrar menos, impactar más. Eliminar la parálisis de opciones. Triggui aprovecha el 80% más de probabilidad de lectura que ocurre cuando hay un solo libro. Porque ese libro parece elegido para ti.</p>
-    <div class="quote">“Un solo libro. Un momento eterno.”</div>
+    <h2>¿Por qué solo uno? 🔍</h2>
+    <p>Según la teoría de la Paradoja de la Elección (Barry Schwartz), cuando se presenta un solo libro, la probabilidad de que sea leído sube al 80%.</p>
+    <p>Menos opciones = más impacto emocional.</p>
+    <div class="emoji-block">📖✨🧠</div>
   </section>
 
   <section>
-    <h2>Modelos de resonancia</h2>
-    <p>Seleccionamos los libros con modelos como:</p>
-    <ul style="padding-left: 20px; color: #ccc;">
-      <li>– Punto Cero · Creativo · Activo · Máximo</li>
-      <li>– 7 Pilares del Desarrollo Humano</li>
-      <li>– Centros de Energía · Mapa de Conciencia</li>
+    <h2>Modelos de selección 🧘‍♂️</h2>
+    <p>Cada libro se selecciona usando modelos diseñados para resonar con el lector según el espacio y la energía:</p>
+    <ul>
+      <li>Punto Cero | Creativo | Activo | Máximo</li>
+      <li>7 Pilares del Desarrollo Humano</li>
+      <li>Centros de Energía (chakras)</li>
+      <li>Mapa de Conciencia (David R. Hawkins)</li>
     </ul>
+    <div class="quote">“No fue casualidad. Ese libro tenía algo que decirme.”</div>
   </section>
 
   <section>
-    <h2>¿Y lo digital?</h2>
-    <p>Triggui tiene una versión digital. Pero no es una app. Es una expansión del mismo principio: simple, emocional, inesperado.</p>
+    <h2>¿Dónde se activa Triggui? 🧩</h2>
+    <p>Triggui aparece en espacios silenciosos, pausados, vulnerables: salas de espera, cafeterías, hoteles boutique, aeropuertos, consultorios.</p>
+    <div class="emoji-block">🏨☕🛋️✈️</div>
+  </section>
+
+  <section>
+    <h2>Dimensión digital 🚪</h2>
+    <p>Triggui también tiene una puerta digital. No es una app cualquiera. Es una experiencia paralela que se activa solo si estás listo para verla.</p>
     <a href="https://app.triggui.com" class="cta-button">Inspírate con TrigguiApp</a>
   </section>
 
   <footer>
-    © 2025 Triggui · Una revolución silenciosa.<br>
-    Hecho para dejar el celular. Hecho para volver al libro.
+    © 2025 Triggui · Hecho para dejar el celular. Hecho para volver al libro.
   </footer>
-
-  <script>
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(section => observer.observe(section));
-  </script>
 
 </body>
 </html>
