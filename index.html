@@ -8,156 +8,150 @@
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Animate On Scroll -->
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- GSAP Animation -->
+  <script src="https://unpkg.com/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
 
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background: #0a0a0a;
-      color: #fefefe;
+      background-color: #0a0a0a;
+      color: #f9f9f9;
       overflow-x: hidden;
     }
-
-    header {
-      background: conic-gradient(from 90deg, #1a1a2e, #0a0a0a, #1a1a2e);
-      animation: rotate 40s linear infinite;
-    }
-
-    @keyframes rotate {
-      to { filter: hue-rotate(360deg); }
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 4.5rem);
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-      transition: color 0.8s ease;
-    }
-
     .icon {
-      width: 52px;
-      height: 52px;
-      stroke: #ffe66d;
+      width: 48px;
+      height: 48px;
+      stroke: #4ecdc4;
       flex-shrink: 0;
     }
-
-    .glass-block {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
-      border-radius: 18px;
-      padding: 2rem;
-      margin-top: 2rem;
+    .section {
+      opacity: 0;
+      transform: translateY(60px);
     }
-
     .highlight {
-      color: #4ecdc4;
+      color: #ffe66d;
       font-weight: bold;
-    }
-
-    .gradient-text {
-      background: linear-gradient(90deg, #ffe66d, #4ecdc4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
 <body>
 
-  <header class="h-screen flex flex-col justify-center items-center text-center px-6 relative">
-    <h1 id="dynamicTitle" class="section-title text-yellow-300">Triggui</h1>
-    <p class="text-lg md:text-xl text-gray-300 max-w-2xl">Una tecnología emocional, física y energética. Triggui no se instala. Se siente. Se manifiesta. Y transforma.</p>
+  <header class="h-screen flex flex-col justify-center items-center text-center px-6 bg-black">
+    <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-6">Triggui</h1>
+    <p class="text-lg text-gray-400 max-w-2xl">Un sistema físico de activación de lectura que genera atención, conexión e impacto en espacios reales, colocando un solo libro estratégico en el lugar correcto.</p>
   </header>
 
-  <main class="py-24 px-6 max-w-6xl mx-auto space-y-32">
+  <main class="py-24 px-6 max-w-5xl mx-auto space-y-36">
 
-    <section data-aos="fade-up">
-      <div class="flex flex-col md:flex-row items-start gap-6">
+    <section class="section" id="que-es">
+      <div class="flex gap-6 items-start">
         <div id="icon1" class="icon"></div>
         <div>
-          <h2 class="text-3xl font-bold gradient-text mb-3">¿Qué es Triggui?</h2>
-          <p class="text-gray-300">Es una intervención sagrada. Una presencia impresa. Un libro cuidadosamente seleccionado colocado justo donde alguien lo necesita. Sin ruido. Sin scroll. Solo pausa.</p>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Qué es Triggui?</h2>
+          <p>Triggui es un sistema de activación de lectura presencial. Seleccionamos cuidadosamente un solo libro físico y lo colocamos estratégicamente en lugares reales — salas de espera, hoteles, cafés, terminales — para generar una pausa consciente e inspirar lectura inmediata.</p>
         </div>
       </div>
     </section>
 
-    <section data-aos="fade-up" id="modelo">
-      <div class="flex flex-col md:flex-row items-start gap-6">
+    <section class="section" id="por-que-funciona">
+      <div class="flex gap-6 items-start">
         <div id="icon2" class="icon"></div>
         <div>
-          <h2 class="text-3xl font-bold gradient-text mb-3">Modelos de resonancia</h2>
-          <ul class="list-disc list-inside text-gray-400 space-y-1">
-            <li>Punto Cero · Creativo · Activo · Máximo</li>
-            <li>Mapa de Conciencia (David Hawkins)</li>
-            <li>Centros de energía (chakras + percepción)</li>
-            <li>7 Pilares del Desarrollo Humano</li>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Por qué funciona?</h2>
+          <p>Estudios de comportamiento muestran que cuando una persona se enfrenta a una sola opción —en lugar de muchas— su tasa de acción aumenta significativamente. Triggui aprovecha esa lógica: <span class="highlight">colocar un solo libro aumenta la probabilidad de lectura hasta en un 80%</span>.</p>
+          <p class="text-sm text-gray-500 mt-2 italic">Fuente: Barry Schwartz, Paradoja de la Elección (2004)</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="beneficios">
+      <div class="flex gap-6 items-start">
+        <div id="icon3" class="icon"></div>
+        <div>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">Beneficios medibles</h2>
+          <ul class="list-disc list-inside text-gray-300 space-y-1">
+            <li>Incremento en satisfacción de cliente en espacios comerciales</li>
+            <li>Mayor tiempo de permanencia en cafeterías y lobbies</li>
+            <li>Mayor disposición a recomendaciones y recompra</li>
+            <li>Asociación emocional positiva con el lugar</li>
+            <li>Contenido físico que sustituye pantallas</li>
           </ul>
         </div>
       </div>
     </section>
 
-    <section data-aos="fade-up" id="impacto">
-      <div class="flex flex-col md:flex-row items-start gap-6">
-        <div id="icon3" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold gradient-text mb-3">¿Por qué funciona?</h2>
-          <p class="text-gray-300">Cuando se muestra un solo libro, la probabilidad de que sea leído sube al <span class="highlight">80%</span>. Porque elimina la ansiedad de elegir. Y porque la portada habla por sí sola.</p>
-          <p class="mt-2 text-sm text-gray-500 italic">“Vi el libro. Lo tomé. No sé por qué. Pero lo necesitaba.”</p>
-        </div>
-      </div>
-    </section>
-
-    <section data-aos="fade-up" id="dim">
-      <div class="flex flex-col md:flex-row items-start gap-6">
+    <section class="section" id="casos">
+      <div class="flex gap-6 items-start">
         <div id="icon4" class="icon"></div>
         <div>
-          <h2 class="text-3xl font-bold gradient-text mb-3">La dimensión digital</h2>
-          <p class="text-gray-300">Triggui tiene una app. Pero no es una app. Es una expansión. Es una interfaz cuántica, emocional y visual donde las ideas se activan como portales.</p>
-          <a href="https://app.triggui.com" class="mt-4 inline-block bg-yellow-300 text-black font-bold py-3 px-8 rounded-full hover:bg-lime-300 transition">
-            Explora TrigguiApp
-          </a>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">Casos reales</h2>
+          <p>En pilotos realizados en hoteles y cafeterías, personas que no pensaban leer tomaron el libro, lo hojeaban, lo comentaban, incluso agradecían verbalmente. En algunos casos, <span class="highlight">la inversión se recuperó con solo 5 personas adicionales al día motivadas por el libro</span>.</p>
         </div>
       </div>
     </section>
 
-    <section class="glass-block text-center" data-aos="zoom-in-up">
-      <p class="text-lg text-gray-200 italic mb-4">“Justo dejé mis libros en la maleta. Esperaba 30 minutos. Y ahí estaba... el libro perfecto.”</p>
-      <p class="text-sm text-gray-500">– Testimonio real piloto en hotel</p>
+    <section class="section" id="donde-aplica">
+      <div class="flex gap-6 items-start">
+        <div id="icon5" class="icon"></div>
+        <div>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Dónde se puede aplicar Triggui?</h2>
+          <p>Triggui puede activarse en:</p>
+          <ul class="list-disc list-inside text-gray-300 space-y-1 mt-2">
+            <li>Hoteles (recepción, cuartos, lounges)</li>
+            <li>Cafeterías y espacios coworking</li>
+            <li>Consultorios, hospitales, clínicas</li>
+            <li>Oficinas corporativas</li>
+            <li>Tiendas boutique o experienciales</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="app">
+      <div class="flex gap-6 items-start">
+        <div id="icon6" class="icon"></div>
+        <div>
+          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Existe versión digital?</h2>
+          <p>Sí. TrigguiApp es una expansión de este sistema. Desde la app, se pueden explorar portadas, recibir micro-acciones del libro semanal, y conectar con el contenido físico desde otro ángulo.</p>
+          <a href="https://app.triggui.com" class="mt-4 inline-block bg-yellow-300 text-black font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition">Ver TrigguiApp</a>
+        </div>
+      </div>
     </section>
 
   </main>
 
   <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Una tecnología que no se instala. Se experimenta.
+    © 2025 Triggui · Activación de lectura física para espacios reales.
   </footer>
 
   <script>
-    AOS.init();
     lucide.createIcons();
 
     document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
-    document.getElementById('icon2').innerHTML = lucide.Sparkles.toSvg({ class: 'icon' });
-    document.getElementById('icon3').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
-    document.getElementById('icon4').innerHTML = lucide.Compass.toSvg({ class: 'icon' });
+    document.getElementById('icon2').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
+    document.getElementById('icon3').innerHTML = lucide.BarChart2.toSvg({ class: 'icon' });
+    document.getElementById('icon4').innerHTML = lucide.HeartHandshake.toSvg({ class: 'icon' });
+    document.getElementById('icon5').innerHTML = lucide.Landmark.toSvg({ class: 'icon' });
+    document.getElementById('icon6').innerHTML = lucide.TabletSmartphone.toSvg({ class: 'icon' });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          document.getElementById('dynamicTitle').style.color = entry.target.id === "modelo" ? "#4ecdc4"
-            : entry.target.id === "impacto" ? "#ffe66d"
-            : entry.target.id === "dim" ? "#6c5ce7"
-            : "#fefefe";
+    // GSAP + ScrollTrigger para animar secciones
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.utils.toArray(".section").forEach(section => {
+      gsap.to(section, {
+        opacity: 1,
+        y: 0,
+        duration: 1.2,
+        scrollTrigger: {
+          trigger: section,
+          start: "top 80%",
+          toggleActions: "play none none none"
         }
       });
-    }, { threshold: 0.4 });
-
-    document.querySelectorAll("section").forEach(section => observer.observe(section));
+    });
   </script>
 
 </body>
