@@ -2,109 +2,197 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Triggui – Un libro. Un lugar.</title>
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Archivo', sans-serif;
-      background: #0a0a0a;
-      color: #fefefe;
+    :root {
+      --bg: #0b0b0c;
+      --text: #f7f7f7;
+      --accent: #4ecdc4;
+      --highlight: #ffe66d;
+      --gray: #aaaaaa;
     }
 
-    .icon {
-      width: 48px;
-      height: 48px;
-      stroke: #4ecdc4;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Archivo', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 100px 20px;
+      text-align: center;
+      background: var(--bg);
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    header p {
+      font-size: 1.25rem;
+      color: var(--gray);
+      max-width: 600px;
+      margin: 20px auto 0;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      color: var(--highlight);
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: var(--gray);
+    }
+
+    ul li {
+      margin-bottom: 10px;
+    }
+
+    .block {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+
+    .block span.icon {
+      font-size: 2rem;
+      color: var(--accent);
       flex-shrink: 0;
+    }
+
+    .cta {
+      display: inline-block;
+      background: var(--highlight);
+      color: #000;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: background 0.3s ease;
+    }
+
+    .cta:hover {
+      background: #f5d940;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--gray);
+      padding: 40px 20px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .block {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
-  <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 bg-black">
-    <h1 class="text-5xl md:text-6xl font-bold text-teal-400 mb-6">Triggui</h1>
-    <p class="text-lg text-gray-400 max-w-2xl">Un sistema físico de activación de lectura en lugares reales. Sin pantallas. Sin distracciones. Solo un libro, bien puesto.</p>
+  <header>
+    <h1>Triggui</h1>
+    <p>Un sistema físico de activación de lectura. Un libro. Un lugar. Y una pausa que cambia todo.</p>
   </header>
 
-  <main class="py-24 px-6 max-w-5xl mx-auto space-y-36">
-
-    <section id="que-es">
-      <div class="flex gap-6 items-start">
-        <div id="icon1" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Qué es Triggui?</h2>
-          <p>Es un sistema físico de lectura premium. Colocamos un solo libro cuidadosamente elegido en un punto específico de alto impacto: un lobby, una cafetería, una sala de espera. Lo que ocurre después es transformación sin esfuerzo.</p>
-        </div>
+  <section>
+    <div class="block">
+      <span class="icon">📘</span>
+      <div>
+        <h2>¿Qué es Triggui?</h2>
+        <p>Triggui es una intervención real, no digital. Seleccionamos un solo libro y lo colocamos donde puede causar el mayor impacto: cafés, salas de espera, hoteles. Sin apps. Sin distracciones. Con intención.</p>
       </div>
-    </section>
+    </div>
 
-    <section id="por-que-funciona">
-      <div class="flex gap-6 items-start">
-        <div id="icon2" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Por qué funciona?</h2>
-          <p>Cuando una persona ve un solo libro, sin tener que elegir entre muchos, la tasa de lectura espontánea sube al 80%. Triggui activa esa reacción. Y lo hace con elegancia.</p>
-        </div>
+    <div class="block">
+      <span class="icon">🧠</span>
+      <div>
+        <h2>¿Por qué funciona?</h2>
+        <p>El 80% de las personas es más propensa a interactuar con una sola opción clara que con muchas. Un solo libro = acción inmediata. El usuario no escoge: responde.</p>
       </div>
-    </section>
+    </div>
 
-    <section id="beneficios">
-      <div class="flex gap-6 items-start">
-        <div id="icon3" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">Beneficios</h2>
-          <ul class="list-disc list-inside text-gray-300 space-y-1">
-            <li>Incrementa la satisfacción del visitante</li>
-            <li>Activa emociones positivas hacia tu espacio</li>
-            <li>Eleva el tiempo de permanencia y conversación</li>
-            <li>Reduce el uso de pantallas en lugares comunes</li>
-          </ul>
-        </div>
+    <div class="block">
+      <span class="icon">📍</span>
+      <div>
+        <h2>¿Dónde lo usamos?</h2>
+        <ul>
+          <li>Hoteles: recepción o cuartos</li>
+          <li>Cafeterías y coworks</li>
+          <li>Salas de espera</li>
+          <li>Consultorios o clínicas</li>
+        </ul>
       </div>
-    </section>
+    </div>
 
-    <section id="casos">
-      <div class="flex gap-6 items-start">
-        <div id="icon4" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">Casos reales</h2>
-          <p>En hoteles y cafeterías donde probamos Triggui, los visitantes leían, comentaban el libro, regresaban a terminarlo o simplemente agradecían haberlo visto. Es marketing invisible, pero inolvidable.</p>
-        </div>
+    <div class="block">
+      <span class="icon">📈</span>
+      <div>
+        <h2>Beneficios</h2>
+        <ul>
+          <li>+30% satisfacción del visitante</li>
+          <li>Más conversación y conexión en sitio</li>
+          <li>Asociación emocional positiva con tu marca</li>
+          <li>Desconexión de pantallas = conexión con el momento</li>
+        </ul>
       </div>
-    </section>
+    </div>
 
-    <section id="app">
-      <div class="flex gap-6 items-start">
-        <div id="icon5" class="icon"></div>
-        <div>
-          <h2 class="text-3xl font-bold text-teal-300 mb-4">¿Y la app?</h2>
-          <p>TrigguiApp es el complemento digital. No es una copia del libro ni una red social: es un espacio donde se accede al contenido con microimpulsos, reflexiones y fragmentos clave que despiertan ideas.</p>
-          <a href="https://app.triggui.com" class="mt-4 inline-block bg-yellow-300 text-black font-bold py-2 px-6 rounded-full hover:bg-yellow-400 transition">Explorar TrigguiApp</a>
-        </div>
+    <div class="block">
+      <span class="icon">📲</span>
+      <div>
+        <h2>¿Y la app?</h2>
+        <p>TrigguiApp complementa la experiencia física con fragmentos del libro semanal, pequeñas reflexiones y triggers aleatorios. Nada sustituye el libro, pero sí lo prolonga.</p>
+        <a href="https://app.triggui.com" class="cta">Explorar TrigguiApp</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
-
-  <footer class="text-center text-gray-500 text-sm py-16 px-6">
-    © 2025 Triggui · Una pausa valiosa. Un libro físico. Un cambio inmediato.
+  <footer>
+    © 2025 Triggui · Lectura en el mundo real. Impacto en el mundo interior.
   </footer>
-
-  <script>
-    lucide.createIcons();
-    document.getElementById('icon1').innerHTML = lucide.BookMarked.toSvg({ class: 'icon' });
-    document.getElementById('icon2').innerHTML = lucide.Eye.toSvg({ class: 'icon' });
-    document.getElementById('icon3').innerHTML = lucide.HeartPulse.toSvg({ class: 'icon' });
-    document.getElementById('icon4').innerHTML = lucide.HeartHandshake.toSvg({ class: 'icon' });
-    document.getElementById('icon5').innerHTML = lucide.TabletSmartphone.toSvg({ class: 'icon' });
-  </script>
 
 </body>
 </html>
