@@ -1,150 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Triggui – Un libro a la vez</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Triggui – Un libro. Un lugar.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1A535C;
-      --accent: #FF6B6B;
+      --c1: #1A535C;
+      --c2: #FF6B6B;
+      --c3: #FFE66D;
+      --c4: #4ECDC4;
       --bg: #ffffff;
       --text: #111;
-      --gray: #777;
+      --gray: #555;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
     body {
-      font-family: 'Archivo', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      overflow-x: hidden;
     }
-    header, section {
-      padding: 60px 20px;
+
+    section {
+      padding: 100px 30px;
       max-width: 960px;
       margin: auto;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
     }
-    h1, h2, h3 {
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1, h2 {
       font-weight: 700;
       margin-bottom: 20px;
     }
     h1 {
-      font-size: 2.8rem;
+      font-size: 3rem;
+      color: var(--c1);
       text-align: center;
-      color: var(--primary);
     }
     h2 {
       font-size: 2rem;
-      color: var(--primary);
+      color: var(--c1);
     }
     p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      line-height: 1.8;
       color: var(--gray);
     }
-    .hero {
-      text-align: center;
-      padding-top: 100px;
-      padding-bottom: 100px;
-    }
-    .hero p {
-      font-size: 1.4rem;
-      color: var(--text);
-      margin-top: 20px;
-    }
-    .text-visual {
-      background: #f5f5f5;
-      border-left: 5px solid var(--primary);
-      padding: 30px 25px;
-      margin: 40px 0;
-      font-size: 1.2rem;
-      color: #333;
+
+    .quote {
+      font-size: 1.3rem;
       font-style: italic;
-      border-radius: 8px;
-    }
-    ul {
-      margin-top: 20px;
+      color: var(--c2);
+      margin: 40px 0;
       padding-left: 20px;
-      color: #555;
+      border-left: 4px solid var(--c2);
     }
+
     .cta-button {
       display: block;
-      width: fit-content;
       margin: 60px auto;
-      background: var(--accent);
-      color: #fff;
-      padding: 15px 30px;
-      font-weight: 600;
+      background: var(--c1);
+      color: white;
+      padding: 15px 35px;
+      font-weight: bold;
+      font-size: 1rem;
       border: none;
-      border-radius: 30px;
+      border-radius: 40px;
       cursor: pointer;
       text-decoration: none;
       transition: background 0.3s ease;
     }
     .cta-button:hover {
-      background: #e85a5a;
+      background: var(--c4);
     }
+
     footer {
       text-align: center;
-      font-size: 0.9rem;
-      color: #aaa;
       padding: 40px 20px;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.2rem; }
+      h2 { font-size: 1.5rem; }
+      p  { font-size: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <header class="hero">
+  <section id="intro">
     <h1>Un libro. Un lugar.</h1>
-    <p>Una revolución silenciosa para volver a lo que importa. Triggui es un sistema de lectura premium que planta libros estratégicamente donde menos lo esperas... y más los necesitas.</p>
-  </header>
-
-  <section>
-    <h2>¿Qué es Triggui?</h2>
-    <p>Triggui es un acto de presencia. Seleccionamos un solo libro y lo colocamos con intención en un espacio donde pueda generar conexión emocional. El lector no elige: el libro lo elige a él.</p>
-    <div class="text-visual">📚 “En medio del ruido, una portada. En medio del tiempo muerto, un título que te habla. Lo tomas, lo hojeas... y algo en ti despierta.”</div>
-  </section>
-
-  <section>
-    <h2>Escenarios reales</h2>
-    <p>En cafeterías, hoteles y espacios de espera, descubrimos que un solo libro colocado con intención puede transformar momentos comunes en momentos conscientes. La gente se detiene, se reconecta y, muchas veces, agradece en voz alta.</p>
-    <div class="text-visual">💬 “No sé ni qué estaba viendo en mi celular. Vi el libro, lo abrí en una página al azar... y fue justo lo que necesitaba leer.”</div>
+    <p>Triggui es un sistema de lectura premium que transforma espacios cotidianos en detonadores de conciencia. Seleccionamos un solo libro. Lo colocamos estratégicamente. Y dejamos que haga su trabajo.</p>
+    <div class="quote">“Justo dejé mis libros en casa… y ahí estaba ese. Me senté, lo abrí en cualquier página… y me atrapó.”</div>
   </section>
 
   <section>
     <h2>Por qué funciona</h2>
-    <p>La teoría de la Paradoja de la Elección lo confirma: menos opciones, más impacto. Al presentar un solo libro cuidadosamente elegido, elevamos la probabilidad de lectura a un 80%.</p>
-    <div class="text-visual">✨ “Un libro solitario tiene más poder que una estantería repleta. Porque no compite: invita.”</div>
+    <p>La paradoja de la elección es clara: menos opciones, más conexión. Triggui presenta un solo libro, alineado con niveles de conciencia, energía y estado emocional del espacio. Y por eso impacta.</p>
+    <div class="quote">“Un solo libro tiene más poder que cien opciones. Porque no compite: invita.”</div>
   </section>
 
   <section>
-    <h2>Modelos de Selección</h2>
-    <p>No se trata de cualquier libro, sino del libro correcto para el momento correcto. Usamos modelos como:</p>
-    <ul>
-      <li>🔹 Punto Cero | Creativo | Activo | Máximo</li>
-      <li>🔹 7 Pilares del Desarrollo Humano</li>
-      <li>🔹 Centros de Energía</li>
-      <li>🔹 Mapa de Conciencia (David Hawkins)</li>
+    <h2>Modelos de activación</h2>
+    <p>Los libros se seleccionan bajo modelos energéticos y de conciencia. Algunos de ellos:</p>
+    <ul style="margin: 20px 0; padding-left: 20px;">
+      <li>📘 Punto Cero · Punto Creativo · Punto Activo · Punto Máximo</li>
+      <li>📗 7 Pilares del Desarrollo Humano</li>
+      <li>📕 Centros de Energía · Chakra</li>
+      <li>📙 Mapa de Conciencia (David Hawkins)</li>
     </ul>
-    <div class="text-visual">🌀 “¿En qué punto estás hoy? Tu energía responde, y Triggui propone.”</div>
+    <div class="quote">“¿En qué punto estás hoy? Triggui responde con el libro que necesitas.”</div>
   </section>
 
   <section>
-    <h2>Beneficios invisibles</h2>
-    <p>Triggui no se nota. Se siente. Cambia la atmósfera de un lugar, eleva la experiencia del usuario y transforma momentos olvidables en memorables. No es tecnología. Es alquimia emocional.</p>
-    <div class="text-visual">🌱 “Alguien se llevó el libro. No dejó rastro, pero sí energía. Y volverá.”</div>
+    <h2>Espacios que cobran vida</h2>
+    <p>En salas de espera, cafeterías, hoteles, consultorios... donde haya silencio y oportunidad. Triggui no interrumpe. Está. Inspira. Y se va con quien lo necesita.</p>
+    <div class="quote">“No sé quién lo puso ahí, pero me cambió el día.”</div>
   </section>
 
   <section>
     <h2>¿Y lo digital?</h2>
-    <p>Triggui tiene una dimensión digital. Pero no es una app que se anuncia. Es algo que se descubre, después. Solo si lo buscas. Solo si lo sientes.</p>
+    <p>Triggui tiene una dimensión digital. Pero no es una app más. Es un eco de lo físico. Una experiencia paralela que no se anuncia… se descubre.</p>
     <a href="https://app.triggui.com" class="cta-button">Explora más</a>
   </section>
 
   <footer>
-    © 2025 Triggui · Un sistema tan simple que te desconecta para que te reconectes.<br>
-    Hecho para dejar el celular. Hecho para volver al libro.
+    © 2025 Triggui · Hecho para volver al libro.<br>
+    Un sistema tan simple que te desconecta… para reconectarte.
   </footer>
 
+  <script>
+    const sections = document.querySelectorAll("section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(sec => observer.observe(sec));
+  </script>
 </body>
 </html>
