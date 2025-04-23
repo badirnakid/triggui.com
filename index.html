@@ -1,72 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triggui - Un libro a la vez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --color1: #FF6B6B;
+      --color2: #FFE66D;
+      --color3: #4ECDC4;
+      --color4: #1A535C;
+      --bg: #FFFFFF;
+      --text: #111111;
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #ffffff;
-      color: #111;
-      height: 100vh;
+      font-family: 'Archivo', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 30px 20px 20px;
       text-align: center;
-      transition: background-color 0.3s ease;
     }
-    h1 {
-      font-size: 3.5rem;
+
+    header h1 {
+      font-size: 2.5rem;
       font-weight: 700;
-      margin-bottom: 0.5em;
-      opacity: 0;
-      animation: fadeIn 1.2s ease forwards;
+      margin-bottom: 10px;
     }
-    p {
-      font-size: 1.25rem;
-      margin-bottom: 2em;
-      opacity: 0;
-      animation: fadeIn 1.6s ease forwards;
+
+    header p {
+      font-size: 1.2rem;
+      color: #555;
     }
-    button {
-      padding: 14px 28px;
-      font-size: 1rem;
-      background-color: #000;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
+
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 30px 20px;
+    }
+
+    .block {
+      height: 200px;
+      border-radius: 20px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
-      opacity: 0;
-      animation: fadeIn 2s ease forwards;
+      transition: transform 0.2s ease-in-out;
     }
-    button:hover {
-      background-color: #222;
+
+    .block:hover {
       transform: scale(1.04);
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+
+    .block1 { background: linear-gradient(135deg, var(--color1), #FFB3B3); }
+    .block2 { background: linear-gradient(135deg, var(--color2), #FFF7B3); color: #333; }
+    .block3 { background: linear-gradient(135deg, var(--color3), #A0ECE1); }
+    .block4 { background: linear-gradient(135deg, var(--color4), #3D6F77); }
+
+    .btn-app {
+      margin: 40px auto 20px;
+      display: block;
+      padding: 15px 30px;
+      background: var(--color1);
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: background 0.3s;
     }
+
+    .btn-app:hover {
+      background: #E85A5A;
+    }
+
     footer {
-      position: absolute;
-      bottom: 20px;
-      font-size: 0.8rem;
-      color: #aaa;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 10px;
+      color: #777;
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .block {
+        font-size: 1.2rem;
+        height: 150px;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Triggui</h1>
-  <p>¿Ya abriste un libro físico hoy?</p>
-  <button onclick="alert('Eso. Abre cualquiera. Aunque sea por una página.')">📖 Chócalas</button>
-  <footer>Hecho con intención, no con prisa</footer>
+
+  <header>
+    <h1>Triggui</h1>
+    <p>Un sistema tan simple que te hará dejar el celular... y abrir un libro físico.</p>
+  </header>
+
+  <main>
+    <div class="block block1">Detente</div>
+    <div class="block block2">Lee</div>
+    <div class="block block3">¿?</div>
+    <div class="block block4">Conecta</div>
+  </main>
+
+  <a href="https://app.triggui.com" class="btn-app">Ir a TrigguiApp</a>
+
+  <footer>
+    Una app diseñada para que no uses apps.<br>© 2025 Triggui. Todos los derechos reservados.
+  </footer>
+
 </body>
 </html>
