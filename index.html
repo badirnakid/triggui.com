@@ -1,108 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui – Un libro. Un lugar.</title>
 
-  <!-- TailwindCSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       font-family: 'Archivo', sans-serif;
       background: #0a0a0a;
       color: #f5f5f5;
+      overflow-x: hidden;
+      position: relative;
     }
 
-    .icon-block svg {
+    /* Animación fondo */
+    .particle-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(#ffe66d 1px, transparent 1px),
+        radial-gradient(#4ecdc4 1px, transparent 1px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      opacity: 0.04;
+      animation: moveParticles 60s linear infinite;
+    }
+
+    @keyframes moveParticles {
+      0% { background-position: 0 0, 20px 20px; }
+      100% { background-position: 100px 100px, 120px 120px; }
+    }
+
+    /* Testimonio slider */
+    .slider {
+      display: flex;
+      gap: 2rem;
+      animation: scrollSlider 25s linear infinite;
+    }
+
+    @keyframes scrollSlider {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .card {
+      min-width: 300px;
+      max-width: 300px;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 1rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .icon svg {
       width: 64px;
       height: 64px;
       margin-bottom: 1rem;
       stroke: #4ecdc4;
     }
-
-    .section {
-      border-radius: 24px;
-      padding: 2rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      transition: transform 0.4s ease;
-    }
-
-    .section:hover {
-      transform: translateY(-5px);
-    }
-
-    .section h2 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .section p {
-      color: #ccc;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      background: #ffe66d;
-      border-radius: 50%;
-      animation: floatDot 6s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatDot {
-      0% { transform: translateY(0); opacity: 0.4; }
-      100% { transform: translateY(10px); opacity: 1; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- Encabezado -->
-  <header class="text-center py-20 px-6">
+  <div class="particle-bg"></div>
+
+  <header class="text-center py-20 px-6 relative z-10">
     <h1 class="text-5xl font-bold text-[#6c5ce7]">Triggui</h1>
-    <p class="text-xl text-gray-400 mt-4 max-w-2xl mx-auto">Un sistema de lectura física, visual y emocional. Un solo libro, en el lugar correcto, genera una pausa real.</p>
+    <p class="text-xl text-gray-400 mt-4 max-w-2xl mx-auto">Lectura física estratégica. Un solo libro. En el lugar correcto. Impacto real sin depender de pantallas.</p>
   </header>
 
-  <!-- Secciones visuales -->
-  <main class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 pb-20">
+  <main class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 pb-32 relative z-10">
 
     <!-- Bloque 1 -->
-    <div class="section icon-block text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" /></svg>
-      <h2>Lectura en el momento exacto</h2>
-      <p>Triggui coloca libros reales donde más impacto tienen. Nada distrae. Solo conecta.</p>
+    <div class="icon text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l4 2" /></svg>
+      <h2 class="text-2xl font-semibold mb-2">Lectura espontánea</h2>
+      <p class="text-gray-300">Un solo libro estratégicamente colocado puede detonar presencia, inspiración y pausa auténtica.</p>
     </div>
 
     <!-- Bloque 2 -->
-    <div class="section icon-block text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-      <h2>Una sola opción, alto impacto</h2>
-      <p>Mostrar un solo libro aumenta la probabilidad de acción hasta en un 80%. Menos menú. Más presencia.</p>
+    <div class="icon text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      <h2 class="text-2xl font-semibold mb-2">Menos opciones, más acción</h2>
+      <p class="text-gray-300">La paradoja de la elección lo confirma: menos menú, más conexión. Un solo libro atrae naturalmente.</p>
     </div>
 
     <!-- Bloque 3 -->
-    <div class="section icon-block text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h3.764a1 1 0 01.948.684l.79 2.37a1 1 0 01-.213 1.06l-2.1 2.1a11.05 11.05 0 005.292 5.292l2.1-2.1a1 1 0 011.06-.213l2.37.79A1 1 0 0121 16.236V20a1 1 0 01-1 1h-2C9.163 21 3 14.837 3 7V5a1 1 0 011-1z" /></svg>
-      <h2>Activa tu espacio</h2>
-      <p>Hoteles, cafés, clínicas. Cualquier lugar puede volverse un punto de conexión gracias a un solo libro bien elegido.</p>
+    <div class="icon text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 4a1 1 0 011-1h3.764a1 1 0 01.948.684l.79 2.37a1 1 0 01-.213 1.06l-2.1 2.1a11.05 11.05 0 005.292 5.292l2.1-2.1a1 1 0 011.06-.213l2.37.79A1 1 0 0121 16.236V20a1 1 0 01-1 1h-2C9.163 21 3 14.837 3 7V5a1 1 0 011-1z" /></svg>
+      <h2 class="text-2xl font-semibold mb-2">Espacios que inspiran</h2>
+      <p class="text-gray-300">Triggui funciona en cafeterías, hoteles, coworks, clínicas y salas de espera. Donde hay pausa, hay oportunidad.</p>
     </div>
 
     <!-- Bloque 4 -->
-    <div class="section icon-block text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m6 7h6m-6 4h6m-6 4h6" /></svg>
-      <h2>Complemento digital</h2>
-      <p>TrigguiApp te da acceso a fragmentos, acciones semanales y experiencias de lectura en movimiento.</p>
-      <a href="https://app.triggui.com" class="inline-block mt-4 bg-[#ffe66d] text-black font-bold px-6 py-2 rounded-full hover:bg-yellow-400 transition">Explora TrigguiApp</a>
+    <div class="icon text-center">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 6.75h10.5m-10.5 10.5h10.5m-10.5-5.25h10.5M3.75 7.5h.008v.008H3.75V7.5zm0 10.5h.008v.008H3.75v-.008zm0-5.25h.008v.008H3.75v-.008z" /></svg>
+      <h2 class="text-2xl font-semibold mb-2">Complemento digital</h2>
+      <p class="text-gray-300">TrigguiApp es una extensión digital que no interfiere, sino que prolonga el efecto físico con microacciones y fragmentos.</p>
+      <a href="https://app.triggui.com" class="mt-4 inline-block bg-[#ffe66d] text-black font-bold px-6 py-2 rounded-full hover:bg-yellow-400 transition">Explora TrigguiApp</a>
     </div>
   </main>
 
+  <!-- Testimonios dinámicos -->
+  <section class="overflow-hidden py-16 bg-[#111111] relative z-10">
+    <h3 class="text-center text-2xl font-semibold text-[#4ecdc4] mb-10">Lo que han dicho</h3>
+    <div class="slider flex whitespace-nowrap w-max">
+      <div class="card">“Estaba por tomar mi celular... pero abrí ese libro. Me cambió el día.”</div>
+      <div class="card">“No era un lector. Pero ese libro frente a mí… me atrapó.”</div>
+      <div class="card">“Pensé que era decoración. Lo abrí. No paré de leer.”</div>
+      <div class="card">“Una de las ideas del libro desbloqueó una conversación clave con mi equipo.”</div>
+    </div>
+  </section>
+
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-500 py-10">
-    © 2025 Triggui · Un libro. Una pausa. Un nuevo punto de partida.
+  <footer class="text-center text-sm text-gray-500 py-10 relative z-10">
+    © 2025 Triggui · Un libro. Una pausa. Una transformación.
   </footer>
 
 </body>
