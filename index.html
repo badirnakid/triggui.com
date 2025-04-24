@@ -12,26 +12,44 @@
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background-color: #0a0a0a;
-      color: #f5f5f5;
+      background-color: #0d0e1a;
+      color: #e6e6ea;
     }
 
     .floating-cta {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 16px;
+      right: 16px;
       z-index: 999;
-      background: #ffe66d;
+      background: #ffaf5f;
       color: black;
-      padding: 14px 24px;
+      padding: 12px 24px;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 8px 20px rgba(255, 230, 102, 0.2);
+      box-shadow: 0 8px 20px rgba(255, 175, 95, 0.3);
       transition: background 0.3s ease;
     }
 
     .floating-cta:hover {
-      background: #f5d940;
+      background: #ff9940;
+    }
+
+    .blur-card {
+      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-title {
+      background: linear-gradient(to right, #8ec5fc, #e0c3fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .glass-accent {
+      background: linear-gradient(to right, #ffb76b, #ff7c8a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .divider {
@@ -45,51 +63,38 @@
 
   <!-- HERO -->
   <header class="text-center px-6 py-28 max-w-5xl mx-auto">
-    <h1 class="text-6xl md:text-7xl font-bold text-[#6c5ce7] mb-6 leading-tight">Triggui</h1>
-    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Un sistema de activación de lectura presencial que transforma espacios reales en detonadores de pausa, reflexión y emoción.</p>
+    <h1 class="text-6xl font-bold glass-title mb-6 leading-tight">Triggui</h1>
+    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Transformamos espacios físicos en detonadores de pausa y presencia real. Todo a través de un solo libro.</p>
   </header>
 
   <!-- CITA -->
   <section class="text-center px-6 max-w-4xl mx-auto pb-20">
     <blockquote class="italic text-gray-400 text-lg leading-relaxed">
-      “Vi el libro. Lo abrí. No sabía que lo necesitaba. Y sin embargo, ahí estaba, dándome justo las palabras que no sabía que esperaba.”
+      “El libro estaba ahí. No lo buscaba. Pero lo abrí. Y esa página... era para mí.”
     </blockquote>
-    <p class="text-sm text-[#ffe66d] mt-4">— Comentario real durante piloto Triggui</p>
+    <p class="text-sm text-[#ffaf5f] mt-4">— Usuario real en lobby de hotel</p>
   </section>
 
-  <!-- ANTES Y DESPUÉS -->
-  <section class="max-w-6xl mx-auto px-6">
-    <h2 class="text-4xl font-bold text-[#4ecdc4] text-center mb-12">Antes y después de Triggui</h2>
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-[#ffe66d]">ANTES</h3>
-        <ul class="list-disc text-gray-400 space-y-2 pl-6">
-          <li>Clientes distraídos en su celular</li>
-          <li>Espacios silenciosos pero sin intención</li>
-          <li>Experiencias olvidables</li>
-        </ul>
+  <!-- ¿ES PARA TI? -->
+  <section class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold glass-accent text-center mb-12">¿Esto es para ti?</h2>
+    <div class="grid md:grid-cols-2 gap-10">
+      <div class="p-6 rounded-xl blur-card">
+        <h3 class="text-xl font-semibold mb-2">Tienes gente esperando</h3>
+        <p class="text-gray-300">En tu lobby, recepción o terraza. Y quieres activar algo más que su celular.</p>
       </div>
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-[#4ecdc4]">DESPUÉS</h3>
-        <ul class="list-disc text-gray-300 space-y-2 pl-6">
-          <li>Lecturas espontáneas que inspiran</li>
-          <li>Mayor tiempo de permanencia</li>
-          <li>Conversaciones auténticas y recordación emocional</li>
-        </ul>
+      <div class="p-6 rounded-xl blur-card">
+        <h3 class="text-xl font-semibold mb-2">Quieres conexión real</h3>
+        <p class="text-gray-300">Triggui genera conversaciones, recuerdos, emociones. Sin pantallas.</p>
       </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PORTADAS -->
-  <section class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-bold text-[#ffe66d] text-center mb-12">Ejemplos de portadas activadas</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <div class="bg-[#1f1f1f] aspect-[3/4] rounded-lg flex items-center justify-center text-gray-600 text-xs">Libro 1</div>
-      <div class="bg-[#1f1f1f] aspect-[3/4] rounded-lg flex items-center justify-center text-gray-600 text-xs">Libro 2</div>
-      <div class="bg-[#1f1f1f] aspect-[3/4] rounded-lg flex items-center justify-center text-gray-600 text-xs">Libro 3</div>
-      <div class="bg-[#1f1f1f] aspect-[3/4] rounded-lg flex items-center justify-center text-gray-600 text-xs">Libro 4</div>
+      <div class="p-6 rounded-xl blur-card">
+        <h3 class="text-xl font-semibold mb-2">Crees en el poder de una pausa</h3>
+        <p class="text-gray-300">Una lectura inesperada puede cambiar el tono del día, o de una vida.</p>
+      </div>
+      <div class="p-6 rounded-xl blur-card">
+        <h3 class="text-xl font-semibold mb-2">Quieres algo que se note sin ruido</h3>
+        <p class="text-gray-300">Triggui es silencioso. Pero cuando alguien lo nota, nunca lo olvida.</p>
+      </div>
     </div>
   </section>
 
@@ -97,41 +102,41 @@
 
   <!-- PLANES -->
   <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center text-[#4ecdc4] mb-12">Planes Triggui</h2>
+    <h2 class="text-4xl font-bold glass-title text-center mb-12">Planes para activar tu espacio</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
       <!-- Light -->
-      <div class="bg-[#111111] p-8 rounded-xl border border-gray-700 hover:bg-[#1a1a1a] transition">
-        <h3 class="text-xl font-semibold text-yellow-400 mb-2 uppercase tracking-wide">Triggui Light</h3>
+      <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
+        <h3 class="text-xl font-semibold text-[#ffb76b] mb-2 uppercase tracking-wide">Triggui Light</h3>
         <p class="text-3xl font-bold mb-2">$5,000 MXN</p>
-        <p class="text-gray-400 mb-4 text-sm">Para espacios pequeños que buscan un impacto discreto y profundo.</p>
+        <p class="text-gray-400 mb-4 text-sm">Para espacios íntimos que necesitan solo un empujón.</p>
         <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2 mb-6">
           <li>1 libro activado</li>
-          <li>Diseño visual básico</li>
-          <li>Guía de colocación</li>
+          <li>Guía estratégica de colocación</li>
+          <li>Curaduría editorial</li>
         </ul>
-        <a href="#" class="inline-block bg-[#ffe66d] text-black font-bold px-6 py-3 rounded-full hover:bg-yellow-400 transition">Solicitar</a>
+        <a href="#" class="inline-block bg-[#ffaf5f] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ff9940] transition">Solicitar</a>
       </div>
 
       <!-- Pro -->
-      <div class="bg-[#1a1a1a] p-8 rounded-xl border border-gray-700 hover:bg-[#222] transition">
-        <h3 class="text-xl font-semibold text-[#4ecdc4] mb-2 uppercase tracking-wide">Triggui Pro</h3>
+      <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
+        <h3 class="text-xl font-semibold text-[#8ec5fc] mb-2 uppercase tracking-wide">Triggui Pro</h3>
         <p class="text-3xl font-bold mb-2">$35,000 MXN</p>
-        <p class="text-gray-400 mb-4 text-sm">Para marcas y espacios que buscan elevar su experiencia sensorial y emocional.</p>
+        <p class="text-gray-400 mb-4 text-sm">Para marcas, hoteles y experiencias que quieren dejar huella emocional.</p>
         <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2 mb-6">
           <li>5 libros activados</li>
-          <li>Diseño completo de activación</li>
+          <li>Diseño visual del espacio</li>
           <li>Integración con TrigguiApp</li>
         </ul>
-        <a href="#" class="inline-block bg-[#4ecdc4] text-black font-bold px-6 py-3 rounded-full hover:bg-teal-300 transition">Agendar presentación</a>
+        <a href="#" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Agendar presentación</a>
       </div>
 
     </div>
   </section>
 
-  <!-- CTA Final -->
+  <!-- CTA FINAL -->
   <section class="text-center py-24 border-t border-gray-800">
-    <h3 class="text-2xl font-bold text-[#ffe66d] mb-6">Un solo libro puede cambiar un espacio. Y lo que alguien recuerda de él.</h3>
+    <h3 class="text-2xl font-bold glass-accent mb-6">Un solo libro. Un momento. Un cambio inesperado.</h3>
     <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
   </section>
 
@@ -140,7 +145,7 @@
 
   <!-- Footer -->
   <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
-    © 2025 Triggui · Una sola página puede cambiar tu historia.
+    © 2025 Triggui · Tan simple que funciona.
   </footer>
 
 </body>
