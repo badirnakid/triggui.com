@@ -2,10 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui – Un libro. Un lugar.</title>
 
-  <!-- Tailwind CSS -->
+  <!-- TailwindCSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
 
@@ -18,139 +18,90 @@
     }
 
     .glow {
-      background: radial-gradient(circle at center, rgba(255, 230, 102, 0.06), transparent 60%);
+      background: radial-gradient(circle at center, rgba(255, 230, 102, 0.05), transparent 70%);
       animation: pulse 12s infinite ease-in-out;
     }
 
     @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 0.8; }
+      0%, 100% { transform: scale(1); opacity: 0.9; }
       50% { transform: scale(1.1); opacity: 1; }
     }
 
-    .section {
-      transition: transform 0.3s ease, background 0.3s ease;
+    .plan {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .section:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.02);
-    }
-
-    .icon svg {
-      width: 56px;
-      height: 56px;
-      stroke: #4ecdc4;
-      transition: transform 0.4s ease;
-    }
-
-    .icon:hover svg {
-      transform: scale(1.15);
-      stroke: #ffe66d;
-    }
-
-    .badge {
-      background: #ffe66d;
-      color: #000;
-      padding: 0.25rem 0.75rem;
-      border-radius: 999px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-    }
-
-    .aura {
-      position: absolute;
-      width: 280px;
-      height: 280px;
-      background: radial-gradient(circle, rgba(108,92,231,0.15), transparent);
-      border-radius: 50%;
-      animation: float 10s infinite ease-in-out alternate;
-      z-index: -1;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(30px); }
+    .plan:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(255, 230, 102, 0.2);
     }
   </style>
 </head>
 <body>
 
-  <!-- AURA DE FONDO -->
-  <div class="aura top-12 left-12 absolute"></div>
-  <div class="aura bottom-24 right-24 absolute"></div>
-
-  <!-- Hero -->
-  <header class="text-center px-6 py-28 relative">
+  <!-- Header -->
+  <header class="text-center px-6 py-28">
     <h1 class="text-5xl font-bold text-[#6c5ce7] mb-4">Triggui</h1>
-    <p class="text-xl text-gray-300 max-w-2xl mx-auto">Activación de lectura física. Un solo libro colocado en el lugar perfecto. Silencioso. Poderoso.</p>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto">Transformamos espacios con un solo libro. Colocado con intención. Leído por conexión.</p>
   </header>
 
-  <!-- Secciones -->
-  <main class="max-w-6xl mx-auto px-6 space-y-24 pb-32">
+  <!-- Beneficios -->
+  <main class="max-w-6xl mx-auto px-6 space-y-20 pb-20">
 
-    <!-- Bloque 1 -->
-    <section class="section p-8 rounded-xl border border-gray-800 glow relative">
-      <div class="flex items-center gap-6 mb-4">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6l4 2" />
-          </svg>
-        </div>
-        <h2 class="text-2xl font-semibold text-[#ffe66d]">Impacto sin distracción</h2>
-      </div>
-      <p class="text-gray-400">Colocar un solo libro en un punto clave activa la mente de forma sutil. La persona no escoge. El libro ya está ahí. Esperando.</p>
+    <!-- Sección 1 -->
+    <section class="text-center">
+      <h2 class="text-3xl font-bold text-[#ffe66d] mb-6">¿Por qué funciona Triggui?</h2>
+      <p class="text-gray-300 max-w-3xl mx-auto">El 80% de las personas es más propensa a interactuar con una sola opción clara. Triggui elimina la sobreestimulación y convierte una pausa común en un momento significativo con un solo libro.</p>
     </section>
 
-    <!-- Bloque 2 -->
-    <section class="section p-8 rounded-xl border border-gray-800">
-      <div class="flex items-center gap-6 mb-4">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+    <!-- Sección de paquetes -->
+    <section class="text-center">
+      <h2 class="text-3xl font-bold text-[#4ecdc4] mb-12">Planes Triggui</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+
+        <!-- Paquete Light -->
+        <div class="plan bg-[#111111] rounded-xl border border-gray-700 p-8">
+          <span class="text-yellow-400 font-bold text-sm uppercase tracking-wide">Triggui Light</span>
+          <h3 class="text-3xl font-bold mt-3 mb-1">$5,000 MXN</h3>
+          <p class="text-gray-400 text-sm mb-6">Ideal para cafés, consultorios, salas de espera o espacios íntimos. Bajo compromiso, alto impacto.</p>
+          <ul class="text-left text-gray-300 mb-6 space-y-2 list-disc list-inside">
+            <li>1 libro físico activado</li>
+            <li>Selección estratégica</li>
+            <li>Guía de colocación</li>
+            <li>Diseño visual del espacio</li>
+          </ul>
+          <a href="#" class="inline-block bg-[#ffe66d] text-black font-bold px-6 py-3 rounded-full hover:bg-yellow-400 transition">Solicitar</a>
         </div>
-        <h2 class="text-2xl font-semibold text-[#ffe66d]">Lectura espontánea</h2>
+
+        <!-- Paquete Pro -->
+        <div class="plan bg-[#1a1a1a] rounded-xl border border-gray-700 p-8">
+          <span class="text-cyan-400 font-bold text-sm uppercase tracking-wide">Triggui Pro</span>
+          <h3 class="text-3xl font-bold mt-3 mb-1">$35,000 MXN</h3>
+          <p class="text-gray-400 text-sm mb-6">Pensado para hoteles, espacios institucionales o marcas que buscan generar conexión emocional tangible.</p>
+          <ul class="text-left text-gray-300 mb-6 space-y-2 list-disc list-inside">
+            <li>5 libros físicos activados</li>
+            <li>Diseño de activación</li>
+            <li>Informe de impacto emocional</li>
+            <li>Integración con TrigguiApp</li>
+          </ul>
+          <a href="#" class="inline-block bg-[#4ecdc4] text-black font-bold px-6 py-3 rounded-full hover:bg-teal-300 transition">Agendar presentación</a>
+        </div>
+
       </div>
-      <p class="text-gray-400">La mente reconoce algo especial cuando está solo. Un solo libro genera hasta 80% más posibilidad de ser leído en el momento.</p>
     </section>
 
-    <!-- Bloque 3 -->
-    <section class="section p-8 rounded-xl border border-gray-800">
-      <div class="flex items-center gap-6 mb-4">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17v-4.5a1.5 1.5 0 013 0V17m-3 0a1.5 1.5 0 003 0M3 9h18M3 13h18M4 5h16" />
-          </svg>
-        </div>
-        <h2 class="text-2xl font-semibold text-[#ffe66d]">Aplicación simple</h2>
-      </div>
-      <ul class="list-disc pl-6 text-gray-400 space-y-1">
-        <li>Hoteles (cuartos, recepción)</li>
-        <li>Cafeterías, coworks, clínicas</li>
-        <li>Consultorios, oficinas privadas</li>
-      </ul>
-    </section>
-
-    <!-- Bloque 4 -->
-    <section class="section p-8 rounded-xl border border-gray-800">
-      <div class="flex items-center gap-6 mb-4">
-        <div class="icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10m-10 4h10m-10 4h6" />
-          </svg>
-        </div>
-        <h2 class="text-2xl font-semibold text-[#ffe66d]">TrigguiApp</h2>
-      </div>
-      <p class="text-gray-400">Una extensión digital que no compite, solo continúa. Fragmentos. Microtriggers. Presencia en movimiento.</p>
-      <a href="https://app.triggui.com" class="inline-block mt-4 bg-[#ffe66d] text-black font-bold px-6 py-2 rounded-full hover:bg-yellow-400 transition">Explorar App</a>
+    <!-- CTA -->
+    <section class="text-center py-24">
+      <h3 class="text-2xl font-bold text-[#ffe66d] mb-4">Un libro cambia un espacio. Un espacio cambia una mente.</h3>
+      <a href="https://app.triggui.com" class="mt-6 inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
     </section>
 
   </main>
 
   <!-- Footer -->
-  <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800 mt-20">
-    © 2025 Triggui · Silencio visual. Presencia activa.
+  <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
+    © 2025 Triggui · Estrategia silenciosa. Resultados reales.
   </footer>
 
 </body>
