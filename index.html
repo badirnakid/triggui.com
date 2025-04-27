@@ -15,6 +15,7 @@
       color: #e5e5e5;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     .floating-cta {
@@ -28,18 +29,25 @@
       font-weight: bold;
       border-radius: 999px;
       box-shadow: 0 8px 20px rgba(255, 95, 109, 0.4);
-      transition: background 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .floating-cta:hover {
       background: linear-gradient(135deg, #ffc371, #ff5f6d);
+      transform: scale(1.05);
     }
 
     .blur-card {
       backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
+      transition: transform 0.4s ease, background 0.4s ease;
+    }
+
+    .blur-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-5px);
     }
 
     .glass-title {
@@ -56,13 +64,22 @@
       font-weight: 700;
     }
 
+    .fade-in-up {
+      animation: fadeInUp 1.4s ease-out both;
+    }
+
     @keyframes fadeInUp {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .fade-in-up {
-      animation: fadeInUp 1.4s ease-out both;
+    .hero-animation {
+      animation: breathing 8s ease-in-out infinite;
+    }
+
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.015); }
     }
   </style>
 </head>
@@ -70,7 +87,7 @@
 <body>
 
 <!-- HERO -->
-<header class="text-center px-6 py-32 max-w-5xl mx-auto fade-in-up">
+<header class="text-center px-6 py-32 max-w-5xl mx-auto fade-in-up hero-animation">
   <h1 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
     <span class="glass-title">Un instante real.</span><br/>
     <span class="glass-subtitle">Un libro abierto.</span><br/>
@@ -84,30 +101,30 @@
 
 <!-- ¿CÓMO FUNCIONA? -->
 <section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="text-4xl font-bold glass-subtitle text-center mb-12">¿Qué ocurre cuando encuentras un Triggui?</h2>
+  <h2 class="text-4xl font-bold glass-subtitle text-center mb-12 fade-in-up">¿Qué ocurre cuando encuentras un Triggui?</h2>
   <div class="grid md:grid-cols-3 gap-10 text-gray-300 text-lg leading-relaxed">
-    <div class="blur-card p-8">Encuentras un <span class="glass-title">libro real</span>. No es casualidad. Es oportunidad.</div>
-    <div class="blur-card p-8">Lees una página. Respiras. Algo <span class="glass-subtitle">despierta en ti</span>.</div>
-    <div class="blur-card p-8">Te vas diferente. Más claro. Más consciente. Más tú.</div>
+    <div class="blur-card p-8 fade-in-up">Encuentras un <span class="glass-title">libro real</span>. No es casualidad. Es oportunidad.</div>
+    <div class="blur-card p-8 fade-in-up">Lees una página. Respiras. Algo <span class="glass-subtitle">despierta en ti</span>.</div>
+    <div class="blur-card p-8 fade-in-up">Te vas diferente. Más claro. Más consciente. Más tú.</div>
   </div>
 </section>
 
 <!-- EXPERIENCIAS REALES -->
 <section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-4xl font-bold text-center glass-title mb-12">Voces que lo vivieron</h2>
+  <h2 class="text-4xl font-bold text-center glass-title mb-12 fade-in-up">Voces que lo vivieron</h2>
   <div class="grid md:grid-cols-3 gap-6 text-base text-gray-400">
-    <div class="blur-card p-8">“Tomé el libro sin pensarlo. Era justo lo que necesitaba leer.”</div>
-    <div class="blur-card p-8">“Un lugar lleno de movimiento... y un instante de paz con un solo libro.”</div>
-    <div class="blur-card p-8">“Desde que tenemos Triggui, nuestros espacios tienen otra energía. Más humana.”</div>
+    <div class="blur-card p-8 fade-in-up">“Tomé el libro sin pensarlo. Era justo lo que necesitaba leer.”</div>
+    <div class="blur-card p-8 fade-in-up">“Un lugar lleno de movimiento... y un instante de paz con un solo libro.”</div>
+    <div class="blur-card p-8 fade-in-up">“Desde que tenemos Triggui, nuestros espacios tienen otra energía. Más humana.”</div>
   </div>
 </section>
 
 <!-- PLANES -->
 <section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-4xl font-bold text-center glass-subtitle mb-12">¿Te gustaría activar tu espacio?</h2>
+  <h2 class="text-4xl font-bold text-center glass-subtitle mb-12 fade-in-up">¿Te gustaría activar tu espacio?</h2>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
-    <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
+    <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition fade-in-up">
       <h3 class="text-xl font-semibold text-[#ff8a00] mb-2 uppercase tracking-wide">Triggui Light</h3>
       <p class="text-3xl font-bold mb-2">$5,000 MXN</p>
       <p class="text-gray-400 mb-4 text-sm">Ideal para cafés, salas de espera, tiendas o lugares que quieren ofrecer algo verdadero.</p>
@@ -119,7 +136,7 @@
       <a href="https://app.triggui.com" class="inline-block bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
     </div>
 
-    <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
+    <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition fade-in-up">
       <h3 class="text-xl font-semibold text-[#00c6ff] mb-2 uppercase tracking-wide">Triggui Pro</h3>
       <p class="text-3xl font-bold mb-2">$35,000 MXN</p>
       <p class="text-gray-400 mb-4 text-sm">Ideal para hoteles, grandes marcas y espacios que quieren dejar huella verdadera.</p>
@@ -136,7 +153,7 @@
 
 <!-- CTA FINAL -->
 <section class="text-center py-24 border-t border-gray-800">
-  <h3 class="text-2xl font-bold glass-title mb-6">Un libro abierto. Un nuevo tú.</h3>
+  <h3 class="text-2xl font-bold glass-title mb-6 fade-in-up">Un libro abierto. Un nuevo tú.</h3>
   <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
 </section>
 
