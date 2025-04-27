@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui – Un libro. Una pausa. Un nuevo momento.</title>
+  <title>Triggui – Leer cambia todo</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
@@ -12,7 +12,7 @@
     body {
       font-family: 'Archivo', sans-serif;
       background: linear-gradient(135deg, #0d0e1a, #1a1c2d);
-      color: #f0f0f0;
+      color: #eeeeee;
       margin: 0;
       padding: 0;
     }
@@ -22,17 +22,17 @@
       bottom: 16px;
       right: 16px;
       z-index: 50;
-      background: linear-gradient(135deg, #ff8a00, #e52e71);
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
       padding: 14px 28px;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 8px 20px rgba(229, 46, 113, 0.4);
+      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
       transition: background 0.3s ease;
     }
 
     .floating-cta:hover {
-      background: linear-gradient(135deg, #e52e71, #ff8a00);
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
     }
 
     .blur-card {
@@ -42,88 +42,82 @@
       border-radius: 18px;
     }
 
-    .glass-title {
-      background: linear-gradient(to right, #8ec5fc, #e0c3fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .glass-accent {
-      background: linear-gradient(to right, #ffb76b, #ff7c8a);
+    .highlight-text {
+      background: linear-gradient(to right, #89f7fe, #66a6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .fade-in-up {
-      animation: fadeInUp 1.5s ease-out both;
+      animation: fadeInUp 1.6s ease-out both;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HERO PRINCIPAL -->
-  <header class="text-center px-6 py-28 max-w-5xl mx-auto fade-in-up">
-    <h1 class="text-5xl md:text-6xl font-bold glass-title mb-6 leading-tight">
-      Un solo libro puede cambiar tu día.
+  <!-- HERO -->
+  <header class="text-center px-6 py-32 max-w-5xl mx-auto fade-in-up">
+    <h1 class="text-5xl md:text-6xl font-bold highlight-text mb-6 leading-tight">
+      Una pausa real. Un libro abierto. Una vida diferente.
     </h1>
     <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-      Triggui lleva libros físicos a lugares reales para que puedas detenerte, respirar, abrir una página... y transformar un instante en algo que recordarás.
+      Triggui crea momentos reales: libros físicos colocados en lugares estratégicos para regalarte instantes de conexión, claridad y propósito.
     </p>
   </header>
 
-  <!-- ¿QUÉ OCURRE? -->
+  <!-- ¿CÓMO FUNCIONA? -->
   <section class="max-w-6xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold glass-accent text-center mb-12">¿Qué sucede al encontrar un Triggui?</h2>
+    <h2 class="text-3xl font-bold highlight-text text-center mb-12">¿Qué pasa cuando encuentras un Triggui?</h2>
     <div class="grid md:grid-cols-3 gap-10 text-gray-300 text-lg leading-relaxed">
-      <div class="blur-card p-6">Encuentras un libro, sin anuncios, sin pantallas. Solo un libro real, en el momento justo.</div>
-      <div class="blur-card p-6">Lees una página. Respiras. Te conectas contigo mismo, con tus ideas, con tu propia historia.</div>
-      <div class="blur-card p-6">Algo cambia en ti. Algo pequeño, pero real. Y ese momento se queda contigo más tiempo de lo que imaginas.</div>
+      <div class="blur-card p-6">Encuentras un libro. No hay ruido. No hay expectativas. Solo tú y una página abierta.</div>
+      <div class="blur-card p-6">Lees una frase, una idea, una historia. Algo resuena. Algo cambia dentro de ti.</div>
+      <div class="blur-card p-6">Te vas diferente. Más claro. Más presente. Y recuerdas ese momento como si fuera eterno.</div>
     </div>
   </section>
 
-  <!-- TESTIMONIOS -->
+  <!-- EXPERIENCIAS REALES -->
   <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-3xl font-bold text-center glass-title mb-12">Lo que han vivido</h2>
+    <h2 class="text-3xl font-bold text-center highlight-text mb-12">Lo que las personas cuentan</h2>
     <div class="grid md:grid-cols-3 gap-6 text-sm text-gray-400">
-      <div class="blur-card p-6">“Estaba esperando mi vuelo. Abrí el libro que dejaron en la sala y encontré una frase que cambió mi día.”</div>
-      <div class="blur-card p-6">“Sin buscarlo, ese libro me recordó algo importante que había olvidado.”</div>
-      <div class="blur-card p-6">“Desde que pusimos un Triggui en nuestro hotel, nuestros huéspedes hablan de la experiencia más que de las habitaciones.”</div>
+      <div class="blur-card p-6">“Ni siquiera buscaba un libro. Estaba en la cafetería, vi uno… y cambió mi día.”</div>
+      <div class="blur-card p-6">“Fue como si alguien pusiera justo frente a mí la frase que necesitaba leer.”</div>
+      <div class="blur-card p-6">“Ahora busco Trigguis en cada lugar. Porque sé que no es solo un libro, es un momento para mí.”</div>
     </div>
   </section>
 
   <!-- PLANES -->
   <section class="max-w-6xl mx-auto px-6 py-24">
-    <h2 class="text-4xl font-bold text-center glass-title mb-12">Lleva Triggui a tu espacio</h2>
+    <h2 class="text-4xl font-bold text-center highlight-text mb-12">¿Quieres activar tu propio espacio?</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
 
       <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
-        <h3 class="text-xl font-semibold text-[#ffb76b] mb-2 uppercase tracking-wide">Triggui Light</h3>
+        <h3 class="text-xl font-semibold text-[#66a6ff] mb-2 uppercase tracking-wide">Triggui Light</h3>
         <p class="text-3xl font-bold mb-2">$5,000 MXN</p>
-        <p class="text-gray-400 mb-4 text-sm">Ideal para cafeterías, salas de espera, pequeños hoteles o espacios donde un libro puede marcar la diferencia.</p>
+        <p class="text-gray-400 mb-4 text-sm">Una activación simple y poderosa para cafeterías, salas de espera o espacios íntimos.</p>
         <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2 mb-6">
           <li>1 libro físico activado</li>
-          <li>Guía de colocación estratégica</li>
-          <li>Acceso a contenido de inspiración diaria</li>
+          <li>Guía estratégica de colocación</li>
+          <li>Inspiraciones diarias por correo</li>
         </ul>
-        <a href="https://app.triggui.com" class="inline-block bg-[#ffb76b] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ff9940] transition">Solicitar ahora</a>
+        <a href="https://app.triggui.com" class="inline-block bg-[#66a6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#89f7fe] transition">Solicitar</a>
       </div>
 
       <div class="blur-card p-8 rounded-xl border border-gray-700 hover:bg-[#1c1e2a] transition">
-        <h3 class="text-xl font-semibold text-[#8ec5fc] mb-2 uppercase tracking-wide">Triggui Pro</h3>
+        <h3 class="text-xl font-semibold text-[#89f7fe] mb-2 uppercase tracking-wide">Triggui Pro</h3>
         <p class="text-3xl font-bold mb-2">$35,000 MXN</p>
-        <p class="text-gray-400 mb-4 text-sm">Para empresas, hoteles grandes o espacios que quieren dejar una huella emocional real en las personas.</p>
+        <p class="text-gray-400 mb-4 text-sm">Para espacios grandes, marcas, hoteles o líderes que quieren dejar huella real en cada persona.</p>
         <ul class="list-disc pl-5 text-gray-300 text-sm space-y-2 mb-6">
           <li>5 libros físicos activados</li>
           <li>Diseño emocional del entorno</li>
-          <li>Integración con TrigguiApp para inspiraciones personalizadas</li>
+          <li>Integración especial con TrigguiApp</li>
         </ul>
-        <a href="https://app.triggui.com" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Agendar presentación</a>
+        <a href="https://app.triggui.com" class="inline-block bg-[#89f7fe] text-black font-bold px-6 py-3 rounded-full hover:bg-[#66a6ff] transition">Agendar</a>
       </div>
 
     </div>
@@ -131,8 +125,8 @@
 
   <!-- CTA FINAL -->
   <section class="text-center py-24 border-t border-gray-800">
-    <h3 class="text-2xl font-bold glass-accent mb-6">Un instante real. Una nueva perspectiva.</h3>
-    <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Descubre TrigguiApp</a>
+    <h3 class="text-2xl font-bold highlight-text mb-6">Un libro abierto. Una vida despierta.</h3>
+    <a href="https://app.triggui.com" class="inline-block bg-[#0072ff] text-white font-bold px-8 py-3 rounded-full hover:bg-[#00c6ff] transition">Explorar TrigguiApp</a>
   </section>
 
   <!-- BOTÓN FLOTANTE -->
@@ -140,7 +134,7 @@
 
   <!-- FOOTER -->
   <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
-    © 2025 Triggui · Leer un libro real cambia más de lo que imaginas.
+    © 2025 Triggui · Un instante real puede cambiarlo todo.
   </footer>
 
 </body>
