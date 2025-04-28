@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Triggui – Un libro. Un lugar. Un momento.</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
     html, body {
@@ -90,26 +90,29 @@
   </style>
 
   <script>
+    window.addEventListener('pageshow', function(event) {
+      const navEntries = performance.getEntriesByType('navigation');
+      const isBackForward = navEntries.length && navEntries[0].type === 'back_forward';
+      if (isBackForward) {
+        window.scrollTo(0, 0);
+      }
+    });
+
     window.onbeforeunload = function () {
       window.scrollTo(0, 0);
     };
-    window.addEventListener('pageshow', function(event) {
-      if (event.persisted) {
-        window.location.reload();
-      }
-    });
   </script>
 </head>
 
-<body>
+<body class="bg-gradient-to-br from-[#0d0e1a] to-[#1a1c2d]">
 
 <!-- HERO -->
 <header class="text-center px-6 py-32 max-w-5xl mx-auto">
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
-    <span class="glass-title">Un libro.<br/>Un lugar.<br/>Un momento.</span>
+    <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
   <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-    Toma un libro físico. Ábrelo donde sea. Lee el párrafo que caiga.<br/>
+    Toma un libro físico. Ábrelo donde sea. Lee el párrafo que caiga.<br>
     Un pequeño acto que puede cambiar tu día. O tu vida.
   </p>
 </header>
@@ -146,7 +149,6 @@
 <!-- PLANES -->
 <section class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-title text-center mb-12">¿Cómo sembrar libros en tu espacio?</h2>
-
   <div class="grid md:grid-cols-3 gap-10">
     <div class="blur-card p-8 text-center">
       <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">Triggui App</h3>
