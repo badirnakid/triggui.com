@@ -37,18 +37,41 @@
       bottom: 18px;
       right: 18px;
       z-index: 50;
-      background: linear-gradient(135deg, #ff5f6d, #ffc371);
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
       color: white;
       padding: 14px 30px;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 8px 20px rgba(255, 95, 109, 0.4);
+      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+      animation: pulseGlow 2.5s infinite;
       transition: all 0.4s ease;
     }
 
     .floating-cta:hover {
-      background: linear-gradient(135deg, #ffc371, #ff5f6d);
+      background: linear-gradient(135deg, #0072ff, #00c6ff);
       transform: scale(1.05);
+    }
+
+    .pulse-button {
+      animation: pulseButton 2.8s infinite;
+    }
+
+    @keyframes pulseButton {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 20px 10px rgba(108, 92, 231, 0.4);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(0, 114, 255, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 20px 8px rgba(0, 114, 255, 0.3);
+      }
     }
 
     .blur-card {
@@ -77,19 +100,6 @@
       -webkit-text-fill-color: transparent;
       font-weight: 700;
     }
-
-    .pulse-button {
-      animation: pulseGlow 2.8s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 25px 10px rgba(108, 92, 231, 0.4);
-      }
-    }
   </style>
 </head>
 
@@ -101,7 +111,7 @@
     <span class="glass-title">Un libro.<br/>Un lugar.<br/>Un momento.</span>
   </h1>
   <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-    Toma un libro físico. Ábrelo donde sea. Lee el párrafo que caiga.  
+    Toma un libro físico. Ábrelo donde sea. Lee el párrafo que caiga.<br/>
     Un pequeño acto que puede cambiar tu día. O tu vida.
   </p>
 </header>
@@ -177,7 +187,7 @@
 </section>
 
 <!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">Ir a TrigguiApp</a>
+<a href="https://app.triggui.com" class="floating-cta">Explorar</a>
 
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
