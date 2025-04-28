@@ -52,19 +52,6 @@
       transform: scale(1.05);
     }
 
-    .pulse-button {
-      animation: pulseButton 2.8s infinite;
-    }
-
-    @keyframes pulseButton {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 20px 10px rgba(108, 92, 231, 0.4);
-      }
-    }
-
     @keyframes pulseGlow {
       0%, 100% {
         box-shadow: 0 0 0 0 rgba(0, 114, 255, 0.6);
@@ -99,6 +86,19 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 700;
+    }
+
+    .pulse-button {
+      animation: pulseButton 2.8s infinite;
+    }
+
+    @keyframes pulseButton {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
+      }
+      50% {
+        box-shadow: 0 0 20px 10px rgba(108, 92, 231, 0.4);
+      }
     }
   </style>
 </head>
@@ -187,7 +187,7 @@
 </section>
 
 <!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">Explorar</a>
+<a href="https://app.triggui.com" class="floating-cta">Ir a TrigguiApp</a>
 
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
