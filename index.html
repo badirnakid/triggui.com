@@ -18,8 +18,18 @@
       overflow-x: hidden;
     }
 
-    section {
-      transition: all 0.8s ease;
+    section, header {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInSlide 1.8s forwards;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes fadeInSlide {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .floating-cta {
@@ -46,12 +56,12 @@
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 20px;
-      transition: transform 0.4s ease, background 0.4s ease;
+      transition: transform 0.6s ease, background 0.6s ease;
     }
 
     .blur-card:hover {
       background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-5px);
+      transform: translateY(-8px);
     }
 
     .glass-title {
@@ -67,31 +77,13 @@
       -webkit-text-fill-color: transparent;
       font-weight: 700;
     }
-
-    .fade-in-up {
-      animation: fadeInUp 1.4s ease-out both;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-animation {
-      animation: breathing 8s ease-in-out infinite;
-    }
-
-    @keyframes breathing {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.015); }
-    }
   </style>
 </head>
 
 <body>
 
 <!-- HERO -->
-<header class="text-center px-6 py-32 max-w-5xl mx-auto fade-in-up hero-animation">
+<header style="--delay: 0s" class="text-center px-6 py-32 max-w-5xl mx-auto">
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
     <span class="glass-title">Un libro.<br/>Un lugar.<br/>Un momento.</span>
   </h1>
@@ -102,7 +94,7 @@
 </header>
 
 <!-- ¿QUÉ PASA? -->
-<section class="max-w-6xl mx-auto px-6 py-20 fade-in-up">
+<section style="--delay: 0.4s" class="max-w-6xl mx-auto px-6 py-20">
   <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">¿Qué puede pasar si abres un libro?</h2>
   <div class="grid md:grid-cols-3 gap-10 text-gray-300 text-lg leading-relaxed">
     <div class="blur-card p-8">Encuentras justo las palabras que necesitabas hoy.</div>
@@ -112,7 +104,7 @@
 </section>
 
 <!-- DIFERENCIADOR -->
-<section class="max-w-6xl mx-auto px-6 py-24 fade-in-up">
+<section style="--delay: 0.8s" class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-title text-center mb-12">Triggui siembra libros reales en el mundo real</h2>
   <p class="text-xl text-center text-gray-300 max-w-3xl mx-auto mb-12">
     Porque en cada cafetería, sala de espera, aeropuerto o tienda... debería haber siempre un libro esperándote.
@@ -120,7 +112,7 @@
 </section>
 
 <!-- TESTIMONIOS -->
-<section class="max-w-6xl mx-auto px-6 py-24 fade-in-up">
+<section style="--delay: 1.2s" class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">Lo que la gente siente</h2>
   <div class="grid md:grid-cols-2 gap-8 text-gray-300 text-lg">
     <div class="blur-card p-8">“Vi un libro sobre la mesa. Lo abrí sin pensar. Lo que leí cambió mi humor todo el día.”</div>
@@ -131,7 +123,7 @@
 </section>
 
 <!-- PLANES -->
-<section class="max-w-6xl mx-auto px-6 py-24 fade-in-up">
+<section style="--delay: 1.6s" class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-title text-center mb-12">¿Cómo sembrar libros en tu espacio?</h2>
 
   <div class="grid md:grid-cols-3 gap-10">
@@ -161,7 +153,7 @@
 </section>
 
 <!-- CTA FINAL -->
-<section class="text-center py-24 border-t border-gray-800 fade-in-up">
+<section style="--delay: 2s" class="text-center py-24 border-t border-gray-800">
   <h3 class="text-2xl font-bold glass-title mb-6">Cada página puede ser una nueva conexión contigo mismo.</h3>
   <p class="text-gray-400 mb-6">Triggui te ayuda a hacer que eso suceda. Un libro a la vez.</p>
   <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
