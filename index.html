@@ -7,6 +7,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     html, body {
       scroll-behavior: smooth;
@@ -16,19 +17,6 @@
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-    }
-
-    .pulse {
-      animation: pulseGlow 2.5s infinite;
-    }
-
-    @keyframes pulseGlow {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(0, 114, 255, 0.6);
-      }
-      50% {
-        box-shadow: 0 0 20px 8px rgba(0, 114, 255, 0.3);
-      }
     }
 
     .glass-title {
@@ -75,16 +63,6 @@
     .floating-cta:hover {
       transform: scale(1.05);
     }
-
-    /* Contador estilo */
-    .counter-number {
-      font-size: 3rem;
-      font-weight: 800;
-      background: linear-gradient(to right, #6a11cb, #2575fc);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      text-align: center;
-    }
   </style>
 </head>
 
@@ -98,10 +76,18 @@
   <p class="text-xl text-gray-300 max-w-2xl mx-auto">Triggui es una pausa, una chispa, un instante real.<br>Solo necesitas abrir un libro físico.</p>
 </header>
 
-<!-- CONTADOR CHÓCALAS -->
-<section class="max-w-3xl mx-auto text-center py-12 px-6">
-  <h2 class="text-2xl font-bold glass-subtitle mb-4">Personas que han abierto un libro físico hoy:</h2>
-  <div class="counter-number" id="contadorChocalas">+0</div>
+<!-- IMPACTO REAL -->
+<section class="max-w-3xl mx-auto text-center py-20 px-6">
+  <h2 class="text-2xl md:text-3xl font-bold glass-subtitle mb-4">
+    Impacto real, sin algoritmos
+  </h2>
+  <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+    Cada vez que alguien abre un libro físico gracias a Triggui, el mundo se detiene por un instante.<br>Ese instante cuenta. Y ya van...
+  </p>
+  <div class="text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 drop-shadow-lg tracking-wide" id="contadorChocalas">
+    +8,000
+  </div>
+  <p class="text-sm text-gray-500 mt-4 italic">libros físicos abiertos desde el corazón ✨</p>
 </section>
 
 <!-- DIFERENCIADOR -->
@@ -114,12 +100,12 @@
 <section class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">Planes que activan la lectura</h2>
   <div class="grid md:grid-cols-3 gap-10">
-    <!-- Plan Básico -->
+    <!-- Básico -->
     <div class="blur-card p-8 text-center">
       <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
       <p class="text-gray-300 mb-6 text-sm">Inspiración diaria, frases accionables, app y comunidad.</p>
-      <a href="https://checkout.stripe.com/pay/..." class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Suscribirme</a>
+      <a href="https://checkout.stripe.com/pay/TU_LINK_AQUI" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Suscribirme</a>
     </div>
     <!-- Light -->
     <div class="blur-card p-8 text-center">
@@ -156,11 +142,12 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
+<!-- JS DEL CONTADOR -->
 <script>
-// Simulación contador dinámico (puede conectarse a Firestore en producción)
-let base = 8452;
-let incremento = Math.floor(Math.random() * 4 + 1);  // +1 a +4
-document.getElementById('contadorChocalas').textContent = `+${base + incremento}`;
+  const baseChocalas = 8000;
+  const incremento = Math.floor(Math.random() * 6 + 2);
+  const total = baseChocalas + incremento;
+  document.getElementById('contadorChocalas').textContent = '+' + total.toLocaleString('es-MX');
 </script>
 
 </body>
