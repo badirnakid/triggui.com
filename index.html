@@ -7,7 +7,6 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
-
   <style>
     html, body {
       scroll-behavior: smooth;
@@ -19,24 +18,8 @@
       overflow-x: hidden;
     }
 
-    .floating-cta {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      z-index: 50;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      color: white;
-      padding: 14px 30px;
-      font-weight: bold;
-      border-radius: 999px;
-      box-shadow: 0 8px 20px rgba(0, 114, 255, 0.4);
+    .pulse {
       animation: pulseGlow 2.5s infinite;
-      transition: all 0.4s ease;
-    }
-
-    .floating-cta:hover {
-      background: linear-gradient(135deg, #0072ff, #00c6ff);
-      transform: scale(1.05);
     }
 
     @keyframes pulseGlow {
@@ -46,19 +29,6 @@
       50% {
         box-shadow: 0 0 20px 8px rgba(0, 114, 255, 0.3);
       }
-    }
-
-    .blur-card {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      transition: transform 0.6s ease, background 0.6s ease;
-    }
-
-    .blur-card:hover {
-      background: rgba(255, 255, 255, 0.06);
-      transform: translateY(-8px);
     }
 
     .glass-title {
@@ -75,110 +45,104 @@
       font-weight: 700;
     }
 
-    .pulse-button {
-      animation: pulseButton 2.8s infinite;
+    .blur-card {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      transition: transform 0.4s ease, background 0.4s ease;
     }
 
-    @keyframes pulseButton {
-      0%, 100% {
-        box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7);
-      }
-      50% {
-        box-shadow: 0 0 20px 10px rgba(108, 92, 231, 0.4);
-      }
+    .blur-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-6px);
+    }
+
+    .floating-cta {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 50;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: white;
+      padding: 14px 30px;
+      font-weight: bold;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(255, 94, 98, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .floating-cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* Contador estilo */
+    .counter-number {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
     }
   </style>
-
-  <script>
-    window.addEventListener('pageshow', function(event) {
-      const navEntries = performance.getEntriesByType('navigation');
-      const isBackForward = navEntries.length && navEntries[0].type === 'back_forward';
-      if (isBackForward) {
-        window.scrollTo(0, 0);
-      }
-    });
-
-    window.onbeforeunload = function () {
-      window.scrollTo(0, 0);
-    };
-  </script>
 </head>
 
-<body class="bg-gradient-to-br from-[#0d0e1a] to-[#1a1c2d]">
+<body>
 
 <!-- HERO -->
 <header class="text-center px-6 py-32 max-w-5xl mx-auto">
-  <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-8">
+  <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
     <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-    Toma un libro físico. Ábrelo donde sea. Lee el párrafo que caiga.<br>
-    Un pequeño acto que puede cambiar tu día. O tu vida.
-  </p>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto">Triggui es una pausa, una chispa, un instante real.<br>Solo necesitas abrir un libro físico.</p>
 </header>
 
-<!-- ¿QUÉ PASA? -->
-<section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">¿Qué puede pasar si abres un libro?</h2>
-  <div class="grid md:grid-cols-3 gap-10 text-gray-300 text-lg leading-relaxed">
-    <div class="blur-card p-8">Encuentras justo las palabras que necesitabas hoy.</div>
-    <div class="blur-card p-8">Recuerdas algo importante que habías olvidado.</div>
-    <div class="blur-card p-8">Descubres un impulso, una idea, una chispa nueva.</div>
-  </div>
+<!-- CONTADOR CHÓCALAS -->
+<section class="max-w-3xl mx-auto text-center py-12 px-6">
+  <h2 class="text-2xl font-bold glass-subtitle mb-4">Personas que han abierto un libro físico hoy:</h2>
+  <div class="counter-number" id="contadorChocalas">+0</div>
 </section>
 
 <!-- DIFERENCIADOR -->
 <section class="max-w-6xl mx-auto px-6 py-24">
   <h2 class="text-3xl font-bold glass-title text-center mb-12">Triggui siembra libros reales en el mundo real</h2>
-  <p class="text-xl text-center text-gray-300 max-w-3xl mx-auto mb-12">
-    Porque en cada cafetería, sala de espera, aeropuerto o tienda... debería haber siempre un libro esperándote.
-  </p>
-</section>
-
-<!-- TESTIMONIOS -->
-<section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">Lo que la gente siente</h2>
-  <div class="grid md:grid-cols-2 gap-8 text-gray-300 text-lg">
-    <div class="blur-card p-8">“Vi un libro sobre la mesa. Lo abrí sin pensar. Lo que leí cambió mi humor todo el día.”</div>
-    <div class="blur-card p-8">“No tenía libro y estaba atrapado en el celular. Ver un libro ahí fue un salvavidas.”</div>
-    <div class="blur-card p-8">“Ahora entiendo: un solo libro puede ser un refugio portátil para el alma.”</div>
-    <div class="blur-card p-8">“Gracias por recordarme que soy más yo cuando estoy leyendo.”</div>
-  </div>
+  <p class="text-xl text-center text-gray-300 max-w-3xl mx-auto">Porque cada aeropuerto, cafetería o sala de espera merece tener un libro esperándote.</p>
 </section>
 
 <!-- PLANES -->
 <section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold glass-title text-center mb-12">¿Cómo sembrar libros en tu espacio?</h2>
+  <h2 class="text-3xl font-bold glass-subtitle text-center mb-12">Planes que activan la lectura</h2>
   <div class="grid md:grid-cols-3 gap-10">
+    <!-- Plan Básico -->
     <div class="blur-card p-8 text-center">
       <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="text-gray-300 mb-6 text-sm">Acceso a la app, inspiración diaria, frases, recomendaciones y apoyo vía WhatsApp.</p>
-      <a href="https://app.triggui.com" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Acceder</a>
+      <p class="text-gray-300 mb-6 text-sm">Inspiración diaria, frases accionables, app y comunidad.</p>
+      <a href="https://checkout.stripe.com/pay/..." class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Suscribirme</a>
     </div>
-
+    <!-- Light -->
     <div class="blur-card p-8 text-center">
       <h3 class="text-xl font-bold text-[#ff8a00] mb-2 uppercase">Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="text-gray-300 mb-6 text-sm">Un libro colocado estratégicamente cada semana + acceso a la app + acompañamiento.</p>
-      <a href="https://app.triggui.com" class="inline-block bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
+      <p class="text-gray-300 mb-6 text-sm">1 libro sembrado por semana en tu espacio. Triggui App incluida.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
     </div>
-
+    <!-- Pro -->
     <div class="blur-card p-8 text-center">
       <h3 class="text-xl font-bold text-[#00c6ff] mb-2 uppercase">Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="text-gray-300 mb-6 text-sm">Zona de activación emocional: libros, experiencia física, app, inspiración continua y mucho más.</p>
-      <a href="https://app.triggui.com" class="inline-block bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
+      <p class="text-gray-300 mb-6 text-sm">Zonas de activación emocional, experiencias físicas y digitales.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
+<!-- CTA -->
 <section class="text-center py-24 border-t border-gray-800">
-  <h3 class="text-2xl font-bold glass-title mb-6">Cada página puede ser una nueva conexión contigo mismo.</h3>
-  <p class="text-gray-400 mb-6">Triggui te ayuda a hacer que eso suceda. Un libro a la vez.</p>
-  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition pulse-button">Explorar TrigguiApp</a>
-
+  <h3 class="text-2xl font-bold glass-title mb-4">Cada página puede cambiar tu frecuencia.</h3>
+  <p class="text-gray-400 mb-6">Triggui es solo el inicio.</p>
+  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition pulse">Explorar TrigguiApp</a>
   <div class="mt-12">
     <img src="/trigguiletras.png" alt="Triggui" class="mx-auto w-32 opacity-90" />
   </div>
@@ -191,6 +155,13 @@
 <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
+
+<script>
+// Simulación contador dinámico (puede conectarse a Firestore en producción)
+let base = 8452;
+let incremento = Math.floor(Math.random() * 4 + 1);  // +1 a +4
+document.getElementById('contadorChocalas').textContent = `+${base + incremento}`;
+</script>
 
 </body>
 </html>
