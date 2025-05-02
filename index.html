@@ -14,7 +14,6 @@
       color: #f5f5f5;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
     }
     .glass-title {
       background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
@@ -22,12 +21,22 @@
       -webkit-text-fill-color: transparent;
       font-weight: 800;
     }
-    .counter-hero {
-      font-size: 2.5rem;
+    .counter {
+      font-size: 2rem;
       font-weight: 700;
-      background: linear-gradient(to right, #ff8a00, #00c6ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #facc15;
+      margin-top: 1rem;
+    }
+    .widget {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    .widget:hover {
+      transform: translateY(-4px);
     }
     .floating-cta {
       position: fixed;
@@ -53,44 +62,50 @@
 <!-- HERO -->
 <header class="text-center px-6 py-28 max-w-5xl mx-auto">
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-    <span class="glass-title">Un libro. <br> Un lugar. <br> Un momento.</span>
+    <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <div id="contadorVisible" class="counter-hero my-6">📚 +0 libros físicos abiertos</div>
-  <p class="text-lg text-gray-300 max-w-2xl mx-auto mt-4">
-    Toma cualquier libro físico. Ábrelo donde sea. Lee el párrafo que caiga.<br>
-    Un pequeño acto que puede cambiar tu día... o tu vida.
+  <div class="counter" id="contadorHero">+0</div>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
+    Algo mágico ocurre cuando abres un libro físico. Triggui es un instante real, sin algoritmos. Sólo tú y la página que elijas.
   </p>
 </header>
 
-<!-- QUÉ PROBLEMA RESUELVE -->
-<section class="max-w-3xl mx-auto text-center py-20 px-6">
-  <h2 class="text-2xl md:text-3xl font-bold glass-subtitle mb-6">¿Te cuesta leer más?</h2>
-  <p class="text-lg text-gray-400 leading-relaxed mb-4">
-    ¿Saltas entre libros y no terminas ninguno? <br>
-    ¿Quieres dejar el celular pero no sabes por dónde empezar?
-  </p>
-  <p class="text-lg text-gray-400 leading-relaxed">
-    Triggui te ayuda a crear el hábito más poderoso de todos: <br>
-    Abrir un libro físico y recibir lo que necesitas hoy.
+<!-- PREGUNTAS -->
+<section class="max-w-6xl mx-auto px-6 py-20 text-center">
+  <h2 class="text-2xl font-bold glass-subtitle mb-10">¿Y si este libro que aún no abres… fuera justo lo que necesitas?</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
+    <div class="widget">“Quiero leer más, pero nunca empiezo.”</div>
+    <div class="widget">“Me distraigo fácilmente. ¿Cómo retomo el hábito?”</div>
+    <div class="widget">“Extraño la sensación de sostener un libro real.”</div>
+    <div class="widget">“Leo frases sueltas… pero eso es lo único que me funciona.”</div>
+    <div class="widget">“Busco momentos de pausa, sin pantallas.”</div>
+    <div class="widget">“Quiero una señal, algo que me diga qué leer hoy.”</div>
+  </div>
+</section>
+
+<!-- DIFERENCIADOR -->
+<section class="max-w-4xl mx-auto text-center px-6 py-20">
+  <h2 class="text-2xl md:text-3xl font-bold glass-title mb-6">Triggui siembra libros físicos en espacios reales</h2>
+  <p class="text-gray-300 text-lg">
+    Porque creemos que cada sala de espera, cafetería o lobby debería darte una oportunidad de reconectar contigo mismo a través de un libro.
   </p>
 </section>
 
 <!-- TESTIMONIOS -->
-<section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold glass-title text-center mb-12">Lo que la gente ha dicho</h2>
-  <div class="grid md:grid-cols-2 gap-8 text-gray-300 text-lg">
-    <div class="blur-card p-8">“No sé ni qué estaba viendo en el celular. Abrí el libro… y conecté conmigo.”</div>
-    <div class="blur-card p-8">“Una pausa real, sin apps. Solo yo y el libro.”</div>
-    <div class="blur-card p-8">“No sabía lo que necesitaba hasta que leí ese párrafo.”</div>
-    <div class="blur-card p-8">“Me recordó que soy más yo cuando estoy leyendo.”</div>
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="text-2xl font-bold glass-subtitle text-center mb-10">Lo que la gente ha sentido</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300">
+    <div class="widget">“No tenía idea de qué leer. El libro estaba ahí. Abrí una página y fue justo lo que necesitaba.”</div>
+    <div class="widget">“No importa si lo termino o no. Con un párrafo tuve suficiente.”</div>
+    <div class="widget">“Triggui me ayudó a dejar el celular, aunque fuera por 5 minutos. Eso ya es mucho.”</div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="text-center py-24 border-t border-gray-800">
-  <h3 class="text-2xl font-bold glass-title mb-4">Haz la prueba. Abre un libro. Siente el cambio.</h3>
-  <p class="text-gray-400 mb-6">Triggui no es una app. Es un instante.</p>
-  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Probar TrigguiApp</a>
+  <h3 class="text-2xl font-bold glass-title mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
+  <p class="text-gray-400 mb-6">Triggui App te da el impulso. El libro hace el resto.</p>
+  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
   <div class="mt-12">
     <img src="/trigguiletras.png" alt="Triggui" class="mx-auto w-32 opacity-90" />
   </div>
@@ -106,28 +121,16 @@
 
 <!-- JS CONTADOR -->
 <script>
-  const el = document.getElementById("contadorVisible");
+  const el = document.getElementById("contadorHero");
 
   fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
-      const target = data.total || 0;
-      let current = 0;
-      const increment = Math.ceil(target / 60);
-      const step = () => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          el.textContent = `📚 ${target.toLocaleString('es-MX')} libros físicos abiertos`;
-        } else {
-          el.textContent = `📚 ${current.toLocaleString('es-MX')} libros físicos abiertos`;
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
+      const total = data.total || 0;
+      el.textContent = "+" + total.toLocaleString("es-MX");
     })
     .catch(() => {
-      el.textContent = "📚 Miles de libros físicos abiertos";
+      el.textContent = "+8,000";
     });
 </script>
 
