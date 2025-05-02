@@ -21,11 +21,19 @@
       -webkit-text-fill-color: transparent;
       font-weight: 800;
     }
-    .counter {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #facc15;
+    .contador-animado {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 800;
+      background: linear-gradient(to right, #ff416c, #ffcc00, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.02em;
       margin-top: 1rem;
+    }
+    .contador-descripcion {
+      font-size: 1rem;
+      color: #d1d5db;
+      margin-top: 0.5rem;
     }
     .widget {
       backdrop-filter: blur(12px);
@@ -64,7 +72,8 @@
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
     <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <div class="counter" id="contadorHero">+0</div>
+  <div id="contadorHero" class="contador-animado">+0</div>
+  <div class="contador-descripcion" id="textoContador">Juntos hemos abierto libros físicos</div>
   <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
     Algo mágico ocurre cuando abres un libro físico. Triggui es un instante real, sin algoritmos. Sólo tú y la página que elijas.
   </p>
@@ -72,14 +81,14 @@
 
 <!-- PREGUNTAS -->
 <section class="max-w-6xl mx-auto px-6 py-20 text-center">
-  <h2 class="text-2xl font-bold glass-subtitle mb-10">¿Y si este libro que aún no abres… fuera justo lo que necesitas?</h2>
+  <h2 class="text-2xl font-bold glass-subtitle mb-10">¿Y si ese libro sin abrir… fuera justo lo que necesitas?</h2>
   <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
-    <div class="widget">“Quiero leer más, pero nunca empiezo.”</div>
-    <div class="widget">“Me distraigo fácilmente. ¿Cómo retomo el hábito?”</div>
-    <div class="widget">“Extraño la sensación de sostener un libro real.”</div>
-    <div class="widget">“Leo frases sueltas… pero eso es lo único que me funciona.”</div>
-    <div class="widget">“Busco momentos de pausa, sin pantallas.”</div>
-    <div class="widget">“Quiero una señal, algo que me diga qué leer hoy.”</div>
+    <div class="widget">“Quiero leer más, pero me cuesta empezar.”</div>
+    <div class="widget">“Leo solo fragmentos... pero eso es lo que más me ayuda.”</div>
+    <div class="widget">“Quiero salir del celular al menos un momento al día.”</div>
+    <div class="widget">“Me encantaría abrir un libro al azar y recibir una señal.”</div>
+    <div class="widget">“Extraño el tacto y la pausa de los libros físicos.”</div>
+    <div class="widget">“Necesito algo real, aunque sea por unos minutos.”</div>
   </div>
 </section>
 
@@ -119,18 +128,37 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- JS CONTADOR -->
+<!-- JS CONTADOR ANIMADO -->
 <script>
   const el = document.getElementById("contadorHero");
+  const texto = document.getElementById("textoContador");
 
   fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
-      const total = data.total || 0;
-      el.textContent = "+" + total.toLocaleString("es-MX");
+      const target = data.total || 0;
+      let current = 0;
+      const duration = 1400;
+      const steps = 40;
+      const increment = Math.ceil(target / steps);
+
+      const animate = () => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          el.textContent = "+" + current.toLocaleString("es-MX");
+          texto.textContent = `Juntos hemos abierto ${current.toLocaleString("es-MX")} libros físicos`;
+        } else {
+          el.textContent = "+" + current.toLocaleString("es-MX");
+          texto.textContent = `Juntos hemos abierto ${current.toLocaleString("es-MX")} libros físicos`;
+          requestAnimationFrame(animate);
+        }
+      };
+      requestAnimationFrame(animate);
     })
     .catch(() => {
       el.textContent = "+8,000";
+      texto.textContent = "Miles de libros físicos abiertos";
     });
 </script>
 
