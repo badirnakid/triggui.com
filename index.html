@@ -21,19 +21,13 @@
       -webkit-text-fill-color: transparent;
       font-weight: 800;
     }
-    .contador-animado {
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      font-weight: 800;
-      background: linear-gradient(to right, #ff416c, #ffcc00, #00c6ff);
+    .numero-impacto {
+      font-size: clamp(1.5rem, 6vw, 2.4rem);
+      font-weight: 700;
+      background: linear-gradient(to right, #00f2fe, #ff00c7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      letter-spacing: 0.02em;
-      margin-top: 1rem;
-    }
-    .contador-descripcion {
-      font-size: 1rem;
-      color: #d1d5db;
-      margin-top: 0.5rem;
+      display: inline-block;
     }
     .widget {
       backdrop-filter: blur(12px);
@@ -72,10 +66,11 @@
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
     <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <div id="contadorHero" class="contador-animado">+0</div>
-  <div class="contador-descripcion" id="textoContador">Juntos hemos abierto libros físicos</div>
   <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6">
-    Algo mágico ocurre cuando abres un libro físico. Triggui es un instante real, sin algoritmos. Sólo tú y la página que elijas.
+    Algo mágico ocurre cuando abres un libro físico.<br />
+    <span id="contadorTexto" class="mt-4 block text-lg text-gray-200">
+      Juntos hemos abierto <span class="numero-impacto" id="numeroImpacto">0</span> libros físicos.
+    </span>
   </p>
 </header>
 
@@ -130,15 +125,13 @@
 
 <!-- JS CONTADOR ANIMADO -->
 <script>
-  const el = document.getElementById("contadorHero");
-  const texto = document.getElementById("textoContador");
+  const span = document.getElementById("numeroImpacto");
 
   fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
       const target = data.total || 0;
       let current = 0;
-      const duration = 1400;
       const steps = 40;
       const increment = Math.ceil(target / steps);
 
@@ -146,19 +139,17 @@
         current += increment;
         if (current >= target) {
           current = target;
-          el.textContent = "+" + current.toLocaleString("es-MX");
-          texto.textContent = `Juntos hemos abierto ${current.toLocaleString("es-MX")} libros físicos`;
+          span.textContent = current.toLocaleString("es-MX");
         } else {
-          el.textContent = "+" + current.toLocaleString("es-MX");
-          texto.textContent = `Juntos hemos abierto ${current.toLocaleString("es-MX")} libros físicos`;
+          span.textContent = current.toLocaleString("es-MX");
           requestAnimationFrame(animate);
         }
       };
+
       requestAnimationFrame(animate);
     })
     .catch(() => {
-      el.textContent = "+8,000";
-      texto.textContent = "Miles de libros físicos abiertos";
+      span.textContent = "8,000";
     });
 </script>
 
