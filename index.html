@@ -6,101 +6,76 @@
   <title>Triggui — Un libro. Un lugar. Un momento.</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      height: 100%;
       font-family: 'Archivo', sans-serif;
       background: #0d0e1a;
       color: #fff;
-      scroll-behavior: smooth;
+      height: 100%;
       overflow-x: hidden;
     }
-    h1, h2 { font-weight: 700; line-height: 1.2; }
-    p { opacity: 0.85; line-height: 1.6; }
-    section { padding: 10vh 8vw; max-width: 1200px; margin: auto; }
-
-    /* Hero */
+    canvas#bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+    }
     .hero {
       height: 100vh;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
       text-align: center;
-      background: radial-gradient(ellipse at top left, #1a1c2d, #0d0e1a);
-      background-size: 200% 200%;
-      animation: backgroundMotion 15s ease infinite;
+      padding: 0 2rem;
     }
     .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 5rem);
+      font-size: clamp(2.5rem, 7vw, 5rem);
       background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 1.5rem;
+      font-weight: 700;
     }
     .hero p {
-      font-size: clamp(1.1rem, 2vw, 1.4rem);
-      max-width: 700px;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      margin-top: 1.5rem;
+      max-width: 720px;
+      opacity: 0.75;
+    }
+    .contador {
+      margin-top: 3rem;
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 800;
+      color: #ffcc00;
+      text-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
+    }
+    section {
+      padding: 10vh 10vw;
+      max-width: 1200px;
       margin: auto;
     }
-
-    @keyframes backgroundMotion {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Contador */
-    .contador {
-      text-align: center;
-      padding: 6vh 2vw;
-      background: #111827;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
-    }
-    .contador .valor {
-      font-size: clamp(3rem, 9vw, 6rem);
-      color: #ffcc00;
-      font-weight: 800;
-      text-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
-    }
-    .contador p {
-      font-size: 1.2rem;
-      margin-top: 1rem;
-    }
-
-    /* Problemas */
-    .problemas {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      margin-top: 2rem;
-    }
-    .problema {
-      background: #1f2533;
-      border-radius: 14px;
-      padding: 1.5rem;
-      font-size: 1.1rem;
-      line-height: 1.5;
-      transition: 0.3s ease;
-      border: 1px solid transparent;
-    }
-    .problema:hover {
-      border: 1px solid #444;
-      background: #242a3b;
-    }
-
-    .titulo-section {
-      font-size: clamp(1.6rem, 4vw, 2.5rem);
-      margin-bottom: 2rem;
-      text-align: center;
+    .section-title {
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
       background: linear-gradient(to right, #00f2fe, #ff8c00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin-bottom: 2rem;
     }
-
+    .grid {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+    .card {
+      background: #1a1c2d;
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
     footer {
       text-align: center;
-      padding: 3vh 2vw;
+      padding: 5vh 2vw;
       font-size: 0.9rem;
       opacity: 0.4;
     }
@@ -108,55 +83,123 @@
 </head>
 <body>
 
-  <section class="hero">
-    <h1>Un libro. Un lugar. Un momento.</h1>
-    <p>Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
-  </section>
+<canvas id="bg"></canvas>
 
-  <section class="contador">
-    <div class="valor" id="contador">0</div>
-    <p>Libros físicos abiertos en todo el mundo</p>
-  </section>
+<section class="hero">
+  <h1>Un libro. Un lugar. Un momento.</h1>
+  <p>Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
+  <div class="contador" id="contador">0</div>
+</section>
 
-  <section>
-    <h2 class="titulo-section">Problemas reales que resolvemos</h2>
-    <div class="problemas">
-      <div class="problema">¿Cómo puedo leer más?</div>
-      <div class="problema">¿Cómo dejo el celular y empiezo a leer?</div>
-      <div class="problema">¿Qué libro debería leer primero?</div>
-      <div class="problema">Me cuesta concentrarme.</div>
-      <div class="problema">¿Por qué leer en físico es mejor?</div>
-      <div class="problema">Empiezo libros y no los termino.</div>
+<section>
+  <h2 class="section-title">Problemas reales que resolvemos</h2>
+  <div class="grid">
+    <div class="card">¿Cómo puedo leer más?</div>
+    <div class="card">¿Cómo dejo el celular y empiezo a leer?</div>
+    <div class="card">¿Qué libro debería leer primero?</div>
+    <div class="card">Me cuesta concentrarme.</div>
+    <div class="card">¿Por qué leer en físico es mejor?</div>
+    <div class="card">Empiezo libros y no los termino.</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Modelos de activación</h2>
+  <div class="grid">
+    <div class="card">📍 Cafeterías</div>
+    <div class="card">🧳 Aeropuertos</div>
+    <div class="card">🏨 Hoteles</div>
+    <div class="card">👩‍💼 Oficinas</div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">Planes</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>📘 Personal</h3>
+      <p>Activa libros en tu entorno inmediato.</p>
+      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$0</p>
     </div>
-  </section>
+    <div class="card">
+      <h3>🏠 Espacios</h3>
+      <p>Activa 5 lugares físicos con señal Triggui.</p>
+      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$29/mes</p>
+    </div>
+    <div class="card">
+      <h3>🏢 Empresas</h3>
+      <p>Lectura física como parte de tu cultura laboral.</p>
+      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$99/mes</p>
+    </div>
+  </div>
+</section>
 
-  <footer>
-    Triggui.com — Una pausa. Un instante. Un universo que habita en cada página abierta.
-  </footer>
+<footer>
+  Triggui.com — Una pausa. Un instante. Un universo que habita en cada página abierta.
+</footer>
 
-  <script>
-    fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
-      .then(res => res.json())
-      .then(data => {
-        const el = document.getElementById('contador');
-        let i = 0;
-        const total = data.total;
-        const duration = 1200;
-        const steps = 30;
-        const interval = duration / steps;
-        const increment = total / steps;
+<script>
+  // CONTADOR ANIMADO
+  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+      const el = document.getElementById("contador");
+      const end = data.total;
+      let i = 0;
+      const interval = setInterval(() => {
+        el.textContent = i.toLocaleString('es-MX');
+        if (i < end) i += Math.ceil(end / 60);
+        else { el.textContent = end.toLocaleString('es-MX'); clearInterval(interval); }
+      }, 30);
+    });
 
-        const animate = setInterval(() => {
-          i += increment;
-          if (i >= total) {
-            clearInterval(animate);
-            el.textContent = total.toLocaleString('es-MX');
-          } else {
-            el.textContent = Math.floor(i).toLocaleString('es-MX');
-          }
-        }, interval);
+  // PARTICULAS BACKGROUND
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+
+  function init() {
+    particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.5 + 0.5,
+        dx: Math.random() * 0.6 - 0.3,
+        dy: Math.random() * 0.6 - 0.3
       });
-  </script>
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (let p of particles) {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(255,255,255,0.15)";
+      ctx.fill();
+      p.x += p.dx;
+      p.y += p.dy;
+      if (p.x < 0 || p.x > w) p.dx *= -1;
+      if (p.y < 0 || p.y > h) p.dy *= -1;
+    }
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    init();
+  });
+
+  resize();
+  init();
+  draw();
+</script>
 
 </body>
 </html>
