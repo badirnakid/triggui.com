@@ -34,14 +34,15 @@
     }
 
     .contador-real {
-      font-size: clamp(2rem, 6vw, 4rem);
+      font-size: clamp(2.4rem, 7vw, 4rem);
       font-weight: 800;
       background: linear-gradient(to right, #ff416c, #ffcc00, #00c6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-top: 1rem;
-      animation: fadeUp 1s ease forwards;
+      margin-top: 1.2rem;
+      animation: fadeUp 1.3s ease forwards;
       opacity: 0;
+      letter-spacing: 0.02em;
     }
 
     @keyframes fadeUp {
@@ -95,7 +96,7 @@
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
     <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <div id="contadorHero" class="contador-real">+8,000</div>
+  <div id="contadorHero" class="contador-real">+0</div>
   <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-4">
     Triggui es una pausa, una chispa, un instante real. Solo necesitas abrir un libro físico.
   </p>
@@ -157,16 +158,29 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- JS CONTADOR REAL -->
+<!-- JS CONTADOR REAL CON ANIMACIÓN -->
 <script>
+  const el = document.getElementById("contadorHero");
+
   fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
       const total = data.total || 0;
-      document.getElementById("contadorHero").textContent = `+${total.toLocaleString('es-MX')}`;
+      let current = 0;
+      const duration = 1000;
+      const start = performance.now();
+
+      const animate = now => {
+        const progress = Math.min((now - start) / duration, 1);
+        const value = Math.floor(progress * total);
+        el.textContent = "+" + value.toLocaleString("es-MX");
+        if (progress < 1) requestAnimationFrame(animate);
+      };
+
+      requestAnimationFrame(animate);
     })
     .catch(() => {
-      document.getElementById("contadorHero").textContent = "+8,000";
+      el.textContent = "+8,000";
     });
 </script>
 
