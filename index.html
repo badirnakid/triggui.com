@@ -3,202 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui — Un libro. Un lugar. Un momento.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+  <title>Triggui – Un libro. Un lugar. Un momento.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
+      scroll-behavior: smooth;
       font-family: 'Archivo', sans-serif;
-      background: #0d0e1a;
-      color: #fff;
-      height: 100%;
-      overflow-x: hidden;
+      background: linear-gradient(135deg, #0d0e1a, #1a1c2d);
+      color: #f5f5f5;
+      margin: 0;
+      padding: 0;
     }
-    canvas#bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: -1;
-    }
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 0 2rem;
-    }
-    .hero h1 {
-      font-size: clamp(2.5rem, 7vw, 5rem);
-      background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff);
+    .glass-title {
+      background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-weight: 700;
-    }
-    .hero p {
-      font-size: clamp(1.2rem, 2vw, 1.6rem);
-      margin-top: 1.5rem;
-      max-width: 720px;
-      opacity: 0.75;
-    }
-    .contador {
-      margin-top: 3rem;
-      font-size: clamp(3rem, 9vw, 6rem);
       font-weight: 800;
-      color: #ffcc00;
-      text-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
     }
-    section {
-      padding: 10vh 10vw;
-      max-width: 1200px;
-      margin: auto;
-    }
-    .section-title {
-      font-size: clamp(1.5rem, 3vw, 2.5rem);
-      background: linear-gradient(to right, #00f2fe, #ff8c00);
+    .numero-impacto {
+      font-size: clamp(3rem, 7vw, 4.8rem);
+      font-weight: 800;
+      background: linear-gradient(to right, #00f2fe, #ff00c7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-align: center;
-      margin-bottom: 2rem;
+      display: inline-block;
+      margin-top: 1.2rem;
     }
-    .grid {
-      display: grid;
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    .numero-subtexto {
+      font-size: 1rem;
+      color: #d1d5db;
+      margin-top: 0.4rem;
     }
-    .card {
-      background: #1a1c2d;
+    .widget {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
-      padding: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 20px;
+      transition: transform 0.3s ease;
     }
-    footer {
-      text-align: center;
-      padding: 5vh 2vw;
-      font-size: 0.9rem;
-      opacity: 0.4;
+    .widget:hover {
+      transform: translateY(-4px);
+    }
+    .floating-cta {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 50;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: white;
+      padding: 14px 30px;
+      font-weight: bold;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(255, 94, 98, 0.3);
+      transition: all 0.4s ease;
+    }
+    .floating-cta:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
+
 <body>
 
-<canvas id="bg"></canvas>
+<!-- HERO -->
+<header class="text-center px-6 py-28 max-w-5xl mx-auto">
+  <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+    <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
+  </h1>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6 mb-4">
+    Algo mágico ocurre cuando abres un libro físico. Triggui es ese instante real.
+  </p>
+  <div id="numeroImpacto" class="numero-impacto">+0</div>
+  <div class="numero-subtexto" id="subTextoImpacto">Son los libros que juntos hemos abierto 📖</div>
+</header>
 
-<section class="hero">
-  <h1>Un libro. Un lugar. Un momento.</h1>
-  <p>Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
-  <div class="contador" id="contador">0</div>
-</section>
-
-<section>
-  <h2 class="section-title">Problemas reales que resolvemos</h2>
-  <div class="grid">
-    <div class="card">¿Cómo puedo leer más?</div>
-    <div class="card">¿Cómo dejo el celular y empiezo a leer?</div>
-    <div class="card">¿Qué libro debería leer primero?</div>
-    <div class="card">Me cuesta concentrarme.</div>
-    <div class="card">¿Por qué leer en físico es mejor?</div>
-    <div class="card">Empiezo libros y no los termino.</div>
+<!-- PROBLEMÁTICAS -->
+<section class="max-w-6xl mx-auto px-6 py-20 text-center">
+  <h2 class="text-2xl font-bold glass-subtitle mb-10">¿Te ha pasado esto? 👇</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
+    <div class="widget">📱 “Paso demasiado tiempo en el celular.”</div>
+    <div class="widget">📚 “Empiezo libros y no los termino.”</div>
+    <div class="widget">🧠 “Quiero pensar mejor, pero me saturo.”</div>
+    <div class="widget">✨ “A veces solo quiero una señal. Un párrafo.”</div>
+    <div class="widget">😩 “Siento que me desconecto de mí.”</div>
+    <div class="widget">☕ “Quisiera que hubiera un libro esperándome.”</div>
   </div>
 </section>
 
-<section>
-  <h2 class="section-title">Modelos de activación</h2>
-  <div class="grid">
-    <div class="card">📍 Cafeterías</div>
-    <div class="card">🧳 Aeropuertos</div>
-    <div class="card">🏨 Hoteles</div>
-    <div class="card">👩‍💼 Oficinas</div>
-  </div>
-</section>
-
-<section>
-  <h2 class="section-title">Planes</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>📘 Personal</h3>
-      <p>Activa libros en tu entorno inmediato.</p>
-      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$0</p>
+<!-- PLANES -->
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="text-3xl font-bold glass-title text-center mb-12">¿Cómo activar Triggui en tu mundo?</h2>
+  <div class="grid md:grid-cols-3 gap-10">
+    <div class="widget text-center">
+      <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">📲 Triggui App</h3>
+      <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
+      <p class="text-gray-300 mb-6 text-sm">Frases diarias, inspiración, conexión y seguimiento minimalista.</p>
+      <a href="https://app.triggui.com" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Acceder</a>
     </div>
-    <div class="card">
-      <h3>🏠 Espacios</h3>
-      <p>Activa 5 lugares físicos con señal Triggui.</p>
-      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$29/mes</p>
+    <div class="widget text-center">
+      <h3 class="text-xl font-bold text-[#ff8a00] mb-2 uppercase">📦 Triggui Light</h3>
+      <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
+      <p class="text-gray-300 mb-6 text-sm">Sembramos libros reales cada semana en tu espacio físico.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
     </div>
-    <div class="card">
-      <h3>🏢 Empresas</h3>
-      <p>Lectura física como parte de tu cultura laboral.</p>
-      <p style="color:#ffcc00; font-weight:bold; font-size:1.3rem;">$99/mes</p>
+    <div class="widget text-center">
+      <h3 class="text-xl font-bold text-[#00c6ff] mb-2 uppercase">🌀 Triggui Pro</h3>
+      <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
+      <p class="text-gray-300 mb-6 text-sm">Diseñamos experiencias completas: lectura, energía, pausa, presencia.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
     </div>
   </div>
 </section>
 
-<footer>
-  Triggui.com — Una pausa. Un instante. Un universo que habita en cada página abierta.
+<!-- TESTIMONIOS -->
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="text-2xl font-bold glass-subtitle text-center mb-10">Lo que han sentido 📢</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300">
+    <div class="widget">“No tenía idea de qué leer. El libro estaba ahí. Abrí una página y fue justo lo que necesitaba.”</div>
+    <div class="widget">“No importa si lo termino o no. Con un párrafo tuve suficiente.”</div>
+    <div class="widget">“Triggui me ayudó a dejar el celular, aunque fuera por 5 minutos. Eso ya es mucho.”</div>
+  </div>
+</section>
+
+<!-- MODELO ENERGÍA -->
+<section class="max-w-4xl mx-auto text-center px-6 py-20">
+  <h2 class="text-2xl md:text-3xl font-bold glass-title mb-6">🔋 Energía en pausa</h2>
+  <p class="text-gray-300 text-lg">
+    Triggui activa cuerpo, mente y energía con estímulos mínimos. Cada bloque conecta con una frecuencia: detener, observar, fluir, conectar. Abres un libro, abres un canal.
+  </p>
+</section>
+
+<!-- CTA FINAL -->
+<section class="text-center py-24 border-t border-gray-800">
+  <h3 class="text-2xl font-bold glass-title mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
+  <p class="text-gray-400 mb-6">Triggui App te da el impulso. El libro hace el resto.</p>
+  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
+  <div class="mt-12">
+    <img src="/trigguiletras.png" alt="Triggui" class="mx-auto w-32 opacity-90" />
+  </div>
+</section>
+
+<!-- BOTÓN FLOTANTE -->
+<a href="https://app.triggui.com" class="floating-cta">Ir a TrigguiApp</a>
+
+<!-- FOOTER -->
+<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
+  © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
+<!-- ✅ CONTADOR SOLO LECTURA -->
 <script>
-  // CONTADOR ANIMADO
+  const span = document.getElementById("numeroImpacto");
+
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(res => res.json())
     .then(data => {
-      const el = document.getElementById("contador");
-      const end = data.total;
-      let i = 0;
-      const interval = setInterval(() => {
-        el.textContent = i.toLocaleString('es-MX');
-        if (i < end) i += Math.ceil(end / 60);
-        else { el.textContent = end.toLocaleString('es-MX'); clearInterval(interval); }
-      }, 30);
+      const target = data.total || 0;
+      let current = 0;
+      const steps = 40;
+      const increment = Math.ceil(target / steps);
+
+      const animate = () => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          span.textContent = "+" + current.toLocaleString("es-MX");
+        } else {
+          span.textContent = "+" + current.toLocaleString("es-MX");
+          requestAnimationFrame(animate);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    })
+    .catch(() => {
+      span.textContent = "+8,000";
     });
-
-  // PARTICULAS BACKGROUND
-  const canvas = document.getElementById('bg');
-  const ctx = canvas.getContext('2d');
-  let w, h, particles = [];
-
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
-
-  function init() {
-    particles = [];
-    for (let i = 0; i < 100; i++) {
-      particles.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 1.5 + 0.5,
-        dx: Math.random() * 0.6 - 0.3,
-        dy: Math.random() * 0.6 - 0.3
-      });
-    }
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, w, h);
-    for (let p of particles) {
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = "rgba(255,255,255,0.15)";
-      ctx.fill();
-      p.x += p.dx;
-      p.y += p.dy;
-      if (p.x < 0 || p.x > w) p.dx *= -1;
-      if (p.y < 0 || p.y > h) p.dy *= -1;
-    }
-    requestAnimationFrame(draw);
-  }
-
-  window.addEventListener('resize', () => {
-    resize();
-    init();
-  });
-
-  resize();
-  init();
-  draw();
 </script>
 
 </body>
