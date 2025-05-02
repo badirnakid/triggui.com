@@ -157,7 +157,7 @@
 <script>
   const span = document.getElementById("numeroImpacto");
 
-  fetch("https://triggui-api.vercel.app/api/get")
+  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(res => res.json())
     .then(data => {
       const target = data.total || 0;
