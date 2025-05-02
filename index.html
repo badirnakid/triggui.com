@@ -4,184 +4,184 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Triggui – Un libro. Un lugar. Un momento.</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      scroll-behavior: smooth;
       font-family: 'Archivo', sans-serif;
-      background: linear-gradient(135deg, #0d0e1a, #1a1c2d);
-      color: #f5f5f5;
-      margin: 0;
-      padding: 0;
+      scroll-behavior: smooth;
+      background: #0d0e1a;
+      color: #fff;
+      overflow-x: hidden;
     }
-    .glass-title {
-      background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
+    section { padding: 8vh 10vw; max-width: 1200px; margin: auto; }
+    h1, h2 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
     }
-    .numero-impacto {
-      font-size: clamp(3rem, 7vw, 4.8rem);
-      font-weight: 800;
-      background: linear-gradient(to right, #00f2fe, #ff00c7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    p {
+      font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+      line-height: 1.6;
+      opacity: 0.85;
+    }
+    .hero {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      background: linear-gradient(135deg, #1a1c2d, #0d0e1a);
+    }
+    .hero h1 span {
       display: inline-block;
-      margin-top: 1.2rem;
+      background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    .numero-subtexto {
-      font-size: 1rem;
-      color: #d1d5db;
-      margin-top: 0.4rem;
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease;
     }
-    .widget {
-      backdrop-filter: blur(12px);
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .section-title {
+      margin-bottom: 2rem;
+      text-align: center;
+      background: linear-gradient(90deg, #00f2fe, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #1e2130;
       border-radius: 16px;
-      padding: 20px;
-      transition: transform 0.3s ease;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s;
     }
-    .widget:hover {
-      transform: translateY(-4px);
+    .card:hover {
+      transform: scale(1.03);
     }
-    .floating-cta {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      z-index: 50;
-      background: linear-gradient(135deg, #ff7e5f, #feb47b);
-      color: white;
-      padding: 14px 30px;
+    .pricing {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 2rem;
+    }
+    .price-box {
+      background: #111420;
+      border: 2px solid #444;
+      border-radius: 16px;
+      padding: 2rem;
+      max-width: 300px;
+      text-align: center;
+    }
+    .price {
+      font-size: 2rem;
       font-weight: bold;
-      border-radius: 999px;
-      box-shadow: 0 8px 20px rgba(255, 94, 98, 0.3);
-      transition: all 0.4s ease;
+      margin: 1rem 0;
+      color: #ffcc00;
     }
-    .floating-cta:hover {
-      transform: scale(1.05);
+    footer {
+      padding: 3vh 2vw;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.5;
     }
   </style>
 </head>
-
 <body>
 
-<!-- HERO -->
-<header class="text-center px-6 py-28 max-w-5xl mx-auto">
-  <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
-    <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
-  </h1>
-  <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-6 mb-4">
-    Algo mágico ocurre cuando abres un libro físico. Triggui es ese instante real.
-  </p>
-  <div id="numeroImpacto" class="numero-impacto">+0</div>
-  <div class="numero-subtexto" id="subTextoImpacto">Son los libros que juntos hemos abierto 📖</div>
-</header>
+  <section class="hero">
+    <h1 class="fade-in"><span>Un libro.</span> <span>Un lugar.</span> <span>Un momento.</span></h1>
+    <p class="fade-in" style="margin-top:2rem; max-width:600px;">Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
+  </section>
 
-<!-- PROBLEMÁTICAS -->
-<section class="max-w-6xl mx-auto px-6 py-20 text-center">
-  <h2 class="text-2xl font-bold glass-subtitle mb-10">¿Te ha pasado esto? 👇</h2>
-  <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
-    <div class="widget">📱 “Paso demasiado tiempo en el celular.”</div>
-    <div class="widget">📚 “Empiezo libros y no los termino.”</div>
-    <div class="widget">🧠 “Quiero pensar mejor, pero me saturo.”</div>
-    <div class="widget">✨ “A veces solo quiero una señal. Un párrafo.”</div>
-    <div class="widget">😩 “Siento que me desconecto de mí.”</div>
-    <div class="widget">☕ “Quisiera que hubiera un libro esperándome.”</div>
-  </div>
-</section>
-
-<!-- PLANES -->
-<section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold glass-title text-center mb-12">¿Cómo activar Triggui en tu mundo?</h2>
-  <div class="grid md:grid-cols-3 gap-10">
-    <div class="widget text-center">
-      <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">📲 Triggui App</h3>
-      <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="text-gray-300 mb-6 text-sm">Frases diarias, inspiración, conexión y seguimiento minimalista.</p>
-      <a href="https://app.triggui.com" class="inline-block bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Acceder</a>
+  <section class="fade-in">
+    <h2 class="section-title">Problemas reales que resolvemos</h2>
+    <div class="card-grid">
+      <div class="card">¿Cómo puedo leer más?</div>
+      <div class="card">¿Cómo dejo el celular y empiezo a leer?</div>
+      <div class="card">¿Qué libro debería leer primero?</div>
+      <div class="card">Me cuesta concentrarme.</div>
+      <div class="card">¿Por qué leer en físico es mejor?</div>
+      <div class="card">Empiezo libros y no los termino.</div>
     </div>
-    <div class="widget text-center">
-      <h3 class="text-xl font-bold text-[#ff8a00] mb-2 uppercase">📦 Triggui Light</h3>
-      <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="text-gray-300 mb-6 text-sm">Sembramos libros reales cada semana en tu espacio físico.</p>
-      <a href="https://wa.me/5215555555555" class="inline-block bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
+  </section>
+
+  <section class="fade-in">
+    <h2 class="section-title">Modelos de activación</h2>
+    <p>Coloca libros físicos en cafeterías, aeropuertos, hoteles y más. Triggui genera el impulso silencioso para abrirlos.</p>
+  </section>
+
+  <section class="fade-in">
+    <h2 class="section-title">Testimonios</h2>
+    <div class="card-grid">
+      <div class="card">“Volví a abrir un libro después de meses.”</div>
+      <div class="card">“Triggui está en mi mesa favorita del café. Y funciona.”</div>
+      <div class="card">“Leí sin planearlo. Y eso es lo mágico.”</div>
     </div>
-    <div class="widget text-center">
-      <h3 class="text-xl font-bold text-[#00c6ff] mb-2 uppercase">🌀 Triggui Pro</h3>
-      <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="text-gray-300 mb-6 text-sm">Diseñamos experiencias completas: lectura, energía, pausa, presencia.</p>
-      <a href="https://wa.me/5215555555555" class="inline-block bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
+  </section>
+
+  <section class="fade-in">
+    <h2 class="section-title">Planes</h2>
+    <div class="pricing">
+      <div class="price-box">
+        <h3>Personal</h3>
+        <p class="price">$0</p>
+        <p>Activa libros en tu entorno inmediato.</p>
+      </div>
+      <div class="price-box">
+        <h3>Espacios</h3>
+        <p class="price">$29/mes</p>
+        <p>Activa 5 lugares con libros físicos y señales Triggui.</p>
+      </div>
+      <div class="price-box">
+        <h3>Empresas</h3>
+        <p class="price">$99/mes</p>
+        <p>Lectura física como parte de tu cultura laboral.</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TESTIMONIOS -->
-<section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="text-2xl font-bold glass-subtitle text-center mb-10">Lo que han sentido 📢</h2>
-  <div class="grid md:grid-cols-3 gap-6 text-gray-300">
-    <div class="widget">“No tenía idea de qué leer. El libro estaba ahí. Abrí una página y fue justo lo que necesitaba.”</div>
-    <div class="widget">“No importa si lo termino o no. Con un párrafo tuve suficiente.”</div>
-    <div class="widget">“Triggui me ayudó a dejar el celular, aunque fuera por 5 minutos. Eso ya es mucho.”</div>
-  </div>
-</section>
+  <section class="fade-in">
+    <h2 class="section-title">Contador real</h2>
+    <p style="text-align:center; font-size:1.5rem; margin-top:1rem;">
+      📚 Libros físicos abiertos en todo el mundo:
+      <span id="contador" style="color:#ffcc00;">...</span>
+    </p>
+  </section>
 
-<!-- MODELO ENERGÍA -->
-<section class="max-w-4xl mx-auto text-center px-6 py-20">
-  <h2 class="text-2xl md:text-3xl font-bold glass-title mb-6">🔋 Energía en pausa</h2>
-  <p class="text-gray-300 text-lg">
-    Triggui activa cuerpo, mente y energía con estímulos mínimos. Cada bloque conecta con una frecuencia: detener, observar, fluir, conectar. Abres un libro, abres un canal.
-  </p>
-</section>
+  <footer>
+    Triggui.com — Una pausa. Un instante. Un universo que habita en cada página abierta.
+  </footer>
 
-<!-- CTA FINAL -->
-<section class="text-center py-24 border-t border-gray-800">
-  <h3 class="text-2xl font-bold glass-title mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
-  <p class="text-gray-400 mb-6">Triggui App te da el impulso. El libro hace el resto.</p>
-  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
-  <div class="mt-12">
-    <img src="/trigguiletras.png" alt="Triggui" class="mx-auto w-32 opacity-90" />
-  </div>
-</section>
-
-<!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">Ir a TrigguiApp</a>
-
-<!-- FOOTER -->
-<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
-  © 2025 Triggui · Cada página abierta es un nuevo comienzo.
-</footer>
-
-<!-- ✅ CONTADOR SOLO LECTURA -->
-<script>
-  const span = document.getElementById("numeroImpacto");
-
-  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
-    .then(res => res.json())
-    .then(data => {
-      const target = data.total || 0;
-      let current = 0;
-      const steps = 40;
-      const increment = Math.ceil(target / steps);
-
-      const animate = () => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          span.textContent = "+" + current.toLocaleString("es-MX");
-        } else {
-          span.textContent = "+" + current.toLocaleString("es-MX");
-          requestAnimationFrame(animate);
+  <script>
+    const faders = document.querySelectorAll('.fade-in');
+    const options = { threshold: 0.3 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
         }
-      };
+      });
+    }, options);
+    faders.forEach(f => observer.observe(f));
 
-      requestAnimationFrame(animate);
-    })
-    .catch(() => {
-      span.textContent = "+8,000";
-    });
-</script>
+    fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('contador').textContent = data.total.toLocaleString('es-MX');
+      });
+  </script>
 
 </body>
 </html>
