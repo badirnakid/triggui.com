@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui — Un libro. Un lugar. Un momento.</title>
+  <title>Triggui – Un libro. Un lugar. Un momento.</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     html, body {
       scroll-behavior: smooth;
@@ -14,10 +14,12 @@
       color: #f5f5f5;
       margin: 0;
       padding: 0;
+      animation: fadeBg 10s ease-in-out infinite alternate;
     }
 
-    h1, h2, h3 {
-      font-family: 'Playfair Display', serif;
+    @keyframes fadeBg {
+      0% { background: linear-gradient(135deg, #0d0e1a, #1a1c2d); }
+      100% { background: linear-gradient(135deg, #14162e, #1e2238); }
     }
 
     .glass-title {
@@ -34,8 +36,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
-      margin-top: 1.2rem;
-      letter-spacing: -1px;
+      margin-top: 1.5rem;
     }
 
     .numero-subtexto {
@@ -45,32 +46,33 @@
     }
 
     .widget {
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(18px);
       background: rgba(255, 255, 255, 0.035);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
       padding: 24px;
       transition: all 0.4s ease;
-      box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+      transform: translateY(0);
     }
 
     .widget:hover {
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 16px 40px rgba(255,255,255,0.08);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 22px 50px rgba(255, 255, 255, 0.05);
     }
 
     .floating-cta {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 22px;
+      right: 22px;
       z-index: 50;
-      background: linear-gradient(135deg, #ff8a00, #ff00c7);
+      background: linear-gradient(135deg, #ff5e62, #00c6ff);
       color: white;
-      padding: 14px 28px;
+      padding: 14px 30px;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 12px 32px rgba(255, 105, 180, 0.3);
-      transition: transform 0.4s ease;
+      box-shadow: 0 12px 28px rgba(0, 255, 255, 0.3);
+      transition: transform 0.3s ease;
     }
 
     .floating-cta:hover {
@@ -78,11 +80,11 @@
     }
 
     section {
-      animation: fadeIn 1s ease both;
+      animation: fadeIn 1.2s ease both;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
@@ -168,13 +170,13 @@
   </div>
 </section>
 
-<!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">Ir a TrigguiApp</a>
-
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
+
+<!-- BOTÓN FLOTANTE -->
+<a href="https://app.triggui.com" class="floating-cta">📖 Ir a TrigguiApp</a>
 
 <!-- CONTADOR -->
 <script>
