@@ -153,11 +153,11 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- ✅ CONTADOR ACTUALIZADO -->
+<!-- ✅ CONTADOR SOLO LECTURA -->
 <script>
   const span = document.getElementById("numeroImpacto");
 
-  fetch("https://triggui-api.vercel.app/api/increment")
+  fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
       const target = data.total || 0;
