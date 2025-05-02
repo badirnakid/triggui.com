@@ -33,6 +33,28 @@
       font-weight: 700;
     }
 
+    .contador-real {
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 800;
+      background: linear-gradient(to right, #ff416c, #ffcc00, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-top: 1rem;
+      animation: fadeUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+
     .blur-card {
       backdrop-filter: blur(12px);
       background: rgba(255, 255, 255, 0.05);
@@ -63,24 +85,6 @@
     .floating-cta:hover {
       transform: scale(1.05);
     }
-
-    /* Animaciones */
-    .fadeInUp {
-      opacity: 0;
-      transform: translateY(12px);
-      animation: fadeUp 1.2s ease forwards;
-    }
-
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .counter-animado {
-      font-variant-numeric: tabular-nums;
-    }
   </style>
 </head>
 
@@ -91,22 +95,11 @@
   <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">
     <span class="glass-title">Un libro.<br>Un lugar.<br>Un momento.</span>
   </h1>
-  <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-    Triggui es una pausa, una chispa, un instante real.<br>Solo necesitas abrir un libro físico.
+  <div id="contadorHero" class="contador-real">+8,000</div>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto mt-4">
+    Triggui es una pausa, una chispa, un instante real. Solo necesitas abrir un libro físico.
   </p>
 </header>
-
-<!-- IMPACTO REAL -->
-<section class="max-w-3xl mx-auto text-center py-20 px-6">
-  <h2 class="text-2xl md:text-3xl font-bold glass-subtitle mb-4">Impacto real</h2>
-  <p class="text-gray-400 text-lg mb-6 leading-relaxed">
-    Cada vez que alguien abre un libro físico, el mundo se detiene por un instante.<br>Ese instante cuenta. Y ya van...
-  </p>
-  <div id="contadorChocalas" class="fadeInUp text-5xl md:text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-yellow-400 to-blue-500 drop-shadow-lg tracking-wide counter-animado">
-    +8,000
-  </div>
-  <p class="text-sm text-gray-500 mt-4 italic">✨</p>
-</section>
 
 <!-- DIFERENCIADOR -->
 <section class="max-w-6xl mx-auto px-6 py-24">
@@ -164,29 +157,16 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- JS CONTADOR REAL CON ANIMACIÓN -->
+<!-- JS CONTADOR REAL -->
 <script>
-  const element = document.getElementById('contadorChocalas');
-
   fetch("https://triggui-api.vercel.app/api/get")
     .then(res => res.json())
     .then(data => {
       const total = data.total || 0;
-      let current = 0;
-      const duration = 1500;
-      const start = performance.now();
-
-      const step = now => {
-        const progress = Math.min((now - start) / duration, 1);
-        const value = Math.floor(progress * total);
-        element.textContent = '+' + value.toLocaleString('es-MX');
-        if (progress < 1) requestAnimationFrame(step);
-      };
-
-      requestAnimationFrame(step);
+      document.getElementById("contadorHero").textContent = `+${total.toLocaleString('es-MX')}`;
     })
     .catch(() => {
-      element.textContent = '+8,000';
+      document.getElementById("contadorHero").textContent = "+8,000";
     });
 </script>
 
