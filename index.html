@@ -6,93 +6,99 @@
   <title>Triggui – Un libro. Un lugar. Un momento.</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
+    * {margin:0; padding:0; box-sizing:border-box}
     html, body {
       font-family: 'Archivo', sans-serif;
-      scroll-behavior: smooth;
       background: #0d0e1a;
       color: #fff;
+      scroll-behavior: smooth;
       overflow-x: hidden;
     }
     section { padding: 8vh 10vw; max-width: 1200px; margin: auto; }
     h1, h2 {
-      font-size: clamp(2.2rem, 5vw, 4rem);
+      font-size: clamp(2rem, 6vw, 4rem);
       font-weight: 700;
       margin-bottom: 1rem;
       line-height: 1.2;
     }
     p {
-      font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+      font-size: clamp(1.1rem, 1.6vw, 1.3rem);
       line-height: 1.6;
       opacity: 0.85;
     }
     .hero {
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      min-height: 100vh;
-      text-align: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       background: linear-gradient(135deg, #1a1c2d, #0d0e1a);
+      background-size: 400% 400%;
+      animation: gradientMove 12s ease infinite;
+      text-align: center;
+      padding: 0 2rem;
     }
-    .hero h1 span {
-      display: inline-block;
+    .hero h1 {
+      font-size: clamp(2.5rem, 8vw, 5rem);
       background: linear-gradient(90deg, #ff8a00, #e52e71, #9b00ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease;
+    .hero p {
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      margin-top: 1.5rem;
+      max-width: 700px;
+      opacity: 0.75;
     }
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
     }
-    .section-title {
-      margin-bottom: 2rem;
+
+    .contador-destacado {
       text-align: center;
-      background: linear-gradient(90deg, #00f2fe, #ff8c00);
+      padding: 10vh 2vw;
+    }
+    .contador-destacado .valor {
+      font-size: clamp(3rem, 9vw, 6rem);
+      font-weight: 800;
+      color: #ffcc00;
+      text-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+    }
+    .contador-destacado p {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      background: linear-gradient(to right, #00f2fe, #ff8c00);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 2rem;
     }
+
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
     .card {
-      background: #1e2130;
+      background: #1a1c2d;
       border-radius: 16px;
       padding: 1.5rem;
       box-shadow: 0 8px 20px rgba(0,0,0,0.2);
       transition: transform 0.3s;
     }
-    .card:hover {
-      transform: scale(1.03);
-    }
-    .pricing {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      margin-top: 2rem;
-    }
-    .price-box {
-      background: #111420;
-      border: 2px solid #444;
-      border-radius: 16px;
-      padding: 2rem;
-      max-width: 300px;
-      text-align: center;
-    }
-    .price {
-      font-size: 2rem;
-      font-weight: bold;
-      margin: 1rem 0;
-      color: #ffcc00;
-    }
+    .card:hover { transform: scale(1.03); }
+
     footer {
-      padding: 3vh 2vw;
       text-align: center;
+      padding: 4vh 2vw;
       font-size: 0.9rem;
       opacity: 0.5;
     }
@@ -101,11 +107,16 @@
 <body>
 
   <section class="hero">
-    <h1 class="fade-in"><span>Un libro.</span> <span>Un lugar.</span> <span>Un momento.</span></h1>
-    <p class="fade-in" style="margin-top:2rem; max-width:600px;">Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
+    <h1>Un libro. Un lugar. Un momento.</h1>
+    <p>Triggui no es una app. Es una pausa. Un instante. Un universo que habita en cada página abierta.</p>
   </section>
 
-  <section class="fade-in">
+  <section class="contador-destacado">
+    <div class="valor" id="contador">...</div>
+    <p>Libros físicos abiertos en todo el mundo</p>
+  </section>
+
+  <section>
     <h2 class="section-title">Problemas reales que resolvemos</h2>
     <div class="card-grid">
       <div class="card">¿Cómo puedo leer más?</div>
@@ -117,71 +128,56 @@
     </div>
   </section>
 
-  <section class="fade-in">
+  <section>
     <h2 class="section-title">Modelos de activación</h2>
-    <p>Coloca libros físicos en cafeterías, aeropuertos, hoteles y más. Triggui genera el impulso silencioso para abrirlos.</p>
+    <div class="card-grid">
+      <div class="card">📍 Cafeterías</div>
+      <div class="card">🧳 Aeropuertos</div>
+      <div class="card">🏨 Hoteles</div>
+      <div class="card">👩‍💼 Oficinas</div>
+    </div>
   </section>
 
-  <section class="fade-in">
+  <section>
     <h2 class="section-title">Testimonios</h2>
     <div class="card-grid">
       <div class="card">“Volví a abrir un libro después de meses.”</div>
-      <div class="card">“Triggui está en mi mesa favorita del café. Y funciona.”</div>
+      <div class="card">“Triggui está en mi mesa favorita del café.”</div>
       <div class="card">“Leí sin planearlo. Y eso es lo mágico.”</div>
     </div>
   </section>
 
-  <section class="fade-in">
+  <section>
     <h2 class="section-title">Planes</h2>
-    <div class="pricing">
-      <div class="price-box">
-        <h3>Personal</h3>
-        <p class="price">$0</p>
-        <p>Activa libros en tu entorno inmediato.</p>
+    <div class="card-grid">
+      <div class="card">
+        <h3>📘 Personal</h3>
+        <p style="margin:1rem 0">Activa libros en tu entorno inmediato.</p>
+        <p style="font-size:1.2rem;color:#ffcc00;font-weight:bold;">$0</p>
       </div>
-      <div class="price-box">
-        <h3>Espacios</h3>
-        <p class="price">$29/mes</p>
-        <p>Activa 5 lugares con libros físicos y señales Triggui.</p>
+      <div class="card">
+        <h3>🏠 Espacios</h3>
+        <p style="margin:1rem 0">Activa 5 lugares físicos con señal Triggui.</p>
+        <p style="font-size:1.2rem;color:#ffcc00;font-weight:bold;">$29/mes</p>
       </div>
-      <div class="price-box">
-        <h3>Empresas</h3>
-        <p class="price">$99/mes</p>
-        <p>Lectura física como parte de tu cultura laboral.</p>
+      <div class="card">
+        <h3>🏢 Empresas</h3>
+        <p style="margin:1rem 0">Lectura física como parte de tu cultura laboral.</p>
+        <p style="font-size:1.2rem;color:#ffcc00;font-weight:bold;">$99/mes</p>
       </div>
     </div>
   </section>
 
-  <section class="fade-in">
-    <h2 class="section-title">Contador real</h2>
-    <p style="text-align:center; font-size:1.5rem; margin-top:1rem;">
-      📚 Libros físicos abiertos en todo el mundo:
-      <span id="contador" style="color:#ffcc00;">...</span>
-    </p>
-  </section>
-
   <footer>
-    Triggui.com — Una pausa. Un instante. Un universo que habita en cada página abierta.
+    Triggui.com – Una pausa. Un instante. Un universo que habita en cada página abierta.
   </footer>
 
   <script>
-    const faders = document.querySelectorAll('.fade-in');
-    const options = { threshold: 0.3 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-        }
-      });
-    }, options);
-    faders.forEach(f => observer.observe(f));
-
     fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
       .then(res => res.json())
       .then(data => {
         document.getElementById('contador').textContent = data.total.toLocaleString('es-MX');
       });
   </script>
-
 </body>
 </html>
