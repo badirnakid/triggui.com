@@ -3,120 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui – Es una pausa.</title>
+  <title>Triggui — Un libro. Un lugar. Un instante.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    * {
+    body {
+      font-family: 'Archivo', sans-serif;
+      background: linear-gradient(135deg, #0d0e1a, #141629);
+      color: #f4f4f4;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
-    html, body {
-      height: 100%;
-      font-family: 'Archivo', sans-serif;
-      color: white;
-      overflow: hidden;
-      background: black;
+    .grad {
+      background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    video.bg {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.2) blur(2px);
-    }
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 60%);
-    }
-    .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      max-width: 90vw;
-    }
-    .title {
-      font-size: clamp(2.5rem, 7vw, 6rem);
-      line-height: 1.2;
-      font-weight: 700;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards;
-    }
-    .title span:nth-child(1) { animation-delay: 0.5s; }
-    .title span:nth-child(2) { animation-delay: 1.4s; }
-    .title span:nth-child(3) { animation-delay: 2.2s; }
-
-    .subtitle {
-      margin-top: 2rem;
-      font-size: 1.2rem;
-      color: #cccccc;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 3s;
-    }
-
-    .cta {
-      margin-top: 3rem;
-      display: inline-block;
-      padding: 16px 40px;
+    .impact {
+      font-size: clamp(2rem, 6vw, 4rem);
       font-weight: bold;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #ff8a00, #ff00c7);
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
-      box-shadow: 0 12px 30px rgba(255, 0, 200, 0.25);
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 4.2s, pulse 2s ease-in-out infinite;
+      background: linear-gradient(to right, #00f2fe, #ff00c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
-
-    @keyframes fadeIn {
-      to { opacity: 1; transform: translateY(0); }
-      from { opacity: 0; transform: translateY(20px); }
+    .glass {
+      backdrop-filter: blur(14px);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: transform 0.4s ease;
     }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #999;
-      opacity: 0;
-      animation: fadeIn 1s ease forwards 5s;
+    .glass:hover {
+      transform: translateY(-6px);
     }
   </style>
 </head>
-<body>
 
-<video class="bg" autoplay muted loop playsinline>
-  <source src="https://cdn.coverr.co/videos/coverr-reading-in-coffeehouse-6616/1080p.mp4" type="video/mp4">
-</video>
+<body class="scroll-smooth">
 
-<div class="overlay"></div>
+<!-- HERO -->
+<header class="text-center px-6 py-28 max-w-5xl mx-auto">
+  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 grad">Un libro.<br>Un lugar.<br>Un instante.</h1>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto">Triggui es un microimpulso que activa tu cuerpo y mente. Solo necesitas abrir un libro físico. El resto sucede solo.</p>
+  <div id="numeroImpacto" class="impact mt-10">+0</div>
+  <div class="text-gray-400 text-sm mt-2">Libros físicos abiertos en todo el mundo 📖</div>
+</header>
 
-<div class="center">
-  <div class="title">
-    <span>Un libro.</span><br>
-    <span>Un lugar.</span><br>
-    <span>Un momento.</span>
+<!-- PROBLEMAS REALES -->
+<section class="max-w-6xl mx-auto px-6 py-20 text-center">
+  <h2 class="text-2xl font-bold mb-10 grad">¿Te ha pasado esto?</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
+    <div class="glass">📱 “Paso demasiado tiempo en el celular.”</div>
+    <div class="glass">📚 “Empiezo libros y no los termino.”</div>
+    <div class="glass">🧠 “Quiero pensar mejor, pero me saturo.”</div>
+    <div class="glass">✨ “A veces solo quiero una señal. Un párrafo.”</div>
+    <div class="glass">😩 “Siento que me desconecto de mí.”</div>
+    <div class="glass">☕ “Quisiera que hubiera un libro esperándome.”</div>
   </div>
-  <div class="subtitle">Triggui no es una app. Es una pausa real. Entra solo si estás listo para volver a ti.</div>
-  <a href="https://app.triggui.com" class="cta">📖 Entrar</a>
-</div>
+</section>
 
-<footer>© 2025 Triggui · Cada página abierta es un nuevo comienzo.</footer>
+<!-- PROPUESTA / MODELO -->
+<section class="text-center py-20 bg-[#11121c] border-t border-gray-800">
+  <h2 class="text-3xl font-bold mb-6 grad">Triggui no es una app</h2>
+  <p class="text-gray-300 text-lg max-w-2xl mx-auto">Es una pausa. Un instante. Un universo que habita en cada página abierta. Triggui convierte espacios comunes en lugares sagrados donde tu energía cambia al abrir un libro físico.</p>
+</section>
+
+<!-- PLANES -->
+<section class="max-w-6xl mx-auto px-6 py-24">
+  <h2 class="text-3xl font-bold text-center mb-12 grad">¿Cómo activar Triggui en tu mundo?</h2>
+  <div class="grid md:grid-cols-3 gap-10">
+    <div class="glass text-center">
+      <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">📲 Triggui App</h3>
+      <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
+      <p class="text-gray-300 text-sm mb-6">Frases, conexión y seguimiento minimalista.</p>
+      <a href="https://app.triggui.com" class="bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Acceder</a>
+    </div>
+    <div class="glass text-center">
+      <h3 class="text-xl font-bold text-[#ff8a00] mb-2 uppercase">📦 Triggui Light</h3>
+      <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
+      <p class="text-gray-300 text-sm mb-6">Sembramos libros reales cada semana en tu espacio.</p>
+      <a href="https://wa.me/5215555555555" class="bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
+    </div>
+    <div class="glass text-center">
+      <h3 class="text-xl font-bold text-[#00c6ff] mb-2 uppercase">🌀 Triggui Pro</h3>
+      <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
+      <p class="text-gray-300 text-sm mb-6">Diseñamos experiencias completas: lectura, pausa y energía.</p>
+      <a href="https://wa.me/5215555555555" class="bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="max-w-6xl mx-auto px-6 py-20">
+  <h2 class="text-2xl font-bold text-center mb-10 grad">Lo que han sentido 📢</h2>
+  <div class="grid md:grid-cols-3 gap-6 text-gray-300">
+    <div class="glass">“Abrí una página y fue justo lo que necesitaba.”</div>
+    <div class="glass">“No importa si lo termino o no. Un párrafo bastó.”</div>
+    <div class="glass">“Triggui me ayudó a dejar el celular, aunque fuera por 5 minutos.”</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="text-center py-24 border-t border-gray-800">
+  <h3 class="text-2xl font-bold mb-4 grad">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
+  <p class="text-gray-400 mb-6">Triggui App te da el impulso. El libro hace el resto.</p>
+  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
+  © 2025 Triggui · Cada página abierta es un nuevo comienzo.
+</footer>
+
+<!-- CONTADOR -->
+<script>
+  const span = document.getElementById("numeroImpacto");
+  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+      const target = data.total || 0;
+      let current = 0;
+      const steps = 40;
+      const increment = Math.ceil(target / steps);
+      const animate = () => {
+        current += increment;
+        if (current >= target) current = target;
+        span.textContent = "+" + current.toLocaleString("es-MX");
+        if (current < target) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
+    })
+    .catch(() => { span.textContent = "+8,000"; });
+</script>
 
 </body>
 </html>
