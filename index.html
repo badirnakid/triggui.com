@@ -3,139 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui — Un libro. Un lugar. Un instante.</title>
+  <title>Triggui – Un libro. Un lugar. Un momento.</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background: linear-gradient(135deg, #0d0e1a, #141629);
-      color: #f4f4f4;
-      margin: 0;
-      padding: 0;
+      background: radial-gradient(circle at top, #0f0c29, #302b63, #24243e);
+      color: #f3f4f6;
+      scroll-behavior: smooth;
     }
-    .grad {
+    .glass {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+    }
+    .gradient-text {
       background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
-    .impact {
-      font-size: clamp(2rem, 6vw, 4rem);
-      font-weight: bold;
-      background: linear-gradient(to right, #00f2fe, #ff00c7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
+    .animated-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
     }
-    .glass {
-      backdrop-filter: blur(14px);
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
-      padding: 1.5rem;
-      transition: transform 0.4s ease;
-    }
-    .glass:hover {
-      transform: translateY(-6px);
+    @keyframes pulseGlow {
+      0%, 100% {
+        box-shadow: 0 0 0px rgba(255, 255, 255, 0.1);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+      }
     }
   </style>
 </head>
-
-<body class="scroll-smooth">
+<body class="leading-relaxed tracking-wide">
 
 <!-- HERO -->
-<header class="text-center px-6 py-28 max-w-5xl mx-auto">
-  <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6 grad">Un libro.<br>Un lugar.<br>Un instante.</h1>
-  <p class="text-xl text-gray-300 max-w-2xl mx-auto">Triggui es un microimpulso que activa tu cuerpo y mente. Solo necesitas abrir un libro físico. El resto sucede solo.</p>
-  <div id="numeroImpacto" class="impact mt-10">+0</div>
-  <div class="text-gray-400 text-sm mt-2">Libros físicos abiertos en todo el mundo 📖</div>
+<header class="text-center px-6 py-36 max-w-6xl mx-auto">
+  <h1 class="text-5xl md:text-6xl leading-tight font-bold mb-6">
+    <span class="gradient-text">Un libro.<br>Un lugar.<br>Un momento.</span>
+  </h1>
+  <p class="text-xl text-gray-300 max-w-xl mx-auto mb-6">Triggui transforma la espera en conexión. Un impulso invisible. Un estímulo real para regresar a ti.</p>
+  <div class="text-5xl font-extrabold text-white my-4" id="numeroImpacto">+0</div>
+  <p class="text-sm text-gray-400" id="subTextoImpacto">Son los libros que juntos hemos abierto 📖</p>
 </header>
 
-<!-- PROBLEMAS REALES -->
-<section class="max-w-6xl mx-auto px-6 py-20 text-center">
-  <h2 class="text-2xl font-bold mb-10 grad">¿Te ha pasado esto?</h2>
-  <div class="grid md:grid-cols-3 gap-6 text-gray-300 text-base">
-    <div class="glass">📱 “Paso demasiado tiempo en el celular.”</div>
-    <div class="glass">📚 “Empiezo libros y no los termino.”</div>
-    <div class="glass">🧠 “Quiero pensar mejor, pero me saturo.”</div>
-    <div class="glass">✨ “A veces solo quiero una señal. Un párrafo.”</div>
-    <div class="glass">😩 “Siento que me desconecto de mí.”</div>
-    <div class="glass">☕ “Quisiera que hubiera un libro esperándome.”</div>
+<!-- EXPERIENCIA SENSORIAL -->
+<section class="max-w-7xl mx-auto px-6 py-20">
+  <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 gradient-text">Lo que siente la gente al ver un libro físico</h2>
+  <div class="grid md:grid-cols-3 gap-10 text-center text-lg text-gray-300">
+    <div class="glass p-8">📖 “Justo dejé mis libros. Este me atrapó.”</div>
+    <div class="glass p-8">📱 “Ya estaba harto del celular. Esto fue un alivio.”</div>
+    <div class="glass p-8">💬 “Sí pagaría por una salita con buenos libros.”</div>
   </div>
 </section>
 
-<!-- PROPUESTA / MODELO -->
-<section class="text-center py-20 bg-[#11121c] border-t border-gray-800">
-  <h2 class="text-3xl font-bold mb-6 grad">Triggui no es una app</h2>
-  <p class="text-gray-300 text-lg max-w-2xl mx-auto">Es una pausa. Un instante. Un universo que habita en cada página abierta. Triggui convierte espacios comunes en lugares sagrados donde tu energía cambia al abrir un libro físico.</p>
+<!-- ZONA DE ACTIVACIÓN -->
+<section class="bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] py-24 text-center">
+  <h2 class="text-3xl font-bold mb-6 gradient-text">¿En qué punto estás hoy?</h2>
+  <p class="text-lg text-gray-300 max-w-3xl mx-auto mb-10">Conecta con uno de los 4 puntos activadores: Cero, Creativo, Activo, o Máximo. Cada uno con su energía. Cada uno con un libro esperándote.</p>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+    <div class="glass p-6">🔹 Punto Cero<br><span class="text-sm text-gray-400">Pausa. Silencio. Inicio.</span></div>
+    <div class="glass p-6">🔸 Punto Creativo<br><span class="text-sm text-gray-400">Ideas. Movimiento.</span></div>
+    <div class="glass p-6">🌀 Punto Activo<br><span class="text-sm text-gray-400">Disciplina. Presencia.</span></div>
+    <div class="glass p-6">💥 Punto Máximo<br><span class="text-sm text-gray-400">Conquista. Claridad.</span></div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS FLOTANTES -->
+<section class="py-24 px-6 bg-[#111827]">
+  <h2 class="text-2xl font-bold text-center text-white mb-12">📢 Lo que han dicho los usuarios</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+    <div class="glass p-6 text-gray-200 italic">“Me ayudó a desconectarme de la ansiedad del celular.”</div>
+    <div class="glass p-6 text-gray-200 italic">“Un párrafo bastó para reconectarme conmigo.”</div>
+    <div class="glass p-6 text-gray-200 italic">“Pensé que no tenía tiempo. Pero lo tenía.”</div>
+  </div>
+</section>
+
+<!-- MODELOS Y BENEFICIOS -->
+<section class="max-w-6xl mx-auto px-6 py-24 text-center">
+  <h2 class="text-3xl font-bold gradient-text mb-8">🌍 ¿Por qué Triggui funciona?</h2>
+  <div class="grid md:grid-cols-2 gap-12 text-left text-gray-200">
+    <div>
+      <h3 class="text-xl font-bold mb-2">📚 Un solo libro, mayor impacto</h3>
+      <p>Según la Paradoja de la Elección (Barry Schwartz), menos opciones generan más acción. Triggui aprovecha este sesgo para aumentar la lectura.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-2">🧠 Modelos de energía y conciencia</h3>
+      <p>Los 4 puntos activan estados: conciencia, creatividad, acción, logro. Basado en el Mapa de Conciencia de Hawkins.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-2">☕ ROI emocional y financiero</h3>
+      <p>Una sola persona que vea el libro puede cambiar su día. O comprar otro café. O regresar. Así se mide el impacto.</p>
+    </div>
+    <div>
+      <h3 class="text-xl font-bold mb-2">🔁 Simplicidad poderosa</h3>
+      <p>No hay apps que distraigan. Solo tú, el libro, y ese instante. Triggui es un ritual moderno de reconexión.</p>
+    </div>
+  </div>
 </section>
 
 <!-- PLANES -->
-<section class="max-w-6xl mx-auto px-6 py-24">
-  <h2 class="text-3xl font-bold text-center mb-12 grad">¿Cómo activar Triggui en tu mundo?</h2>
-  <div class="grid md:grid-cols-3 gap-10">
-    <div class="glass text-center">
-      <h3 class="text-xl font-bold text-[#8ec5fc] mb-2 uppercase">📲 Triggui App</h3>
+<section class="py-24 bg-[#0d0e1a] text-center">
+  <h2 class="text-3xl font-bold mb-12 gradient-text">✨ Elige cómo activar Triggui</h2>
+  <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100">
+    <div class="glass p-8">
+      <h3 class="text-xl font-bold mb-2">📲 Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="text-gray-300 text-sm mb-6">Frases, conexión y seguimiento minimalista.</p>
-      <a href="https://app.triggui.com" class="bg-[#8ec5fc] text-black font-bold px-6 py-3 rounded-full hover:bg-[#a8d3fc] transition">Acceder</a>
+      <p class="mb-4">Frases, acción, dopamina. Sin distracciones.</p>
+      <a href="https://app.triggui.com" class="inline-block mt-2 bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold transition">Explorar</a>
     </div>
-    <div class="glass text-center">
-      <h3 class="text-xl font-bold text-[#ff8a00] mb-2 uppercase">📦 Triggui Light</h3>
+    <div class="glass p-8">
+      <h3 class="text-xl font-bold mb-2">📦 Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="text-gray-300 text-sm mb-6">Sembramos libros reales cada semana en tu espacio.</p>
-      <a href="https://wa.me/5215555555555" class="bg-[#ff8a00] text-black font-bold px-6 py-3 rounded-full hover:bg-[#ffc371] transition">Solicitar</a>
+      <p class="mb-4">Un libro físico nuevo cada semana en tu espacio.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block mt-2 bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold transition">Solicitar</a>
     </div>
-    <div class="glass text-center">
-      <h3 class="text-xl font-bold text-[#00c6ff] mb-2 uppercase">🌀 Triggui Pro</h3>
+    <div class="glass p-8">
+      <h3 class="text-xl font-bold mb-2">🌀 Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="text-gray-300 text-sm mb-6">Diseñamos experiencias completas: lectura, pausa y energía.</p>
-      <a href="https://wa.me/5215555555555" class="bg-[#00c6ff] text-black font-bold px-6 py-3 rounded-full hover:bg-[#8ec5fc] transition">Agendar</a>
+      <p class="mb-4">Diseño completo de experiencia física y digital.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block mt-2 bg-pink-600 hover:bg-pink-700 text-white px-6 py-2 rounded-full font-bold transition">Agendar</a>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
-<section class="max-w-6xl mx-auto px-6 py-20">
-  <h2 class="text-2xl font-bold text-center mb-10 grad">Lo que han sentido 📢</h2>
-  <div class="grid md:grid-cols-3 gap-6 text-gray-300">
-    <div class="glass">“Abrí una página y fue justo lo que necesitaba.”</div>
-    <div class="glass">“No importa si lo termino o no. Un párrafo bastó.”</div>
-    <div class="glass">“Triggui me ayudó a dejar el celular, aunque fuera por 5 minutos.”</div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="text-center py-24 border-t border-gray-800">
-  <h3 class="text-2xl font-bold mb-4 grad">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
+<!-- CTA FINAL -->
+<section class="text-center py-24">
+  <h3 class="text-3xl font-bold gradient-text mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h3>
   <p class="text-gray-400 mb-6">Triggui App te da el impulso. El libro hace el resto.</p>
-  <a href="https://app.triggui.com" class="inline-block bg-[#6c5ce7] text-white font-bold px-8 py-3 rounded-full hover:bg-purple-500 transition">Explorar TrigguiApp</a>
+  <a href="https://app.triggui.com" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-10 py-4 rounded-full animated-glow transition">Ir a TrigguiApp</a>
 </section>
 
 <!-- FOOTER -->
-<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-800">
+<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-700">
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- CONTADOR -->
+<!-- CONTADOR FETCH -->
 <script>
   const span = document.getElementById("numeroImpacto");
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(res => res.json())
     .then(data => {
-      const target = data.total || 0;
-      let current = 0;
-      const steps = 40;
-      const increment = Math.ceil(target / steps);
-      const animate = () => {
-        current += increment;
-        if (current >= target) current = target;
-        span.textContent = "+" + current.toLocaleString("es-MX");
-        if (current < target) requestAnimationFrame(animate);
-      };
-      requestAnimationFrame(animate);
+      const total = data.total || 0;
+      span.textContent = "+" + total.toLocaleString("es-MX");
     })
-    .catch(() => { span.textContent = "+8,000"; });
+    .catch(() => {
+      span.textContent = "+8,000";
+    });
 </script>
 
 </body>
