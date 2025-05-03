@@ -39,6 +39,10 @@
       padding: 2rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
     }
 
     .glass:hover {
@@ -72,6 +76,24 @@
       background: linear-gradient(to right, #00f2fe, #ff00c7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .floating-cta {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 50;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: white;
+      padding: 14px 30px;
+      font-weight: bold;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(255, 94, 98, 0.3);
+      transition: all 0.4s ease;
+    }
+
+    .floating-cta:hover {
+      transform: scale(1.05);
     }
 
     @media (max-width: 768px) {
@@ -115,23 +137,26 @@
 <!-- PLANES -->
 <section class="py-24 text-center bg-gradient-to-tr from-[#0f0c29] via-[#2b1247] to-[#1a1c2d]">
   <h2 class="text-3xl font-bold mb-12 gradient-text" data-aos="zoom-in">💎 Activa Triggui hoy</h2>
-  <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100">
-    <div class="glass flex flex-col items-center" data-aos="fade-up">
+  <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100 items-stretch">
+    <div class="glass" data-aos="fade-up">
       <h3 class="text-xl font-bold mb-2">📲 Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="text-sm">Frases diarias. Cero scroll. Dopamina real.</p>
+      <p class="text-sm mb-4">Frases diarias. Cero scroll. Dopamina real.</p>
+      <p class="text-sm">Acceso instantáneo desde cualquier dispositivo.</p>
       <a href="https://app.triggui.com" class="glow-button">Explorar</a>
     </div>
-    <div class="glass flex flex-col items-center" data-aos="fade-up" data-aos-delay="150">
+    <div class="glass" data-aos="fade-up" data-aos-delay="150">
       <h3 class="text-xl font-bold mb-2">📦 Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="text-sm">Un libro físico nuevo cada semana en tu espacio.</p>
+      <p class="text-sm mb-4">Un libro físico nuevo cada semana en tu espacio.</p>
+      <p class="text-sm">Ideal para cafés, hoteles, oficinas o salas de espera.</p>
       <a href="https://wa.me/5215555555555" class="glow-button">Solicitar</a>
     </div>
-    <div class="glass flex flex-col items-center" data-aos="fade-up" data-aos-delay="300">
+    <div class="glass" data-aos="fade-up" data-aos-delay="300">
       <h3 class="text-xl font-bold mb-2">🌀 Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="text-sm">Experiencias físicas + emocionales para tus usuarios.</p>
+      <p class="text-sm mb-4">Experiencias físicas + emocionales para tus usuarios.</p>
+      <p class="text-sm">Lectura, presencia, diseño de atmósferas, energía.</p>
       <a href="https://wa.me/5215555555555" class="glow-button">Agendar</a>
     </div>
   </div>
@@ -148,6 +173,9 @@
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
+
+<!-- BOTÓN FLOTANTE -->
+<a href="https://app.triggui.com" class="floating-cta">📲 Ir a TrigguiApp</a>
 
 <!-- CONTADOR -->
 <script>
