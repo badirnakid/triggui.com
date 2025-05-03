@@ -17,25 +17,45 @@
       background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      font-weight: 800;
+      font-weight: 900;
     }
     .glass {
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(16px);
       border-radius: 1.5rem;
       padding: 1.5rem;
-      transition: transform 0.3s ease;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
     .glass:hover {
-      transform: translateY(-6px);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
     }
     .glow-button {
       animation: glow 3s ease-in-out infinite;
     }
     @keyframes glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
-      50% { box-shadow: 0 0 45px rgba(255, 0, 180, 0.4); }
+      0%, 100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.15); }
+      50% { box-shadow: 0 0 30px rgba(255, 0, 180, 0.4); }
+    }
+    .rainbow-word {
+      background: linear-gradient(45deg, #ff0066, #ffcc00, #00ffcc, #0066ff);
+      background-size: 300%;
+      animation: wave 8s linear infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    @keyframes wave {
+      0% { background-position: 0% }
+      100% { background-position: 300% }
+    }
+    .countup {
+      font-size: 3.5rem;
+      font-weight: 900;
+      background: linear-gradient(to right, #00f2fe, #ff00c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
@@ -43,44 +63,46 @@
 
 <!-- HERO -->
 <header class="text-center px-6 py-36 max-w-6xl mx-auto">
-  <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 gradient-text">Un libro.<br>Un lugar.<br>Un momento.</h1>
-  <p class="text-xl text-gray-300 max-w-xl mx-auto mb-6">Triggui convierte la espera en energía. Abres un libro, abres un canal.</p>
-  <div class="text-5xl font-extrabold text-white my-4" id="numeroImpacto">+0</div>
-  <p class="text-sm text-gray-400">Libros físicos abiertos en todo el mundo 📖</p>
+  <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+    <span class="gradient-text">Un <span class="rainbow-word">libro</span>.<br>Un <span class="rainbow-word">lugar</span>.<br>Un <span class="rainbow-word">instante</span>.</span>
+  </h1>
+  <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-6">Triggui convierte la <span class="rainbow-word">espera</span> en energía. Abres un libro, <span class="rainbow-word">abres un canal</span>.</p>
+  <div id="numeroImpacto" class="countup mt-10">+0</div>
+  <div class="text-sm text-gray-400">Libros físicos abiertos en todo el mundo 📖</div>
 </header>
 
-<!-- 4 FRECUENCIAS -->
+<!-- ZONAS -->
 <section class="py-24 bg-[#11121c] border-t border-gray-800">
   <h2 class="text-3xl text-center font-bold mb-12 gradient-text">🔋 Zonas de activación energética</h2>
   <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto text-center">
-    <div class="glass">🫧<br><strong>Punto Cero</strong><br><span class="text-gray-400 text-sm">Silencio. Inicio. Pausa.</span></div>
-    <div class="glass">💡<br><strong>Punto Creativo</strong><br><span class="text-gray-400 text-sm">Ideas. Inspiración. Movimiento.</span></div>
-    <div class="glass">🔥<br><strong>Punto Activo</strong><br><span class="text-gray-400 text-sm">Presencia. Productividad.</span></div>
-    <div class="glass">🚀<br><strong>Punto Máximo</strong><br><span class="text-gray-400 text-sm">Claridad. Conquista.</span></div>
+    <div class="glass text-lg">🫧<br><strong class="rainbow-word">Punto Cero</strong><br><span class="text-gray-400 text-sm">Silencio. Inicio. Pausa.</span></div>
+    <div class="glass text-lg">💡<br><strong class="rainbow-word">Punto Creativo</strong><br><span class="text-gray-400 text-sm">Ideas. Movimiento.</span></div>
+    <div class="glass text-lg">🔥<br><strong class="rainbow-word">Punto Activo</strong><br><span class="text-gray-400 text-sm">Disciplina. Presencia.</span></div>
+    <div class="glass text-lg">🚀<br><strong class="rainbow-word">Punto Máximo</strong><br><span class="text-gray-400 text-sm">Claridad. Conquista.</span></div>
   </div>
 </section>
 
 <!-- PILARES -->
 <section class="py-24 px-6 bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-center">
-  <h2 class="text-3xl font-bold mb-12 gradient-text">🌈 7 Pilares Triggui (inspirado en los PDF)</h2>
+  <h2 class="text-3xl font-bold mb-12 gradient-text">🌈 7 Pilares Triggui</h2>
   <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto text-gray-200 text-left">
-    <div class="glass"><strong>📍 Presencia:</strong> Lo físico ancla tu mente al momento. Cada libro en mesa es un portal.</div>
-    <div class="glass"><strong>🌀 Rituales:</strong> El acto de abrir una página reinicia tu energía. Sin tecnología, sin ruido.</div>
-    <div class="glass"><strong>📈 ROI emocional:</strong> Un solo visitante tocado por un libro vale más que mil impactos digitales.</div>
-    <div class="glass"><strong>🧭 Simplicidad:</strong> Un solo libro, una sola página. Sin elección, hay acción.</div>
-    <div class="glass"><strong>📚 Sabiduría viva:</strong> Curaduría intencional basada en modelos energéticos.</div>
-    <div class="glass"><strong>🔁 Repetición Sagrada:</strong> Cada día cambia, pero la pausa permanece.</div>
-    <div class="glass md:col-span-3"><strong>✨ Magia sin interfaz:</strong> Triggui no se descarga. Se siente. Se vive.</div>
+    <div class="glass"><strong>📍 Presencia:</strong> Cada libro en mesa es un portal físico y emocional.</div>
+    <div class="glass"><strong>🌀 Rituales:</strong> Abrir una página es un reinicio. Es respiración mental.</div>
+    <div class="glass"><strong>📈 ROI emocional:</strong> Un lector tocado vale más que mil visualizaciones.</div>
+    <div class="glass"><strong>🧭 Simplicidad:</strong> Sin elecciones, hay acción. Sin distracción, hay poder.</div>
+    <div class="glass"><strong>📚 Curaduría:</strong> Libros alineados al nivel de conciencia y energía del espacio.</div>
+    <div class="glass"><strong>🔁 Repetición:</strong> La pausa se vuelve hábito. El hábito cambia el día.</div>
+    <div class="glass md:col-span-3"><strong>✨ Magia tangible:</strong> Triggui no distrae, Triggui reanima.</div>
   </div>
 </section>
 
 <!-- TESTIMONIOS -->
 <section class="py-24 px-6 bg-[#1a1c2d]">
-  <h2 class="text-3xl font-bold text-center mb-12 gradient-text">📢 Testimonios reales</h2>
-  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center text-gray-200 italic">
-    <div class="glass">“No tenía idea de qué leer. Abrí una página y fue justo lo que necesitaba.”</div>
-    <div class="glass">“Un párrafo bastó para darme claridad.”</div>
-    <div class="glass">“Triggui me salvó de otro scroll infinito. Me devolvió el foco.”</div>
+  <h2 class="text-3xl font-bold text-center mb-12 gradient-text">📢 Lo que dicen</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center text-gray-200 italic text-lg">
+    <div class="glass">“El libro me eligió.”</div>
+    <div class="glass">“Un párrafo. Eso fue todo.”</div>
+    <div class="glass">“Me desconecté del celular. Me reconecté conmigo.”</div>
   </div>
 </section>
 
@@ -91,19 +113,19 @@
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">📲 Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="mb-4 text-sm">Frases, energía, dopamina. Sin distracciones.</p>
+      <p class="mb-4 text-sm">Frases diarias. Conexión real. Cero distracciones.</p>
       <a href="https://app.triggui.com" class="inline-block glow-button bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-bold transition">Explorar</a>
     </div>
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">📦 Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="mb-4 text-sm">Sembramos libros físicos en tu espacio semanalmente.</p>
+      <p class="mb-4 text-sm">Sembramos libros en tu espacio cada semana.</p>
       <a href="https://wa.me/5215555555555" class="inline-block glow-button bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold transition">Solicitar</a>
     </div>
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">🌀 Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="mb-4 text-sm">Diseñamos experiencias completas para tus usuarios.</p>
+      <p class="mb-4 text-sm">Diseñamos toda tu experiencia física + digital.</p>
       <a href="https://wa.me/5215555555555" class="inline-block glow-button bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-bold transition">Agendar</a>
     </div>
   </div>
@@ -112,7 +134,7 @@
 <!-- CTA FINAL -->
 <section class="py-24 text-center bg-black">
   <h2 class="text-3xl font-bold gradient-text mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h2>
-  <p class="text-gray-400 mb-6">Triggui no es una app. Es una pausa real.</p>
+  <p class="text-gray-400 mb-6">Triggui no es una app. Es una pausa real. Viva. Transformadora.</p>
   <a href="https://app.triggui.com" class="inline-block glow-button bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white font-bold px-10 py-4 rounded-full transition">📖 Ir a TrigguiApp</a>
 </section>
 
@@ -121,14 +143,23 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- CONTADOR API -->
+<!-- ANIMACIÓN NUMÉRICA -->
 <script>
   const span = document.getElementById("numeroImpacto");
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(res => res.json())
     .then(data => {
-      const total = data.total || 0;
-      span.textContent = "+" + total.toLocaleString("es-MX");
+      const target = data.total || 0;
+      let current = 0;
+      const steps = 30;
+      const increment = Math.ceil(target / steps);
+      const animate = () => {
+        current += increment;
+        if (current >= target) current = target;
+        span.textContent = "+" + current.toLocaleString("es-MX");
+        if (current < target) requestAnimationFrame(animate);
+      };
+      requestAnimationFrame(animate);
     })
     .catch(() => {
       span.textContent = "+8,000";
