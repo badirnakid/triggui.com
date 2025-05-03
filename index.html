@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Triggui – Un libro. Un lugar. Un momento.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -120,8 +120,10 @@
 <body>
 
 <!-- HERO -->
-<header class="text-center px-6 py-36 max-w-6xl mx-auto" data-aos="fade-up">
-  <h1 class="text-6xl md:text-7xl font-extrabold mb-4 gradient-text">Un libro.<br>Un lugar.<br>Un momento.</h1>
+<header class="text-center px-6 py-28 md:py-36 max-w-6xl mx-auto" data-aos="fade-up">
+  <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 gradient-text">
+    Un libro.<br>Un lugar.<br>Un momento.
+  </h1>
   <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">Triggui es ese instante real donde todo cambia.</p>
   <div class="countup mt-10" id="numeroImpacto">+0</div>
   <p class="text-sm text-gray-400">Libros físicos abiertos en todo el mundo 📖</p>
@@ -214,17 +216,6 @@
 
 <!-- AOS init -->
 <script>AOS.init({ duration: 1000, once: true });</script>
-
-<!-- Ajuste dinámico para evitar corte en Android -->
-<script>
-  window.addEventListener("load", () => {
-    const inner = window.innerHeight;
-    const client = document.documentElement.clientHeight;
-    if (inner - client > 30) {
-      document.body.style.paddingBottom = "60px";
-    }
-  });
-</script>
 
 </body>
 </html>
