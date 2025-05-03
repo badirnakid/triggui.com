@@ -2,40 +2,40 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triggui – Es un instante real.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Triggui – Un libro. Un lugar. Un momento.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Archivo', sans-serif;
-      background: linear-gradient(135deg, #0d0e1a, #1a1c2d);
-      color: #f3f4f6;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #f5f5f5;
       scroll-behavior: smooth;
     }
     .gradient-text {
       background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      font-weight: 800;
     }
     .glass {
       background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(14px);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 1.25rem;
-      padding: 2rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      backdrop-filter: blur(12px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      transition: transform 0.3s ease;
     }
     .glass:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(0, 255, 255, 0.05);
+      transform: translateY(-6px);
     }
-    .breathing-btn {
-      animation: breathe 4s ease-in-out infinite;
+    .glow-button {
+      animation: glow 3s ease-in-out infinite;
     }
-    @keyframes breathe {
-      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-      50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(255, 255, 255, 0.2); }
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.2); }
+      50% { box-shadow: 0 0 45px rgba(255, 0, 180, 0.4); }
     }
   </style>
 </head>
@@ -43,67 +43,81 @@
 
 <!-- HERO -->
 <header class="text-center px-6 py-36 max-w-6xl mx-auto">
-  <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 gradient-text">Un libro. <br>Un lugar. <br>Un momento.</h1>
-  <p class="text-xl text-gray-300 max-w-xl mx-auto mb-6">Triggui transforma lo cotidiano en sagrado. Es una pausa real. Es tu energía regresando a ti.</p>
-  <div id="numeroImpacto" class="text-5xl font-extrabold text-white mt-8 mb-2">+0</div>
-  <p class="text-gray-400 text-sm" id="subTextoImpacto">Son los libros que juntos hemos abierto 📖</p>
+  <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6 gradient-text">Un libro.<br>Un lugar.<br>Un momento.</h1>
+  <p class="text-xl text-gray-300 max-w-xl mx-auto mb-6">Triggui convierte la espera en energía. Abres un libro, abres un canal.</p>
+  <div class="text-5xl font-extrabold text-white my-4" id="numeroImpacto">+0</div>
+  <p class="text-sm text-gray-400">Libros físicos abiertos en todo el mundo 📖</p>
 </header>
 
 <!-- 4 FRECUENCIAS -->
 <section class="py-24 bg-[#11121c] border-t border-gray-800">
-  <h2 class="text-3xl text-center font-bold mb-12 gradient-text">🧭 Las 4 frecuencias de Triggui</h2>
+  <h2 class="text-3xl text-center font-bold mb-12 gradient-text">🔋 Zonas de activación energética</h2>
   <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto text-center">
-    <div class="glass">🫧<br><strong>Punto Cero</strong><br><span class="text-gray-400 text-sm">Detén. Respira. Empieza.</span></div>
-    <div class="glass">💡<br><strong>Punto Creativo</strong><br><span class="text-gray-400 text-sm">Notas. Conexión. Ideas.</span></div>
-    <div class="glass">🔥<br><strong>Punto Activo</strong><br><span class="text-gray-400 text-sm">Disciplina. Acción.</span></div>
-    <div class="glass">🚀<br><strong>Punto Máximo</strong><br><span class="text-gray-400 text-sm">Claridad. Logro.</span></div>
+    <div class="glass">🫧<br><strong>Punto Cero</strong><br><span class="text-gray-400 text-sm">Silencio. Inicio. Pausa.</span></div>
+    <div class="glass">💡<br><strong>Punto Creativo</strong><br><span class="text-gray-400 text-sm">Ideas. Inspiración. Movimiento.</span></div>
+    <div class="glass">🔥<br><strong>Punto Activo</strong><br><span class="text-gray-400 text-sm">Presencia. Productividad.</span></div>
+    <div class="glass">🚀<br><strong>Punto Máximo</strong><br><span class="text-gray-400 text-sm">Claridad. Conquista.</span></div>
   </div>
 </section>
 
-<!-- TESTIMONIOS DINÁMICOS -->
-<section class="py-24 px-6 bg-gradient-to-b from-[#0d0e1a] to-[#14172a]">
-  <h2 class="text-3xl font-bold text-center mb-12 gradient-text">📢 ¿Qué dice la gente?</h2>
-  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-gray-200 text-center">
-    <div class="glass italic">“El libro me eligió a mí.”</div>
-    <div class="glass italic">“Solo un párrafo cambió mi día.”</div>
-    <div class="glass italic">“Me sentí humano otra vez.”</div>
+<!-- PILARES -->
+<section class="py-24 px-6 bg-gradient-to-b from-[#0f0c29] via-[#302b63] to-[#24243e] text-center">
+  <h2 class="text-3xl font-bold mb-12 gradient-text">🌈 7 Pilares Triggui (inspirado en los PDF)</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto text-gray-200 text-left">
+    <div class="glass"><strong>📍 Presencia:</strong> Lo físico ancla tu mente al momento. Cada libro en mesa es un portal.</div>
+    <div class="glass"><strong>🌀 Rituales:</strong> El acto de abrir una página reinicia tu energía. Sin tecnología, sin ruido.</div>
+    <div class="glass"><strong>📈 ROI emocional:</strong> Un solo visitante tocado por un libro vale más que mil impactos digitales.</div>
+    <div class="glass"><strong>🧭 Simplicidad:</strong> Un solo libro, una sola página. Sin elección, hay acción.</div>
+    <div class="glass"><strong>📚 Sabiduría viva:</strong> Curaduría intencional basada en modelos energéticos.</div>
+    <div class="glass"><strong>🔁 Repetición Sagrada:</strong> Cada día cambia, pero la pausa permanece.</div>
+    <div class="glass md:col-span-3"><strong>✨ Magia sin interfaz:</strong> Triggui no se descarga. Se siente. Se vive.</div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="py-24 px-6 bg-[#1a1c2d]">
+  <h2 class="text-3xl font-bold text-center mb-12 gradient-text">📢 Testimonios reales</h2>
+  <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center text-gray-200 italic">
+    <div class="glass">“No tenía idea de qué leer. Abrí una página y fue justo lo que necesitaba.”</div>
+    <div class="glass">“Un párrafo bastó para darme claridad.”</div>
+    <div class="glass">“Triggui me salvó de otro scroll infinito. Me devolvió el foco.”</div>
   </div>
 </section>
 
 <!-- PLANES -->
-<section class="py-24 text-center border-t border-gray-800">
-  <h2 class="text-3xl font-bold mb-12 gradient-text">💎 Activa Triggui en tu mundo</h2>
+<section class="py-24 text-center bg-gradient-to-br from-[#0d0e1a] via-[#2e1a47] to-[#1a1c2d]">
+  <h2 class="text-3xl font-bold mb-12 gradient-text">💎 Activa Triggui hoy</h2>
   <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100">
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">📲 Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="mb-4 text-sm">Frases y recordatorios sin distracción.</p>
-      <a href="https://app.triggui.com" class="mt-2 inline-block bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full font-bold transition">Explorar</a>
+      <p class="mb-4 text-sm">Frases, energía, dopamina. Sin distracciones.</p>
+      <a href="https://app.triggui.com" class="inline-block glow-button bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full font-bold transition">Explorar</a>
     </div>
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">📦 Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="mb-4 text-sm">Un libro físico sembrado cada semana.</p>
-      <a href="https://wa.me/5215555555555" class="mt-2 inline-block bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full font-bold transition">Solicitar</a>
+      <p class="mb-4 text-sm">Sembramos libros físicos en tu espacio semanalmente.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block glow-button bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full font-bold transition">Solicitar</a>
     </div>
     <div class="glass">
       <h3 class="text-xl font-bold mb-2">🌀 Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="mb-4 text-sm">Diseñamos la experiencia completa contigo.</p>
-      <a href="https://wa.me/5215555555555" class="mt-2 inline-block bg-pink-500 hover:bg-pink-600 text-white px-6 py-2 rounded-full font-bold transition">Agendar</a>
+      <p class="mb-4 text-sm">Diseñamos experiencias completas para tus usuarios.</p>
+      <a href="https://wa.me/5215555555555" class="inline-block glow-button bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full font-bold transition">Agendar</a>
     </div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
-<section class="py-24 text-center bg-[#1a1c2d]">
+<section class="py-24 text-center bg-black">
   <h2 class="text-3xl font-bold gradient-text mb-4">Abre un libro. Siente el cambio. Vuelve a ti.</h2>
-  <p class="text-gray-400 mb-6">Triggui App es el impulso. El libro hace el resto.</p>
-  <a href="https://app.triggui.com" class="inline-block breathing-btn bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white font-bold px-10 py-4 rounded-full transition">📖 Ir a TrigguiApp</a>
+  <p class="text-gray-400 mb-6">Triggui no es una app. Es una pausa real.</p>
+  <a href="https://app.triggui.com" class="inline-block glow-button bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white font-bold px-10 py-4 rounded-full transition">📖 Ir a TrigguiApp</a>
 </section>
 
 <!-- FOOTER -->
-<footer class="text-center text-sm text-gray-600 py-12 border-t border-gray-700">
+<footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
