@@ -215,5 +215,16 @@
 <!-- AOS init -->
 <script>AOS.init({ duration: 1000, once: true });</script>
 
+<!-- Ajuste dinámico para evitar corte en Android -->
+<script>
+  window.addEventListener("load", () => {
+    const inner = window.innerHeight;
+    const client = document.documentElement.clientHeight;
+    if (inner - client > 30) {
+      document.body.style.paddingBottom = "60px";
+    }
+  });
+</script>
+
 </body>
 </html>
