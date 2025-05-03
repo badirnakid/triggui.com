@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Triggui – Un libro. Un lugar. Un momento.</title>
+  <title>Triggui – El instante real</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
@@ -14,57 +14,75 @@
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
       color: #f5f5f5;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
-    .gradient-text {
-      background: linear-gradient(90deg, #ff6ec4, #7873f5, #2af598);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: shine 6s linear infinite;
-      font-weight: 900;
+
+    .typewriter span {
+      display: inline-block;
+      overflow: hidden;
+      border-right: .15em solid #fff;
+      white-space: nowrap;
+      animation: typing 3s steps(30, end), blink-caret .75s step-end infinite;
     }
-    @keyframes shine {
-      0% { background-position: 0% }
-      100% { background-position: 200% }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      border-radius: 1.5rem;
-      padding: 1.8rem;
-      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: white; }
     }
-    .glass:hover {
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 0 40px rgba(0, 255, 255, 0.1);
-    }
+
     .glow-button {
-      background: linear-gradient(90deg, #ff6ec4, #7873f5, #2af598);
-      background-size: 300% auto;
+      background: linear-gradient(270deg, #ff6ec4, #7873f5, #2af598);
+      background-size: 600% 600%;
       color: white;
       padding: 1rem 2.5rem;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-      transition: all 0.4s ease;
-      animation: pulse 3s ease-in-out infinite;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+      transition: all 0.3s ease;
+      animation: neonflow 8s ease infinite;
     }
-    .glow-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 45px rgba(255, 255, 255, 0.3);
+
+    @keyframes neonflow {
+      0% { background-position: 0% 50% }
+      50% { background-position: 100% 50% }
+      100% { background-position: 0% 50% }
     }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); }
-      50% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.3); }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(14px);
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
+
+    .glass:hover {
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 0 40px rgba(255,255,255,0.06);
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
     .countup {
       font-size: 3.5rem;
       font-weight: 900;
       background: linear-gradient(to right, #00f2fe, #ff00c7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .countup { font-size: 2.5rem; }
     }
   </style>
 </head>
@@ -73,63 +91,63 @@
 
 <!-- HERO -->
 <header class="text-center px-6 py-36 max-w-6xl mx-auto" data-aos="fade-up">
-  <h1 class="text-6xl md:text-7xl font-extrabold leading-tight mb-6 gradient-text">Un libro.<br>Un lugar.<br>Un momento.</h1>
-  <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-6" data-aos="fade-up" data-aos-delay="200">Triggui convierte la <span class="gradient-text">espera</span> en un <span class="gradient-text">ritual sagrado</span>. Es una pausa que se siente.</p>
-  <div id="numeroImpacto" class="countup mt-10">+0</div>
+  <h1 class="text-6xl md:text-7xl font-extrabold mb-4 typewriter"><span>Un libro. Un lugar. Un momento.</span></h1>
+  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">Triggui transforma el instante. Es pausa. Es energía. Es lo real.</p>
+  <div class="countup mt-10" id="numeroImpacto">+0</div>
   <p class="text-sm text-gray-400">Libros físicos abiertos en todo el mundo 📖</p>
 </header>
 
-<!-- ZONAS DE ENERGÍA -->
-<section class="py-24 bg-[#11121c]" data-aos="zoom-in">
-  <h2 class="text-3xl text-center font-bold mb-12 gradient-text">🧭 Zonas de activación energética</h2>
+<!-- FRECUENCIAS -->
+<section class="py-24 bg-[#11121c] border-t border-gray-800">
+  <h2 class="text-3xl text-center font-bold mb-12 gradient-text" data-aos="zoom-in">🧬 Las 4 Frecuencias de Triggui</h2>
   <div class="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto text-center">
-    <div class="glass">🫧<br><strong>Punto Cero</strong><br><span class="text-gray-400 text-sm">Silencio. Inicio. Reset.</span></div>
-    <div class="glass">💡<br><strong>Punto Creativo</strong><br><span class="text-gray-400 text-sm">Ideas. Inspiración. Movimiento.</span></div>
-    <div class="glass">🔥<br><strong>Punto Activo</strong><br><span class="text-gray-400 text-sm">Presencia. Acción. Ritmo.</span></div>
-    <div class="glass">🚀<br><strong>Punto Máximo</strong><br><span class="text-gray-400 text-sm">Claridad. Expansión. Poder.</span></div>
+    <div class="glass" data-aos="fade-up">🫧<br><strong>Punto Cero</strong><br><span class="text-gray-400 text-sm">Silencio. Inicio. Reset.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="100">💡<br><strong>Punto Creativo</strong><br><span class="text-gray-400 text-sm">Ideas. Movimiento. Inspiración.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="200">🔥<br><strong>Punto Activo</strong><br><span class="text-gray-400 text-sm">Acción. Presencia.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="300">🚀<br><strong>Punto Máximo</strong><br><span class="text-gray-400 text-sm">Logro. Claridad. Momentum.</span></div>
   </div>
 </section>
 
 <!-- TESTIMONIOS -->
 <section class="py-24 px-6 bg-gradient-to-br from-[#0d0e1a] via-[#302b63] to-[#1a1c2d]">
-  <h2 class="text-3xl font-bold text-center mb-12 gradient-text" data-aos="fade-up">📢 Testimonios que nos mueven</h2>
+  <h2 class="text-3xl font-bold text-center mb-12 gradient-text" data-aos="fade-up">📢 Testimonios reales</h2>
   <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center text-gray-200 italic text-lg">
-    <div class="glass" data-aos="fade-right">“El libro me eligió.”</div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="150">“Un párrafo. Eso fue todo.”</div>
-    <div class="glass" data-aos="fade-left" data-aos-delay="300">“Me desconecté del celular. Me reconecté conmigo.”</div>
+    <div class="glass" data-aos="fade-up">“Abrí una página y fue lo que necesitaba.”</div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="100">“Me desconecté del celular y me conecté conmigo.”</div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="200">“No sé cómo, pero me sentí humano otra vez.”</div>
   </div>
 </section>
 
 <!-- PLANES -->
-<section class="py-24 text-center bg-black border-t border-gray-800">
-  <h2 class="text-3xl font-bold mb-12 gradient-text" data-aos="fade-up">💎 ¿Cómo activar Triggui?</h2>
+<section class="py-24 text-center bg-black">
+  <h2 class="text-3xl font-bold mb-12 gradient-text" data-aos="zoom-in-up">💎 Activa Triggui en tu mundo</h2>
   <div class="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100">
-    <div class="glass" data-aos="fade-up" data-aos-delay="100">
+    <div class="glass" data-aos="fade-up">
       <h3 class="text-xl font-bold mb-2">📲 Triggui App</h3>
       <p class="text-2xl font-bold mb-4">$100 MXN / mes</p>
-      <p class="mb-4 text-sm">Frases diarias. Sin distracciones. Estímulo puro.</p>
+      <p class="mb-4 text-sm">Frases diarias. Conexión sin pantalla. Magia dopaminérgica.</p>
       <a href="https://app.triggui.com" class="glow-button">Explorar</a>
     </div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="200">
+    <div class="glass" data-aos="fade-up" data-aos-delay="150">
       <h3 class="text-xl font-bold mb-2">📦 Triggui Light</h3>
       <p class="text-2xl font-bold mb-4">$5,000 MXN / mes</p>
-      <p class="mb-4 text-sm">Un libro físico nuevo en tu espacio cada semana.</p>
+      <p class="mb-4 text-sm">Sembramos libros físicos en tu espacio cada semana.</p>
       <a href="https://wa.me/5215555555555" class="glow-button">Solicitar</a>
     </div>
     <div class="glass" data-aos="fade-up" data-aos-delay="300">
       <h3 class="text-xl font-bold mb-2">🌀 Triggui Pro</h3>
       <p class="text-2xl font-bold mb-4">Desde $35,000 MXN</p>
-      <p class="mb-4 text-sm">Diseñamos la experiencia física + emocional para tus usuarios.</p>
+      <p class="mb-4 text-sm">Diseñamos la experiencia completa. Lectura, energía, conexión.</p>
       <a href="https://wa.me/5215555555555" class="glow-button">Agendar</a>
     </div>
   </div>
 </section>
 
 <!-- CTA FINAL -->
-<section class="py-24 text-center bg-gradient-to-t from-[#0f0c29] via-[#302b63] to-black">
+<section class="py-24 text-center bg-gradient-to-t from-black via-[#2e2b44] to-[#0f0c29]">
   <h2 class="text-4xl font-bold gradient-text mb-4" data-aos="zoom-in">Abre un libro. Siente el cambio. Vuelve a ti.</h2>
-  <p class="text-gray-400 mb-6" data-aos="fade-up">Triggui no es una app. Es una pausa real. Viva. Energética.</p>
-  <a href="https://app.triggui.com" class="glow-button" data-aos="zoom-in-up">📖 Ir a TrigguiApp</a>
+  <p class="text-gray-400 mb-6">Triggui es una activación. No una app. Una pausa real.</p>
+  <a href="https://app.triggui.com" class="glow-button" data-aos="fade-up">📖 Ir a TrigguiApp</a>
 </section>
 
 <!-- FOOTER -->
@@ -137,7 +155,7 @@
   © 2025 Triggui · Cada página abierta es un nuevo comienzo.
 </footer>
 
-<!-- CONTADOR ANIMADO -->
+<!-- CONTADOR -->
 <script>
   const span = document.getElementById("numeroImpacto");
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
@@ -155,18 +173,10 @@
       };
       requestAnimationFrame(animate);
     })
-    .catch(() => {
-      span.textContent = "+8,000";
-    });
+    .catch(() => { span.textContent = "+8,000"; });
 </script>
 
-<!-- INICIAR AOS -->
-<script>
-  AOS.init({
-    duration: 1000,
-    once: true
-  });
-</script>
+<script>AOS.init({ duration: 1000, once: true });</script>
 
 </body>
 </html>
