@@ -18,7 +18,6 @@
       scroll-behavior: smooth;
       overflow-x: hidden;
     }
-
     .gradient-text {
       background: linear-gradient(to right, #ff8a00, #e52e71, #00c6ff);
       background-size: 200% auto;
@@ -27,12 +26,10 @@
       animation: gradientMove 6s ease infinite;
       font-weight: 900;
     }
-
     @keyframes gradientMove {
       0% { background-position: 0% }
       100% { background-position: 200% }
     }
-
     .glass {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -42,12 +39,10 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
       transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
-
     .glass:hover {
       transform: translateY(-4px) scale(1.02);
       box-shadow: 0 0 35px rgba(255,255,255,0.08);
     }
-
     .glow-button {
       background: linear-gradient(270deg, #ff6ec4, #7873f5, #2af598);
       background-size: 600% 600%;
@@ -61,13 +56,11 @@
       margin-top: 1.8rem;
       transition: all 0.3s ease;
     }
-
     @keyframes neonflow {
       0% { background-position: 0% 50% }
       50% { background-position: 100% 50% }
       100% { background-position: 0% 50% }
     }
-
     .countup {
       font-size: 3.3rem;
       font-weight: 900;
@@ -75,7 +68,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .floating-cta {
       position: fixed;
       bottom: 20px;
@@ -90,12 +82,10 @@
       color: #fff;
       animation: pulse-glow 3s infinite;
     }
-
     @keyframes pulse-glow {
       0%, 100% { transform: scale(1); filter: brightness(1); }
       50% { transform: scale(1.05); filter: brightness(1.15); }
     }
-
     @media (max-width: 768px) {
       h1 { font-size: 2.4rem; }
       .countup { font-size: 2.1rem; }
@@ -109,23 +99,12 @@
   <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 gradient-text leading-tight">
     Abre.<br>Un Libro.<br>Físico.
   </h1>
-  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">Triggui existe para que<br>tomes un libro físico<br>que tengas cerca<br>lo abras en cualquier parte<br>y leas la primera línea que veas.</p>
+  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">
+    Triggui existe para que<br>tomes un libro físico<br>que tengas cerca<br>lo abras en cualquier parte<br>y leas la primera línea que veas.
+  </p>
   <div class="countup mt-10" id="numeroImpacto">+0</div>
   <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro físico se abriera. Súmate 📖</p>
 </header>
-
-<!-- PROBLEMÁTICAS -->
-<section class="py-24 bg-[#11121c] border-t border-gray-800">
-  <h2 class="text-3xl text-center font-bold mb-12 gradient-text" data-aos="zoom-in">📚 ¿Te pasa esto?</h2>
-  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto text-center">
-    <div class="glass" data-aos="fade-up">📱<br><strong>Abres el celular, no un libro.</strong><br><span class="text-gray-400 text-sm mt-2 block">Y cuando te das cuenta, ya pasó una hora.</span></div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="100">🌀<br><strong>Te cuesta elegir qué leer.</strong><br><span class="text-gray-400 text-sm mt-2 block">Tantas opciones que terminas sin abrir ninguno.</span></div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="200">⏳<br><strong>“Hoy sí leo”... pero no pasa.</strong><br><span class="text-gray-400 text-sm mt-2 block">La intención está. La acción no llega.</span></div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="300">🔁<br><strong>Tienes libros... pero cerrados.</strong><br><span class="text-gray-400 text-sm mt-2 block">Y no sabes cómo volver a ellos.</span></div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="400">🌪️<br><strong>Sientes que te olvidas de ti.</strong><br><span class="text-gray-400 text-sm mt-2 block">De lo que realmente te nutre.</span></div>
-    <div class="glass" data-aos="fade-up" data-aos-delay="500">⚡<br><strong>Buscas algo que te mueva.</strong><br><span class="text-gray-400 text-sm mt-2 block">No más excusas. Solo tú y un libro abierto.</span></div>
-  </div>
-</section>
 
 <!-- PLANES -->
 <section class="py-24 text-center bg-gradient-to-tr from-[#0f0c29] via-[#2b1247] to-[#1a1c2d]">
@@ -155,20 +134,40 @@
   </div>
 </section>
 
+<!-- PROBLEMÁTICAS -->
+<section class="py-24 bg-[#11121c] border-t border-gray-800">
+  <h2 class="text-3xl text-center font-bold mb-12 gradient-text" data-aos="zoom-in">📚 ¿Te pasa esto?</h2>
+  <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto text-center">
+    <div class="glass" data-aos="fade-up">📱<br><strong>Abres el celular, no un libro.</strong><br><span class="text-gray-400 text-sm mt-2 block">Y cuando te das cuenta, ya pasó una hora.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="100">🌀<br><strong>Te cuesta elegir qué leer.</strong><br><span class="text-gray-400 text-sm mt-2 block">Tantas opciones que terminas sin abrir ninguno.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="200">⏳<br><strong>“Hoy sí leo”... pero no pasa.</strong><br><span class="text-gray-400 text-sm mt-2 block">La intención está. La acción no llega.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="300">🔁<br><strong>Tienes libros... pero cerrados.</strong><br><span class="text-gray-400 text-sm mt-2 block">Y no sabes cómo volver a ellos.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="400">🌪️<br><strong>Sientes que te olvidas de ti.</strong><br><span class="text-gray-400 text-sm mt-2 block">De lo que realmente te nutre.</span></div>
+    <div class="glass" data-aos="fade-up" data-aos-delay="500">⚡<br><strong>Buscas algo que te mueva.</strong><br><span class="text-gray-400 text-sm mt-2 block">No más excusas. Solo tú y un libro abierto.</span></div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section class="py-20 bg-[#11121c] border-t border-gray-800 text-center text-sm text-gray-400">
+  <p class="max-w-2xl mx-auto mb-6 italic">“No sé ni qué estaba viendo en mi celular. Claro que hubiera agarrado el libro.”</p>
+  <p class="max-w-2xl mx-auto mb-6 italic">“Sí pagaría por una salita con libros bien seleccionados y un buen cafecito.”</p>
+  <p class="max-w-2xl mx-auto italic">“Ya estamos pasando demasiado tiempo en el celular. Ojalá alguien implemente esta idea.”</p>
+</section>
+
 <!-- CTA FINAL -->
 <section class="py-24 text-center bg-[#0f0c29]">
   <h2 class="text-4xl font-bold gradient-text mb-4" data-aos="zoom-in">Abre un libro físico. Aquí y Ahora.</h2>
   <p class="text-gray-400 mb-6">Triggui es un impulso real. No hay notificaciones. Solo conexión.</p>
-  <a href="https://app.triggui.com" class="glow-button" data-aos="fade-up">📖 Activar Triggui</a>
+  <a href="https://app.triggui.com" class="glow-button" data-aos="fade-up">📖 Ya abrí un libro físico</a>
 </section>
 
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
-  © 2025 Triggui · Cada libro físico abierto es un momento real.
+  © 2025 Triggui · Porque cada vez que abres un libro físico, algo cambia.
 </footer>
 
 <!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">📲 TrigguiApp</a>
+<a href="https://app.triggui.com" class="floating-cta">📲 Ábrelo. Aquí y ahora.</a>
 
 <!-- CONTADOR -->
 <script>
