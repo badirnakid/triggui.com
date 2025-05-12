@@ -35,26 +35,25 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(16px);
       border-radius: 1.5rem;
-      padding: 2.5rem;
+      padding: 2rem;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .glass:hover {
-      transform: translateY(-4px) scale(1.02);
+      transform: translateY(-4px);
       box-shadow: 0 0 35px rgba(255,255,255,0.08);
     }
     .glow-button {
       background: linear-gradient(270deg, #ff6ec4, #7873f5, #2af598);
       background-size: 600% 600%;
       color: white;
-      padding: 1rem 2.5rem;
+      padding: 0.75rem 2rem;
       font-weight: bold;
       border-radius: 999px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
-      animation: neonflow 8s ease infinite;
+      box-shadow: 0 0 18px rgba(255, 255, 255, 0.1);
+      animation: neonflow 6s ease infinite;
       display: inline-block;
-      margin-top: 1.8rem;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
     @keyframes neonflow {
       0% { background-position: 0% 50% }
@@ -68,24 +67,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .floating-cta {
-      position: fixed;
-      bottom: 20px;
-      right: clamp(12px, 4vw, 20px);
-      z-index: 999;
-      padding: 14px 30px;
-      font-weight: bold;
-      border-radius: 999px;
-      box-shadow: 0 0 18px rgba(255, 94, 98, 0.4);
-      background: linear-gradient(135deg, #ff0080, #7928ca, #2af598);
-      background-size: 300% 300%;
-      color: #fff;
-      animation: pulse-glow 3s infinite;
-    }
-    @keyframes pulse-glow {
-      0%, 100% { transform: scale(1); filter: brightness(1); }
-      50% { transform: scale(1.05); filter: brightness(1.15); }
-    }
     @media (max-width: 768px) {
       h1 { font-size: 2.4rem; }
       .countup { font-size: 2.1rem; }
@@ -95,61 +76,52 @@
 <body>
 
 <!-- HERO -->
-<header class="text-center px-6 pt-28 pb-20 md:pt-36 md:pb-28 max-w-6xl mx-auto" data-aos="fade-up">
+<header class="text-center px-6 pt-28 pb-16 md:pt-36 md:pb-20 max-w-6xl mx-auto" data-aos="fade-up">
   <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 gradient-text leading-tight">
     Abre.<br>Un Libro.<br>Físico.
   </h1>
   <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">
-    Triggui existe para que<br>tomes un libro físico<br>que tengas cerca,<br>lo abras en cualquier parte<br>y leas la primera línea que veas.
+    Triggui existe para que<br>tomes un libro físico que tengas cerca,<br>lo abras en cualquier parte<br>y leas la primera línea que veas.
   </p>
   <div class="countup mt-10" id="numeroImpacto">+0</div>
   <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro físico se abriera. Súmate 📖</p>
 </header>
 
 <!-- ¿Y. QUÉ. LIBRO. ABRO? -->
-<section class="py-20 text-center bg-[#0f0c29] border-t border-gray-800">
-  <h2 class="text-4xl font-bold gradient-text mb-8 leading-tight" data-aos="zoom-in">
-    ¿Y.<br>Qué.<br>Libro Abro?
+<section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
+  <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-8 gradient-text leading-tight" data-aos="zoom-in">
+    ¿Y.<br>Qué Libro.<br>Abro?
   </h2>
 
-  <div class="glass max-w-xl mx-auto" data-aos="fade-up">
-    <p class="text-xl font-semibold mb-3">Una app.</p>
-    <p class="text-2xl font-bold mb-4 leading-snug">Te muestra 4 palabras.  
-    Haces clic.  
-    Se activa la chispa.</p>
-    <p class="text-sm text-gray-400 mb-2">Web, iOS y Android</p>
-    <p class="text-3xl font-bold mb-4">$100 MXN / mes</p>
-    <a href="https://app.triggui.com" class="glow-button">Activar</a>
-  </div>
-</section>
-
-<!-- PLANES -->
-<section class="py-20 text-center bg-gradient-to-tr from-[#0f0c29] via-[#2b1247] to-[#1a1c2d]">
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto text-gray-100 items-stretch">
-    <div class="glass" data-aos="fade-up" data-aos-delay="150">
-      <p class="text-sm text-gray-300 mb-1 uppercase tracking-wide">Plan físico mensual</p>
-      <p class="text-2xl font-bold mb-3 leading-snug">4 libros físicos.  
-      1 por semana.  
-      Entregados donde elijas.</p>
-      <p class="text-3xl font-bold mb-4">$5,000 MXN</p>
-      <a href="https://wa.me/5215555555555" class="glow-button">Solicitar</a>
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 px-4 text-left">
+    <div class="glass flex flex-col justify-between" data-aos="fade-up">
+      <p class="text-sm text-gray-400 mb-1 uppercase tracking-wide">Triggui App</p>
+      <h3 class="text-xl font-bold mb-2">La chispa digital</h3>
+      <p class="text-sm mb-4">4 palabras. 1 clic. Acción inmediata.</p>
+      <p class="text-2xl font-bold mb-2">$100 MXN / mes</p>
+      <a href="https://app.triggui.com" class="glow-button mt-2 text-sm text-white">Probar ahora</a>
     </div>
-
-    <div class="glass" data-aos="fade-up" data-aos-delay="300">
-      <p class="text-sm text-gray-300 mb-1 uppercase tracking-wide">Zona empresarial</p>
-      <p class="text-2xl font-bold mb-3 leading-snug">Instalación física.  
-      Activación continua.  
-      Diseño personalizado.</p>
-      <p class="text-3xl font-bold mb-4">Desde $35,000 MXN</p>
-      <a href="https://wa.me/5215555555555" class="glow-button">Agendar</a>
+    <div class="glass flex flex-col justify-between" data-aos="fade-up" data-aos-delay="150">
+      <p class="text-sm text-gray-400 mb-1 uppercase tracking-wide">Triggui Light</p>
+      <h3 class="text-xl font-bold mb-2">4 libros físicos al mes</h3>
+      <p class="text-sm mb-4">Para cafés, oficinas, salas o lobbies.</p>
+      <p class="text-2xl font-bold mb-2">$5,000 MXN</p>
+      <a href="https://wa.me/5215555555555" class="glow-button mt-2 text-sm text-white">Solicitar</a>
+    </div>
+    <div class="glass flex flex-col justify-between" data-aos="fade-up" data-aos-delay="300">
+      <p class="text-sm text-gray-400 mb-1 uppercase tracking-wide">Triggui Pro</p>
+      <h3 class="text-xl font-bold mb-2">Zona física empresarial</h3>
+      <p class="text-sm mb-4">Instalación que invita. Y transforma.</p>
+      <p class="text-2xl font-bold mb-2">Desde $35,000 MXN</p>
+      <a href="https://wa.me/5215555555555" class="glow-button mt-2 text-sm text-white">Agendar</a>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIOS -->
-<section class="py-20 bg-[#11121c] text-center border-t border-gray-800">
-  <h2 class="text-3xl font-bold gradient-text mb-12" data-aos="zoom-in">Lo dijeron en voz alta</h2>
-  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 text-sm text-gray-400">
+<section class="py-24 text-center bg-[#11121c] border-t border-gray-800">
+  <h2 class="text-3xl font-bold gradient-text mb-12" data-aos="zoom-in">Lo dijeron ellos</h2>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 px-4 text-sm text-gray-400">
     <p class="italic">“No sé ni qué estaba viendo en mi celular. Claro que hubiera agarrado el libro.”</p>
     <p class="italic">“Sí pagaría por una salita con libros bien seleccionados y un buen cafecito.”</p>
     <p class="italic">“Ya estamos pasando demasiado tiempo en el celular. Ojalá implementen esta idea.”</p>
@@ -157,11 +129,11 @@
 </section>
 
 <!-- MODELOS TRIGGUI -->
-<section class="py-24 bg-[#0f0c29] border-t border-gray-800 text-center text-gray-300 px-6">
-  <h2 class="text-3xl font-bold gradient-text mb-8" data-aos="zoom-in">Modelos internos de activación</h2>
-  <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-8 text-left text-sm leading-relaxed">
+<section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800 px-6">
+  <h2 class="text-3xl font-bold gradient-text mb-12" data-aos="zoom-in">Modelos Triggui</h2>
+  <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8 text-left text-sm leading-relaxed text-gray-300">
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Puntos Triggui</h3>
+      <h3 class="text-lg font-bold mb-2">Puntos de Activación</h3>
       <ul class="list-disc list-inside text-gray-400">
         <li>Punto Cero</li>
         <li>Punto Creativo</li>
@@ -170,7 +142,7 @@
       </ul>
     </div>
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Centros de Energía</h3>
+      <h3 class="text-lg font-bold mb-2">Centros de Energía</h3>
       <ul class="list-disc list-inside text-gray-400">
         <li>Movimiento</li>
         <li>Corazón</li>
@@ -179,11 +151,11 @@
       </ul>
     </div>
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Pilares del Desarrollo</h3>
+      <h3 class="text-lg font-bold mb-2">Pilares Triggui</h3>
       <ul class="list-disc list-inside text-gray-400">
-        <li>Bienestar (Físico, Emocional)</li>
-        <li>Prosperidad (Financiera, Negocios)</li>
-        <li>Conexión (Relaciones, Espiritualidad)</li>
+        <li>Bienestar (Físico y Emocional)</li>
+        <li>Prosperidad (Finanzas y Negocios)</li>
+        <li>Conexión (Relaciones y Espíritu)</li>
       </ul>
     </div>
   </div>
@@ -192,17 +164,14 @@
 <!-- CTA FINAL -->
 <section class="py-24 text-center bg-[#0f0c29]">
   <h2 class="text-4xl font-bold gradient-text mb-4" data-aos="zoom-in">Abre un libro físico. Aquí y Ahora.</h2>
-  <p class="text-gray-400 mb-6">Triggui es un impulso real. No hay notificaciones. Solo conexión.</p>
+  <p class="text-gray-400 mb-6">Triggui no notifica. No recomienda. Solo activa.</p>
   <a href="https://app.triggui.com" class="glow-button" data-aos="fade-up">📖 Ya abrí un libro físico</a>
 </section>
 
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
-  © 2025 Triggui · Porque cada vez que abres un libro físico, algo cambia.
+  © 2025 Triggui · Cada libro físico abierto es un momento real.
 </footer>
-
-<!-- BOTÓN FLOTANTE -->
-<a href="https://app.triggui.com" class="floating-cta">📲 Ábrelo. Aquí y ahora.</a>
 
 <!-- CONTADOR -->
 <script>
@@ -224,9 +193,6 @@
     })
     .catch(() => { span.textContent = "+8,000"; });
 </script>
-
-<!-- AOS init -->
 <script>AOS.init({ duration: 1000, once: true });</script>
-
 </body>
 </html>
