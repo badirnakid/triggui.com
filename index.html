@@ -16,25 +16,25 @@
 <meta name="twitter:description" content="Un impulso real. Nada más. Nada menos." />
 <meta name="twitter:image" content="https://triggui.com/imagotipo.png" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
-  <style>
-    html,body{margin:0;padding:0;font-family:'Archivo',sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#f5f5f5;scroll-behavior:smooth;overflow-x:hidden}
-    .gradient-hero{background:linear-gradient(to right,#ff8a00,#e52e71,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .gradient-planes{background:linear-gradient(to right,#00f2fe,#4facfe,#00f2fe);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .gradient-paraque{background:linear-gradient(to right,#f83600,#f9d423,#f83600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .gradient-testimonios{background:linear-gradient(to right,#c471ed,#f64f59,#12c2e9);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .gradient-cierre{background:linear-gradient(to right,#00c6ff,#0072ff,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;align-items:center;text-align:center}
-    .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
-    .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s;margin-top:auto}
-    @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-    .countup{font-size:3.3rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-    @media(max-width:768px){h1{font-size:2.4rem}.countup{font-size:2.1rem}}
-    .floating-cta{position:fixed;bottom:20px;right:20px;z-index:9999;padding:12px 24px;font-weight:bold;border-radius:999px;background:linear-gradient(135deg,#ff0080,#7928ca,#2af598);background-size:300% 300%;color:#fff;animation:pulse-glow 3s infinite;box-shadow:0 0 20px rgba(255,94,98,.5)}
-    @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
-    @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
-  </style>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  html,body{margin:0;padding:0;font-family:'Archivo',sans-serif;background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);color:#f5f5f5;scroll-behavior:smooth;overflow-x:hidden}
+  .gradient-hero{background:linear-gradient(to right,#ff8a00,#e52e71,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .gradient-planes{background:linear-gradient(to right,#00f2fe,#4facfe,#00f2fe);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .gradient-paraque{background:linear-gradient(to right,#f83600,#f9d423,#f83600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .gradient-testimonios{background:linear-gradient(to right,#c471ed,#f64f59,#12c2e9);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .gradient-cierre{background:linear-gradient(to right,#00c6ff,#0072ff,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-col;flex-direction:column;align-items:center;text-align:center}
+  .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
+  .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s;margin-top:auto}
+  @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+  .countup{font-size:3.3rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  @media(max-width:768px){h1{font-size:2.4rem}.countup{font-size:2.1rem}}
+  .floating-cta{position:fixed;bottom:20px;right:20px;z-index:9999;padding:12px 24px;font-weight:bold;border-radius:999px;background:linear-gradient(135deg,#ff0080,#7928ca,#2af598);background-size:300% 300%;color:#fff;animation:pulse-glow 3s infinite;box-shadow:0 0 20px rgba(255,94,98,.5)}
+  @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
+  @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
+</style>
 </head>
 <body>
 <a href="https://app.triggui.com" class="floating-cta">📲 TrigguiApp</a>
@@ -58,43 +58,53 @@
 
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
 
+    <!-- Card Component Template 
+         3 líneas fijas de características (la última puede ser fantasma) -->
     <!-- Freegui -->
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Freegui</h3>
-      <p class="text-sm text-gray-300 mb-1">✅ 2 recomendaciones</p>
-      <p class="text-sm text-gray-300 mb-1">✅ 6 accionables x día</p>
-      <p class="text-sm opacity-0 mb-1">—</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$0 MXN</p>
+      <h3 class="text-xl font-bold mb-4">Freegui</h3>
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+        <li>✓ 2 recomendaciones</li>
+        <li>✓ 6 accionables x día</li>
+        <li class="opacity-0 select-none">placeholder</li>
+      </ul>
+      <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$0 MXN</p>
       <a href="https://app.triggui.com" class="glow-button text-sm">Probar gratis</a>
     </div>
 
     <!-- Premium -->
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Triggui App</h3>
-      <p class="text-sm text-gray-300 mb-1">✅ 10 recomendaciones</p>
-      <p class="text-sm text-gray-300 mb-1">✅ 30 accionables x día</p>
-      <p class="text-sm opacity-0 mb-1">—</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$100 MXN / mes</p>
+      <h3 class="text-xl font-bold mb-4">Triggui App</h3>
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+        <li>✓ 10 recomendaciones</li>
+        <li>✓ 30 accionables x día</li>
+        <li class="opacity-0 select-none">placeholder</li>
+      </ul>
+      <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$100 MXN / mes</p>
       <a href="https://buy.stripe.com/ENLACE_PREMIUM" class="glow-button text-sm">Suscribirme</a>
     </div>
 
     <!-- Premium + Libros -->
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Triggui Libros</h3>
-      <p class="text-sm text-gray-300 mb-1">✅ 10 recomendaciones</p>
-      <p class="text-sm text-gray-300 mb-1">✅ 30 accionables x día</p>
-      <p class="text-sm text-gray-300 mb-1">✅ 2 libros físicos x mes</p>
-      <p class="text-xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$1,000 MXN / mes</p>
+      <h3 class="text-xl font-bold mb-4">Triggui Libros</h3>
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+        <li>✓ 10 recomendaciones</li>
+        <li>✓ 30 accionables x día</li>
+        <li>✓ 2 libros físicos x mes</li>
+      </ul>
+      <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$1,000 MXN / mes</p>
       <a href="https://buy.stripe.com/ENLACE_PREMIUM_LIBROS" class="glow-button text-sm">Suscribirme</a>
     </div>
 
     <!-- Empresa -->
     <div class="glass">
-      <h3 class="text-xl font-bold mb-2">Triggui Places</h3>
-      <p class="text-sm text-gray-300 mb-1">✅ 4 libros físicos x mes</p>
-      <p class="text-sm text-gray-300 mb-1">✅ Para tu negocio</p>
-      <p class="text-sm opacity-0 mb-1">—</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$5,000 MXN / mes</p>
+      <h3 class="text-xl font-bold mb-4">Triggui Places</h3>
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+        <li>✓ 4 libros físicos x mes</li>
+        <li>✓ Para tu negocio</li>
+        <li class="opacity-0 select-none">placeholder</li>
+      </ul>
+      <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$5,000 MXN / mes</p>
       <a href="https://wa.me/5215555555555" class="glow-button text-sm">Solicitar ahora</a>
     </div>
 
