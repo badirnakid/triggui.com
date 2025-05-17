@@ -4,14 +4,13 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Triggui - Abre. Un Libro. Físico.</title>
-<!-- META OG para previsualización en WhatsApp y redes -->
+
+<!-- META OG / Twitter -->
 <meta property="og:title" content="Abre. Un Libro. Físico." />
 <meta property="og:description" content="Toma un libro físico que tengas cerca, ábrelo en cualquier parte, lee la primera línea que veas." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:url" content="https://triggui.com" />
 <meta property="og:type" content="website" />
-
-<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Triggui – Abre un libro físico. Aquí y ahora." />
 <meta name="twitter:description" content="Un impulso real. Nada más. Nada menos." />
@@ -26,9 +25,9 @@
     .gradient-paraque{background:linear-gradient(to right,#f83600,#f9d423,#f83600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
     .gradient-testimonios{background:linear-gradient(to right,#c471ed,#f64f59,#12c2e9);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
     .gradient-cierre{background:linear-gradient(to right,#00c6ff,#0072ff,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-    .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s}
+    .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;align-items:center;text-align:center}
     .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
-    .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;display:inline-block;transition:all .25s}
+    .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s;margin-top:auto}
     @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
     .countup{font-size:3.3rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
     @media(max-width:768px){h1{font-size:2.4rem}.countup{font-size:2.1rem}}
@@ -51,7 +50,7 @@
   <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro físico se abriera. Súmate 📖</p>
 </header>
 
-<!-- PLANES UNIFORMES -->
+<!-- PLANES -->
 <section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
   <h2 class="text-4xl font-extrabold gradient-planes leading-tight mb-12">
     ¿Y.<br>Qué Libro.<br>Abro?
@@ -60,42 +59,42 @@
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
 
     <!-- Freegui -->
-    <div class="glass flex flex-col items-center text-center">
-      <h3 class="text-xl font-bold mb-2">Freeggui</h3>
-      <p class="text-sm text-gray-400 mb-1">2 recomendaciones</p>
-      <p class="text-sm text-gray-400 mb-1">6 accionables x día</p>
-      <p class="text-sm opacity-0 mb-1">—</p><!-- línea fantasma para alinear -->
-      <p class="text-2xl font-bold text-white mt-2 mb-4">$0 MXN</p>
+    <div class="glass">
+      <h3 class="text-xl font-bold mb-2">Freegui</h3>
+      <p class="text-sm text-gray-300 mb-1">✅ 2 recomendaciones</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 6 accionables x día</p>
+      <p class="text-sm opacity-0 mb-1">—</p>
+      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$0 MXN</p>
       <a href="https://app.triggui.com" class="glow-button text-sm">Probar gratis</a>
     </div>
 
     <!-- Premium -->
-    <div class="glass flex flex-col items-center text-center">
+    <div class="glass">
       <h3 class="text-xl font-bold mb-2">Triggui App</h3>
-      <p class="text-sm text-gray-400 mb-1">10 recomendaciones</p>
-      <p class="text-sm text-gray-400 mb-1">30 accionables x día</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 10 recomendaciones</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 30 accionables x día</p>
       <p class="text-sm opacity-0 mb-1">—</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4">$100 MXN / mes</p>
+      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$100 MXN / mes</p>
       <a href="https://buy.stripe.com/ENLACE_PREMIUM" class="glow-button text-sm">Suscribirme</a>
     </div>
 
     <!-- Premium + Libros -->
-    <div class="glass flex flex-col items-center text-center">
+    <div class="glass">
       <h3 class="text-xl font-bold mb-2">Triggui Libros</h3>
-      <p class="text-sm text-gray-400 mb-1">10 recomendaciones</p>
-      <p class="text-sm text-gray-400 mb-1">30 accionables x día</p>
-      <p class="text-sm text-gray-400 mb-1">2 libros físicos x mes</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4">$1,000 MXN / mes</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 10 recomendaciones</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 30 accionables x día</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 2 libros físicos x mes</p>
+      <p class="text-xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$1,000 MXN / mes</p>
       <a href="https://buy.stripe.com/ENLACE_PREMIUM_LIBROS" class="glow-button text-sm">Suscribirme</a>
     </div>
 
     <!-- Empresa -->
-    <div class="glass flex flex-col items-center text-center">
+    <div class="glass">
       <h3 class="text-xl font-bold mb-2">Triggui Places</h3>
-      <p class="text-sm text-gray-400 mb-1">4 libros físicos x mes</p>
-      <p class="text-sm text-gray-400 mb-1">Para tu negocio</p>
+      <p class="text-sm text-gray-300 mb-1">✅ 4 libros físicos x mes</p>
+      <p class="text-sm text-gray-300 mb-1">✅ Para tu negocio</p>
       <p class="text-sm opacity-0 mb-1">—</p>
-      <p class="text-2xl font-bold text-white mt-2 mb-4">$5,000 MXN / mes</p>
+      <p class="text-2xl font-bold text-white mt-2 mb-4 whitespace-nowrap">$5,000 MXN / mes</p>
       <a href="https://wa.me/5215555555555" class="glow-button text-sm">Solicitar ahora</a>
     </div>
 
@@ -144,23 +143,15 @@
 </footer>
 
 <script>
-  const span=document.getElementById("numeroImpacto");
-  fetch("https://triggui-api.vercel.app/api/get?cb="+Date.now())
-    .then(res=>res.json())
-    .then(data=>{
-      const target=data.total||0;
-      let current=0;
-      const steps=40;
-      const inc=Math.ceil(target/steps);
-      const animate=()=>{
-        current+=inc;
-        if(current>=target)current=target;
-        span.textContent="+"+current.toLocaleString("es-MX");
-        if(current<target)requestAnimationFrame(animate);
-      };
-      requestAnimationFrame(animate);
-    })
-    .catch(()=>{span.textContent="+8,000";});
+const span=document.getElementById("numeroImpacto");
+fetch("https://triggui-api.vercel.app/api/get?cb="+Date.now())
+  .then(r=>r.json())
+  .then(d=>{
+    const tgt=d.total||0;let cur=0,inc=Math.ceil(tgt/40);
+    const step=()=>{cur+=inc;if(cur>=tgt)cur=tgt;span.textContent="+"+cur.toLocaleString("es-MX");if(cur<tgt)requestAnimationFrame(step)};
+    requestAnimationFrame(step);
+  })
+  .catch(()=>{span.textContent="+8,000"});
 </script>
 
 </body>
