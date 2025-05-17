@@ -25,9 +25,14 @@
   .gradient-paraque{background:linear-gradient(to right,#f83600,#f9d423,#f83600);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
   .gradient-testimonios{background:linear-gradient(to right,#c471ed,#f64f59,#12c2e9);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
   .gradient-cierre{background:linear-gradient(to right,#00c6ff,#0072ff,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-  .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-col;flex-direction:column;align-items:center;text-align:center}
+
+  .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;align-items:center;text-align:center}
   .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
-  .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s;margin-top:auto}
+
+  .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s}
+  /* solo dentro de las tarjetas el botón empuja contenido hacia abajo */
+  .glass .glow-button{margin-top:auto}
+
   @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
   .countup{font-size:3.3rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   @media(max-width:768px){h1{font-size:2.4rem}.countup{font-size:2.1rem}}
@@ -58,12 +63,10 @@
 
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
 
-    <!-- Card Component Template 
-         3 líneas fijas de características (la última puede ser fantasma) -->
     <!-- Freegui -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Freegui</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
         <li>✓ 2 recomendaciones</li>
         <li>✓ 6 accionables x día</li>
         <li class="opacity-0 select-none">placeholder</li>
@@ -75,7 +78,7 @@
     <!-- Premium -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Triggui App</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
         <li>✓ 10 recomendaciones</li>
         <li>✓ 30 accionables x día</li>
         <li class="opacity-0 select-none">placeholder</li>
@@ -87,7 +90,7 @@
     <!-- Premium + Libros -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Triggui Libros</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
         <li>✓ 10 recomendaciones</li>
         <li>✓ 30 accionables x día</li>
         <li>✓ 2 libros físicos x mes</li>
@@ -99,7 +102,7 @@
     <!-- Empresa -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Triggui Places</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-4">
+      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
         <li>✓ 4 libros físicos x mes</li>
         <li>✓ Para tu negocio</li>
         <li class="opacity-0 select-none">placeholder</li>
@@ -141,11 +144,11 @@
 </section>
 
 <section class="py-24 text-center bg-[#0f0c29]">
-  <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 gradient-cierre leading-tight">
+  <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 gradient-cierre leading-tight">
     Abre.<br>Un Libro.<br>Físico.
   </h2>
-  <p class="text-gray-400 mt-4">Triggui es un impulso real.</p>
-  <a href="https://app.triggui.com" class="glow-button mt-6">📖 Ya abrí un libro físico</a>
+  <p class="text-gray-400 mb-8">Triggui es un impulso real.</p>
+  <a href="https://app.triggui.com" class="glow-button text-sm inline-block">📖 Ya abrí un libro físico</a>
 </section>
 
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
