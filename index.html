@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Triggui - Abre. Un Libro. Físico.</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Triggui - Abre. Un Libro. Físico.</title>
 
 <!-- META OG / Twitter -->
 <meta property="og:title" content="Abre. Un Libro. Físico." />
@@ -30,7 +30,6 @@
   .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
 
   .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s}
-  /* solo dentro de las tarjetas el botón empuja contenido hacia abajo */
   .glass .glow-button{margin-top:auto}
 
   @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
@@ -65,7 +64,7 @@
 
     <!-- Freegui -->
     <div class="glass">
-      <h3 class="text-xl font-bold mb-4">Freeggui</h3>
+      <h3 class="text-xl font-bold mb-4">Freegui</h3>
       <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
         <li>✓ 2 recomendaciones</li>
         <li>✓ 6 accionables x día</li>
@@ -75,7 +74,7 @@
       <a href="https://app.triggui.com" class="glow-button text-sm">Probar gratis</a>
     </div>
 
-    <!-- Premium -->
+    <!-- Apoyar Triggui (recurrente) -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Triggui App</h3>
       <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
@@ -83,11 +82,16 @@
         <li>✓ 30 accionables x día</li>
         <li class="opacity-0 select-none">placeholder</li>
       </ul>
-      <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$100 MXN / mes</p>
-      <a href="https://app.triggui.com" class="glow-button text-sm">Apoyar Triggui</a>
+      <p class="text-xl sm:text-2xl font-bold text-white mb-4 whitespace-nowrap">$100 MXN / mes</p>
+      <!-- BTN MENSUAL -->
+      <a id="btnPagar" href="https://buy.stripe.com/TU_ENLACE_RECURRENT"
+         class="glow-button text-sm">Apoyar Triggui</a>
+      <!-- DONAR PUNTUAL -->
+      <a href="https://buy.stripe.com/TU_ENLACE_DONATIVO"
+         class="text-xs underline mt-3 inline-block">Donar puntual</a>
     </div>
 
-    <!-- Premium + Libros -->
+    <!-- Triggui Libros -->
     <div class="glass">
       <h3 class="text-xl font-bold mb-4">Triggui Libros</h3>
       <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6">
@@ -96,7 +100,7 @@
         <li>✓ 2 libros físicos x mes</li>
       </ul>
       <p class="text-xl sm:text-2xl font-bold text-white mb-6 whitespace-nowrap">$1,100 MXN / mes</p>
-      <a href="https://app.triggui.com" class="glow-button text-sm">Suscribirme</a>
+      <a href="https://buy.stripe.com/TU_ENLACE_LIBROS" class="glow-button text-sm">Suscribirme</a>
     </div>
 
     <!-- Empresa -->
