@@ -54,18 +54,44 @@
   <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro físico se abriera.
   </n>
   
-  <!-- NUEVO FORMULARIO DE EMAIL -->
-  <form class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto">
+  <!-- FORMULARIO EMAIL -->
+  <form class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto" onsubmit="return handleSubscribe(event)">
     <input
       type="email"
+      id="email"
       name="email"
-      placeholder="Tu email para recibir trigguis de repente"
+      placeholder="Tu email para recibir un triggui de repente"
       class="w-full px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
       required
     />
-    <button type="submit" class="glow-button text-sm">Súmate 📖</button>
+    <button id="subscribeBtn" type="submit" class="glow-button text-sm px-6 py-2">
+      Súmate
+    </button>
   </form>
 </header>
+
+<script>
+  function handleSubscribe(event) {
+    event.preventDefault();
+
+    const btn = document.getElementById('subscribeBtn');
+    const input = document.getElementById('email');
+
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = '✅ Gracias ✨';
+
+    // Aquí podrías conectar a base de datos o API
+    input.value = ''; // limpia el input
+
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.disabled = false;
+    }, 2000);
+
+    return false;
+  }
+</script>
 
 <!-- PLANES -->
 <section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
