@@ -54,17 +54,16 @@
   <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro físico se abriera.
   </n>
   
-  <!-- FORMULARIO MEJORADO -->
-<form class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto px-2" onsubmit="return handleSubscribe(event)">
+  <form class="mt-6 flex flex-col items-center justify-center gap-3 max-w-sm mx-auto px-4" onsubmit="return handleSubscribe(event)">
   <input
     type="email"
     id="email"
     name="email"
     placeholder="Tu email para recibir un triggui de repente"
-    class="w-full px-5 py-2 rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
+    class="w-full px-4 py-1.5 text-sm rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
     required
   />
-  <button id="subscribeBtn" type="submit" class="glow-button text-sm px-6 py-2">
+  <button id="subscribeBtn" type="submit" class="glow-button text-sm w-full py-1.5 transition-all duration-200 ease-in-out">
     Súmate
   </button>
 </form>
@@ -73,16 +72,17 @@
 <script>
   function handleSubscribe(event) {
     event.preventDefault();
+
     const btn = document.getElementById('subscribeBtn');
     const input = document.getElementById('email');
 
     btn.disabled = true;
-    const originalText = btn.textContent;
-    btn.textContent = '✅ Gracias ✨';
+    btn.innerHTML = '✅ Gracias <br>✨';
+
     input.value = '';
 
     setTimeout(() => {
-      btn.textContent = originalText;
+      btn.innerHTML = 'Súmate';
       btn.disabled = false;
     }, 2000);
 
