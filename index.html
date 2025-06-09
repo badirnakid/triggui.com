@@ -82,24 +82,23 @@
     btn.disabled = true;
     btn.innerHTML = '✅ Gracias ✨';
 
-    const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec"; // tu URL real aquí
+    // 👇 Aquí tu URL real del Apps Script (reemplaza)
+    const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
 
-    try {
-      await fetch(url + "?email=" + encodeURIComponent(email));
-    } catch (e) {
-      console.error("Error al guardar el correo", e);
-    }
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "email=" + encodeURIComponent(email)
+    });
 
     input.value = '';
     setTimeout(() => {
       btn.innerHTML = 'Súmate';
       btn.disabled = false;
     }, 2000);
-
     return false;
   }
 </script>
-
 
 <!-- PLANES -->
 <section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
