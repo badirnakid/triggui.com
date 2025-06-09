@@ -70,17 +70,27 @@
 </header>
 
 <script>
-  function handleSubscribe(event) {
+  async function handleSubscribe(event) {
     event.preventDefault();
 
     const btn = document.getElementById('subscribeBtn');
     const input = document.getElementById('email');
+    const email = input.value.trim();
+
+    if (!email) return;
 
     btn.disabled = true;
     btn.innerHTML = '✅ Gracias ✨';
 
-    input.value = '';
+    const url = "https://script.google.com/macros/s/AKfycbwXmvKGrNrP31KA4D51e9SmGmfy3E7xJjqN0kV6FEhGj5B1twUHpk5NSe8pUQGHxglq/exec"; // tu URL real aquí
 
+    try {
+      await fetch(url + "?email=" + encodeURIComponent(email));
+    } catch (e) {
+      console.error("Error al guardar el correo", e);
+    }
+
+    input.value = '';
     setTimeout(() => {
       btn.innerHTML = 'Súmate';
       btn.disabled = false;
@@ -89,6 +99,7 @@
     return false;
   }
 </script>
+
 
 <!-- PLANES -->
 <section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
