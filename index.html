@@ -48,9 +48,35 @@
   .floating-cta{position:fixed;bottom:20px;right:20px;z-index:9999;padding:12px 24px;font-weight:bold;border-radius:999px;background:linear-gradient(135deg,#ff0080,#7928ca,#2af598);background-size:300% 300%;color:#fff;animation:pulse-glow 3s infinite;box-shadow:0 0 20px rgba(255,94,98,.5)}
   @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
   @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
+
+  /* Botón flotante WhatsApp */
+  .floating-whatsapp{
+    position:fixed;
+    bottom:80px; /* lo coloca encima del de Libro del día */
+    right:20px;
+    z-index:9999;
+    padding:12px 24px;
+    font-weight:bold;
+    border-radius:999px;
+    background:linear-gradient(135deg,#ff6ec4,#7873f5,#2af598); /* mismo estilo vibrante */
+    background-size:300% 300%;
+    color:#fff;
+    animation:pulse-glow 3s infinite;
+    box-shadow:0 0 20px rgba(255,94,98,.4);
+    text-decoration:none;
+    transition:transform .25s,filter .25s;
+  }
+  .floating-whatsapp:hover{
+    transform:translateY(-2px) scale(1.05);
+    filter:brightness(1.15);
+  }
+
+  
 </style>
 </head>
 <body>
+<a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp">💬 WhatsApp</a>
+
 <a href="https://app.triggui.com" class="floating-cta">📚 Libro del día</a>
 
 <header class="text-center px-6 pt-28 pb-20 max-w-6xl mx-auto">
