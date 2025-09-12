@@ -49,37 +49,24 @@
   @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
   @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
 
-/* Botón flotante WhatsApp dopaminérgico sublime */
 .floating-whatsapp{
   position:fixed;
-  bottom:80px; /* encima del Libro del día */
+  bottom:80px;
   right:20px;
   z-index:9999;
   width:56px;
   height:56px;
   border-radius:50%;
-  
-  /* 🎨 OPCIÓN A — Contraste cálido (rosa/fucsia/naranja fuego) */
-  /* background:linear-gradient(135deg,#ff9a00,#ff3d77,#ff0080); */
-  
-  /* 🎨 OPCIÓN B — Neón frío (celeste/azul cielo/azul profundo) */
-  /* background:linear-gradient(135deg,#00f2fe,#4facfe,#0072ff); */ 
-  
-  /* 🎨 OPCIÓN C — Rave solar (rosa/naranja/dorado) */
-  /* background:linear-gradient(135deg,#ff6ec4,#fcb045,#ffcc70); */
-
-  background:linear-gradient(135deg,#0f0c29,#302b63,#00c6ff);
-
-
-
-  
+  background:linear-gradient(135deg,#0f0c29,#302b63,#00c6ff); /* Azul Dark Electric */
   background-size:300% 300%;
   display:flex;
   align-items:center;
   justify-content:center;
   color:#fff;
   animation:pulse-glow 3s infinite;
-  box-shadow:0 0 24px rgba(255,94,98,.45);
+  box-shadow:0 0 16px rgba(0,198,255,.7),
+             0 0 36px rgba(142,45,226,.5),
+             0 0 64px rgba(255,110,196,.4); /* aura galáctica */
   text-decoration:none;
   transition:transform .25s,filter .25s;
 }
@@ -87,6 +74,7 @@
   transform:translateY(-2px) scale(1.12);
   filter:brightness(1.25);
 }
+
 
 
 
