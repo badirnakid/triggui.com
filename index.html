@@ -49,30 +49,31 @@
   @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
   @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
 
- /* Botón flotante WhatsApp dopaminérgico */
+/* Botón flotante WhatsApp dopaminérgico sublime */
 .floating-whatsapp{
   position:fixed;
-  bottom:80px; /* encima del Libro del día */
+  bottom:80px;
   right:20px;
   z-index:9999;
   width:56px;
   height:56px;
   border-radius:50%;
-  background:linear-gradient(135deg,#ff6ec4,#7873f5,#2af598); /* rosa-violáceo-aqua */
+  background:linear-gradient(135deg,#ff9a00,#ff3d77,#ff0080); /* 👈 cambia aquí entre A, B o C */
   background-size:300% 300%;
   display:flex;
   align-items:center;
   justify-content:center;
   color:#fff;
   animation:pulse-glow 3s infinite;
-  box-shadow:0 0 22px rgba(255,110,196,.45);
+  box-shadow:0 0 24px rgba(255,94,98,.5);
   text-decoration:none;
   transition:transform .25s,filter .25s;
 }
 .floating-whatsapp:hover{
-  transform:translateY(-2px) scale(1.1);
+  transform:translateY(-2px) scale(1.12);
   filter:brightness(1.25);
 }
+
 
 
 
