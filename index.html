@@ -103,15 +103,37 @@
     ¿No tienes tiempo?<br>La app mínima<br>que te da<br>el empujoncito<br>y se va.<br>
   </p>
 
-  <!-- Badges tiendas — centrados y con altura idéntica -->
+  <!-- Badges tiendas — centrados, misma altura, hover sutil -->
   <div class="mt-5 flex items-center justify-center gap-3 sm:gap-4 h-[56px] md:h-[64px]" aria-label="Descargar Triggui">
-    <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener" class="h-full focus:outline-none focus:ring-2 focus:ring-pink-500 rounded-md">
-      <img src="./downloadappstore.png" alt="Descargar en App Store" class="h-full w-auto block" loading="eager" decoding="async" fetchpriority="high"/>
+    <!-- APP STORE (downscale óptico para igualar con Play) -->
+    <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener"
+       class="h-full rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <img
+        src="./downloadappstore.png"
+        alt="Descargar en App Store"
+        class="h-full w-auto block transform-gpu scale-[.94] md:scale-[.92]
+               motion-safe:transition motion-safe:duration-150 motion-safe:ease-out
+               hover:brightness-110 motion-safe:hover:-translate-y-px
+               hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
+        loading="eager" decoding="async" fetchpriority="high"
+      />
     </a>
-    <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" rel="noopener" class="h-full focus:outline-none focus:ring-2 focus:ring-pink-500 rounded-md">
-      <img src="./getitonplaystore.png" alt="Disponible en Google Play" class="h-full w-auto block" loading="eager" decoding="async"/>
+
+    <!-- GOOGLE PLAY -->
+    <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" rel="noopener"
+       class="h-full rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500">
+      <img
+        src="./getitonplaystore.png"
+        alt="Disponible en Google Play"
+        class="h-full w-auto block transform-gpu
+               motion-safe:transition motion-safe:duration-150 motion-safe:ease-out
+               hover:brightness-110 motion-safe:hover:-translate-y-px
+               hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
+        loading="eager" decoding="async"
+      />
     </a>
   </div>
+
 
   <!-- deja el contador (necesario para el script de abajo) -->
   <div class="countup mt-8" id="numeroImpacto">+0</div>
