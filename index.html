@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Triggui - Abre. Un Libro.</title>
+<title>Triggui - Las mejores páginas de libros por WhatsApp</title>
 
 <!-- META OG / Twitter -->
-<meta property="og:title" content="Abre. Un Libro." />
-<meta property="og:description" content="Toma un libro físico que tengas cerca, ábrelo en cualquier parte, lee la primera línea que veas." />
+<meta property="og:title" content="Triggui - Las mejores páginas de libros por WhatsApp" />
+<meta property="og:description" content="Recibe páginas curadas de libros que te muevan, exactamente cuando las necesitas. Por WhatsApp." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:url" content="https://triggui.com" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Triggui – Abre un libro físico. Aquí y ahora." />
-<meta name="twitter:description" content="Un impulso real. Nada más. Nada menos." />
+<meta name="twitter:title" content="Triggui - Las mejores páginas de libros por WhatsApp" />
+<meta name="twitter:description" content="Curadas para tu momento exacto. Cancela cuando quieras." />
 <meta name="twitter:image" content="https://triggui.com/imagotipo.png" />
 
 <!-- Google tag (gtag.js) -->
@@ -39,326 +39,412 @@
   .glass{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);border-radius:1.5rem;padding:2rem;box-shadow:0 12px 30px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;align-items:center;text-align:center}
   .glass:hover{transform:translateY(-4px);box-shadow:0 0 35px rgba(255,255,255,.08)}
 
-  .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s}
+  .glow-button{background:linear-gradient(270deg,#ff6ec4,#7873f5,#2af598);background-size:600% 600%;color:#fff;padding:.75rem 2rem;font-weight:bold;border-radius:999px;box-shadow:0 0 18px rgba(255,255,255,.1);animation:neonflow 6s ease infinite;transition:all .25s;text-decoration:none;display:inline-block}
+  .glow-button:hover{transform:scale(1.05);box-shadow:0 0 25px rgba(255,255,255,.2)}
   .glass .glow-button{margin-top:auto}
 
   @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-  .countup{font-size:3.3rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .countup{font-size:2.5rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
   @media(max-width:768px){h1{font-size:2.4rem}.countup{font-size:2.1rem}}
-  .floating-cta{position:fixed;bottom:20px;right:20px;z-index:9999;padding:12px 24px;font-weight:bold;border-radius:999px;background:linear-gradient(135deg,#ff0080,#7928ca,#2af598);background-size:300% 300%;color:#fff;animation:pulse-glow 3s infinite;box-shadow:0 0 20px rgba(255,94,98,.5)}
+  
+  .floating-cta{position:fixed;bottom:20px;right:20px;z-index:9999;padding:12px 24px;font-weight:bold;border-radius:999px;background:linear-gradient(135deg,#ff0080,#7928ca,#2af598);background-size:300% 300%;color:#fff;animation:pulse-glow 3s infinite;box-shadow:0 0 20px rgba(255,94,98,.5);opacity:0;pointer-events:none;transition:opacity .3s}
+  .floating-cta.visible{opacity:1;pointer-events:auto}
+  
   @keyframes pulse-glow{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.08);filter:brightness(1.2)}}
   @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
 
-.floating-whatsapp{
-  position:fixed;
-  bottom:80px;
-  right:20px;
-  z-index:9999;
-  width:56px;
-  height:56px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#0f0c29,#302b63,#00c6ff);
-  background-size:300% 300%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#fff;
-  animation:pulse-glow 3s infinite;
-  box-shadow:0 0 16px rgba(0,198,255,.7),
-             0 0 36px rgba(142,45,226,.5),
-             0 0 64px rgba(255,110,196,.4);
-  text-decoration:none;
-  transition:transform .25s,filter .25s;
-}
-.floating-whatsapp:hover{
-  transform:translateY(-2px) scale(1.12);
-  filter:brightness(1.25);
-}
+  .floating-whatsapp{
+    position:fixed;
+    bottom:80px;
+    right:20px;
+    z-index:9999;
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#0f0c29,#302b63,#00c6ff);
+    background-size:300% 300%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    animation:pulse-glow 3s infinite;
+    box-shadow:0 0 16px rgba(0,198,255,.7),
+               0 0 36px rgba(142,45,226,.5),
+               0 0 64px rgba(255,110,196,.4);
+    text-decoration:none;
+    transition:transform .25s,filter .25s;
+  }
+  .floating-whatsapp:hover{
+    transform:translateY(-2px) scale(1.12);
+    filter:brightness(1.25);
+  }
+
+  .urgency-badge{
+    background:linear-gradient(135deg,#ff0080,#ff8c00);
+    color:#fff;
+    font-size:.75rem;
+    font-weight:bold;
+    padding:.25rem .75rem;
+    border-radius:999px;
+    display:inline-block;
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
 </style>
 </head>
 <body>
+
+<!-- WhatsApp Flotante -->
 <a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" aria-label="WhatsApp">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="26" height="26" fill="white">
     <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.2-.4-.3-.8-.5z"/>
   </svg>
 </a>
 
-<a href="#planes" class="floating-cta">✨ Ver Planes</a>
+<!-- CTA Flotante (aparece después de scroll) -->
+<a href="#planes" class="floating-cta" id="floatingCTA">💌 Empieza Hoy</a>
 
+<!-- HERO -->
 <header class="text-center px-6 pt-28 pb-20 max-w-6xl mx-auto">
   <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold gradient-hero leading-tight">
     La chispa<br>antes<br>del libro.
   </h1>
 
-  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6 leading-tight">
-    La app <span class="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-fuchsia-300 to-cyan-300">GRATIS</span> que te da<br>un empujoncito<br>y se va.
+  <!-- CLARITY SUBTITLE -->
+  <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto mt-6 leading-snug font-bold">
+    Recibe las mejores páginas de libros<br>por WhatsApp
   </p>
 
-  <!-- 📧 EMAIL CAPTURE - MOVIDO ARRIBA -->
-  <div class="mt-8 max-w-md mx-auto">
-    <p class="text-sm text-gray-300 mb-3">
-      📬 Recibe <span class="font-bold text-pink-400">gratis</span> tu primera Triggui Card
-    </p>
-    <form class="flex flex-col gap-2" onsubmit="return handleEmailCapture(event)">
+  <p class="text-base text-gray-400 max-w-xl mx-auto mt-4 leading-relaxed">
+    Curadas para tu momento exacto.<br>Los lunes cuando más las necesitas.<br>Y sorpresas en la semana.
+  </p>
+
+  <!-- CTA PRINCIPAL -->
+  <div class="mt-10 max-w-md mx-auto">
+    <form class="flex flex-col gap-3" onsubmit="return handleEmailCapture(event)">
       <input
         type="email"
         id="emailCapture"
         placeholder="tu@email.com"
-        class="px-4 py-2 text-sm rounded-full bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
+        class="px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
         required
       />
-      <button id="emailBtn" type="submit" class="glow-button text-sm py-2 transition-all">
-        Quiero mi sorpresa
+      <button id="emailBtn" type="submit" class="glow-button text-base py-3 transition-all">
+        📬 Quiero mi primera sorpresa gratis
       </button>
     </form>
+    <p class="text-xs text-gray-500 mt-3">
+      ✓ Gratis · ✓ Cancela cuando quieras · ✓ Sin spam
+    </p>
   </div>
 
-  <!-- SEPARADOR -->
-  <p class="text-sm text-gray-400 mt-8 mb-4">
-    — o descarga la app gratis —
+  <!-- APP BADGES (secundario) -->
+  <p class="text-sm text-gray-500 mt-12 mb-4">
+    O descarga la app gratis
   </p>
-
-  <!-- BADGES APP STORE / GOOGLE PLAY -->
-  <div class="mt-5 flex items-center justify-center gap-2 h-[56px]" aria-label="Descargar Triggui">
+  <div class="flex items-center justify-center gap-2 h-[50px]" aria-label="Descargar Triggui">
     <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener"
-       class="h-full inline-flex items-center rounded-[12px]
-              outline-none focus:outline-none
-              focus-visible:ring-0 focus-visible:ring-offset-0
-              focus-visible:shadow-[0_0_0_1.5px_rgba(255,255,255,0.25)]">
-      <img
-        src="./downloadappstore.png"
-        alt="Descargar en App Store"
-        class="h-full w-auto block transform-gpu scale-[.78]
-               motion-safe:transition motion-safe:duration-150 motion-safe:ease-out
-               hover:brightness-110 motion-safe:hover:-translate-y-px
-               hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
-        loading="eager" decoding="async" fetchpriority="high"
-      />
+       class="h-full inline-flex items-center rounded-[12px] opacity-60 hover:opacity-100 transition">
+      <img src="./downloadappstore.png" alt="App Store" class="h-full w-auto" loading="lazy"/>
     </a>
     <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" rel="noopener"
-       class="h-full inline-flex items-center rounded-[12px]
-              outline-none focus:outline-none
-              focus-visible:ring-0 focus-visible:ring-offset-0
-              focus-visible:shadow-[0_0_0_1.5px_rgba(255,255,255,0.25)]">
-      <img
-        src="./getitonplaystore.png"
-        alt="Disponible en Google Play"
-        class="h-full w-auto block transform-gpu scale-[1.18]
-               motion-safe:transition motion-safe:duration-150 motion-safe:ease-out
-               hover:brightness-110 motion-safe:hover:-translate-y-px
-               hover:drop-shadow-[0_6px_12px_rgba(0,0,0,0.25)]"
-        loading="eager" decoding="async"
-      />
+       class="h-full inline-flex items-center rounded-[12px] opacity-60 hover:opacity-100 transition">
+      <img src="./getitonplaystore.png" alt="Google Play" class="h-full w-auto" loading="lazy"/>
     </a>
   </div>
-
-  <!-- CONTADOR IMPACTO -->
-  <div class="countup mt-8" id="numeroImpacto">+0</div>
-  <p class="text-sm text-gray-400 mt-2">veces que juntos hicimos que un libro se abriera. VAMOS POR 100 MILLONES!</p>
 </header>
 
-<!-- NUEVA SECCIÓN: APP GRATIS VS WHATSAPP -->
-<section class="py-16 text-center bg-[#11121c] border-t border-gray-800">
-  <h2 class="text-3xl font-bold gradient-vs leading-tight mb-8">
-    App Gratis<br>vs<br>WhatsApp
+<!-- APP VS WHATSAPP (MEJORADA) -->
+<section class="py-20 text-center bg-[#11121c] border-t border-gray-800">
+  <h2 class="text-3xl sm:text-4xl font-bold gradient-vs leading-tight mb-4">
+    Por qué pagar
   </h2>
-  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 px-6">
+  <p class="text-gray-400 text-sm mb-10 max-w-2xl mx-auto">
+    La app gratis es perfecta para empezar.<br>
+    WhatsApp es para quien quiere las páginas <span class="text-pink-400 font-bold">exactas</span> que necesita.
+  </p>
+  
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6">
+    
+    <!-- APP GRATIS -->
     <div class="glass text-left">
-      <h3 class="text-lg font-bold mb-3 text-gray-300">📱 App Gratis</h3>
-      <ul class="text-sm text-gray-400 space-y-2">
-        <li>• Libro random diario</li>
-        <li>• Algoritmo básico</li>
-        <li>• Sin curación humana</li>
-        <li>• Perfecto para empezar</li>
+      <h3 class="text-xl font-bold mb-4 text-gray-300">📱 App Gratis</h3>
+      <ul class="text-sm text-gray-400 space-y-3 mb-6">
+        <li class="flex items-start gap-2">
+          <span class="text-gray-500">•</span>
+          <span>Libro random cuando abres la app</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-gray-500">•</span>
+          <span>Algoritmo básico, sin personalización</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-gray-500">•</span>
+          <span>Tú decides cuándo abrir</span>
+        </li>
       </ul>
-    </div>
-    <div class="glass text-left border-2 border-pink-500/30">
-      <h3 class="text-lg font-bold mb-3 text-pink-400">💌 WhatsApp ($100/mes)</h3>
-      <ul class="text-sm text-gray-300 space-y-2">
-        <li>• 4 páginas/semana curadas</li>
-        <li>• Timing cronobiológico perfecto</li>
-        <li>• Lunes/martes días difíciles</li>
-        <li>• Sorpresas estratégicas</li>
-      </ul>
-      <p class="text-xs text-gray-500 mt-3 italic">
-        Elegimos los libros para tu momento exacto
+      <p class="text-xs text-gray-500 italic border-t border-gray-700 pt-4">
+        Perfecto si solo quieres explorar
       </p>
     </div>
+
+    <!-- WHATSAPP PAGO -->
+    <div class="glass text-left border-2 border-pink-500/40 relative">
+      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+        <span class="urgency-badge">🔥 Lo que eligen los que leen en serio</span>
+      </div>
+      <h3 class="text-xl font-bold mb-4 text-pink-400 mt-2">💌 WhatsApp</h3>
+      <ul class="text-sm text-gray-200 space-y-3 mb-6">
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span><strong>Lunes 6 AM:</strong> La página que necesitas para empezar la semana difícil</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span><strong>Martes 9 AM:</strong> Segunda página para sostener el impulso</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span><strong>2 sorpresas en semana:</strong> Cuando menos lo esperas, justo lo que necesitas</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span>Timing cronobiológico perfecto</span>
+        </li>
+      </ul>
+      <div class="border-t border-pink-500/30 pt-4">
+        <p class="text-sm text-gray-300 mb-2">
+          <span class="text-pink-400 font-bold">Real:</span> "El lunes me llegó Invicto justo cuando todo se caía. ¿Cómo supiste?"
+        </p>
+        <p class="text-xs text-gray-500">— M.R., Directora, 3 meses</p>
+      </div>
+    </div>
   </div>
+
+  <p class="text-sm text-gray-500 mt-10 max-w-2xl mx-auto">
+    La diferencia no es tecnología.<br>
+    Es que alguien SÍ sabe qué libro necesitas hoy.
+  </p>
 </section>
 
-<!-- PLANES (MODIFICADO) -->
+<!-- PLANES -->
 <section id="planes" class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
-  <h2 class="text-4xl font-extrabold gradient-planes leading-tight mb-12">
-    Un.<br>Libro.<br>
+  <h2 class="text-4xl font-extrabold gradient-planes leading-tight mb-6">
+    Empieza hoy
   </h2>
-  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">
-    Elegimos libros que <br>al abrirlos en cualquier página<br>te muevan. Te den claridad<br>dirección, sentido.<br>Basta uno<br>para que todo se acomode.<br><br><br>
+  <p class="text-gray-400 text-sm mb-12">
+    Cancela cuando quieras. Sin preguntas.
   </p>
   
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
 
-    <!-- Triggui Itch -->
-    <div class="glass">
+    <!-- ITCH MENSUAL -->
+    <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui itch</h3>
       <div class="text-left mb-4 space-y-2">
-        <p class="text-xs text-gray-400 mb-3">
-          <span class="text-pink-400 font-bold">App gratis:</span> Random<br>
-          <span class="text-green-400 font-bold">WhatsApp:</span> Curado para ti
-        </p>
-        <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1">
-          <li>✓ 2 páginas lunes (día difícil)</li>
-          <li>✓ 2 páginas sorpresa en semana</li>
-          <li>✓ Timing cronobiológico</li>
-          <li>✅ La app es gratis</li>
+        <ul class="text-sm text-gray-300 space-y-2">
+          <li class="flex items-start gap-2">
+            <span class="text-green-400">✓</span>
+            <span>2 páginas lunes y martes</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400">✓</span>
+            <span>2 sorpresas en semana</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400">✓</span>
+            <span>Timing perfecto por WhatsApp</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400">✓</span>
+            <span>App gratis incluida</span>
+          </li>
         </ul>
       </div>
-      <p class="text-xl sm:text-2xl font-bold text-white mb-1">
+      <p class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-6">
         <span class="line-through text-gray-500 text-lg">$149</span>
-        $100 MXN / mes
+        $100 / mes
       </p>
       <p class="text-xs text-pink-400 mb-4 font-bold">
         🎁 Precio de lanzamiento
       </p>
       <a href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000"
-         class="glow-button text-sm">Quiero el empujoncito</a>
-      <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
-         class="text-xs underline mt-3 inline-block text-gray-400">o dona la cantidad que quieras</a>
+         class="glow-button text-sm w-full block text-center">Empezar ahora</a>
+      <p class="text-xs text-gray-500 mt-3">
+        Cancela cuando quieras
+      </p>
     </div>
 
-    <!-- Triggui Anual - SWEET SPOT -->
-    <div class="glass border-2 border-green-500/30">
-      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-xs font-bold px-3 py-1 rounded-full">
+    <!-- ANUAL -->
+    <div class="glass border-2 border-green-500/40 relative">
+      <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-xs font-bold px-4 py-1 rounded-full">
         MÁS POPULAR
       </div>
       <h3 class="text-xl font-bold mb-4 mt-2">Triggui Anual</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6 text-left">
-        <li>✓ Todo lo de Itch mensual</li>
-        <li>✓ Ahorras $588 al año</li>
-        <li>✓ Pagas $100/mes efectivo</li>
-        <li>✓ Sin preocuparte 12 meses</li>
-        <li>✅ La app es gratis</li>
+      <ul class="text-sm text-gray-300 space-y-2 mb-6 text-left">
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span>Todo lo de Itch mensual</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span><strong>Ahorras $588 al año</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span>Solo $100/mes efectivo</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-green-400">✓</span>
+          <span>Olvídate por 12 meses</span>
+        </li>
       </ul>
-      <p class="text-xl sm:text-2xl font-bold text-white mb-1">
-        $1,199 MXN / año
+      <p class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-6">
+        $1,199 / año
       </p>
       <p class="text-xs text-green-400 mb-4 font-bold">
-        💰 Ahorra $588
+        💰 Ahorras casi $600
       </p>
-      <!-- 🔴 CAMBIAR ESTE LINK CUANDO CREES EL PLAN EN STRIPE -->
-      <a href="#" onclick="alert('Próximamente - contáctanos por WhatsApp'); return false;"
-         class="glow-button text-sm">Quiero pagar anual</a>
-      <p class="text-xs text-gray-500 mt-2">
-        Plan recomendado
+      <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
+         class="glow-button text-sm w-full block text-center">Pagar anual</a>
+      <p class="text-xs text-gray-500 mt-3">
+        El plan más inteligente
       </p>
     </div>
 
-    <!-- Triggui Lifetime -->
-    <div class="glass">
+    <!-- LIFETIME -->
+    <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui Lifetime</h3>
-      <ul class="text-sm text-gray-300 min-h-[4.5rem] space-y-1 mb-6 text-left">
-        <li>✓ Todo lo de Itch mensual</li>
-        <li>✓ Páginas para siempre</li>
-        <li>✓ Nunca más te preocupes</li>
-        <li>✓ Inversión única</li>
-        <li>✅ La app es gratis</li>
+      <ul class="text-sm text-gray-300 space-y-2 mb-6 text-left">
+        <li class="flex items-start gap-2">
+          <span class="text-purple-400">✓</span>
+          <span>Todo lo de Itch mensual</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-purple-400">✓</span>
+          <span><strong>Para siempre</strong></span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-purple-400">✓</span>
+          <span>Nunca vuelves a pagar</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-purple-400">✓</span>
+          <span>Inversión única</span>
+        </li>
       </ul>
-      <p class="text-xl sm:text-2xl font-bold text-white mb-1">
-        $3,999 MXN
+      <p class="text-2xl sm:text-3xl font-bold text-white mb-1 mt-6">
+        $3,999
       </p>
       <p class="text-xs text-purple-400 mb-4 font-bold">
         ♾️ De por vida
       </p>
-      <!-- 🔴 CAMBIAR ESTE LINK CUANDO CREES EL PLAN EN STRIPE -->
-      <a href="#" onclick="alert('Próximamente - contáctanos por WhatsApp'); return false;"
-         class="glow-button text-sm">Quiero lifetime</a>
-      <p class="text-xs text-gray-500 mt-2">
-        Pago único
+      <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
+         class="glow-button text-sm w-full block text-center">Pago único</a>
+      <p class="text-xs text-gray-500 mt-3">
+        La mejor inversión
       </p>
     </div>
 
   </div>
-</section>
 
-<!-- PARA QUÉ (SIN CAMBIOS) -->
-<section class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
-  <h2 class="text-4xl font-bold gradient-paraque leading-tight mb-12">
-    Una.<br>Paginita.<br>
-  </h2>
-
-  <p class="text-lg text-gray-300 max-w-xl mx-auto mt-6">
-    Para salirte de lo mismo<br>de lo que ya esperas<br>Para que te toque algo distinto<br>te llegue por otro lado.<br>A veces lo que más te acomoda<br>es lo que no estabas buscando.<br><br><br>
-  </p>
-  
-  <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6 text-left px-6 text-sm text-gray-300">
-    <div class="glass">🧘 <strong class="block mt-2">Para tener un momento solo para ti.</strong><span class="text-gray-400 block mt-1">Un libro físico te da un espacio real, sin ruido.</span></div>
-    <div class="glass">🧭 <strong class="block mt-2">Para aclarar tu mente.</strong><span class="text-gray-400 block mt-1">Leer en papel te ayuda a pensar mejor y con más calma.</span></div>
-    <div class="glass">❤️ <strong class="block mt-2">Para sentir algo verdadero.</strong><span class="text-gray-400 block mt-1">Las palabras en físico te llegan de otra manera. Más profunda.</span></div>
-    <div class="glass">📖 <strong class="block mt-2">Para reconectar con tus libros.</strong><span class="text-gray-400 block mt-1">Abrir uno aunque sea una página te acerca a ellos otra vez.</span></div>
-    <div class="glass">🌙 <strong class="block mt-2">Para terminar el día en paz.</strong><span class="text-gray-400 block mt-1">Un libro físico antes de dormir mejora tu descanso.</span></div>
-    <div class="glass">🌱 <strong class="block mt-2">Para crecer sin distraerte.</strong><span class="text-gray-400 block mt-1">Un solo párrafo puede inspirarte. Pero solo si lo abres.</span></div>
+  <!-- URGENCIA -->
+  <div class="mt-12 max-w-md mx-auto">
+    <p class="text-sm text-gray-400">
+      <span class="text-pink-400 font-bold">Solo para 100 personas este mes.</span><br>
+      Después sube a $149/mes.
+    </p>
   </div>
 </section>
 
-<!-- TESTIMONIOS (MEJORADO) -->
+<!-- PARA QUÉ (REDUCIDA) -->
+<section class="py-20 text-center bg-[#0f0c29] border-t border-gray-800">
+  <h2 class="text-3xl font-bold gradient-paraque leading-tight mb-10">
+    Por qué funciona
+  </h2>
+  
+  <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-6 text-left px-6 text-sm text-gray-300">
+    <div class="glass">
+      <span class="text-3xl mb-3 block">🧭</span>
+      <strong class="block text-base mb-2">Claridad cuando más la necesitas</strong>
+      <span class="text-gray-400 block">Los lunes son difíciles. Por eso te llega la página exacta a las 6 AM.</span>
+    </div>
+    <div class="glass">
+      <span class="text-3xl mb-3 block">⚡</span>
+      <strong class="block text-base mb-2">Sin decisiones, solo abrir</strong>
+      <span class="text-gray-400 block">Llega a tu WhatsApp. No tienes que elegir nada. Solo leer.</span>
+    </div>
+    <div class="glass">
+      <span class="text-3xl mb-3 block">❤️</span>
+      <strong class="block text-base mb-2">Alguien sí sabe</strong>
+      <span class="text-gray-400 block">No es un algoritmo. Es curación humana basada en tu momento real.</span>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
 <section class="py-24 text-center bg-[#11121c] border-t border-gray-800">
-  <h2 class="text-4xl font-bold gradient-testimonios leading-tight mb-12">
-    Una.<br>Sorpresa.<br>
+  <h2 class="text-4xl font-bold gradient-testimonios leading-tight mb-4">
+    Qué dicen<br>quienes ya están
   </h2>
 
-  <!-- TESTIMONIOS REALES (NUEVO) -->
+  <!-- CONTADOR (MOVIDO AQUÍ) -->
+  <div class="countup mt-6 mb-2" id="numeroImpacto">+0</div>
+  <p class="text-sm text-gray-400 mb-12">
+    libros abiertos juntos. Vamos por 100 millones.
+  </p>
+
+  <!-- TESTIMONIOS REALES -->
   <div class="max-w-3xl mx-auto mb-12 px-6">
     <div class="glass text-left">
-      <p class="text-sm text-gray-400 mb-4">Lo que dicen quienes ya pagan:</p>
-      
-      <div class="space-y-4">
+      <div class="space-y-6">
         <div class="border-l-2 border-pink-500 pl-4">
-          <p class="text-sm text-gray-300 mb-1">
+          <p class="text-base text-gray-200 mb-2">
             "El lunes me llegó justo el libro que necesitaba. ¿Cómo supiste?"
           </p>
-          <p class="text-xs text-gray-500">— Directora Estafeta, 3 meses suscrita</p>
+          <p class="text-xs text-gray-500">— M.R., Directora de Logística, 3 meses</p>
         </div>
         
         <div class="border-l-2 border-purple-500 pl-4">
-          <p class="text-sm text-gray-300 mb-1">
-            "Invicto me cayó perfecto ese martes caótico"
+          <p class="text-base text-gray-200 mb-2">
+            "Invicto me cayó perfecto ese martes caótico. No fue casualidad."
           </p>
-          <p class="text-xs text-gray-500">— Emprendedor, 2 meses suscrito</p>
+          <p class="text-xs text-gray-500">— J.P., Emprendedor, 2 meses</p>
         </div>
 
         <div class="border-l-2 border-blue-500 pl-4">
-          <p class="text-sm text-gray-300 mb-1">
-            "Llevo 6 meses usándola diario. Cambió mi relación con los libros."
+          <p class="text-base text-gray-200 mb-2">
+            "Llevo 6 meses. Cambió cómo leo. Ya no busco, solo recibo."
           </p>
-          <p class="text-xs text-gray-500">— Suscriptor desde inicio</p>
+          <p class="text-xs text-gray-500">— A.M., Suscriptor fundador</p>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- TESTIMONIOS GENÉRICOS (ACTUALES) -->
+  <!-- TESTIMONIOS GENERICOS -->
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 text-left px-6 text-gray-300 text-sm">
-    <div class="glass">"Justo dejé mis libros en casa y tengo que esperar 30 minutos. Excelente oportunidad para leer."</div>
-    <div class="glass">"Me llamó mucho la atención el título y claro que pensé en tomarlo y hojearlo."</div>
-    <div class="glass">"Sí pagaría por una salita donde hubiera buenos libros, bien seleccionados y con un buen cafecito."</div>
-    <div class="glass">"Hay días en los que necesito algo que me saque de la rutina. Esto sería perfecto."</div>
+    <div class="glass">"Hay días en los que necesito algo que me saque de la rutina. Esto es perfecto."</div>
     <div class="glass">"Yo antes leía diario. Triggui me recordó por qué lo hacía."</div>
-    <div class="glass">"Ver un libro ahí tan accesible hizo que lo tomara sin pensar. Y valió la pena."</div>
+    <div class="glass">"Ver una página llegar sin buscarla hizo que la leyera. Valió la pena."</div>
   </div>
 </section>
 
 <!-- CIERRE -->
 <section class="py-24 text-center bg-[#0f0c29]">
-  <h2 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-8 gradient-cierre leading-tight">
+  <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 gradient-cierre leading-tight">
     Abre.<br>Un Libro.<br>
   </h2>
-  <p class="text-gray-400 mb-8">Triggui es un impulso.</p>
-  <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="glow-button text-sm inline-block">💖 Quiero donar</a>
+  <p class="text-gray-400 mb-8 text-lg">Empieza hoy.</p>
+  <a href="#planes" class="glow-button text-base">💌 Ver planes</a>
+  
+  <p class="text-sm text-gray-500 mt-8">
+    O <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="underline hover:text-pink-400 transition">dona lo que quieras</a>
+  </p>
 </section>
 
 <!-- FOOTER -->
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
-  <!-- LOGO -->
   <img 
     src="./trigguiletrasblanco.png" 
     alt="Triggui" 
@@ -370,7 +456,7 @@
 
 <!-- SCRIPTS -->
 <script>
-// 📧 EMAIL CAPTURE (con parámetro source)
+// EMAIL CAPTURE
 async function handleEmailCapture(event) {
   event.preventDefault();
 
@@ -381,26 +467,31 @@ async function handleEmailCapture(event) {
   if (!email) return;
 
   btn.disabled = true;
-  btn.innerHTML = '✅ Listo! Empieza el hábito ✨';
+  btn.innerHTML = '✅ Listo! Revisa tu email';
 
-  // 🔴 TU APPS SCRIPT URL
   const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
 
-  await fetch(url, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: "email=" + encodeURIComponent(email) + "&source=email_cards"
-  });
+  try {
+    await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: "email=" + encodeURIComponent(email) + "&source=email_cards"
+    });
+  } catch (e) {
+    console.error('Error:', e);
+  }
 
   input.value = '';
+  
   setTimeout(() => {
-    btn.innerHTML = 'Quiero mi sorpresa';
+    btn.innerHTML = '📬 Quiero mi primera sorpresa gratis';
     btn.disabled = false;
-  }, 2000);
+  }, 3000);
+  
   return false;
 }
 
-// 📊 CONTADOR IMPACTO (sin cambios)
+// CONTADOR IMPACTO
 const span = document.getElementById("numeroImpacto");
 fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
   .then(r => r.json())
@@ -416,6 +507,18 @@ fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     requestAnimationFrame(step);
   })
   .catch(() => { span.textContent = "+8,000" });
+
+// FLOATING CTA (aparece después de scroll)
+window.addEventListener('scroll', function() {
+  const cta = document.getElementById('floatingCTA');
+  const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  
+  if (scrollPercent > 15) {
+    cta.classList.add('visible');
+  } else {
+    cta.classList.remove('visible');
+  }
+});
 </script>
 
 </body>
