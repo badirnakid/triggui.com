@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>Triggui - Tu empujoncito de lectura por WhatsApp</title>
 
-<!-- META OG / Twitter -->
 <meta property="og:title" content="Triggui - Tu empujoncito de lectura por WhatsApp" />
 <meta property="og:description" content="Recibe las mejores líneas de libros curadas para tu momento exacto. Por WhatsApp. Cancela cuando quieras." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
@@ -16,7 +15,6 @@
 <meta property="og:description" content="Curadas para tu momento exacto. Los lunes cuando más las necesitas." />
 <meta name="twitter:image" content="https://triggui.com/imagotipo.png" />
 
-<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -92,40 +90,79 @@
   }
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
 
-  /* Phone input styling */
-  .phone-input-wrapper{
-    display:flex;
-    gap:.5rem;
-    width:100%;
+  /* --- PHONE INPUT STYLING (GOD MODE) --- */
+  .phone-input-wrapper {
+    display: flex;
+    gap: .5rem;
+    width: 100%;
+    position: relative;
   }
-  .country-code{
-    width:80px;
-    flex-shrink:0;
+
+  /* Custom Select Style - Removes Browser Default & Adds Custom Arrow */
+  select.country-code {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1rem;
+    padding-right: 2.2rem; /* Space for the arrow */
+    cursor: pointer;
   }
-  .phone-number{
-    flex:1;
+
+  /* Fix for the Dropdown Options (White text on Dark Background) */
+  select.country-code option {
+    background-color: #1f2937; /* Dark gray */
+    color: #ffffff;
+    padding: 10px;
+  }
+
+  .phone-number {
+    flex: 1;
+    min-width: 0; /* Prevents flex item from overflowing */
+  }
+
+  /* --- MOBILE OPTIMIZATION --- */
+  @media (max-width: 480px) {
+    .phone-input-wrapper {
+        gap: 0.35rem;
+    }
+    select.country-code {
+        width: 85px; /* Fixed robust width */
+        font-size: 0.95rem;
+        padding-left: 0.75rem;
+        padding-right: 1.8rem; /* Adjusted for arrow */
+        background-position: right 0.4rem center;
+    }
+    .phone-number {
+        font-size: 0.95rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    /* Ensure header padding doesn't squish inputs too much */
+    header {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
   }
 </style>
 </head>
 <body>
 
-<!-- WhatsApp Flotante -->
 <a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" aria-label="WhatsApp">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="26" height="26" fill="white">
     <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.2-.4-.3-.8-.5z"/>
   </svg>
 </a>
 
-<!-- CTA Flotante (aparece después de scroll) -->
 <a href="#planes" class="floating-cta" id="floatingCTA">💌 Empieza Hoy</a>
 
-<!-- HERO -->
 <header class="text-center px-6 pt-28 pb-20 max-w-6xl mx-auto">
   <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold gradient-hero leading-tight">
     La chispa<br>antes<br>del libro.
   </h1>
 
-  <!-- CLARITY SUBTITLE -->
   <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto mt-6 leading-snug font-bold">
     Recibe tu empujoncito de lectura<br>por WhatsApp
   </p>
@@ -134,22 +171,21 @@
     Curadas para tu momento exacto.<br>Los lunes cuando más las necesitas.<br>Y sorpresas en la semana.
   </p>
 
-  <!-- CTA PRINCIPAL - EMAIL + PHONE -->
   <div class="mt-10 max-w-md mx-auto">
     <form class="flex flex-col gap-3" onsubmit="return handleCapture(event)">
-      <!-- EMAIL -->
       <input
         type="email"
         id="emailCapture"
+        name="email"
         placeholder="tu@email.com"
-        class="px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
+        class="px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-full"
         required
       />
       
-      <!-- PHONE (con código de país) -->
       <div class="phone-input-wrapper">
         <select 
           id="countryCode"
+          name="countryCode"
           class="country-code px-3 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
         >
           <option value="+52" selected>🇲🇽 +52</option>
@@ -163,6 +199,7 @@
         <input
           type="tel"
           id="phoneCapture"
+          name="phone"
           placeholder="55 1234 5678"
           pattern="[0-9\s]+"
           class="phone-number px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
@@ -170,7 +207,7 @@
         />
       </div>
 
-      <button id="submitBtn" type="submit" class="glow-button text-base py-3 transition-all">
+      <button id="submitBtn" type="submit" class="glow-button text-base py-3 transition-all w-full">
         📬 Quiero mi 1ra sorpresa gratis
       </button>
     </form>
@@ -179,7 +216,6 @@
     </p>
   </div>
 
-  <!-- APP BADGES (secundario) -->
   <p class="text-sm text-gray-500 mt-12 mb-4">
     O descarga la app gratis
   </p>
@@ -205,7 +241,6 @@
   </div>
 </header>
 
-<!-- APP VS WHATSAPP -->
 <section class="py-20 text-center bg-[#11121c] border-t border-gray-800">
   <h2 class="text-3xl sm:text-4xl font-bold gradient-vs leading-tight mb-4">
     Por qué pagar
@@ -217,7 +252,6 @@
   
   <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6">
     
-    <!-- APP GRATIS -->
     <div class="glass text-left">
       <h3 class="text-xl font-bold mb-4 text-gray-300">📱 App Gratis</h3>
       <ul class="text-sm text-gray-400 space-y-3 mb-6">
@@ -239,7 +273,6 @@
       </p>
     </div>
 
-    <!-- WHATSAPP PAGO -->
     <div class="glass text-left border-2 border-pink-500/40 relative">
       <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
         <span class="urgency-badge">🔥 Lo que eligen los que leen en serio</span>
@@ -278,7 +311,6 @@
   </p>
 </section>
 
-<!-- PLANES -->
 <section id="planes" class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
   <h2 class="text-4xl font-extrabold gradient-planes leading-tight mb-6">
     Empieza hoy
@@ -289,7 +321,6 @@
   
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
 
-    <!-- ITCH MENSUAL -->
     <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui itch</h3>
       <div class="text-left mb-4 space-y-2">
@@ -326,7 +357,6 @@
       </p>
     </div>
 
-    <!-- ANUAL -->
     <div class="glass border-2 border-green-500/40 relative">
       <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-xs font-bold px-4 py-1 rounded-full">
         MÁS POPULAR
@@ -363,7 +393,6 @@
       </p>
     </div>
 
-    <!-- LIFETIME -->
     <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui Lifetime</h3>
       <ul class="text-sm text-gray-300 space-y-2 mb-6 text-left">
@@ -399,7 +428,6 @@
 
   </div>
 
-  <!-- URGENCIA -->
   <div class="mt-12 max-w-md mx-auto">
     <p class="text-sm text-gray-400">
       <span class="text-pink-400 font-bold">Solo para 100 personas este mes.</span><br>
@@ -408,7 +436,6 @@
   </div>
 </section>
 
-<!-- PARA QUÉ -->
 <section class="py-20 text-center bg-[#0f0c29] border-t border-gray-800">
   <h2 class="text-3xl font-bold gradient-paraque leading-tight mb-10">
     Por qué funciona
@@ -433,19 +460,16 @@
   </div>
 </section>
 
-<!-- TESTIMONIOS -->
 <section class="py-24 text-center bg-[#11121c] border-t border-gray-800">
   <h2 class="text-4xl font-bold gradient-testimonios leading-tight mb-4">
     Qué dicen<br>quienes ya están
   </h2>
 
-  <!-- CONTADOR -->
   <div class="countup mt-6 mb-2" id="numeroImpacto">+0</div>
   <p class="text-sm text-gray-400 mb-12">
     libros abiertos juntos. Vamos por 100 millones.
   </p>
 
-  <!-- TESTIMONIOS REALES -->
   <div class="max-w-3xl mx-auto mb-12 px-6">
     <div class="glass text-left">
       <div class="space-y-6">
@@ -473,7 +497,6 @@
     </div>
   </div>
 
-  <!-- TESTIMONIOS GENERICOS -->
   <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6 text-left px-6 text-gray-300 text-sm">
     <div class="glass">"Hay días en los que necesito algo que me saque de la rutina. Esto es perfecto."</div>
     <div class="glass">"Yo antes leía diario. Triggui me recordó por qué lo hacía."</div>
@@ -481,7 +504,6 @@
   </div>
 </section>
 
-<!-- CIERRE -->
 <section class="py-24 text-center bg-[#0f0c29]">
   <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 gradient-cierre leading-tight">
     Abre.<br>Un Libro.<br>
@@ -494,7 +516,6 @@
   </p>
 </section>
 
-<!-- FOOTER -->
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
   <img 
     src="./trigguiletrasblanco.png" 
@@ -505,7 +526,6 @@
   <p>© 2025 Triggui · Cada libro abierto es un momento real.</p>
 </footer>
 
-<!-- SCRIPTS -->
 <script>
 // EMAIL + PHONE CAPTURE
 async function handleCapture(event) {
@@ -524,6 +544,13 @@ async function handleCapture(event) {
 
   btn.disabled = true;
   btn.innerHTML = '✅ Listo! Revisa tu WhatsApp';
+
+  // LOG DE DEBUGGING PARA QUE VEAS QUE SE ENVÍA
+  console.log("Enviando a Google Sheets:", {
+      email: email,
+      phone: fullPhone,
+      source: "hero_capture"
+  });
 
   const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
 
@@ -579,7 +606,7 @@ window.addEventListener('scroll', function() {
   }
 });
 
-// PHONE INPUT FORMATTING (optional - mejora UX)
+// PHONE INPUT FORMATTING (UX mejorada)
 document.getElementById('phoneCapture').addEventListener('input', function(e) {
   let value = e.target.value.replace(/\D/g, '');
   if (value.length > 10) value = value.slice(0, 10);
