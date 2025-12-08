@@ -232,7 +232,7 @@ function trackSectionView(section) {
 <body>
 
 <!-- WhatsApp Floating Button -->
-<a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" aria-label="WhatsApp" onclick="trackEngagement('whatsapp_float_clicked')">
+<a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" id="whatsappFloat" aria-label="WhatsApp" onclick="trackEngagement('whatsapp_float_clicked')">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="26" height="26" fill="white">
     <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.2-.4-.3-.8-.5z"/>
   </svg>
@@ -667,6 +667,28 @@ function trackSectionView(section) {
      ======================================== -->
 <script>
 // ========================================
+// DETECTAR WEBVIEW Y OCULTAR FLOTANTES
+// ========================================
+(function() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const isWebView = (/wv/i.test(ua) || /WebView/i.test(ua) ||
+                     (ua.includes("Android") && ua.includes("Version/")) ||
+                     (ua.includes("iPhone") && !ua.includes("Safari")));
+  
+  if (isWebView) {
+    // Ocultar botón flotante de WhatsApp
+    const whatsappFloat = document.getElementById('whatsappFloat');
+    if (whatsappFloat) whatsappFloat.style.display = 'none';
+    
+    // Ocultar CTA flotante
+    const floatingCTA = document.getElementById('floatingCTA');
+    if (floatingCTA) floatingCTA.style.display = 'none';
+    
+    console.log('🔒 WebView detectado - Flotantes ocultados');
+  }
+})();
+
+// ========================================
 // EMAIL + PHONE CAPTURE CON TRACKING
 // ========================================
 async function handleCapture(event) {
@@ -784,6 +806,8 @@ setInterval(updateLiveCounter, 30000);
 // ========================================
 window.addEventListener('scroll', function() {
   const cta = document.getElementById('floatingCTA');
+  if (!cta) return; // Si fue ocultado por WebView, no hacer nada
+  
   const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
   
   if (scrollPercent > 15) {
@@ -823,17 +847,19 @@ document.addEventListener('mouseleave', function(e) {
     // Track intento de salida
     trackEngagement('exit_intent_triggered');
     
-    // Mostrar CTA urgente
+    // Mostrar CTA urgente (solo si no es WebView)
     const floatingCTA = document.getElementById('floatingCTA');
-    floatingCTA.classList.add('visible');
-    floatingCTA.style.animation = 'pulse-glow 1s infinite';
-    floatingCTA.textContent = '⚡ Espera! Tu 1ra sorpresa gratis';
-    
-    // Reset después de 5 segundos
-    setTimeout(() => {
-      floatingCTA.textContent = '💌 Empieza Hoy';
-      floatingCTA.style.animation = 'pulse-glow 3s infinite';
-    }, 5000);
+    if (floatingCTA && floatingCTA.style.display !== 'none') {
+      floatingCTA.classList.add('visible');
+      floatingCTA.style.animation = 'pulse-glow 1s infinite';
+      floatingCTA.textContent = '⚡ Espera! Tu 1ra sorpresa gratis';
+      
+      // Reset después de 5 segundos
+      setTimeout(() => {
+        floatingCTA.textContent = '💌 Empieza Hoy';
+        floatingCTA.style.animation = 'pulse-glow 3s infinite';
+      }, 5000);
+    }
   }
 });
 
