@@ -2,15 +2,32 @@
 <html lang="es" class="scroll-smooth" style="background-color: #000000;">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/> 
 <title>Triggui - El libro correcto. En el momento exacto.</title>
 
 <meta name="description" content="No más libros sin terminar. Recibe ideas que llegaron para ti justo ahora. En tu WhatsApp." />
-<meta property="og:title" content="Triggui - El libro correcto. En el momento exacto." />
-<meta property="og:description" content="La sincronicidad no es coincidencia. Es Triggui." />
-<meta property="og:image" content="https://triggui.com/imagotipo.png" />
+<meta name="keywords" content="libros, lectura, habitos, whatsapp, resumenes, crecimiento personal" />
+<meta name="author" content="Triggui Inc." />
+
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://triggui.com/" />
+<meta property="og:title" content="Triggui - El libro correcto. En el momento exacto." />
+<meta property="og:description" content="La sincronicidad no es coincidencia. Es Triggui. Recibe tu dosis de lectura en WhatsApp." />
+<meta property="og:image" content="https://triggui.com/imagotipo.png" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://triggui.com/" />
+<meta property="twitter:title" content="Triggui - El libro correcto." />
+<meta property="twitter:description" content="Ideas que llegaron para ti. Justo ahora. En tu WhatsApp." />
+<meta property="twitter:image" content="https://triggui.com/imagotipo.png" />
+
 <meta name="theme-color" content="#000000">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
@@ -18,34 +35,41 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-ZKG8ZNSB35');
-</script>
 
-<script>
-function getUTMParams() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    source: params.get('utm_source') || 'direct',
-    medium: params.get('utm_medium') || 'none',
-    campaign: params.get('utm_campaign') || 'organic',
-    content: params.get('utm_content') || '',
-    term: params.get('utm_term') || ''
-  };
-}
-function trackConversion(event, value = 0) {
-  const utm = getUTMParams();
-  if (typeof gtag !== 'undefined') {
-    gtag('event', event, { event_category: 'conversion', event_label: utm.source, value: value, currency: 'MXN' });
+  function getUTMParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+      source: params.get('utm_source') || 'direct',
+      medium: params.get('utm_medium') || 'none',
+      campaign: params.get('utm_campaign') || 'organic',
+      content: params.get('utm_content') || '',
+      term: params.get('utm_term') || ''
+    };
   }
-}
-function trackEngagement(action) {
-  if (typeof gtag !== 'undefined') { gtag('event', 'engagement', { event_category: 'interaction', event_label: action }); }
-}
-</script>
+  
+  function trackConversion(event, value = 0) {
+    const utm = getUTMParams();
+    if (typeof gtag !== 'undefined') {
+      gtag('event', event, { 
+        event_category: 'conversion', 
+        event_label: utm.source, 
+        value: value, 
+        currency: 'MXN' 
+      });
+    }
+    // Fallback log para debugging
+    console.log(`📡 Evento rastreado: ${event} - Valor: $${value}`);
+  }
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  function trackEngagement(action) {
+    if (typeof gtag !== 'undefined') { 
+        gtag('event', 'engagement', { event_category: 'interaction', event_label: action }); 
+    }
+  }
+</script>
 
 <style>
+  /* === CORE RESET & BASE === */
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
   html, body {
@@ -58,9 +82,9 @@ function trackEngagement(action) {
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* HERO TITLE - Lock inicial para evitar CLS */
+  /* === TYPOGRAPHY === */
   .hero-title {
-    font-weight: 800;
+    font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.04em;
     text-align: center;
@@ -71,7 +95,7 @@ function trackEngagement(action) {
   @media (min-width: 768px) { .hero-title { font-size: 6.5rem; } }
   @media (min-width: 1024px) { .hero-title { font-size: 7.5rem; } }
 
-  /* Gradiente animado BRUTAL */
+  /* === FX: FIRE TEXT === */
   .text-fire {
     background: linear-gradient(135deg, #FF0080 0%, #FF8C00 50%, #FFD700 100%);
     background-size: 200% 200%;
@@ -79,44 +103,41 @@ function trackEngagement(action) {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: fire-move 4s ease infinite;
+    will-change: background-position; /* Optimización GPU */
   }
   @keyframes fire-move {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
   }
 
-  /* Noise texture premium */
+  /* === FX: NOISE BACKGROUND === */
   .bg-grain {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     z-index: 0;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
   }
 
-  /* Spotlight effect */
+  /* === FX: SPOTLIGHT === */
   .spotlight {
     position: absolute;
-    top: -50%;
-    left: 50%;
+    top: -50%; left: 50%;
     transform: translateX(-50%);
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(ellipse at center, rgba(255, 0, 128, 0.15) 0%, transparent 60%);
+    width: 150%; height: 150%;
+    background: radial-gradient(ellipse at center, rgba(255, 0, 128, 0.12) 0%, transparent 60%);
     pointer-events: none;
     z-index: 1;
+    will-change: transform;
   }
 
-  /* Cards de cristal perfeccionados */
+  /* === COMPONENT: GLASS CARD === */
   .glass-card {
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px); /* Safari Support */
     border-radius: 24px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -125,64 +146,57 @@ function trackEngagement(action) {
   .glass-card::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
     transition: left 0.5s;
+    pointer-events: none;
   }
-  .glass-card:hover::before {
-    left: 100%;
-  }
+  .glass-card:hover::before { left: 100%; }
   .glass-card:hover {
     transform: translateY(-8px);
     border-color: rgba(255, 0, 128, 0.3);
-    box-shadow: 0 20px 60px rgba(255, 0, 128, 0.2);
+    box-shadow: 0 20px 60px rgba(255, 0, 128, 0.15);
   }
 
-  /* Botón principal EXPLOSIVO */
+  /* === COMPONENT: NUCLEAR BUTTON === */
   .btn-nuclear {
     position: relative;
     background: linear-gradient(135deg, #FF0080 0%, #FF4500 100%);
     color: white;
-    font-weight: 700;
+    font-weight: 800;
     border: none;
     overflow: hidden;
+    transition: transform 0.2s;
     box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7);
-    animation: nuclear-pulse 2s infinite;
+    animation: nuclear-pulse 3s infinite;
   }
   .btn-nuclear::before {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.4);
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
   }
-  .btn-nuclear:hover::before {
-    width: 300px;
-    height: 300px;
-  }
-  .btn-nuclear:active {
-    transform: scale(0.96);
-  }
-  @keyframes nuclear-pulse {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 0 15px rgba(255, 0, 128, 0),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
-    }
+  .btn-nuclear:hover::before { width: 400px; height: 400px; }
+  .btn-nuclear:active { transform: scale(0.96); }
+  .btn-nuclear:disabled { 
+    opacity: 0.8; 
+    cursor: wait; 
+    animation: none;
+    filter: grayscale(0.5);
   }
 
-  /* Input fields perfectos */
+  @keyframes nuclear-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 0, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 0, 128, 0); }
+  }
+
+  /* === INPUTS & FORMS === */
   .input-god {
     background: rgba(255, 255, 255, 0.05);
     border: 1.5px solid rgba(255, 255, 255, 0.1);
@@ -194,30 +208,22 @@ function trackEngagement(action) {
     background: rgba(255, 255, 255, 0.08);
     border-color: #FF0080;
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 0, 128, 0.1);
+    box-shadow: 0 0 0 4px rgba(255, 0, 128, 0.15);
   }
-  .input-god::placeholder {
-    color: rgba(255, 255, 255, 0.4);
-  }
+  .input-god::placeholder { color: rgba(255, 255, 255, 0.3); }
 
-  /* Select personalizado */
   select.select-god {
     appearance: none;
     -webkit-appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-position: right 14px center;
+    background-position: right 12px center;
     background-size: 14px;
-    padding-right: 40px;
     cursor: pointer;
   }
-  select.select-god option {
-    background-color: #1a1a1a;
-    color: white;
-    padding: 12px;
-  }
+  select.select-god option { background-color: #121212; color: white; padding: 12px; }
 
-  /* Badge de descuento mejorado */
+  /* === UTILITIES & BADGES === */
   .badge-save {
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
@@ -226,7 +232,6 @@ function trackEngagement(action) {
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
   }
 
-  /* Precio tachado más visible */
   .price-strike {
     position: relative;
     color: #6b7280;
@@ -234,58 +239,45 @@ function trackEngagement(action) {
   .price-strike::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 50%;
-    width: 100%;
-    height: 2px;
+    left: 0; top: 50%;
+    width: 100%; height: 2px;
     background: #ef4444;
     transform: rotate(-8deg);
   }
 
-  /* WhatsApp float mejorado */
+  /* === FLOATERS (WA & CTA) === */
   .wa-float {
     position: fixed;
-    bottom: 90px;
-    right: 24px;
-    z-index: 9999;
-    width: 60px;
-    height: 60px;
+    bottom: 90px; right: 24px;
+    z-index: 90;
+    width: 60px; height: 60px;
     border-radius: 50%;
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
     transition: all 0.3s;
-    animation: wa-pulse 2.5s infinite;
+    animation: wa-pulse 3s infinite;
   }
   .wa-float:hover {
     transform: scale(1.1) rotate(5deg);
     box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
   }
   @keyframes wa-pulse {
-    0%, 100% {
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
-                  0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    50% {
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
-                  0 0 0 15px rgba(37, 211, 102, 0);
-    }
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
   }
 
-  /* CTA flotante */
   .cta-float {
     position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 9999;
+    bottom: 24px; right: 24px;
+    z-index: 90;
     background: white;
     color: black;
     font-weight: 800;
     padding: 14px 28px;
     border-radius: 50px;
-    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px) scale(0.9);
@@ -297,35 +289,28 @@ function trackEngagement(action) {
     transform: translateY(0) scale(1);
   }
   .cta-float:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.4);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.3);
   }
 
-  /* Badge live con mejor animación */
+  /* === LIVE BADGE === */
   .live-badge {
     background: rgba(16, 185, 129, 0.1);
     border: 1px solid rgba(16, 185, 129, 0.3);
     backdrop-filter: blur(10px);
   }
   .live-dot {
-    width: 8px;
-    height: 8px;
+    width: 8px; height: 8px;
     background: #10b981;
     border-radius: 50%;
     animation: live-pulse 2s ease-in-out infinite;
   }
   @keyframes live-pulse {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1.3);
-    }
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
   }
 
-  /* Testimoniales más elegantes */
+  /* === TESTIMONIALS === */
   .testimonial-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -335,62 +320,49 @@ function trackEngagement(action) {
     transition: all 0.3s;
   }
   .testimonial-card:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-4px);
   }
 
-  /* Efecto de aparición suave */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* === ANIMATIONS === */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
   }
-  .animate-in {
-    animation: fadeInUp 0.8s ease-out;
+  .fade-in-up.visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 
-  /* Mejora de legibilidad */
-  ::selection {
-    background: #FF0080;
-    color: white;
-  }
+  ::selection { background: #FF0080; color: white; }
 </style>
 </head>
 <body class="antialiased">
 
 <div class="bg-grain"></div>
 
-<!-- WhatsApp Float -->
 <a href="https://wa.me/5215532394017" target="_blank" class="wa-float" id="whatsappFloat" onclick="trackEngagement('whatsapp_float')">
   <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
   </svg>
 </a>
 
-<!-- CTA Flotante -->
 <a href="#registro" class="cta-float" id="floatingCTA" onclick="trackEngagement('cta_float')">
   🔥 Quiero Activarme
 </a>
 
-<!-- HERO SECTION -->
-<header class="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 z-10">
+<header class="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 z-10 overflow-hidden">
   <div class="spotlight"></div>
   
-  <div class="max-w-6xl mx-auto text-center relative z-10 animate-in">
+  <div class="max-w-6xl mx-auto text-center relative z-10 fade-in-up visible">
     
-    <!-- Badge Live -->
     <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full live-badge mb-8">
       <span class="live-dot"></span>
       <span class="text-xs font-semibold text-green-400 tracking-wider uppercase" id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <!-- Título Principal -->
     <h1 class="hero-title text-white mb-6 leading-none">
       El libro<br>
       <span class="text-fire">correcto.</span>
@@ -401,7 +373,6 @@ function trackEngagement(action) {
       <span class="text-fire">exacto.</span>
     </h2>
 
-    <!-- Subtítulo poderoso -->
     <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-4 font-medium leading-relaxed">
       No más libros empolvándose en tu buró.<br>
       <span class="text-white font-semibold">Ideas que llegaron para ti. Justo ahora. En tu WhatsApp.</span>
@@ -411,9 +382,8 @@ function trackEngagement(action) {
       La sincronicidad no es coincidencia. Es que alguien leyó por ti<br>y supo exactamente qué necesitabas escuchar hoy.
     </p>
 
-    <!-- Formulario -->
     <div id="registro" class="w-full max-w-lg mx-auto glass-card p-8 relative">
-      <div class="absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-pink-600/20 rounded-[25px] blur-xl opacity-50"></div>
+      <div class="absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-pink-600/20 rounded-[25px] blur-xl opacity-50 pointer-events-none"></div>
       
       <form class="relative flex flex-col gap-4" onsubmit="return handleCapture(event)">
         
@@ -423,6 +393,7 @@ function trackEngagement(action) {
             id="fname" 
             placeholder="Nombre" 
             required 
+            autocomplete="given-name"
             class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
           />
           <input 
@@ -430,6 +401,7 @@ function trackEngagement(action) {
             id="lname" 
             placeholder="Apellido" 
             required 
+            autocomplete="family-name"
             class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
           />
         </div>
@@ -439,6 +411,7 @@ function trackEngagement(action) {
           id="email" 
           placeholder="tu@email.com" 
           required 
+          autocomplete="email"
           class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
         />
 
@@ -446,6 +419,7 @@ function trackEngagement(action) {
           <select 
             id="country" 
             class="select-god input-god w-28 shrink-0 rounded-2xl px-4 py-4 text-base font-bold"
+            aria-label="Código de país"
           >
             <option value="+52">🇲🇽 +52</option>
             <option value="+1">🇺🇸 +1</option>
@@ -461,7 +435,8 @@ function trackEngagement(action) {
             type="tel" 
             id="phone" 
             placeholder="WhatsApp" 
-            pattern="[0-9]+" 
+            pattern="[0-9]*" 
+            inputmode="numeric"
             required 
             class="input-god flex-1 min-w-0 rounded-2xl px-5 py-4 text-base font-medium"
           />
@@ -484,13 +459,12 @@ function trackEngagement(action) {
       </form>
     </div>
 
-    <!-- App Store Badges -->
-    <div class="flex items-center justify-center gap-4 mt-12 h-14 opacity-70 hover:opacity-100 transition-opacity duration-500">
+    <div class="flex items-center justify-center gap-4 mt-12 h-14 opacity-80 hover:opacity-100 transition-opacity duration-500">
       <a 
         href="https://apps.apple.com/mx/app/triggui/id6752839016" 
         target="_blank" 
         rel="noopener"
-        class="h-full flex items-center transition-all duration-300 hover:scale-105"
+        class="h-full flex items-center transition-transform duration-300 hover:scale-105"
         onclick="trackEngagement('app_store_download')"
       >
         <img 
@@ -504,7 +478,7 @@ function trackEngagement(action) {
         href="https://play.google.com/store/apps/details?id=com.triggui.app" 
         target="_blank" 
         rel="noopener"
-        class="h-full flex items-center transition-all duration-300 hover:scale-105"
+        class="h-full flex items-center transition-transform duration-300 hover:scale-105"
         onclick="trackEngagement('google_play_download')"
       >
         <img 
@@ -519,11 +493,10 @@ function trackEngagement(action) {
   </div>
 </header>
 
-<!-- SECCIÓN: POR QUÉ PAGAR -->
 <section class="py-32 relative bg-gradient-to-b from-black via-gray-900/20 to-black">
   <div class="max-w-6xl mx-auto px-6">
     
-    <div class="text-center mb-20">
+    <div class="text-center mb-20 fade-in-up">
       <h2 class="text-4xl md:text-6xl font-black mb-6 text-white leading-tight">
         La App es Gratis.<br>
         <span class="text-fire">El Hábito es Premium.</span>
@@ -535,8 +508,7 @@ function trackEngagement(action) {
 
     <div class="grid md:grid-cols-2 gap-8 items-stretch">
       
-      <!-- Opción 1: App -->
-      <div class="glass-card p-10 flex flex-col border-l-4 border-gray-700">
+      <div class="glass-card p-10 flex flex-col border-l-4 border-gray-700 fade-in-up">
         <div class="flex items-start justify-between mb-6">
           <div>
             <h3 class="text-2xl font-bold text-gray-200 mb-2">La Brújula</h3>
@@ -564,13 +536,12 @@ function trackEngagement(action) {
           </li>
         </ul>
         
-        <div class="text-sm font-bold text-gray-500 border border-gray-700 px-4 py-2 rounded-xl inline-block">
+        <div class="text-sm font-bold text-gray-500 border border-gray-700 px-4 py-2 rounded-xl inline-block self-start">
           Perfecta para curiosos
         </div>
       </div>
 
-      <!-- Opción 2: WhatsApp (DESTACADA) -->
-      <div class="glass-card p-10 flex flex-col border-l-4 border-pink-500 bg-gradient-to-br from-pink-950/20 to-transparent relative transform md:-translate-y-4 shadow-2xl">
+      <div class="glass-card p-10 flex flex-col border-l-4 border-pink-500 bg-gradient-to-br from-pink-950/20 to-transparent relative transform md:-translate-y-4 shadow-2xl fade-in-up" style="transition-delay: 100ms;">
         <div class="absolute top-6 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
           RECOMENDADO
         </div>
@@ -602,25 +573,24 @@ function trackEngagement(action) {
           </li>
         </ul>
         
-        <div class="text-sm font-bold text-white bg-pink-600 px-4 py-2 rounded-xl inline-block shadow-lg">
+        <div class="text-sm font-bold text-white bg-pink-600 px-4 py-2 rounded-xl inline-block shadow-lg self-start">
           Para los que actúan
         </div>
       </div>
 
     </div>
 
-    <p class="text-center text-gray-500 mt-12 text-sm max-w-2xl mx-auto">
+    <p class="text-center text-gray-500 mt-12 text-sm max-w-2xl mx-auto fade-in-up">
       <strong class="text-white">Spoiler:</strong> Nadie cancela. Porque cuando algo te cambia la vida cada lunes, $149 al mes es un chiste.
     </p>
 
   </div>
 </section>
 
-<!-- SECCIÓN: PRECIOS -->
 <section id="planes" class="py-32 relative">
   <div class="max-w-7xl mx-auto px-6">
     
-    <div class="text-center mb-20">
+    <div class="text-center mb-20 fade-in-up">
       <h2 class="text-4xl md:text-6xl font-black mb-6 text-white">
         Menos que un Libro.<br>
         <span class="text-fire">Más Valor que 100.</span>
@@ -632,8 +602,7 @@ function trackEngagement(action) {
     
     <div class="grid md:grid-cols-3 gap-8 items-end max-w-5xl mx-auto">
       
-      <!-- Plan Mensual -->
-      <div class="glass-card p-8 hover:scale-105 transition-all duration-300">
+      <div class="glass-card p-8 hover:scale-105 transition-all duration-300 fade-in-up">
         <div class="text-center">
           <h3 class="text-gray-400 font-bold uppercase text-xs tracking-widest mb-6">Mensual</h3>
           <div class="mb-8">
@@ -653,8 +622,7 @@ function trackEngagement(action) {
         </div>
       </div>
 
-      <!-- Plan Anual (DESTACADO) -->
-      <div class="glass-card p-10 relative border-2 border-pink-500/50 transform scale-105 md:scale-110 z-10 shadow-2xl bg-gradient-to-b from-pink-950/30 to-transparent">
+      <div class="glass-card p-10 relative border-2 border-pink-500/50 transform scale-105 md:scale-110 z-10 shadow-2xl bg-gradient-to-b from-pink-950/30 to-transparent fade-in-up" style="transition-delay: 100ms;">
         <div class="absolute -top-4 left-0 right-0 flex justify-center">
           <span class="badge-save text-xs px-5 py-2 rounded-full uppercase tracking-widest">
             Ahorras $298
@@ -672,7 +640,7 @@ function trackEngagement(action) {
             <span class="badge-save text-xs px-3 py-1 rounded-lg">2 meses gratis</span>
           </div>
           
-          <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left">
+          <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left inline-block">
             <li class="flex gap-2 items-center">
               <span class="text-pink-500">✓</span>
               <span>Precio congelado 365 días</span>
@@ -697,8 +665,7 @@ function trackEngagement(action) {
         </div>
       </div>
 
-      <!-- Plan Lifetime -->
-      <div class="glass-card p-8 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300">
+      <div class="glass-card p-8 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300 fade-in-up" style="transition-delay: 200ms;">
         <div class="text-center">
           <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-6">Lifetime</h3>
           <div class="mb-8">
@@ -721,18 +688,17 @@ function trackEngagement(action) {
 
     </div>
 
-    <p class="text-center text-gray-500 mt-16 text-sm max-w-xl mx-auto leading-relaxed">
+    <p class="text-center text-gray-500 mt-16 text-sm max-w-xl mx-auto leading-relaxed fade-in-up">
       💳 Procesado por Stripe · 🔒 100% Seguro · ✓ Garantía de reembolso 30 días
     </p>
 
   </div>
 </section>
 
-<!-- SECCIÓN: TESTIMONIALES -->
 <section class="py-32 border-t border-gray-900/50">
   <div class="max-w-5xl mx-auto px-6">
     
-    <div class="text-center mb-16">
+    <div class="text-center mb-16 fade-in-up">
       <h2 class="text-3xl md:text-5xl font-black mb-4 text-white">
         Lo Que Dicen Los Que<br>
         <span class="text-fire">Ya Crecieron</span>
@@ -741,7 +707,7 @@ function trackEngagement(action) {
 
     <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
       
-      <div class="testimonial-card">
+      <div class="testimonial-card fade-in-up">
         <div class="flex gap-4 items-start mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             M
@@ -757,7 +723,7 @@ function trackEngagement(action) {
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card fade-in-up">
         <div class="flex gap-4 items-start mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             C
@@ -773,7 +739,7 @@ function trackEngagement(action) {
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card fade-in-up">
         <div class="flex gap-4 items-start mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             A
@@ -789,7 +755,7 @@ function trackEngagement(action) {
         </div>
       </div>
 
-      <div class="testimonial-card">
+      <div class="testimonial-card fade-in-up">
         <div class="flex gap-4 items-start mb-4">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             J
@@ -810,31 +776,32 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: CTA FINAL -->
 <section class="py-32 text-center relative bg-gradient-to-b from-black via-gray-900/30 to-black">
   <div class="max-w-4xl mx-auto px-6">
     
-    <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
+    <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none fade-in-up">
       DEJA DE<br>
       <span class="text-fire">ACUMULAR.</span><br>
       EMPIEZA A<br>
       <span class="text-fire">ABSORBER.</span>
     </h2>
 
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed fade-in-up">
       Cada lunes. Una idea. Un empujón.<br>
       <span class="text-white font-semibold">Lo demás lo haces tú.</span>
     </p>
 
-    <a 
-      href="#registro" 
-      class="btn-nuclear inline-block px-10 sm:px-12 py-5 sm:py-6 rounded-2xl text-lg sm:text-xl font-bold shadow-2xl"
-      onclick="trackEngagement('footer_cta')"
-    >
-      Activar Mi Crecimiento
-    </a>
+    <div class="fade-in-up">
+      <a 
+        href="#registro" 
+        class="btn-nuclear inline-block px-10 sm:px-12 py-5 sm:py-6 rounded-2xl text-lg sm:text-xl font-bold shadow-2xl"
+        onclick="trackEngagement('footer_cta')"
+      >
+        Activar Mi Crecimiento
+      </a>
+    </div>
 
-    <div class="mt-16 text-xs text-gray-600 space-y-3">
+    <div class="mt-16 text-xs text-gray-600 space-y-3 fade-in-up">
       <p>© 2025 Triggui Inc. · Hecho con 🖤 en México</p>
       <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-gray-500">
         <a href="#" class="hover:text-white transition-colors duration-300">Privacidad</a>
@@ -851,112 +818,166 @@ function trackEngagement(action) {
 </section>
 
 <script>
-// === CAPTURA DE FORMULARIO ===
+// === CAPTURA DE FORMULARIO MEJORADA ===
 async function handleCapture(event) {
   event.preventDefault();
   const btn = document.getElementById('submitBtn');
-  const original = btn.innerHTML;
+  const originalContent = btn.innerHTML;
   
+  // UX State: Loading
   btn.disabled = true;
   btn.innerHTML = '⚡ Conectando...';
-  btn.style.opacity = '0.7';
+  btn.style.opacity = '0.8';
+  btn.style.cursor = 'wait';
 
   const fname = document.getElementById('fname').value.trim();
   const lname = document.getElementById('lname').value.trim();
   const email = document.getElementById('email').value.trim();
+  // Limpieza agresiva del teléfono para quitar espacios, guiones, paréntesis
   const phone = document.getElementById('phone').value.replace(/\D/g,'');
   const code = document.getElementById('country').value;
   const fullPhone = code + phone;
   const utm = getUTMParams();
 
+  // Validación Básica
   if(!fname || !lname || !email || !phone) {
-    btn.innerHTML = '⚠️ Completa todos los campos';
+    btn.innerHTML = '⚠️ Faltan datos';
     btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
     setTimeout(() => { 
-      btn.innerHTML = original; 
+      btn.innerHTML = originalContent; 
       btn.disabled = false; 
       btn.style.opacity = '1';
       btn.style.background = '';
-    }, 2500);
-    return;
+      btn.style.cursor = 'pointer';
+    }, 2000);
+    return false;
   }
 
+  // URL del Webhook (Google Apps Script)
   const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
   
+  // Params Body
+  const data = new URLSearchParams();
+  data.append('first_name', fname);
+  data.append('last_name', lname);
+  data.append('email', email);
+  data.append('phone', fullPhone);
+  data.append('source', 'god_level_optimized');
+  data.append('utm_source', utm.source);
+  data.append('utm_medium', utm.medium);
+  data.append('utm_campaign', utm.campaign);
+
   try {
+    // IMPORTANTE: mode: 'no-cors' permite enviar datos a GAS sin que el browser bloquee por CORS
+    // La desventaja es que no podemos leer la respuesta (JSON), así que asumimos éxito si no hay error de red.
     await fetch(url, {
       method: "POST",
+      mode: 'no-cors', 
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_perfect&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: data
     });
 
+    // Éxito Simulado (ya que GAS no devuelve header CORS en redirecciones simples)
     trackConversion('lead_captured', 100);
+    
     btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+    btn.style.animation = 'none';
     btn.innerHTML = '✅ ¡Listo! Abriendo WhatsApp...';
     
+    // Delay para feedback visual antes de irse
     setTimeout(() => {
-      window.location.href = `https://wa.me/5215532394017?text=${encodeURIComponent('¡Hola! Ya me registré en Triggui. Quiero activar mi primera dosis de lectura.')}`;
+      const waMsg = `¡Hola! Soy ${fname}. Ya me registré en Triggui. Quiero activar mi primera dosis de lectura.`;
+      const waLink = `https://wa.me/5215532394017?text=${encodeURIComponent(waMsg)}`;
+      
+      // Intentar abrir en nueva pestaña para no perder la landing
+      window.open(waLink, '_blank');
+      
+      // Restaurar botón (opcional, por si el usuario regresa)
+      setTimeout(() => {
+          btn.innerHTML = "¡Enviado! 🚀";
+          btn.disabled = false;
+      }, 1000);
     }, 1500);
 
   } catch (error) {
-    console.error('Error:', error);
-    btn.innerHTML = '❌ Error. Intenta de nuevo';
+    console.error('Submission Error:', error);
+    // Fallback de error
+    btn.innerHTML = '❌ Error de red';
     btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
     setTimeout(() => { 
-      btn.innerHTML = original; 
+      btn.innerHTML = originalContent; 
       btn.disabled = false; 
-      btn.style.opacity = '1';
       btn.style.background = '';
+      btn.style.cursor = 'pointer';
     }, 3000);
   }
+  return false;
 }
 
-// === CONTADOR VIVO ===
+// === CONTADOR VIVO (Más natural) ===
 function updateLiveCounter() {
   const el = document.getElementById("liveCounter");
   if (!el) return;
   
+  // Iniciar alto
   let count = 127;
-  const variation = () => Math.floor(Math.random() * 5) - 2;
   
-  setInterval(() => {
-    count = Math.max(95, Math.min(150, count + variation()));
+  const update = () => {
+    // Variación aleatoria pequeña para que parezca real
+    const change = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
+    count += change;
+    // Límites lógicos
+    if (count < 115) count = 120;
+    if (count > 160) count = 155;
+    
     el.textContent = `${count} lectores ahora`;
-  }, 5000);
+    
+    // Intervalo aleatorio entre 3s y 7s
+    setTimeout(update, Math.random() * 4000 + 3000);
+  };
+  
+  update();
 }
 updateLiveCounter();
 
 // === DETECCIÓN DE WEBVIEW ===
-const isWebView = /wv|WebView/i.test(navigator.userAgent) || 
-                  (window.navigator.standalone === false);
+const isWebView = /wv|WebView|Instagram|FBAN|FBAV/i.test(navigator.userAgent);
 
 if (isWebView) {
   const whatsappFloat = document.getElementById('whatsappFloat');
-  const floatingCTA = document.getElementById('floatingCTA');
-  if (whatsappFloat) whatsappFloat.style.display = 'none';
-  if (floatingCTA) floatingCTA.style.display = 'none';
+  // En Webviews (Instagram/TikTok), a veces los floats estorban, los movemos o quitamos
+  if (whatsappFloat) whatsappFloat.style.bottom = '100px'; 
 }
 
-// === CTA FLOTANTE EN SCROLL ===
-let scrollTimer;
+// === CTA FLOTANTE OPTIMIZADO ===
+let isScrolling = false;
 window.addEventListener('scroll', () => {
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(() => {
-    const cta = document.getElementById('floatingCTA');
-    if (!cta || isWebView) return;
-    
-    if (window.scrollY > 600) {
-      cta.classList.add('visible');
-    } else {
-      cta.classList.remove('visible');
-    }
-  }, 100);
+  if (!isScrolling) {
+    window.requestAnimationFrame(() => {
+      const cta = document.getElementById('floatingCTA');
+      const wa = document.getElementById('whatsappFloat');
+      
+      if (cta) {
+        if (window.scrollY > 600) {
+          cta.classList.add('visible');
+          // Si aparece el CTA, subimos un poco el WA float para que no choquen en desktop
+          if(wa && window.innerWidth > 768) wa.style.bottom = '90px'; 
+        } else {
+          cta.classList.remove('visible');
+          if(wa && window.innerWidth > 768) wa.style.bottom = '24px';
+        }
+      }
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
 }, { passive: true });
 
-// === FORMATO DE TELÉFONO ===
+// === FORMATO DE TELÉFONO EN TIEMPO REAL ===
 const phoneInput = document.getElementById('phone');
 if (phoneInput) {
   phoneInput.addEventListener('input', function(e) {
+    // Solo permitir números
     let value = e.target.value.replace(/\D/g, '');
     e.target.value = value;
   });
@@ -973,29 +994,27 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// === INTERSECTION OBSERVER PARA ANIMACIONES ===
+// === ANIMACIONES ON SCROLL (IntersectionObserver) ===
 const observerOptions = {
-  threshold: 0.1,
+  threshold: 0.15,
   rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.add('visible');
+      // Dejar de observar para ahorrar recursos
+      observer.unobserve(entry.target);
     }
   });
 }, observerOptions);
 
-document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+document.querySelectorAll('.fade-in-up').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 Triggui God Level - PERFECTO - Loaded');
+console.log('🔥 Triggui v2.0 - GOD LEVEL - Loaded');
 </script>
 
 </body>
