@@ -15,7 +15,6 @@
 <meta property="og:description" content="Curadas para tu momento exacto. Los lunes cuando más las necesitas." />
 <meta name="twitter:image" content="https://triggui.com/imagotipo.png" />
 
-<!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -24,9 +23,6 @@
   gtag('config', 'G-ZKG8ZNSB35');
 </script>
 
-<!-- ========================================
-     TRIGGUI ANALYTICS FRAMEWORK - NIVEL DIOS
-     ======================================== -->
 <script>
 // UTM Tracker (saber de dónde vienen)
 function getUTMParams() {
@@ -231,20 +227,16 @@ function trackSectionView(section) {
 </head>
 <body>
 
-<!-- WhatsApp Floating Button -->
 <a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" id="whatsappFloat" aria-label="WhatsApp" onclick="trackEngagement('whatsapp_float_clicked')">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="26" height="26" fill="white">
-    <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.2-.4-.3-.8-.5z"/>
+    <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.4-.3-.8-.5z"/>
   </svg>
 </a>
 
-<!-- Floating CTA -->
 <a href="#planes" class="floating-cta" id="floatingCTA" onclick="trackEngagement('floating_cta_clicked')">💌 Empieza Hoy</a>
 
-<!-- Hero Section -->
 <header class="text-center px-6 pt-28 pb-20 max-w-6xl mx-auto relative">
   
-  <!-- Social Proof Badge -->
   <div id="activeBadge" style="
     position: absolute;
     top: 20px;
@@ -274,13 +266,23 @@ function trackSectionView(section) {
   </p>
 
   <div class="mt-10 max-w-md mx-auto">
-    <form class="flex flex-col gap-3" onsubmit="return handleCapture(event)">
+    <form class="flex flex-col gap-2" onsubmit="return handleCapture(event)">
+      
+      <input
+        type="text"
+        id="nameCapture"
+        name="name"
+        placeholder="Nombre y Apellido"
+        class="px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-full"
+        required
+      />
+
       <input
         type="email"
         id="emailCapture"
         name="email"
         placeholder="tu@email.com"
-        class="px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-full"
+        class="px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-full"
         required
       />
       
@@ -288,7 +290,7 @@ function trackSectionView(section) {
         <select 
           id="countryCode"
           name="countryCode"
-          class="country-code px-3 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
+          class="country-code px-3 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
         >
           <option value="+52" selected>🇲🇽 +52</option>
           <option value="+1">🇺🇸 +1</option>
@@ -324,7 +326,7 @@ function trackSectionView(section) {
           name="phone"
           placeholder="55 1234 5678"
           pattern="[0-9\s]+"
-          class="phone-number px-5 py-3 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
+          class="phone-number px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition"
           required
         />
       </div>
@@ -365,7 +367,6 @@ function trackSectionView(section) {
   </div>
 </header>
 
-<!-- Por qué pagar Section -->
 <section class="py-20 text-center bg-[#11121c] border-t border-gray-800" id="section-porque-pagar">
   <h2 class="text-3xl sm:text-4xl font-bold gradient-vs leading-tight mb-4">
     Por qué pagar
@@ -436,7 +437,6 @@ function trackSectionView(section) {
   </p>
 </section>
 
-<!-- Planes Section -->
 <section id="planes" class="py-24 text-center bg-[#0f0c29] border-t border-gray-800">
   <h2 class="text-4xl font-extrabold gradient-planes leading-tight mb-6">
     Empieza hoy
@@ -447,7 +447,6 @@ function trackSectionView(section) {
   
   <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
 
-    <!-- Plan Itch -->
     <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui itch</h3>
       <div class="text-left mb-4 space-y-2">
@@ -485,7 +484,6 @@ function trackSectionView(section) {
       </p>
     </div>
 
-    <!-- Plan Anual -->
     <div class="glass border-2 border-green-500/40 relative">
       <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-black text-xs font-bold px-4 py-1 rounded-full">
         MÁS POPULAR
@@ -523,7 +521,6 @@ function trackSectionView(section) {
       </p>
     </div>
 
-    <!-- Plan Lifetime -->
     <div class="glass relative">
       <h3 class="text-xl font-bold mb-4">Triggui Lifetime</h3>
       <ul class="text-sm text-gray-300 space-y-2 mb-6 text-left">
@@ -568,7 +565,6 @@ function trackSectionView(section) {
   </div>
 </section>
 
-<!-- Por qué funciona Section -->
 <section class="py-20 text-center bg-[#0f0c29] border-t border-gray-800" id="section-porque-funciona">
   <h2 class="text-3xl font-bold gradient-paraque leading-tight mb-10">
     Por qué funciona
@@ -593,7 +589,6 @@ function trackSectionView(section) {
   </div>
 </section>
 
-<!-- Testimonios Section -->
 <section class="py-24 text-center bg-[#11121c] border-t border-gray-800" id="section-testimonios">
   <h2 class="text-4xl font-bold gradient-testimonios leading-tight mb-4">
     Qué dicen<br>quienes ya están
@@ -638,7 +633,6 @@ function trackSectionView(section) {
   </div>
 </section>
 
-<!-- CTA Final Section -->
 <section class="py-24 text-center bg-[#0f0c29]">
   <h2 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-6 gradient-cierre leading-tight">
     Abre.<br>Un Libro.<br>
@@ -651,7 +645,6 @@ function trackSectionView(section) {
   </p>
 </section>
 
-<!-- Footer -->
 <footer class="text-center text-sm text-gray-500 py-12 border-t border-gray-700">
   <img 
     src="./trigguiletrasblanco.png" 
@@ -662,9 +655,6 @@ function trackSectionView(section) {
   <p>© 2025 Triggui · Cada libro abierto es un momento real.</p>
 </footer>
 
-<!-- ========================================
-     JAVASCRIPT NIVEL DIOS
-     ======================================== -->
 <script>
 // ========================================
 // DETECTAR WEBVIEW Y OCULTAR FLOTANTES
@@ -689,21 +679,23 @@ function trackSectionView(section) {
 })();
 
 // ========================================
-// EMAIL + PHONE CAPTURE CON TRACKING
+// EMAIL + PHONE + NAME CAPTURE CON TRACKING
 // ========================================
 async function handleCapture(event) {
   event.preventDefault();
 
   const btn = document.getElementById('submitBtn');
+  const nameInput = document.getElementById('nameCapture'); // NUEVO
   const emailInput = document.getElementById('emailCapture');
   const phoneInput = document.getElementById('phoneCapture');
   const countryCode = document.getElementById('countryCode');
   
+  const name = nameInput.value.trim(); // NUEVO
   const email = emailInput.value.trim();
   const phone = phoneInput.value.trim();
   const fullPhone = countryCode.value + phone.replace(/\s/g, '');
 
-  if (!email || !phone) return;
+  if (!name || !email || !phone) return;
 
   // Deshabilitar botón
   btn.disabled = true;
@@ -718,7 +710,8 @@ async function handleCapture(event) {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "email=" + encodeURIComponent(email) + 
+      body: "name=" + encodeURIComponent(name) +  // NUEVO: Enviando Nombre
+            "&email=" + encodeURIComponent(email) + 
             "&phone=" + encodeURIComponent(fullPhone) +
             "&source=hero_capture" +
             "&utm_source=" + encodeURIComponent(utm.source) +
@@ -745,6 +738,7 @@ async function handleCapture(event) {
   }
 
   // Limpiar inputs
+  nameInput.value = ''; // NUEVO
   emailInput.value = '';
   phoneInput.value = '';
   
