@@ -686,7 +686,7 @@ function trackSectionView(section) {
 })();
 
 // ========================================
-// EMAIL + PHONE + NAME SPLIT CAPTURE
+// EMAIL + PHONE + SPLIT NAME CAPTURE
 // ========================================
 async function handleCapture(event) {
   event.preventDefault();
@@ -700,7 +700,6 @@ async function handleCapture(event) {
   
   const firstName = firstNameInput.value.trim();
   const lastName = lastNameInput.value.trim();
-  const fullName = firstName + ' ' + lastName; // Combinar para backend
   const email = emailInput.value.trim();
   const phone = phoneInput.value.trim();
   const fullPhone = countryCode.value + phone.replace(/\s/g, '');
@@ -720,7 +719,9 @@ async function handleCapture(event) {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "name=" + encodeURIComponent(fullName) + 
+      // AQUÍ ESTÁ EL CAMBIO CLAVE: Enviamos first_name y last_name separados
+      body: "first_name=" + encodeURIComponent(firstName) + 
+            "&last_name=" + encodeURIComponent(lastName) + 
             "&email=" + encodeURIComponent(email) + 
             "&phone=" + encodeURIComponent(fullPhone) +
             "&source=hero_capture" +
