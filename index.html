@@ -47,16 +47,32 @@ function trackEngagement(action) {
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
 
 <style>
-  /* === ESTÉTICA NIVEL DIOS === */
+  /* === ESTÉTICA NIVEL DIOS & ANTI-FLICKER === */
   
-  /* CRÍTICO: Eliminar Flash Blanco */
+  /* 1. CRÍTICO: Prevenir Flash Blanco y Saltos de Texto */
   html, body {
     margin: 0; padding: 0;
     font-family: 'Archivo', sans-serif;
-    background-color: #020202 !important; /* Forzado Supremo */
+    background-color: #020202 !important;
     color: #F3F4F6;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%; /* Previene ajustes raros en Safari */
+  }
+
+  /* 2. CRÍTICO: CSS Hardcodeado para el Título (Evita el "salto" de tamaño) */
+  /* Esto asegura que el texto sea grande ANTES de que cargue Tailwind */
+  .hero-title {
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-size: 3rem; /* Mobile default (text-5xl approx) */
+  }
+  @media (min-width: 640px) {
+    .hero-title { font-size: 4.5rem; } /* sm:text-7xl */
+  }
+  @media (min-width: 768px) {
+    .hero-title { font-size: 6rem; } /* md:text-8xl */
   }
 
   /* Fondo Sutil (Noise) */
@@ -64,12 +80,6 @@ function trackEngagement(action) {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
     pointer-events: none;
-  }
-
-  /* Tipografía Heroica */
-  .hero-title {
-    font-weight: 900;
-    letter-spacing: -0.02em;
   }
 
   /* Gradiente Heroico */
@@ -176,7 +186,7 @@ function trackEngagement(action) {
     <span class="text-[10px] font-bold text-green-400 tracking-widest uppercase" id="liveCounter">112 Personas Leyendo</span>
   </div>
 
-  <h1 class="hero-title text-5xl sm:text-7xl md:text-8xl leading-none mb-6 text-white">
+  <h1 class="hero-title mb-6 text-white">
     Lee Menos.<br>
     <span class="gradient-text-hero">Crece Más.</span>
   </h1>
