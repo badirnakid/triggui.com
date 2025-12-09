@@ -10,7 +10,7 @@
 <meta property="og:description" content="Tu biblioteca te juzga. Nosotros te ayudamos. Recibe las mejores ideas por WhatsApp." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#020202">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
@@ -51,7 +51,7 @@ function trackEngagement(action) {
   html, body {
     margin: 0; padding: 0;
     font-family: 'Archivo', sans-serif;
-    background-color: #020202; /* Negro puro para máximo contraste */
+    background-color: #020202; /* Negro puro */
     color: #F3F4F6;
     overflow-x: hidden;
   }
@@ -63,9 +63,9 @@ function trackEngagement(action) {
     pointer-events: none;
   }
 
-  /* Tipografía Heroica (La que te gustó) */
+  /* Tipografía Heroica */
   .hero-title {
-    font-weight: 900; /* Extra Black */
+    font-weight: 900;
     letter-spacing: -0.02em;
   }
 
@@ -77,7 +77,7 @@ function trackEngagement(action) {
   }
   @keyframes shine { to { background-position: 200% center; } }
 
-  /* Cards de Vidrio de Alta Legibilidad */
+  /* Cards de Vidrio */
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -102,9 +102,9 @@ function trackEngagement(action) {
   .btn-god:hover { transform: scale(1.02); box-shadow: 0 0 50px rgba(121, 40, 202, 0.5); }
   .btn-god:active { transform: scale(0.98); }
 
-  /* INPUTS DE ALTO CONTRASTE (CERO BORROSO) */
+  /* INPUTS DE ALTO CONTRASTE */
   .input-sharp {
-    background-color: #0A0A0A; /* Fondo sólido oscuro */
+    background-color: #0A0A0A;
     border: 1px solid #333;
     color: #fff;
     font-weight: 500;
@@ -231,13 +231,13 @@ function trackEngagement(action) {
     </form>
   </div>
 
-  <div class="mt-12 flex items-center justify-center gap-4 h-11 opacity-60 hover:opacity-100 transition duration-500 grayscale hover:grayscale-0">
-     <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" class="h-full flex items-center transition hover:scale-105" onclick="trackEngagement('ios')">
-       <img src="./downloadappstore.png" class="h-full w-auto object-contain transform scale-90 origin-right" alt="App Store">
-     </a>
-     <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" class="h-full flex items-center transition hover:scale-105" onclick="trackEngagement('android')">
-       <img src="./getitonplaystore.png" class="h-full w-auto object-contain transform scale-115 origin-left" alt="Google Play">
-     </a>
+  <div class="mt-12 flex items-center justify-center gap-2 h-[56px] opacity-60 hover:opacity-100 transition duration-500 grayscale hover:grayscale-0">
+    <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" class="h-full inline-flex items-center transition hover:scale-105" onclick="trackEngagement('ios')">
+      <img src="./downloadappstore.png" class="h-full w-auto block transform-gpu scale-[.78]" alt="App Store">
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" class="h-full inline-flex items-center transition hover:scale-105" onclick="trackEngagement('android')">
+      <img src="./getitonplaystore.png" class="h-full w-auto block transform-gpu scale-[1.18]" alt="Google Play">
+    </a>
   </div>
 
 </header>
