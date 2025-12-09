@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Triggui - Tu momento, tu libro.</title>
+<title>Triggui - La inteligencia de los libros en tu WhatsApp</title>
 
 <meta name="description" content="Ideas de libros sincronizadas con tu estado de ánimo. Recibe el impulso exacto en WhatsApp." />
 <meta property="og:title" content="Triggui - La chispa antes del libro" />
@@ -371,7 +371,7 @@ function trackEngagement(action) {
 </section>
 
 <script>
-// === LOGICA: FORM CAPTURE ===
+// === LOGICA: CAPTURA DE DATOS ===
 async function handleCapture(event) {
   event.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -400,7 +400,7 @@ async function handleCapture(event) {
   try {
     await fetch(url, {
       method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=final_god_v3&utm_source=${encodeURIComponent(utm.source)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_landing&utm_source=${encodeURIComponent(utm.source)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -415,19 +415,19 @@ async function handleCapture(event) {
   }
 }
 
-// === LOGIC: LIVE COUNTER ===
+// === LOGICA: CONTADOR VIVO ===
 function updateCounter() {
   const el = document.getElementById("liveCounter");
   let count = 112;
   setInterval(() => {
     count += Math.floor(Math.random() * 3) - 1;
     if(count < 95) count = 95;
-    el.innerText = `${count} Mentes Conectadas`;
+    el.innerText = `${count} Personas Leyendo`;
   }, 4500);
 }
 updateCounter();
 
-// === WEBVIEW & SCROLL ===
+// === LOGICA: WEBVIEW & SCROLL ===
 const isWebView = navigator.userAgent.includes('wv') || (navigator.userAgent.includes('Android') && navigator.userAgent.includes('Version/'));
 if(isWebView) {
   document.getElementById('whatsappFloat').style.display = 'none';
@@ -441,7 +441,7 @@ window.addEventListener('scroll', () => {
   else cta.classList.remove('visible');
 });
 
-// Phone Format
+// Formato de Teléfono
 document.getElementById('phone').addEventListener('input', function(e) {
   let v = e.target.value.replace(/\D/g,'').slice(0,10);
   if(v.length > 6) v = `${v.slice(0,2)} ${v.slice(2,6)} ${v.slice(6)}`;
