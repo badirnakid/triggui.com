@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Triggui - Tu mente, mejorada cada semana.</title>
+<title>Triggui - El complemento perfecto para tus libros</title>
 
-<meta name="description" content="La forma más inteligente de leer. Recibe las páginas exactas de los mejores libros directo en tu WhatsApp. Únete a la revolución de lectura." />
 <meta property="og:title" content="Triggui - Tu empujoncito de lectura por WhatsApp" />
-<meta property="og:description" content="Deja de comprar libros que no lees. Recibe la sabiduría exacta, el día exacto." />
+<meta property="og:description" content="Recibe la esencia de los mejores libros curada para tu momento exacto. Por WhatsApp. Cancela cuando quieras." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:url" content="https://triggui.com" />
 <meta property="og:type" content="website" />
@@ -23,7 +22,7 @@
 </script>
 
 <script>
-// UTM & Logic Tracker (Intacta y mejorada)
+// UTM & Tracking Logic (Intacto)
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -48,9 +47,7 @@ function trackConversion(event, value = 0) {
       utm_campaign: utm.campaign
     });
   }
-  // Facebook Pixel integration (Placeholder si decides ponerlo)
-  if (typeof fbq !== 'undefined') { fbq('track', event === 'lead_captured' ? 'Lead' : 'Purchase', {value: value, currency: 'MXN'}); }
-  console.log('🎯 Conversion:', event, value);
+  console.log('🎯 Conversion:', event, 'Value:', value);
 }
 
 function trackEngagement(action, label = '') {
@@ -67,472 +64,497 @@ function trackSectionView(section) {
 
 (function() {
   const utm = getUTMParams();
-  if (utm.source !== 'direct') sessionStorage.setItem('triggui_utm', JSON.stringify(utm));
+  if (utm.source !== 'direct') { sessionStorage.setItem('triggui_utm', JSON.stringify(utm)); }
 })();
 </script>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
 
 <style>
-  /* Base - Level God Aesthetics */
-  html, body {
-    margin: 0; padding: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #0f0c29;
-    color: #f5f5f5;
-    overflow-x: hidden;
-  }
+  /* Base Estética Nivel Dios */
+  html,body{margin:0;padding:0;font-family:'Archivo',sans-serif;background-color:#0f0c29;color:#f5f5f5;overflow-x:hidden}
   
-  /* Noise Texture Overlay for Premium Feel */
-  .bg-noise {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 1;
-  }
-
-  /* Typography Headers */
-  h1, h2, h3, .brand-font { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
-
-  /* Animated Gradients */
-  .gradient-text {
-    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-size: 200% auto; animation: gradientMove 5s ease infinite;
-  }
-  .grad-hero { background-image: linear-gradient(to right, #ff9966, #ff5e62, #ff9966); }
-  .grad-gold { background-image: linear-gradient(to right, #FDC830, #F37335, #FDC830); }
-  .grad-blue { background-image: linear-gradient(to right, #00c6ff, #0072ff, #00c6ff); }
-  .grad-purple { background-image: linear-gradient(to right, #8E2DE2, #4A00E0, #8E2DE2); }
-
-  @keyframes gradientMove { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-  /* Glassmorphism 2.0 */
-  .glass {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    border-radius: 24px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
-  }
-  .glass:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  }
-
-  /* Button Logic */
-  .btn-primary {
-    background: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%);
-    box-shadow: 0px 4px 20px rgba(74, 58, 255, 0.4);
-    position: relative; overflow: hidden;
-    transition: all 0.3s;
-  }
-  .btn-primary:hover { transform: scale(1.02); box-shadow: 0px 8px 30px rgba(74, 58, 255, 0.6); }
-  .btn-primary:active { transform: scale(0.98); }
+  /* Gradientes Animados */
+  .gradient-hero{background:linear-gradient(to right,#ff8a00,#e52e71,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
+  .gradient-gold{background:linear-gradient(to right,#FDC830,#F37335,#FDC830);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
   
-  /* Inputs */
-  .input-field {
-    background: rgba(255,255,255,0.05);
+  @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
+
+  /* Glassmorphism Refinado */
+  .glass{
+    background:rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.08);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border-radius:1.5rem; padding:2rem;
+    box-shadow:0 12px 30px rgba(0,0,0,0.2);
+    transition:transform .3s,box-shadow .3s, border-color .3s;
+  }
+  .glass:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 40px rgba(0,0,0,0.4);
+    border-color:rgba(255,255,255,0.15);
+  }
+
+  /* Botones Hipnóticos */
+  .glow-button{
+    background:linear-gradient(270deg,#ff0080,#7928ca,#ff0080);
+    background-size:200% 200%;
+    color:#fff; padding:.85rem 2rem; font-weight:bold; border-radius:999px;
+    box-shadow:0 0 20px rgba(255,0,128,0.3);
+    animation:neonflow 4s ease infinite;
+    transition:all .25s; text-decoration:none; display:inline-block; cursor:pointer; border:none;
+  }
+  .glow-button:hover{ transform:scale(1.02); box-shadow:0 0 30px rgba(255,0,128,0.5); }
+  .glow-button:disabled{ opacity:.6; cursor:not-allowed; animation:none; filter:grayscale(1); }
+  
+  @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+
+  /* Inputs Optimizados */
+  .input-god {
+    background: rgba(255,255,255,0.07);
     border: 1px solid rgba(255,255,255,0.1);
+    color: white;
     transition: all 0.3s;
   }
-  .input-field:focus {
-    background: rgba(255,255,255,0.1);
-    border-color: #ff5e62;
+  .input-god:focus {
+    background: rgba(255,255,255,0.12);
+    border-color: #e52e71;
     outline: none;
-    box-shadow: 0 0 0 2px rgba(255, 94, 98, 0.2);
+    box-shadow: 0 0 0 2px rgba(229, 46, 113, 0.2);
   }
 
-  /* Floating Elements */
-  .floating-whatsapp {
-    position: fixed; bottom: 85px; right: 20px; z-index: 50;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: #25D366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s; animation: pulse-green 3s infinite;
+  /* FIX: Select Visible en Desktop y Movil */
+  select.country-code {
+    appearance: none; -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1rem;
+    padding-right: 2.2rem; cursor: pointer;
   }
-  .floating-whatsapp:hover { transform: scale(1.1); }
+  /* Esto asegura que las opciones sean legibles siempre */
+  select.country-code option { background-color: #1f2937; color: #ffffff; padding: 10px; }
+
+  /* Elementos Flotantes */
+  .floating-whatsapp {
+    position:fixed; bottom:80px; right:20px; z-index:9999;
+    width:56px; height:56px; border-radius:50%;
+    background:#25D366;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 4px 15px rgba(37,211,102,0.4);
+    transition:transform .25s;
+    animation: pulse-green 3s infinite;
+  }
+  .floating-whatsapp:hover { transform:scale(1.1); }
   
   .floating-cta {
-    position: fixed; bottom: 20px; right: 20px; z-index: 50;
-    background: linear-gradient(135deg, #ff0080, #7928ca);
-    color: white; padding: 12px 28px; border-radius: 50px;
-    font-weight: 700; box-shadow: 0 10px 25px rgba(121, 40, 202, 0.5);
-    transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position:fixed; bottom:20px; right:20px; z-index:9999;
+    padding:12px 24px; font-weight:bold; border-radius:999px;
+    background:linear-gradient(135deg,#ff0080,#7928ca);
+    color:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.4);
+    opacity:0; pointer-events:none; transition:opacity .3s, transform .3s;
   }
-  .floating-cta.visible { transform: translateY(0); opacity: 1; }
+  .floating-cta.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
 
   @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-  /* Country Select Fix */
-  select.country-code {
-    -webkit-appearance: none; appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 8px center; background-size: 16px;
-  }
+  /* CountUp y Badges */
+  .countup{font-size:2.5rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+  .urgency-badge { background:linear-gradient(135deg,#ff0080,#ff8c00); color:#fff; font-size:.70rem; font-weight:bold; padding:.25rem .75rem; border-radius:999px; animation:pulse 2s infinite; display: inline-block; }
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
 
-  /* Badge Pulse */
-  .live-badge {
-    background: rgba(0, 255, 136, 0.1); border: 1px solid rgba(0, 255, 136, 0.2);
-    color: #00ff88; box-shadow: 0 0 10px rgba(0, 255, 136, 0.1);
-  }
-  .live-dot { animation: blink 2s infinite; }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-  /* Strikethrough Price Styling */
-  .price-strike { position: relative; display: inline-block; color: #9CA3AF; font-size: 1.1rem; }
-  .price-strike::after {
-    content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 2px;
-    background: #ef4444; transform: rotate(-10deg);
+  /* Mobile Tweaks */
+  @media(max-width:768px){
+    h1{font-size:2.8rem}
+    .phone-input-wrapper { gap: 0.35rem; }
+    select.country-code { width: 110px; padding-left: 0.5rem; }
   }
 </style>
 </head>
-<body class="antialiased selection:bg-pink-500 selection:text-white">
-
-<div class="bg-noise"></div>
+<body class="selection:bg-pink-500 selection:text-white">
 
 <a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" id="whatsappFloat" onclick="trackEngagement('whatsapp_float_clicked')">
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28" fill="white"><path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.4-.3-.8-.5z"/></svg>
 </a>
-<a href="#planes" class="floating-cta" id="floatingCTA" onclick="trackEngagement('floating_cta_clicked')">🔥 Ver oferta fundador</a>
 
-<header class="relative px-4 pt-28 pb-20 max-w-7xl mx-auto flex flex-col items-center text-center z-10">
+<a href="#planes" class="floating-cta" id="floatingCTA" onclick="trackEngagement('floating_cta_clicked')">⚡ Empieza tu Hábito</a>
+
+<header class="text-center px-6 pt-28 pb-16 max-w-6xl mx-auto relative">
   
-  <div id="activeBadge" class="live-badge backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold mb-8 flex items-center gap-2 animate-fade-in-down">
-    <span class="live-dot text-[8px]">●</span> <span id="badgeText">Cargando lectores...</span>
+  <div id="activeBadge" class="absolute top-5 right-5 md:top-10 md:right-10 bg-green-900/30 border border-green-500/30 px-3 py-1.5 rounded-full text-xs text-green-400 backdrop-blur-md animate-fade-in">
+    🟢 Cargando...
   </div>
 
-  <h1 class="text-5xl sm:text-6xl md:text-8xl font-bold leading-tight mb-6 tracking-tighter">
-    La chispa<br>
-    <span class="gradient-text grad-hero">antes del libro.</span>
+  <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold gradient-hero leading-tight mb-6">
+    La chispa<br>antes<br>del libro.
   </h1>
 
-  <p class="text-lg sm:text-2xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-    Deja de comprar libros que no lees.<br>
-    <strong class="text-white">Recibe las páginas exactas</strong> en tu WhatsApp.
+  <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto leading-snug font-medium mb-10">
+    Tu empujoncito de lectura por WhatsApp.<br>
+    <span class="text-gray-400 text-lg block mt-2 font-normal">Lee la idea. Compra el libro. Domina el tema.</span>
   </p>
 
-  <div class="w-full max-w-md bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-xl shadow-2xl transform transition-all hover:scale-[1.01]">
+  <div class="max-w-md mx-auto relative z-10">
     <form class="flex flex-col gap-3" onsubmit="return handleCapture(event)">
       
-      <div class="flex gap-3">
-        <input type="text" id="firstNameCapture" name="firstname" placeholder="Nombre" required
-          class="input-field w-1/2 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:placeholder-gray-400" />
-        <input type="text" id="lastNameCapture" name="lastname" placeholder="Apellido" required
-          class="input-field w-1/2 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:placeholder-gray-400" />
-      </div>
-
-      <input type="email" id="emailCapture" name="email" placeholder="tu@mejorcorreo.com" required
-        class="input-field w-full rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:placeholder-gray-400" />
-
       <div class="flex gap-2">
-        <div class="relative w-[35%]">
-          <select id="countryCode" name="countryCode" class="country-code w-full h-full input-field rounded-xl pl-3 pr-8 text-white bg-transparent text-sm">
-            <option value="+52">🇲🇽 +52</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+34">🇪🇸 +34</option>
-            <option value="+57">🇨🇴 +57</option>
-            <option value="+54">🇦🇷 +54</option>
-            <option value="+56">🇨🇱 +56</option>
-            <option value="+51">🇵🇪 +51</option>
-            <option value="+506">🇨🇷 +506</option>
-            <option value="+44">🇬🇧 +44</option>
-          </select>
-        </div>
-        <input type="tel" id="phoneCapture" name="phone" placeholder="WhatsApp (10 díg)" pattern="[0-9\s]+" required
-          class="input-field w-[65%] rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:placeholder-gray-400" />
+        <input type="text" id="firstNameCapture" name="firstname" placeholder="Nombre" class="input-god px-5 py-3 text-base rounded-full w-1/2" required />
+        <input type="text" id="lastNameCapture" name="lastname" placeholder="Apellido" class="input-god px-5 py-3 text-base rounded-full w-1/2" required />
       </div>
 
-      <button id="submitBtn" type="submit" class="btn-primary w-full py-4 rounded-xl text-white font-bold text-lg mt-2 shadow-lg hover:shadow-indigo-500/50">
-        Recibir mi 1ra dosis gratis →
+      <input type="email" id="emailCapture" name="email" placeholder="tu@mejorcorreo.com" class="input-god px-5 py-3 text-base rounded-full w-full" required />
+      
+      <div class="flex gap-2 w-full">
+        <select id="countryCode" name="countryCode" class="country-code input-god rounded-full text-base focus:ring-2 focus:ring-pink-500 border-2 border-white/20">
+          <option value="+52" selected>🇲🇽 +52</option>
+          <option value="+1">🇺🇸 +1</option>
+          <option value="+34">🇪🇸 +34</option>
+          <option value="+54">🇦🇷 +54</option>
+          <option value="+57">🇨🇴 +57</option>
+          <option value="+56">🇨🇱 +56</option>
+          <option value="+51">🇵🇪 +51</option>
+          <option value="+593">🇪🇨 +593</option>
+          <option value="+58">🇻🇪 +58</option>
+          <option value="+502">🇬🇹 +502</option>
+          <option value="+53">🇨🇺 +53</option>
+          <option value="+591">🇧🇴 +591</option>
+          <option value="+1">🇩🇴 +1</option>
+          <option value="+504">🇭🇳 +504</option>
+          <option value="+595">🇵🇾 +595</option>
+          <option value="+503">🇸🇻 +503</option>
+          <option value="+505">🇳🇮 +505</option>
+          <option value="+506">🇨🇷 +506</option>
+          <option value="+507">🇵🇦 +507</option>
+          <option value="+598">🇺🇾 +598</option>
+          <option value="+1">🇵🇷 +1</option>
+          <option value="+55">🇧🇷 +55</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+33">🇫🇷 +33</option>
+          <option value="+39">🇮🇹 +39</option>
+          <option value="+49">🇩🇪 +49</option>
+          <option value="+1">🇨🇦 +1</option>
+        </select>
+        <input type="tel" id="phoneCapture" name="phone" placeholder="WhatsApp (10 díg)" pattern="[0-9\s]+" class="input-god px-5 py-3 text-base rounded-full flex-1" required />
+      </div>
+
+      <button id="submitBtn" type="submit" class="glow-button text-base py-3.5 transition-all w-full mt-2 shadow-lg">
+        📬 Recibir mi 1ra dosis gratis
       </button>
     </form>
     
-    <div class="flex items-center justify-center gap-4 mt-4 text-xs text-gray-400">
-      <span class="flex items-center gap-1"><svg class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Sin Spam</span>
-      <span class="flex items-center gap-1"><svg class="w-3 h-3 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg> Cancela fácil</span>
-    </div>
+    <p class="text-xs text-gray-500 mt-4 flex justify-center gap-4">
+      <span class="flex items-center gap-1">✓ Gratis</span>
+      <span class="flex items-center gap-1">✓ Sin spam</span>
+      <span class="flex items-center gap-1">✓ Cancela fácil</span>
+    </p>
   </div>
 
-  <div class="mt-12 flex flex-col items-center opacity-70 hover:opacity-100 transition">
-    <span class="text-xs text-gray-500 mb-2 uppercase tracking-widest">Disponible en</span>
-    <div class="flex gap-4 h-10 grayscale hover:grayscale-0 transition duration-500">
-      <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" onclick="trackEngagement('app_store_download')"><img src="./downloadappstore.png" class="h-full w-auto"></a>
-      <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" onclick="trackEngagement('google_play_download')"><img src="./getitonplaystore.png" class="h-full w-auto scale-110 origin-left"></a>
-    </div>
+  <p class="text-sm text-gray-500 mt-10 mb-4 font-medium">
+    O descarga la app gratis para explorar
+  </p>
+  
+  <div class="flex items-center justify-center gap-2 h-[56px] mb-12" aria-label="Descargar Triggui">
+    <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener" class="h-full inline-flex items-center rounded-[12px] transition hover:scale-105" onclick="trackEngagement('app_store_download')">
+      <img src="./downloadappstore.png" alt="App Store" class="h-full w-auto block transform-gpu scale-[.78]" loading="lazy" />
+    </a>
+    <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" rel="noopener" class="h-full inline-flex items-center rounded-[12px] transition hover:scale-105" onclick="trackEngagement('google_play_download')">
+      <img src="./getitonplaystore.png" alt="Google Play" class="h-full w-auto block transform-gpu scale-[1.18]" loading="lazy" />
+    </a>
   </div>
 
 </header>
 
-<section class="py-20 border-t border-white/5 relative bg-[#0b091e]" id="section-porque-pagar">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-5xl font-bold mb-6">Gratis vs. <span class="gradient-text grad-gold">Maestría</span></h2>
-      <p class="text-gray-400 max-w-2xl mx-auto">La App gratuita es genial para matar el tiempo.<br>La membresía WhatsApp es para <strong class="text-white">dominar tu tiempo.</strong></p>
-    </div>
+<section class="py-20 bg-[#11121c] border-t border-gray-800 relative overflow-hidden" id="section-porque-pagar">
+  <div class="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="glass p-8 relative overflow-hidden group">
-        <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition text-6xl">🎲</div>
-        <h3 class="text-2xl font-bold text-gray-400 mb-4">Visitante (App Gratis)</h3>
-        <ul class="space-y-4 text-gray-400">
-          <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-gray-600"></span>
-            Libro aleatorio (sin contexto)
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-gray-600"></span>
-            Dependes de tu fuerza de voluntad
-          </li>
-          <li class="flex items-center gap-3">
-            <span class="w-2 h-2 rounded-full bg-gray-600"></span>
-            Sin seguimiento personalizado
-          </li>
-        </ul>
-      </div>
-
-      <div class="glass p-8 border-gradient relative overflow-hidden group ring-1 ring-purple-500/50">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-purple-600 text-white text-[10px] font-bold px-3 py-1 rounded-b-lg tracking-wider">RECOMENDADO</div>
-        <div class="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-30 transition text-6xl">🚀</div>
-        
-        <h3 class="text-2xl font-bold text-white mb-2 gradient-text grad-purple">Fundador (WhatsApp)</h3>
-        <p class="text-xs text-gray-400 mb-6">Para quien quiere crecer en serio.</p>
-
-        <ul class="space-y-4 text-gray-200">
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <div>
-              <strong class="block text-white">Lunes 6:00 AM - El Impulso</strong>
-              <span class="text-sm text-gray-400">La página exacta para atacar la semana.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <div>
-              <strong class="block text-white">Martes de Sostén</strong>
-              <span class="text-sm text-gray-400">Refuerzo cognitivo para no caer.</span>
-            </div>
-          </li>
-          <li class="flex items-start gap-3">
-            <svg class="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-            <div>
-              <strong class="block text-white">Sorpresas "Triggui"</strong>
-              <span class="text-sm text-gray-400">Curación humana basada en tu momento.</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+  <div class="text-center max-w-3xl mx-auto px-6 mb-12">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-4">Gratis vs. <span class="gradient-gold">Maestría</span></h2>
+    <p class="text-gray-400 text-sm">
+      La App es tu <strong class="text-white">Brújula de Descubrimiento</strong>.<br>
+      WhatsApp es tu sistema de <strong class="text-white">Alto Rendimiento</strong>.
+    </p>
   </div>
-</section>
-
-<section id="planes" class="py-24 bg-[#0f0c29] relative overflow-hidden">
-  <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500 to-transparent opacity-30"></div>
   
-  <div class="text-center mb-16 px-4">
-    <span class="text-purple-400 font-bold tracking-widest text-xs uppercase mb-2 block">Oferta Limitada</span>
-    <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Elige tu nivel</h2>
-    <p class="text-gray-400">Precio de lanzamiento para los primeros 100 fundadores.</p>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6">
     
-    <div class="glass p-8 flex flex-col items-center text-center hover:bg-white/5 transition duration-500">
+    <div class="glass text-left relative hover:bg-white/5 transition">
+      <h3 class="text-xl font-bold mb-4 text-gray-300 flex items-center gap-2">📱 App Gratis <span class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-400">Visitante</span></h3>
+      <ul class="text-sm text-gray-400 space-y-4 mb-6">
+        <li class="flex items-start gap-3">
+          <span class="text-gray-500 text-lg mt-[-3px]">•</span>
+          <span><strong>Exploración:</strong> Libros aleatorios para descubrir nuevos autores.</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-gray-500 text-lg mt-[-3px]">•</span>
+          <span><strong>Manual:</strong> Tú decides cuándo abrir la app (requiere voluntad).</span>
+        </li>
+      </ul>
+      <p class="text-xs text-gray-500 italic border-t border-gray-700 pt-4 mt-auto">
+        Genial para conocer, pero tú pones la disciplina.
+      </p>
+    </div>
+
+    <div class="glass text-left border-2 border-pink-500/30 relative shadow-[0_0_30px_rgba(236,72,153,0.1)]">
+      <div class="absolute -top-3 left-6">
+        <span class="urgency-badge shadow-lg">🚀 Recomendado</span>
+      </div>
+      <h3 class="text-xl font-bold mb-4 text-white mt-2 flex items-center gap-2">💌 WhatsApp <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded font-bold">Fundador</span></h3>
+      <ul class="text-sm text-gray-200 space-y-4 mb-6">
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 font-bold">✓</span>
+          <div>
+            <strong class="block text-white">Lunes 6 AM: El Impulso</strong>
+            <span class="text-gray-400 text-xs">La línea exacta para arrancar la semana con ventaja.</span>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 font-bold">✓</span>
+          <div>
+            <strong class="block text-white">Curaduría Humana</strong>
+            <span class="text-gray-400 text-xs">No es un algoritmo. Es sabiduría seleccionada a mano.</span>
+          </div>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 font-bold">✓</span>
+          <div>
+            <strong class="block text-white">Sorpresas Semanales</strong>
+            <span class="text-gray-400 text-xs">Timing perfecto para cuando necesitas inspiración.</span>
+          </div>
+        </li>
+      </ul>
+      <div class="border-t border-pink-500/20 pt-4">
+        <p class="text-sm text-pink-300 font-medium">
+          "Es como tener un mentor sabio en tu bolsillo."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="planes" class="py-24 text-center bg-[#0f0c29] relative">
+  <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent absolute top-0"></div>
+
+  <h2 class="text-4xl font-extrabold text-white leading-tight mb-4">
+    Invierte en tu mente
+  </h2>
+  <p class="text-gray-400 text-sm mb-12">
+    Precios simples. Cancela en cualquier momento.
+  </p>
+  
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 items-end">
+
+    <div class="glass relative flex flex-col h-full hover:bg-white/5 transition-all duration-300">
       <h3 class="text-lg font-bold text-gray-300 mb-2">Mensual</h3>
-      <div class="my-6">
-        <span class="price-strike mr-2">$149</span>
-        <span class="text-5xl font-bold text-white">$100</span>
-        <span class="text-sm text-gray-400">/mes</span>
+      <div class="mb-6 mt-4">
+        <span class="text-4xl font-bold text-white tracking-tight">$149</span>
+        <span class="text-gray-500 text-sm">/mes</span>
       </div>
-      <p class="text-sm text-gray-400 mb-8 px-4">Perfecto para probar. Cancela cuando quieras sin preguntas.</p>
-      <a href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" onclick="trackConversion('plan_monthly_click', 100)" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white/10 text-white font-semibold transition">
-        Empezar Mensual
-      </a>
+      <ul class="text-sm text-gray-400 space-y-3 mb-8 text-left px-4">
+        <li class="flex gap-2"><span>✓</span> 2 envíos fijos (Lun/Mar)</li>
+        <li class="flex gap-2"><span>✓</span> Sorpresas aleatorias</li>
+        <li class="flex gap-2"><span>✓</span> Acceso a comunidad</li>
+      </ul>
+      <div class="mt-auto">
+        <a href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" class="w-full block py-3 rounded-full border border-gray-600 text-white font-bold hover:bg-white hover:text-black transition" onclick="trackConversion('plan_mensual_clicked', 149)">Empezar Mensual</a>
+        <p class="text-[10px] text-gray-600 mt-3">Cancela cuando quieras</p>
+      </div>
     </div>
 
-    <div class="glass p-8 flex flex-col items-center text-center border-purple-500/50 relative shadow-[0_0_50px_rgba(124,58,237,0.15)] transform scale-105 z-10">
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold px-4 py-1 rounded-b-lg">
-        AHORRA $588
+    <div class="glass relative border-2 border-pink-500/50 transform md:scale-105 z-10 bg-[#16142a] shadow-2xl">
+      <div class="absolute -top-4 left-0 right-0 flex justify-center">
+        <span class="bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg tracking-wide uppercase">
+          🔥 Mejor Valor
+        </span>
       </div>
-      <h3 class="text-xl font-bold text-white mt-4 mb-2">Anual Pro</h3>
-      <div class="my-6">
-        <span class="price-strike mr-2">$1,788</span>
-        <span class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">$1,199</span>
-        <span class="text-sm text-gray-400">/año</span>
+      
+      <h3 class="text-xl font-bold text-white mb-2 mt-4">Anual Pro</h3>
+      <div class="mb-6 mt-4">
+        <span class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 tracking-tight">$1,490</span>
+        <span class="text-gray-500 text-sm">/año</span>
       </div>
-      <p class="text-sm text-gray-300 mb-8 font-medium">Equivale a $100/mes.<br>Comprométete con tu cerebro un año.</p>
-      <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" onclick="trackConversion('plan_annual_click', 1199)" class="w-full py-4 rounded-xl btn-primary text-white font-bold shadow-lg">
-        Quiero el Plan Anual
-      </a>
-      <p class="text-[10px] text-gray-500 mt-4">30 días de garantía de satisfacción.</p>
+      
+      <p class="text-green-400 text-xs font-bold mb-6 bg-green-400/10 inline-block px-3 py-1 rounded-full">
+        🎁 Ahorras $298 (2 meses gratis)
+      </p>
+
+      <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left px-4">
+        <li class="flex gap-2"><span class="text-pink-500">✓</span> <strong>Todo lo del mensual</strong></li>
+        <li class="flex gap-2"><span class="text-pink-500">✓</span> Precio congelado 1 año</li>
+        <li class="flex gap-2"><span class="text-pink-500">✓</span> Olvídate de pagos mensuales</li>
+      </ul>
+      
+      <div class="mt-auto">
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="glow-button w-full text-center shadow-pink-500/20" onclick="trackConversion('plan_anual_clicked', 1490)">
+          Pagar Anualidad
+        </a>
+        <p class="text-[10px] text-gray-500 mt-3">Garantía de satisfacción 30 días</p>
+      </div>
     </div>
 
-    <div class="glass p-8 flex flex-col items-center text-center hover:bg-white/5 transition duration-500">
-      <h3 class="text-lg font-bold text-gray-300 mb-2">Lifetime</h3>
-      <div class="my-6">
-        <span class="text-4xl font-bold text-white">$3,999</span>
-        <span class="block text-xs text-purple-400 font-bold mt-1">PAGO ÚNICO</span>
+    <div class="glass relative flex flex-col h-full hover:bg-white/5 transition-all duration-300">
+      <h3 class="text-lg font-bold text-purple-300 mb-2">Lifetime</h3>
+      <div class="mb-6 mt-4">
+        <span class="text-4xl font-bold text-white tracking-tight">$4,999</span>
+        <span class="text-gray-500 text-sm">/único</span>
       </div>
-      <p class="text-sm text-gray-400 mb-8 px-4">Acceso de por vida. Actualizaciones futuras incluidas. Eres socio.</p>
-      <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" onclick="trackConversion('plan_lifetime_click', 3999)" class="w-full py-3 rounded-xl border border-white/20 hover:bg-white/10 text-white font-semibold transition">
-        Inversión Única
-      </a>
+      <ul class="text-sm text-gray-400 space-y-3 mb-8 text-left px-4">
+        <li class="flex gap-2"><span class="text-purple-400">✓</span> Acceso de por vida</li>
+        <li class="flex gap-2"><span class="text-purple-400">✓</span> Updates futuros incluidos</li>
+        <li class="flex gap-2"><span class="text-purple-400">✓</span> Estatus de Socio Fundador</li>
+      </ul>
+      <div class="mt-auto">
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="w-full block py-3 rounded-full border border-purple-500/30 text-purple-300 font-bold hover:bg-purple-500/10 transition" onclick="trackConversion('plan_lifetime_clicked', 4999)">Ser Fundador</a>
+        <p class="text-[10px] text-gray-600 mt-3">Un solo pago para siempre</p>
+      </div>
     </div>
 
   </div>
 </section>
 
-<section class="py-20 border-t border-white/5">
-  <div class="max-w-4xl mx-auto text-center px-4">
-    <div class="text-7xl font-bold gradient-text grad-blue mb-2" id="numeroImpacto">+8,420</div>
-    <p class="text-xl text-gray-400 mb-12">Libros abiertos esta semana.</p>
-
-    <div class="grid md:grid-cols-2 gap-6 text-left">
-      <div class="glass p-6 flex gap-4">
-        <div class="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center text-2xl">🧠</div>
-        <div>
-          <p class="text-gray-200 text-sm italic">"El lunes me llegó *Invicto* justo cuando todo se caía en la oficina. Esa página me salvó la semana."</p>
-          <p class="text-xs text-gray-500 mt-2 font-bold">— Mariana R., Directora</p>
-        </div>
+<section class="py-20 text-center border-t border-gray-800" id="section-testimonios">
+  <h2 class="text-3xl font-bold text-white mb-2">
+    Comunidad Lectora
+  </h2>
+  <div class="countup mb-10" id="numeroImpacto">+0</div>
+  
+  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 px-6 text-left">
+    <div class="glass p-6 border-l-4 border-l-pink-500">
+      <p class="text-gray-300 text-sm mb-4 italic">"Triggui no sustituye mis libros, hace que los quiera leer más. Me llega una frase y digo: tengo que comprar este libro ya."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-xs font-bold">MR</div>
+        <span class="text-xs text-gray-500 font-bold">Mariana R., Directora</span>
       </div>
-      <div class="glass p-6 flex gap-4">
-        <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center text-2xl">⚡</div>
-        <div>
-          <p class="text-gray-200 text-sm italic">"Ya no busco qué leer. Triggui me manda lo que necesito. Es como tener un mentor en el bolsillo."</p>
-          <p class="text-xs text-gray-500 mt-2 font-bold">— Carlos D., Emprendedor</p>
-        </div>
+    </div>
+    <div class="glass p-6 border-l-4 border-l-blue-500">
+      <p class="text-gray-300 text-sm mb-4 italic">"Me encanta que no me roba tiempo. Leo 2 minutos, me inspiro y sigo mi día. Es la mejor inversión de mi mes."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold">JP</div>
+        <span class="text-xs text-gray-500 font-bold">Javier P., Emprendedor</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="py-32 text-center relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-t from-purple-900/20 to-transparent pointer-events-none"></div>
-  <h2 class="text-5xl md:text-7xl font-bold mb-8">¿Listo para <br><span class="gradient-text grad-gold">abrir el libro?</span></h2>
-  <a href="#planes" class="inline-block px-10 py-5 rounded-full btn-primary text-xl font-bold text-white transition hover:-translate-y-1">
-    Empezar ahora ⚡
-  </a>
-  <div class="mt-8 text-sm text-gray-500">
-    <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="hover:text-white transition underline decoration-gray-700">O dona lo que quieras aquí</a>
-  </div>
+<section class="py-24 text-center bg-[#0f0c29]">
+  <h2 class="text-5xl md:text-7xl font-extrabold mb-8 text-white tracking-tight">
+    Lee.<br>Crece.<br>
+  </h2>
+  <a href="#planes" class="glow-button text-lg px-10 py-4 shadow-2xl shadow-pink-500/40" onclick="trackEngagement('cta_final_clicked')">Empezar ahora</a>
+  <p class="text-sm text-gray-600 mt-12">
+    © 2025 Triggui. Fomentando la lectura real.<br>
+    <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="underline hover:text-white transition">Dona lo que quieras</a>
+  </p>
 </section>
-
-<footer class="py-10 border-t border-white/5 text-center text-gray-600 text-sm">
-  <div class="flex justify-center mb-6 opacity-50">
-    <img src="./trigguiletrasblanco.png" alt="Triggui" class="h-6 w-auto">
-  </div>
-  <p>© 2025 Triggui Inc. Hecho con ❤️ y mucha cafeína.</p>
-</footer>
 
 <script>
-// === LOGICA DEL FORMULARIO (NO TOCAR, CRÍTICO) ===
+// ========================================
+// LÓGICA DE CAPTURA ROBUSTA
+// ========================================
 async function handleCapture(event) {
   event.preventDefault();
   const btn = document.getElementById('submitBtn');
-  const originalText = btn.innerHTML;
   
-  // UI Loading
+  // UI Loading State
+  const originalText = btn.innerHTML;
   btn.disabled = true;
-  btn.innerHTML = '<span class="animate-pulse">Conectando...</span>';
-  btn.classList.add('opacity-75');
+  btn.innerHTML = '⏳ Conectando...';
+  btn.style.opacity = '0.8';
 
-  // Datos
   const firstName = document.getElementById('firstNameCapture').value.trim();
   const lastName = document.getElementById('lastNameCapture').value.trim();
   const email = document.getElementById('emailCapture').value.trim();
-  const phone = document.getElementById('phoneCapture').value.replace(/\D/g,'');
-  const code = document.getElementById('countryCode').value;
-  const fullPhone = code + phone;
+  const phone = document.getElementById('phoneCapture').value.replace(/\s/g, '');
+  const countryCode = document.getElementById('countryCode').value;
+  const fullPhone = countryCode + phone;
   const utm = getUTMParams();
 
-  if(!firstName || !lastName || !email || !phone) {
+  if (!firstName || !lastName || !email || !phone) {
     btn.innerHTML = '⚠️ Faltan datos';
-    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; }, 2000);
+    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; btn.style.opacity = '1'; }, 2000);
     return;
   }
 
   const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
-  
+
   try {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(firstName)}&last_name=${encodeURIComponent(lastName)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_mode_landing&utm_source=${encodeURIComponent(utm.source)}`
+      body: "first_name=" + encodeURIComponent(firstName) + 
+            "&last_name=" + encodeURIComponent(lastName) + 
+            "&email=" + encodeURIComponent(email) + 
+            "&phone=" + encodeURIComponent(fullPhone) +
+            "&source=hero_capture_god_v2" +
+            "&utm_source=" + encodeURIComponent(utm.source)
     });
 
     trackConversion('lead_captured', 100);
+    btn.innerHTML = '✅ ¡Listo! Revisa tu WhatsApp';
+    btn.style.background = '#10B981'; // Green success
     
-    // Success Animation
-    btn.classList.remove('btn-primary');
-    btn.classList.add('bg-green-500');
-    btn.innerHTML = '✅ ¡Enviado! Revisa tu WhatsApp';
-    
-    // Redirect visual delay
+    // Redirección opcional a WhatsApp para asegurar el primer mensaje
     setTimeout(() => {
-       window.location.href = "https://wa.me/5215532394017?text=Hola!%20Ya%20me%20registré%20en%20Triggui";
-    }, 2000);
+      window.location.href = "https://wa.me/5215532394017?text=Hola!%20Ya%20me%20registré,%20espero%20mi%20dosis.";
+    }, 1500);
 
   } catch (e) {
     console.error(e);
-    btn.innerHTML = '⚠️ Error de red. Intenta de nuevo.';
-    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; btn.classList.remove('opacity-75'); }, 3000);
+    btn.innerHTML = '⚠️ Error. Intenta de nuevo.';
+    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; btn.style.background = ''; btn.style.opacity = '1'; }, 3000);
   }
 }
 
-// === COUNTER ANIMATION ===
-const counterEl = document.getElementById("numeroImpacto");
-const badgeText = document.getElementById("badgeText");
+// ========================================
+// CONTADOR Y BADGE
+// ========================================
+const span = document.getElementById("numeroImpacto");
+const activeBadge = document.getElementById("activeBadge");
 
-function animateValue(obj, start, end, duration) {
-  let startTimestamp = null;
-  const step = (timestamp) => {
-    if (!startTimestamp) startTimestamp = timestamp;
-    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-    obj.innerHTML = "+" + Math.floor(progress * (end - start) + start).toLocaleString('es-MX');
-    if (progress < 1) {
-      window.requestAnimationFrame(step);
-    }
-  };
-  window.requestAnimationFrame(step);
+function updateLiveCounter() {
+  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
+    .then(r => r.json())
+    .then(d => {
+      const total = d.total || 8420;
+      span.textContent = "+" + total.toLocaleString("es-MX");
+      
+      const active = Math.floor(total / 85); 
+      if(activeBadge) activeBadge.innerHTML = `🟢 ${active} lectores activos`;
+    })
+    .catch(() => { 
+      span.textContent = "+8,420";
+      if(activeBadge) activeBadge.innerHTML = `🟢 98 lectores activos`;
+    });
 }
+updateLiveCounter();
 
-// Fetch real data simulation
-fetch("https://triggui-api.vercel.app/api/get")
-  .then(r => r.json())
-  .then(d => {
-    animateValue(counterEl, 0, d.total || 8420, 2000);
-    const active = Math.floor((d.total || 8420) / 120);
-    badgeText.textContent = `${active} lectores activos ahora`;
-  })
-  .catch(() => {
-    animateValue(counterEl, 0, 8420, 2000);
-    badgeText.textContent = `112 lectores activos ahora`;
-  });
-
-// === WEBVIEW DETECTION & SCROLL LOGIC ===
-const isWebView = navigator.userAgent.includes('wv') || (navigator.userAgent.includes('Android') && navigator.userAgent.includes('Version/'));
-if(isWebView) {
-  document.getElementById('whatsappFloat').style.display = 'none';
-  document.getElementById('floatingCTA').style.display = 'none';
-}
-
-window.addEventListener('scroll', () => {
-  const cta = document.getElementById('floatingCTA');
-  if(!cta || isWebView) return;
-  if(window.scrollY > 600) cta.classList.add('visible');
-  else cta.classList.remove('visible');
-});
-
-// Phone Formatting
+// ========================================
+// FORMATO TELEFONO
+// ========================================
 document.getElementById('phoneCapture').addEventListener('input', function(e) {
-  let v = e.target.value.replace(/\D/g,'').slice(0,10);
-  if(v.length > 6) v = `${v.slice(0,2)} ${v.slice(2,6)} ${v.slice(6)}`;
-  else if(v.length > 2) v = `${v.slice(0,2)} ${v.slice(2)}`;
-  e.target.value = v;
+  let value = e.target.value.replace(/\D/g, '');
+  if (value.length > 10) value = value.slice(0, 10);
+  if (value.length > 6) value = value.slice(0, 2) + ' ' + value.slice(2, 6) + ' ' + value.slice(6);
+  else if (value.length > 2) value = value.slice(0, 2) + ' ' + value.slice(2);
+  e.target.value = value;
 });
-</script>
 
+// ========================================
+// WEBVIEW DETECTION
+// ========================================
+const ua = navigator.userAgent;
+const isWebView = (/wv/i.test(ua) || /WebView/i.test(ua) || (ua.includes("Android") && ua.includes("Version/")));
+if (isWebView) {
+  const floats = document.querySelectorAll('.floating-cta, .floating-whatsapp');
+  floats.forEach(el => el.style.display = 'none');
+} else {
+  // Show CTA on scroll
+  window.addEventListener('scroll', function() {
+    const cta = document.getElementById('floatingCTA');
+    if (window.scrollY > 400) cta.classList.add('visible');
+    else cta.classList.remove('visible');
+  });
+}
+
+console.log('🚀 TRIGGUI GOD MODE ACTIVE');
+</script>
 </body>
 </html>
