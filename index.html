@@ -460,7 +460,7 @@ function trackEngagement(action) {
           <input 
             type="tel" 
             id="phone" 
-            placeholder="WhatsApp (sin espacios)" 
+            placeholder="WhatsApp" 
             pattern="[0-9]+" 
             required 
             class="input-god flex-1 min-w-0 rounded-2xl px-5 py-4 text-base font-medium"
@@ -887,7 +887,7 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_ultimate&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_perfect&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -995,7 +995,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 Triggui God Level loaded successfully');
+console.log('🔥 Triggui God Level - PERFECTO - Loaded');
 </script>
 
 </body>
