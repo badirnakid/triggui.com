@@ -24,7 +24,7 @@
 </script>
 
 <script>
-// UTM Tracker (saber de dónde vienen)
+// UTM Tracker
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -39,8 +39,6 @@ function getUTMParams() {
 // Track conversión
 function trackConversion(event, value = 0) {
   const utm = getUTMParams();
-  
-  // Google Analytics
   if (typeof gtag !== 'undefined') {
     gtag('event', event, {
       event_category: 'conversion',
@@ -52,8 +50,6 @@ function trackConversion(event, value = 0) {
       utm_campaign: utm.campaign
     });
   }
-  
-  // Console para debug
   console.log('🎯 Conversion:', event, 'Value:', value, 'UTM:', utm);
 }
 
@@ -79,7 +75,7 @@ function trackSectionView(section) {
   }
 }
 
-// Guardar UTM en sessionStorage (para atribución)
+// Guardar UTM
 (function() {
   const utm = getUTMParams();
   if (utm.source !== 'direct') {
@@ -235,7 +231,7 @@ function trackSectionView(section) {
 
 <a href="#planes" class="floating-cta" id="floatingCTA" onclick="trackEngagement('floating_cta_clicked')">💌 Empieza Hoy</a>
 
-<header class="text-center px-6 pt-28 pb-20 max-w-6xl mx-auto relative">
+<header class="text-center px-6 pt-24 pb-16 max-w-6xl mx-auto relative">
   
   <div id="activeBadge" style="
     position: absolute;
@@ -257,25 +253,31 @@ function trackSectionView(section) {
     La chispa<br>antes<br>del libro.
   </h1>
 
-  <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto mt-6 leading-snug font-bold">
+  <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto mt-5 leading-snug font-bold mb-8">
     Recibe tu empujoncito de lectura<br>por WhatsApp
   </p>
 
-  <p class="text-base text-gray-400 max-w-xl mx-auto mt-4 leading-relaxed">
-    Curadas para tu momento exacto.<br>Los lunes cuando más las necesitas.<br>Y sorpresas en la semana.
-  </p>
-
-  <div class="mt-10 max-w-md mx-auto">
+  <div class="max-w-md mx-auto">
     <form class="flex flex-col gap-2" onsubmit="return handleCapture(event)">
       
-      <input
-        type="text"
-        id="nameCapture"
-        name="name"
-        placeholder="Nombre y Apellido"
-        class="px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-full"
-        required
-      />
+      <div class="flex gap-2">
+        <input
+          type="text"
+          id="firstNameCapture"
+          name="firstname"
+          placeholder="Nombre"
+          class="px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-1/2"
+          required
+        />
+        <input
+          type="text"
+          id="lastNameCapture"
+          name="lastname"
+          placeholder="Apellido"
+          class="px-5 py-2.5 text-base rounded-full bg-white/10 border-2 border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition w-1/2"
+          required
+        />
+      </div>
 
       <input
         type="email"
@@ -340,10 +342,10 @@ function trackSectionView(section) {
     </p>
   </div>
 
-  <p class="text-sm text-gray-500 mt-12 mb-4">
+  <p class="text-sm text-gray-500 mt-8 mb-4">
     O descarga la app gratis
   </p>
-  <div class="flex items-center justify-center gap-2 h-[56px]" aria-label="Descargar Triggui">
+  <div class="flex items-center justify-center gap-2 h-[56px] mb-8" aria-label="Descargar Triggui">
     <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener"
        class="h-full inline-flex items-center rounded-[12px] opacity-60 hover:opacity-100 transition"
        onclick="trackEngagement('app_store_download')">
@@ -365,6 +367,11 @@ function trackSectionView(section) {
       />
     </a>
   </div>
+
+  <p class="text-base text-gray-400 max-w-xl mx-auto leading-relaxed border-t border-gray-800 pt-8">
+    Te llegan en el momento exacto.<br>Los lunes cuando más las necesitas.<br>Y sorpresas en la semana.
+  </p>
+
 </header>
 
 <section class="py-20 text-center bg-[#11121c] border-t border-gray-800" id="section-porque-pagar">
@@ -679,23 +686,26 @@ function trackSectionView(section) {
 })();
 
 // ========================================
-// EMAIL + PHONE + NAME CAPTURE CON TRACKING
+// EMAIL + PHONE + NAME SPLIT CAPTURE
 // ========================================
 async function handleCapture(event) {
   event.preventDefault();
 
   const btn = document.getElementById('submitBtn');
-  const nameInput = document.getElementById('nameCapture'); // NUEVO
+  const firstNameInput = document.getElementById('firstNameCapture');
+  const lastNameInput = document.getElementById('lastNameCapture');
   const emailInput = document.getElementById('emailCapture');
   const phoneInput = document.getElementById('phoneCapture');
   const countryCode = document.getElementById('countryCode');
   
-  const name = nameInput.value.trim(); // NUEVO
+  const firstName = firstNameInput.value.trim();
+  const lastName = lastNameInput.value.trim();
+  const fullName = firstName + ' ' + lastName; // Combinar para backend
   const email = emailInput.value.trim();
   const phone = phoneInput.value.trim();
   const fullPhone = countryCode.value + phone.replace(/\s/g, '');
 
-  if (!name || !email || !phone) return;
+  if (!firstName || !lastName || !email || !phone) return;
 
   // Deshabilitar botón
   btn.disabled = true;
@@ -710,7 +720,7 @@ async function handleCapture(event) {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "name=" + encodeURIComponent(name) +  // NUEVO: Enviando Nombre
+      body: "name=" + encodeURIComponent(fullName) + 
             "&email=" + encodeURIComponent(email) + 
             "&phone=" + encodeURIComponent(fullPhone) +
             "&source=hero_capture" +
@@ -738,7 +748,8 @@ async function handleCapture(event) {
   }
 
   // Limpiar inputs
-  nameInput.value = ''; // NUEVO
+  firstNameInput.value = '';
+  lastNameInput.value = '';
   emailInput.value = '';
   phoneInput.value = '';
   
