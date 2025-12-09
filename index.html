@@ -47,9 +47,9 @@ function trackEngagement(action) {
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
 
 <style>
-  /* === ESTÉTICA NIVEL DIOS & ANTI-FLICKER === */
+  /* === ESTÉTICA NIVEL DIOS & ANTI-SALTO === */
   
-  /* 1. CRÍTICO: Prevenir Flash Blanco y Saltos de Texto */
+  /* 1. Prevenir Flash Blanco */
   html, body {
     margin: 0; padding: 0;
     font-family: 'Archivo', sans-serif;
@@ -57,23 +57,33 @@ function trackEngagement(action) {
     color: #F3F4F6;
     overflow-x: hidden;
     -webkit-tap-highlight-color: transparent;
-    -webkit-text-size-adjust: 100%; /* Previene ajustes raros en Safari */
+    -webkit-text-size-adjust: 100%;
   }
 
-  /* 2. CRÍTICO: CSS Hardcodeado para el Título (Evita el "salto" de tamaño) */
-  /* Esto asegura que el texto sea grande ANTES de que cargue Tailwind */
+  /* 2. CANDADO DE LAYOUT (CRÍTICO) */
+  /* Esto fuerza al navegador a centrar todo ANTES de cargar Tailwind */
+  .layout-lock-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* 3. CANDADO DE TITULO (CRÍTICO) */
+  /* Define tamaño, altura de línea y margen exáctos desde el inicio */
   .hero-title {
     font-weight: 900;
     letter-spacing: -0.02em;
-    line-height: 1;
-    font-size: 3rem; /* Mobile default (text-5xl approx) */
+    line-height: 1; /* leading-none */
+    margin-bottom: 1.5rem; /* mb-6 equivalent */
+    text-align: center;
+    width: 100%;
+    
+    /* Responsive Sizing Hardcoded (Anti-Shift) */
+    font-size: 3rem; /* Mobile default */
   }
-  @media (min-width: 640px) {
-    .hero-title { font-size: 4.5rem; } /* sm:text-7xl */
-  }
-  @media (min-width: 768px) {
-    .hero-title { font-size: 6rem; } /* md:text-8xl */
-  }
+  @media (min-width: 640px) { .hero-title { font-size: 4.5rem; } }
+  @media (min-width: 768px) { .hero-title { font-size: 6rem; } }
 
   /* Fondo Sutil (Noise) */
   .bg-noise {
@@ -87,6 +97,8 @@ function trackEngagement(action) {
     background: linear-gradient(to right, #ffffff, #a5b4fc, #ffffff);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     background-size: 200% auto; animation: shine 5s linear infinite;
+    /* Fallback para evitar texto invisible si carga lento */
+    color: white; 
   }
   @keyframes shine { to { background-position: 200% center; } }
 
@@ -176,7 +188,7 @@ function trackEngagement(action) {
 </a>
 <a href="#planes" class="cta-float" id="floatingCTA" onclick="trackEngagement('cta_float')">Ver Oferta</a>
 
-<header class="relative px-5 pt-28 pb-16 max-w-4xl mx-auto flex flex-col items-center text-center z-10">
+<header class="layout-lock-center relative px-5 pt-28 pb-16 max-w-4xl mx-auto z-10">
   
   <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-900/20 border border-green-500/30 mb-8 animate-fade-in">
     <span class="relative flex h-2 w-2">
