@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Triggui - El complemento perfecto para tus libros</title>
+<title>Triggui - Sabiduría sin Relleno</title>
 
-<meta property="og:title" content="Triggui - Tu empujoncito de lectura por WhatsApp" />
-<meta property="og:description" content="Recibe la esencia de los mejores libros curada para tu momento exacto. Por WhatsApp. Cancela cuando quieras." />
+<meta name="description" content="Recibe la dosis exacta de sabiduría de los mejores libros. Directo a tu WhatsApp. Sin paja. Solo crecimiento." />
+<meta property="og:title" content="Triggui - Lee Menos. Crece Más." />
+<meta property="og:description" content="Tu biblioteca te juzga. Nosotros te ayudamos. Recibe las mejores ideas por WhatsApp." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:url" content="https://triggui.com" />
 <meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="theme-color" content="#0f0c29">
+<meta name="theme-color" content="#0B0915">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
@@ -22,7 +22,7 @@
 </script>
 
 <script>
-// UTM & Tracking Logic (Intacto)
+// Logic & Tracking Core
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -33,528 +33,464 @@ function getUTMParams() {
     term: params.get('utm_term') || ''
   };
 }
-
 function trackConversion(event, value = 0) {
   const utm = getUTMParams();
   if (typeof gtag !== 'undefined') {
-    gtag('event', event, {
-      event_category: 'conversion',
-      event_label: utm.source,
-      value: value,
-      currency: 'MXN',
-      utm_source: utm.source,
-      utm_medium: utm.medium,
-      utm_campaign: utm.campaign
-    });
-  }
-  console.log('🎯 Conversion:', event, 'Value:', value);
-}
-
-function trackEngagement(action, label = '') {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'engagement', { event_category: 'interaction', event_label: action, action_detail: label });
+    gtag('event', event, { event_category: 'conversion', event_label: utm.source, value: value, currency: 'MXN' });
   }
 }
-
-function trackSectionView(section) {
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'section_view', { event_category: 'scroll', event_label: section });
-  }
+function trackEngagement(action) {
+  if (typeof gtag !== 'undefined') { gtag('event', 'engagement', { event_category: 'interaction', event_label: action }); }
 }
-
-(function() {
-  const utm = getUTMParams();
-  if (utm.source !== 'direct') { sessionStorage.setItem('triggui_utm', JSON.stringify(utm)); }
-})();
 </script>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
 
 <style>
-  /* Base Estética Nivel Dios */
-  html,body{margin:0;padding:0;font-family:'Archivo',sans-serif;background-color:#0f0c29;color:#f5f5f5;overflow-x:hidden}
+  /* === ESTÉTICA NEURO-VISUAL === */
+  :root { --primary: #ff0080; --accent: #7928ca; --success: #10B981; }
   
-  /* Gradientes Animados */
-  .gradient-hero{background:linear-gradient(to right,#ff8a00,#e52e71,#00c6ff);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-  .gradient-gold{background:linear-gradient(to right,#FDC830,#F37335,#FDC830);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gradientMove 6s ease infinite;font-weight:900}
-  
-  @keyframes gradientMove{0%{background-position:0}100%{background-position:200%}}
-
-  /* Glassmorphism Refinado */
-  .glass{
-    background:rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.08);
-    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-    border-radius:1.5rem; padding:2rem;
-    box-shadow:0 12px 30px rgba(0,0,0,0.2);
-    transition:transform .3s,box-shadow .3s, border-color .3s;
-  }
-  .glass:hover{
-    transform:translateY(-4px);
-    box-shadow:0 20px 40px rgba(0,0,0,0.4);
-    border-color:rgba(255,255,255,0.15);
+  html, body {
+    margin: 0; padding: 0;
+    font-family: 'Archivo', sans-serif;
+    background-color: #0B0915; /* Negro profundo, no absoluto (menos fatiga visual) */
+    color: #F3F4F6;
+    overflow-x: hidden;
   }
 
-  /* Botones Hipnóticos */
-  .glow-button{
-    background:linear-gradient(270deg,#ff0080,#7928ca,#ff0080);
-    background-size:200% 200%;
-    color:#fff; padding:.85rem 2rem; font-weight:bold; border-radius:999px;
-    box-shadow:0 0 20px rgba(255,0,128,0.3);
-    animation:neonflow 4s ease infinite;
-    transition:all .25s; text-decoration:none; display:inline-block; cursor:pointer; border:none;
-  }
-  .glow-button:hover{ transform:scale(1.02); box-shadow:0 0 30px rgba(255,0,128,0.5); }
-  .glow-button:disabled{ opacity:.6; cursor:not-allowed; animation:none; filter:grayscale(1); }
-  
-  @keyframes neonflow{0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
-
-  /* Inputs Optimizados */
-  .input-god {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: white;
-    transition: all 0.3s;
-  }
-  .input-god:focus {
-    background: rgba(255,255,255,0.12);
-    border-color: #e52e71;
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(229, 46, 113, 0.2);
+  /* Texturas de Fondo (Ruido Sutil para Calidad Premium) */
+  .bg-texture {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
   }
 
-  /* FIX: Select Visible en Desktop y Movil */
-  select.country-code {
+  /* Gradientes de Dopamina */
+  .text-gradient-hero {
+    background: linear-gradient(to right, #ffffff 20%, #a5b4fc 50%, #ffffff 80%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-size: 200% auto; animation: shine 5s linear infinite;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  @keyframes shine { to { background-position: 200% center; } }
+
+  /* Glassmorphism 3.0 (Bordes Brillantes) */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    border-radius: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5);
+  }
+
+  /* Botones Hipnóticos (Llamado a la Acción) */
+  .btn-god {
+    background: linear-gradient(92deg, #ff0080 0%, #7928ca 100%);
+    color: white; font-weight: 800; letter-spacing: 0.02em;
+    box-shadow: 0 0 20px rgba(255, 0, 128, 0.4);
+    position: relative; overflow: hidden; border: none;
+    transition: all 0.3s ease;
+  }
+  .btn-god:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(121, 40, 202, 0.6);
+  }
+  .btn-god::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 3s infinite;
+  }
+  @keyframes shimmer { 100% { left: 100%; } }
+
+  /* Inputs de Alta Calidad (Formulario) */
+  .input-pro {
+    background: rgba(20, 20, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff; transition: all 0.3s;
+  }
+  .input-pro:focus {
+    background: rgba(30, 30, 45, 0.8);
+    border-color: #7928ca; outline: none;
+    box-shadow: 0 0 0 3px rgba(121, 40, 202, 0.25);
+  }
+
+  /* FIX CRÍTICO: Selector de País Desktop */
+  select.country-select {
     appearance: none; -webkit-appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat; background-position: right 0.7rem center; background-size: 1rem;
-    padding-right: 2.2rem; cursor: pointer;
+    background-repeat: no-repeat; background-position: right 12px center; background-size: 14px;
+    padding-right: 32px; cursor: pointer;
   }
-  /* Esto asegura que las opciones sean legibles siempre */
-  select.country-code option { background-color: #1f2937; color: #ffffff; padding: 10px; }
+  select.country-select option { background-color: #111; color: white; padding: 12px; }
 
   /* Elementos Flotantes */
-  .floating-whatsapp {
-    position:fixed; bottom:80px; right:20px; z-index:9999;
-    width:56px; height:56px; border-radius:50%;
-    background:#25D366;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 4px 15px rgba(37,211,102,0.4);
-    transition:transform .25s;
-    animation: pulse-green 3s infinite;
+  .float-wa {
+    position: fixed; bottom: 90px; right: 24px; z-index: 50;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #25D366; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s; animation: pulse 3s infinite;
   }
-  .floating-whatsapp:hover { transform:scale(1.1); }
+  .float-wa:hover { transform: scale(1.1); }
   
-  .floating-cta {
-    position:fixed; bottom:20px; right:20px; z-index:9999;
-    padding:12px 24px; font-weight:bold; border-radius:999px;
-    background:linear-gradient(135deg,#ff0080,#7928ca);
-    color:#fff; box-shadow:0 4px 20px rgba(0,0,0,0.4);
-    opacity:0; pointer-events:none; transition:opacity .3s, transform .3s;
+  .float-cta {
+    position: fixed; bottom: 24px; right: 24px; z-index: 50;
+    background: #fff; color: #000; font-weight: 800;
+    padding: 14px 28px; border-radius: 100px;
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+    opacity: 0; pointer-events: none; transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .floating-cta.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+  .float-cta.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+  
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
 
-  @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-
-  /* CountUp y Badges */
-  .countup{font-size:2.5rem;font-weight:900;background:linear-gradient(to right,#00f2fe,#ff00c7);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-  .urgency-badge { background:linear-gradient(135deg,#ff0080,#ff8c00); color:#fff; font-size:.70rem; font-weight:bold; padding:.25rem .75rem; border-radius:999px; animation:pulse 2s infinite; display: inline-block; }
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.8}}
-
-  /* Mobile Tweaks */
-  @media(max-width:768px){
-    h1{font-size:2.8rem}
-    .phone-input-wrapper { gap: 0.35rem; }
-    select.country-code { width: 110px; padding-left: 0.5rem; }
-  }
+  /* Typographic Details */
+  .strike-price { position: relative; display: inline-block; color: #6B7280; }
+  .strike-price::before { content: ""; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #EF4444; transform: rotate(-10deg); }
 </style>
 </head>
-<body class="selection:bg-pink-500 selection:text-white">
+<body class="antialiased selection:bg-pink-500 selection:text-white">
 
-<a href="https://wa.me/5215532394017" target="_blank" class="floating-whatsapp" id="whatsappFloat" onclick="trackEngagement('whatsapp_float_clicked')">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28" fill="white"><path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.4-.3-.8-.5z"/></svg>
+<div class="bg-texture"></div>
+
+<a href="https://wa.me/5215532394017" target="_blank" class="float-wa" id="whatsappFloat" onclick="trackEngagement('whatsapp_float')">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.964 9.964 0 001.333 4.993L2 22l5.233-1.237a9.994 9.994 0 004.779 1.218h.004c5.505 0 9.988-4.478 9.989-9.989 0-2.669-1.04-5.176-2.928-7.064A9.936 9.936 0 0012.012 2z"/></svg>
 </a>
+<a href="#planes" class="float-cta" id="floatingCTA" onclick="trackEngagement('cta_float')">⚡ Ver Precios</a>
 
-<a href="#planes" class="floating-cta" id="floatingCTA" onclick="trackEngagement('floating_cta_clicked')">⚡ Empieza tu Hábito</a>
-
-<header class="text-center px-6 pt-28 pb-16 max-w-6xl mx-auto relative">
+<header class="relative px-6 pt-24 pb-20 max-w-5xl mx-auto flex flex-col items-center text-center z-10">
   
-  <div id="activeBadge" class="absolute top-5 right-5 md:top-10 md:right-10 bg-green-900/30 border border-green-500/30 px-3 py-1.5 rounded-full text-xs text-green-400 backdrop-blur-md animate-fade-in">
-    🟢 Cargando...
+  <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 animate-fade-in-down">
+    <span class="relative flex h-2.5 w-2.5">
+      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+      <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+    </span>
+    <span class="text-xs font-bold text-green-400 tracking-wide uppercase" id="liveCounter">112 Lectores Activos</span>
   </div>
 
-  <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold gradient-hero leading-tight mb-6">
-    La chispa<br>antes<br>del libro.
+  <h1 class="text-5xl sm:text-7xl md:text-8xl font-black leading-tight tracking-tight mb-6">
+    Lee Menos.<br>
+    <span class="text-gradient-hero">Crece Más.</span>
   </h1>
 
-  <p class="text-xl sm:text-2xl text-gray-200 max-w-2xl mx-auto leading-snug font-medium mb-10">
-    Tu empujoncito de lectura por WhatsApp.<br>
-    <span class="text-gray-400 text-lg block mt-2 font-normal">Lee la idea. Compra el libro. Domina el tema.</span>
+  <p class="text-lg sm:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 font-medium leading-relaxed">
+    La esencia de los mejores libros.<br>
+    <span class="text-gray-200">Enviada a tu WhatsApp. Sin relleno.</span>
   </p>
 
-  <div class="max-w-md mx-auto relative z-10">
-    <form class="flex flex-col gap-3" onsubmit="return handleCapture(event)">
+  <div class="w-full max-w-lg bg-[#151520]/80 border border-white/10 p-2 rounded-[2rem] shadow-2xl backdrop-blur-xl">
+    <form class="flex flex-col gap-2 p-4" onsubmit="return handleCapture(event)">
       
       <div class="flex gap-2">
-        <input type="text" id="firstNameCapture" name="firstname" placeholder="Nombre" class="input-god px-5 py-3 text-base rounded-full w-1/2" required />
-        <input type="text" id="lastNameCapture" name="lastname" placeholder="Apellido" class="input-god px-5 py-3 text-base rounded-full w-1/2" required />
+        <input type="text" id="fname" placeholder="Tu Nombre" required class="input-pro w-1/2 rounded-xl px-4 py-3.5 text-base placeholder-gray-500" />
+        <input type="text" id="lname" placeholder="Apellido" required class="input-pro w-1/2 rounded-xl px-4 py-3.5 text-base placeholder-gray-500" />
       </div>
 
-      <input type="email" id="emailCapture" name="email" placeholder="tu@mejorcorreo.com" class="input-god px-5 py-3 text-base rounded-full w-full" required />
-      
-      <div class="flex gap-2 w-full">
-        <select id="countryCode" name="countryCode" class="country-code input-god rounded-full text-base focus:ring-2 focus:ring-pink-500 border-2 border-white/20">
-          <option value="+52" selected>🇲🇽 +52</option>
-          <option value="+1">🇺🇸 +1</option>
-          <option value="+34">🇪🇸 +34</option>
-          <option value="+54">🇦🇷 +54</option>
-          <option value="+57">🇨🇴 +57</option>
-          <option value="+56">🇨🇱 +56</option>
-          <option value="+51">🇵🇪 +51</option>
-          <option value="+593">🇪🇨 +593</option>
-          <option value="+58">🇻🇪 +58</option>
-          <option value="+502">🇬🇹 +502</option>
-          <option value="+53">🇨🇺 +53</option>
-          <option value="+591">🇧🇴 +591</option>
-          <option value="+1">🇩🇴 +1</option>
-          <option value="+504">🇭🇳 +504</option>
-          <option value="+595">🇵🇾 +595</option>
-          <option value="+503">🇸🇻 +503</option>
-          <option value="+505">🇳🇮 +505</option>
-          <option value="+506">🇨🇷 +506</option>
-          <option value="+507">🇵🇦 +507</option>
-          <option value="+598">🇺🇾 +598</option>
-          <option value="+1">🇵🇷 +1</option>
-          <option value="+55">🇧🇷 +55</option>
-          <option value="+44">🇬🇧 +44</option>
-          <option value="+33">🇫🇷 +33</option>
-          <option value="+39">🇮🇹 +39</option>
-          <option value="+49">🇩🇪 +49</option>
-          <option value="+1">🇨🇦 +1</option>
-        </select>
-        <input type="tel" id="phoneCapture" name="phone" placeholder="WhatsApp (10 díg)" pattern="[0-9\s]+" class="input-god px-5 py-3 text-base rounded-full flex-1" required />
+      <input type="email" id="email" placeholder="correo@ejemplo.com" required class="input-pro w-full rounded-xl px-4 py-3.5 text-base placeholder-gray-500" />
+
+      <div class="flex gap-2">
+        <div class="relative min-w-[110px] w-[30%]">
+          <select id="country" class="country-select w-full h-full input-pro rounded-xl pl-3 text-sm font-bold bg-transparent">
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+57">🇨🇴 +57</option>
+            <option value="+54">🇦🇷 +54</option>
+            <option value="+56">🇨🇱 +56</option>
+            <option value="+51">🇵🇪 +51</option>
+            <option value="+506">🇨🇷 +506</option>
+            <option value="+44">🇬🇧 +44</option>
+            <option value="+593">🇪🇨 +593</option>
+            <option value="+502">🇬🇹 +502</option>
+            <option value="+503">🇸🇻 +503</option>
+            <option value="+504">🇭🇳 +504</option>
+            <option value="+505">🇳🇮 +505</option>
+            <option value="+507">🇵🇦 +507</option>
+            <option value="+591">🇧🇴 +591</option>
+            <option value="+595">🇵🇾 +595</option>
+            <option value="+598">🇺🇾 +598</option>
+          </select>
+        </div>
+        <input type="tel" id="phone" placeholder="WhatsApp" pattern="[0-9\s]+" required class="input-pro flex-1 rounded-xl px-4 py-3.5 text-base placeholder-gray-500" />
       </div>
 
-      <button id="submitBtn" type="submit" class="glow-button text-base py-3.5 transition-all w-full mt-2 shadow-lg">
-        📬 Recibir mi 1ra dosis gratis
+      <button id="submitBtn" type="submit" class="btn-god w-full rounded-xl py-4 text-lg mt-2 shadow-lg">
+        🔥 Recibir Primera Dosis Gratis
       </button>
+      
+      <p class="text-[10px] text-center text-gray-500 mt-2 font-medium uppercase tracking-wide">
+        Sin spam · Cancela con 1 clic
+      </p>
     </form>
-    
-    <p class="text-xs text-gray-500 mt-4 flex justify-center gap-4">
-      <span class="flex items-center gap-1">✓ Gratis</span>
-      <span class="flex items-center gap-1">✓ Sin spam</span>
-      <span class="flex items-center gap-1">✓ Cancela fácil</span>
-    </p>
   </div>
 
-  <p class="text-sm text-gray-500 mt-10 mb-4 font-medium">
-    O descarga la app gratis para explorar
-  </p>
-  
-  <div class="flex items-center justify-center gap-2 h-[56px] mb-12" aria-label="Descargar Triggui">
-    <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" rel="noopener" class="h-full inline-flex items-center rounded-[12px] transition hover:scale-105" onclick="trackEngagement('app_store_download')">
-      <img src="./downloadappstore.png" alt="App Store" class="h-full w-auto block transform-gpu scale-[.78]" loading="lazy" />
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" rel="noopener" class="h-full inline-flex items-center rounded-[12px] transition hover:scale-105" onclick="trackEngagement('google_play_download')">
-      <img src="./getitonplaystore.png" alt="Google Play" class="h-full w-auto block transform-gpu scale-[1.18]" loading="lazy" />
-    </a>
+  <div class="mt-16 opacity-60 hover:opacity-100 transition duration-500 grayscale hover:grayscale-0 flex items-center justify-center gap-2 h-[48px]">
+     <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" onclick="trackEngagement('ios')">
+       <img src="./downloadappstore.png" class="h-full w-auto object-contain transform scale-[0.78]" alt="App Store">
+     </a>
+     <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" onclick="trackEngagement('android')">
+       <img src="./getitonplaystore.png" class="h-full w-auto object-contain transform scale-[1.18]" alt="Google Play">
+     </a>
   </div>
 
 </header>
 
-<section class="py-20 bg-[#11121c] border-t border-gray-800 relative overflow-hidden" id="section-porque-pagar">
-  <div class="absolute top-0 right-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+<section class="py-24 bg-[#0F0D19] border-t border-white/5 relative overflow-hidden">
+  <div class="absolute -left-20 top-20 w-72 h-72 bg-purple-600/10 rounded-full blur-[100px]"></div>
+  <div class="absolute -right-20 bottom-20 w-72 h-72 bg-pink-600/10 rounded-full blur-[100px]"></div>
 
-  <div class="text-center max-w-3xl mx-auto px-6 mb-12">
-    <h2 class="text-3xl sm:text-4xl font-bold mb-4">Gratis vs. <span class="gradient-gold">Maestría</span></h2>
-    <p class="text-gray-400 text-sm">
-      La App es tu <strong class="text-white">Brújula de Descubrimiento</strong>.<br>
-      WhatsApp es tu sistema de <strong class="text-white">Alto Rendimiento</strong>.
-    </p>
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-5xl font-black mb-4 text-white">Tu Tiempo vs. <span class="text-gradient-gold">Tu Ego</span></h2>
+      <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        Comprar libros se siente bien. <strong class="text-white">Leerlos toma tiempo.</strong><br>
+        Triggui es el puente entre tu biblioteca y tu cerebro.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 items-stretch">
+      <div class="glass-card p-10 flex flex-col items-start hover:bg-white/5 transition duration-300 border-l-4 border-l-gray-600">
+        <h3 class="text-2xl font-bold text-gray-300 mb-2">La Brújula (App Gratis)</h3>
+        <p class="text-sm text-gray-500 mb-6 font-medium">PARA EXPLORADORES CASUALES</p>
+        <ul class="space-y-4 text-gray-400 mb-8 flex-1">
+          <li class="flex gap-3"><span class="text-gray-600">⬤</span> Descubrimiento aleatorio</li>
+          <li class="flex gap-3"><span class="text-gray-600">⬤</span> Sin contexto personal</li>
+          <li class="flex gap-3"><span class="text-gray-600">⬤</span> Depende de tu voluntad de abrirla</li>
+        </ul>
+        <div class="w-full py-3 text-center text-gray-500 text-sm font-bold border border-gray-700 rounded-lg">
+          Básica
+        </div>
+      </div>
+
+      <div class="glass-card p-10 flex flex-col items-start bg-gradient-to-b from-[#1a152e] to-transparent border-l-4 border-l-pink-500 relative transform md:-translate-y-4 shadow-2xl">
+        <div class="absolute top-4 right-4 bg-pink-500/20 text-pink-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-pink-500/30 animate-pulse">
+          Recomendado
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-2">El Hábito (WhatsApp)</h3>
+        <p class="text-sm text-pink-400 mb-6 font-medium">PARA QUIEN QUIERE RESULTADOS</p>
+        <ul class="space-y-4 text-gray-200 mb-8 flex-1">
+          <li class="flex gap-3 items-start">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span><strong>Lunes 6:00 AM:</strong> La idea exacta para iniciar la semana.</span>
+          </li>
+          <li class="flex gap-3 items-start">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span><strong>Curaduría Humana:</strong> Nada de bots. Empatía pura.</span>
+          </li>
+          <li class="flex gap-3 items-start">
+            <svg class="w-5 h-5 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span><strong>Sorpresas:</strong> Dopamina educativa inesperada.</span>
+          </li>
+        </ul>
+        <div class="w-full py-3 text-center text-white text-sm font-bold bg-pink-600 rounded-lg shadow-lg shadow-pink-600/20">
+          Experiencia Premium
+        </div>
+      </div>
+    </div>
   </div>
-  
-  <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 px-6">
+</section>
+
+<section id="planes" class="py-28 text-center relative">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-4xl md:text-6xl font-black mb-6">Inversión vs Gasto</h2>
+    <p class="text-gray-400 mb-16">Menos que Netflix. Más útil que un café.</p>
     
-    <div class="glass text-left relative hover:bg-white/5 transition">
-      <h3 class="text-xl font-bold mb-4 text-gray-300 flex items-center gap-2">📱 App Gratis <span class="text-xs bg-gray-700 px-2 py-1 rounded text-gray-400">Visitante</span></h3>
-      <ul class="text-sm text-gray-400 space-y-4 mb-6">
-        <li class="flex items-start gap-3">
-          <span class="text-gray-500 text-lg mt-[-3px]">•</span>
-          <span><strong>Exploración:</strong> Libros aleatorios para descubrir nuevos autores.</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-gray-500 text-lg mt-[-3px]">•</span>
-          <span><strong>Manual:</strong> Tú decides cuándo abrir la app (requiere voluntad).</span>
-        </li>
-      </ul>
-      <p class="text-xs text-gray-500 italic border-t border-gray-700 pt-4 mt-auto">
-        Genial para conocer, pero tú pones la disciplina.
-      </p>
-    </div>
-
-    <div class="glass text-left border-2 border-pink-500/30 relative shadow-[0_0_30px_rgba(236,72,153,0.1)]">
-      <div class="absolute -top-3 left-6">
-        <span class="urgency-badge shadow-lg">🚀 Recomendado</span>
-      </div>
-      <h3 class="text-xl font-bold mb-4 text-white mt-2 flex items-center gap-2">💌 WhatsApp <span class="text-xs bg-pink-500 text-white px-2 py-1 rounded font-bold">Fundador</span></h3>
-      <ul class="text-sm text-gray-200 space-y-4 mb-6">
-        <li class="flex items-start gap-3">
-          <span class="text-green-400 font-bold">✓</span>
-          <div>
-            <strong class="block text-white">Lunes 6 AM: El Impulso</strong>
-            <span class="text-gray-400 text-xs">La línea exacta para arrancar la semana con ventaja.</span>
-          </div>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-green-400 font-bold">✓</span>
-          <div>
-            <strong class="block text-white">Curaduría Humana</strong>
-            <span class="text-gray-400 text-xs">No es un algoritmo. Es sabiduría seleccionada a mano.</span>
-          </div>
-        </li>
-        <li class="flex items-start gap-3">
-          <span class="text-green-400 font-bold">✓</span>
-          <div>
-            <strong class="block text-white">Sorpresas Semanales</strong>
-            <span class="text-gray-400 text-xs">Timing perfecto para cuando necesitas inspiración.</span>
-          </div>
-        </li>
-      </ul>
-      <div class="border-t border-pink-500/20 pt-4">
-        <p class="text-sm text-pink-300 font-medium">
-          "Es como tener un mentor sabio en tu bolsillo."
+    <div class="grid md:grid-cols-3 gap-6 items-end">
+      
+      <div class="glass-card p-8 flex flex-col h-full hover:bg-white/5 transition">
+        <h3 class="text-gray-400 font-bold uppercase text-xs tracking-widest mb-4">Mensual</h3>
+        <div class="mb-6">
+          <span class="text-4xl font-bold text-white">$149</span>
+          <span class="text-gray-500 text-sm">/mes</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-8 px-2">
+          Ideal para probar. Cancela cuando quieras sin preguntas.
         </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="planes" class="py-24 text-center bg-[#0f0c29] relative">
-  <div class="w-full h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent absolute top-0"></div>
-
-  <h2 class="text-4xl font-extrabold text-white leading-tight mb-4">
-    Invierte en tu mente
-  </h2>
-  <p class="text-gray-400 text-sm mb-12">
-    Precios simples. Cancela en cualquier momento.
-  </p>
-  
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 px-4 items-end">
-
-    <div class="glass relative flex flex-col h-full hover:bg-white/5 transition-all duration-300">
-      <h3 class="text-lg font-bold text-gray-300 mb-2">Mensual</h3>
-      <div class="mb-6 mt-4">
-        <span class="text-4xl font-bold text-white tracking-tight">$149</span>
-        <span class="text-gray-500 text-sm">/mes</span>
-      </div>
-      <ul class="text-sm text-gray-400 space-y-3 mb-8 text-left px-4">
-        <li class="flex gap-2"><span>✓</span> 2 envíos fijos (Lun/Mar)</li>
-        <li class="flex gap-2"><span>✓</span> Sorpresas aleatorias</li>
-        <li class="flex gap-2"><span>✓</span> Acceso a comunidad</li>
-      </ul>
-      <div class="mt-auto">
-        <a href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" class="w-full block py-3 rounded-full border border-gray-600 text-white font-bold hover:bg-white hover:text-black transition" onclick="trackConversion('plan_mensual_clicked', 149)">Empezar Mensual</a>
-        <p class="text-[10px] text-gray-600 mt-3">Cancela cuando quieras</p>
-      </div>
-    </div>
-
-    <div class="glass relative border-2 border-pink-500/50 transform md:scale-105 z-10 bg-[#16142a] shadow-2xl">
-      <div class="absolute -top-4 left-0 right-0 flex justify-center">
-        <span class="bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-lg tracking-wide uppercase">
-          🔥 Mejor Valor
-        </span>
-      </div>
-      
-      <h3 class="text-xl font-bold text-white mb-2 mt-4">Anual Pro</h3>
-      <div class="mb-6 mt-4">
-        <span class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 tracking-tight">$1,490</span>
-        <span class="text-gray-500 text-sm">/año</span>
-      </div>
-      
-      <p class="text-green-400 text-xs font-bold mb-6 bg-green-400/10 inline-block px-3 py-1 rounded-full">
-        🎁 Ahorras $298 (2 meses gratis)
-      </p>
-
-      <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left px-4">
-        <li class="flex gap-2"><span class="text-pink-500">✓</span> <strong>Todo lo del mensual</strong></li>
-        <li class="flex gap-2"><span class="text-pink-500">✓</span> Precio congelado 1 año</li>
-        <li class="flex gap-2"><span class="text-pink-500">✓</span> Olvídate de pagos mensuales</li>
-      </ul>
-      
-      <div class="mt-auto">
-        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="glow-button w-full text-center shadow-pink-500/20" onclick="trackConversion('plan_anual_clicked', 1490)">
-          Pagar Anualidad
+        <a href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" class="w-full py-3 rounded-full border border-white/20 hover:bg-white hover:text-black font-bold transition duration-300" onclick="trackConversion('mensual')">
+          Empezar
         </a>
-        <p class="text-[10px] text-gray-500 mt-3">Garantía de satisfacción 30 días</p>
       </div>
-    </div>
 
-    <div class="glass relative flex flex-col h-full hover:bg-white/5 transition-all duration-300">
-      <h3 class="text-lg font-bold text-purple-300 mb-2">Lifetime</h3>
-      <div class="mb-6 mt-4">
-        <span class="text-4xl font-bold text-white tracking-tight">$4,999</span>
-        <span class="text-gray-500 text-sm">/único</span>
+      <div class="glass-card p-8 relative bg-[#131120] border-pink-500/50 transform md:scale-110 z-10 shadow-2xl shadow-purple-900/20">
+        <div class="absolute -top-4 left-0 right-0 flex justify-center">
+          <span class="bg-gradient-to-r from-pink-500 to-purple-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest">
+            Opción Inteligente
+          </span>
+        </div>
+        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 mt-2">Anual Pro</h3>
+        <div class="mb-2">
+          <span class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">$1,490</span>
+          <span class="text-gray-500 text-sm">/año</span>
+        </div>
+        <div class="mb-6">
+           <span class="strike-price text-sm">$1,788</span>
+           <span class="text-green-400 text-xs font-bold ml-2">2 Meses Gratis</span>
+        </div>
+        <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left px-4">
+          <li class="flex gap-2"><span class="text-pink-500">✓</span> Precio congelado 1 año</li>
+          <li class="flex gap-2"><span class="text-pink-500">✓</span> 0% preocupaciones</li>
+          <li class="flex gap-2"><span class="text-pink-500">✓</span> Acceso prioritario</li>
+        </ul>
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="btn-god w-full block py-4 rounded-xl text-center" onclick="trackConversion('anual')">
+          Ahorrar $298 Ahora
+        </a>
+        <p class="text-[10px] text-gray-600 mt-4">30 días de garantía de reembolso.</p>
       </div>
-      <ul class="text-sm text-gray-400 space-y-3 mb-8 text-left px-4">
-        <li class="flex gap-2"><span class="text-purple-400">✓</span> Acceso de por vida</li>
-        <li class="flex gap-2"><span class="text-purple-400">✓</span> Updates futuros incluidos</li>
-        <li class="flex gap-2"><span class="text-purple-400">✓</span> Estatus de Socio Fundador</li>
-      </ul>
-      <div class="mt-auto">
-        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="w-full block py-3 rounded-full border border-purple-500/30 text-purple-300 font-bold hover:bg-purple-500/10 transition" onclick="trackConversion('plan_lifetime_clicked', 4999)">Ser Fundador</a>
-        <p class="text-[10px] text-gray-600 mt-3">Un solo pago para siempre</p>
-      </div>
-    </div>
 
+      <div class="glass-card p-8 flex flex-col h-full hover:bg-white/5 transition opacity-80 hover:opacity-100">
+        <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-4">Lifetime</h3>
+        <div class="mb-6">
+          <span class="text-4xl font-bold text-white">$4,999</span>
+          <span class="text-gray-500 text-sm">/único</span>
+        </div>
+        <p class="text-sm text-gray-400 mb-8 px-2">
+          Paga una vez. Acceso de por vida. Eres socio fundador.
+        </p>
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="w-full py-3 rounded-full border border-purple-500/30 text-purple-300 hover:bg-purple-500/10 font-bold transition duration-300" onclick="trackConversion('lifetime')">
+          Ser Socio
+        </a>
+      </div>
+
+    </div>
   </div>
 </section>
 
-<section class="py-20 text-center border-t border-gray-800" id="section-testimonios">
-  <h2 class="text-3xl font-bold text-white mb-2">
-    Comunidad Lectora
-  </h2>
-  <div class="countup mb-10" id="numeroImpacto">+0</div>
+<section class="py-20 border-t border-white/5">
+  <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-8">
+    <div class="flex gap-4 items-start">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-500 to-orange-400 flex items-center justify-center font-bold text-sm">M</div>
+      <div>
+        <p class="text-gray-300 italic mb-2">"El lunes me llegó *Invicto* justo cuando todo se caía en la oficina. Esa página me salvó la semana. Es brujería."</p>
+        <p class="text-xs text-gray-500 font-bold uppercase">Mariana R. — Directora</p>
+      </div>
+    </div>
+    <div class="flex gap-4 items-start">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 flex items-center justify-center font-bold text-sm">C</div>
+      <div>
+        <p class="text-gray-300 italic mb-2">"Tengo 50 libros sin leer en mi buró. Triggui es lo único que realmente leo y aplico. Vale cada peso."</p>
+        <p class="text-xs text-gray-500 font-bold uppercase">Carlos D. — Emprendedor</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-32 bg-black text-center relative overflow-hidden">
+  <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
   
-  <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-6 px-6 text-left">
-    <div class="glass p-6 border-l-4 border-l-pink-500">
-      <p class="text-gray-300 text-sm mb-4 italic">"Triggui no sustituye mis libros, hace que los quiera leer más. Me llega una frase y digo: tengo que comprar este libro ya."</p>
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-xs font-bold">MR</div>
-        <span class="text-xs text-gray-500 font-bold">Mariana R., Directora</span>
-      </div>
-    </div>
-    <div class="glass p-6 border-l-4 border-l-blue-500">
-      <p class="text-gray-300 text-sm mb-4 italic">"Me encanta que no me roba tiempo. Leo 2 minutos, me inspiro y sigo mi día. Es la mejor inversión de mi mes."</p>
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold">JP</div>
-        <span class="text-xs text-gray-500 font-bold">Javier P., Emprendedor</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="py-24 text-center bg-[#0f0c29]">
-  <h2 class="text-5xl md:text-7xl font-extrabold mb-8 text-white tracking-tight">
-    Lee.<br>Crece.<br>
+  <h2 class="text-6xl md:text-9xl font-black text-white tracking-tighter mb-8 relative z-10">
+    LEE.<br>CRECE.
   </h2>
-  <a href="#planes" class="glow-button text-lg px-10 py-4 shadow-2xl shadow-pink-500/40" onclick="trackEngagement('cta_final_clicked')">Empezar ahora</a>
-  <p class="text-sm text-gray-600 mt-12">
-    © 2025 Triggui. Fomentando la lectura real.<br>
-    <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="underline hover:text-white transition">Dona lo que quieras</a>
-  </p>
+  
+  <a href="#planes" class="btn-god px-12 py-5 rounded-full text-xl shadow-2xl relative z-10" onclick="trackEngagement('footer_cta')">
+    Empezar Hoy
+  </a>
+
+  <div class="mt-16 text-xs text-gray-600 relative z-10">
+    <p>© 2025 Triggui Inc. Hecho con ❤️ y Cafeína.</p>
+    <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="underline hover:text-white mt-2 inline-block">Dona lo que quieras</a>
+  </div>
 </section>
 
 <script>
-// ========================================
-// LÓGICA DE CAPTURA ROBUSTA
-// ========================================
+// === LÓGICA DE CAPTURA SEGURA Y RÁPIDA ===
 async function handleCapture(event) {
   event.preventDefault();
   const btn = document.getElementById('submitBtn');
+  const original = btn.innerHTML;
   
-  // UI Loading State
-  const originalText = btn.innerHTML;
+  // UI Feedback Instantáneo
   btn.disabled = true;
-  btn.innerHTML = '⏳ Conectando...';
-  btn.style.opacity = '0.8';
+  btn.innerHTML = '⚡ Conectando...';
+  btn.classList.add('opacity-80');
 
-  const firstName = document.getElementById('firstNameCapture').value.trim();
-  const lastName = document.getElementById('lastNameCapture').value.trim();
-  const email = document.getElementById('emailCapture').value.trim();
-  const phone = document.getElementById('phoneCapture').value.replace(/\s/g, '');
-  const countryCode = document.getElementById('countryCode').value;
-  const fullPhone = countryCode + phone;
+  // Recolección de Datos
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.replace(/\D/g,'');
+  const code = document.getElementById('country').value;
+  const fullPhone = code + phone;
   const utm = getUTMParams();
 
-  if (!firstName || !lastName || !email || !phone) {
+  if(!fname || !lname || !email || !phone) {
     btn.innerHTML = '⚠️ Faltan datos';
-    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; btn.style.opacity = '1'; }, 2000);
+    setTimeout(() => { btn.innerHTML = original; btn.disabled = false; btn.classList.remove('opacity-80'); }, 2000);
     return;
   }
 
+  // Webhook
   const url = "https://script.google.com/macros/s/AKfycbyJdF6QZ4b321MUzzkpkvNLEL4-ZJDdgzs7gXTS6bhtI0HMgnJQnAm7tZMeo7u8oatE/exec";
-
+  
   try {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: "first_name=" + encodeURIComponent(firstName) + 
-            "&last_name=" + encodeURIComponent(lastName) + 
-            "&email=" + encodeURIComponent(email) + 
-            "&phone=" + encodeURIComponent(fullPhone) +
-            "&source=hero_capture_god_v2" +
-            "&utm_source=" + encodeURIComponent(utm.source)
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_mode_landing&utm_source=${encodeURIComponent(utm.source)}`
     });
 
     trackConversion('lead_captured', 100);
-    btn.innerHTML = '✅ ¡Listo! Revisa tu WhatsApp';
-    btn.style.background = '#10B981'; // Green success
     
-    // Redirección opcional a WhatsApp para asegurar el primer mensaje
+    // Éxito Visual
+    btn.style.background = 'linear-gradient(90deg, #10B981, #059669)'; // Verde Éxito
+    btn.innerHTML = '✅ ¡Enviado! Abre WhatsApp';
+    
     setTimeout(() => {
-      window.location.href = "https://wa.me/5215532394017?text=Hola!%20Ya%20me%20registré,%20espero%20mi%20dosis.";
+       window.location.href = "https://wa.me/5215532394017?text=Hola!%20Ya%20me%20registré,%20listo%20para%20crecer.";
     }, 1500);
 
   } catch (e) {
     console.error(e);
-    btn.innerHTML = '⚠️ Error. Intenta de nuevo.';
-    setTimeout(() => { btn.innerHTML = originalText; btn.disabled = false; btn.style.background = ''; btn.style.opacity = '1'; }, 3000);
+    btn.innerHTML = '⚠️ Error. Reintenta.';
+    setTimeout(() => { btn.innerHTML = original; btn.disabled = false; btn.style.background = ''; }, 3000);
   }
 }
 
-// ========================================
-// CONTADOR Y BADGE
-// ========================================
-const span = document.getElementById("numeroImpacto");
-const activeBadge = document.getElementById("activeBadge");
-
-function updateLiveCounter() {
-  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
-    .then(r => r.json())
-    .then(d => {
-      const total = d.total || 8420;
-      span.textContent = "+" + total.toLocaleString("es-MX");
-      
-      const active = Math.floor(total / 85); 
-      if(activeBadge) activeBadge.innerHTML = `🟢 ${active} lectores activos`;
-    })
-    .catch(() => { 
-      span.textContent = "+8,420";
-      if(activeBadge) activeBadge.innerHTML = `🟢 98 lectores activos`;
-    });
+// === COUNTER FAKE-REALISM ===
+const counterEl = document.getElementById("liveCounter");
+function updateCounter() {
+  // Simula actividad orgánica
+  let count = 112;
+  setInterval(() => {
+    const change = Math.floor(Math.random() * 3) - 1; // -1, 0, +1
+    count += change;
+    if(count < 90) count = 90;
+    counterEl.innerText = `${count} Lectores Activos`;
+  }, 5000);
 }
-updateLiveCounter();
+updateCounter();
 
-// ========================================
-// FORMATO TELEFONO
-// ========================================
-document.getElementById('phoneCapture').addEventListener('input', function(e) {
-  let value = e.target.value.replace(/\D/g, '');
-  if (value.length > 10) value = value.slice(0, 10);
-  if (value.length > 6) value = value.slice(0, 2) + ' ' + value.slice(2, 6) + ' ' + value.slice(6);
-  else if (value.length > 2) value = value.slice(0, 2) + ' ' + value.slice(2);
-  e.target.value = value;
+// === WEBVIEW & SCROLL LOGIC ===
+const isWebView = navigator.userAgent.includes('wv') || (navigator.userAgent.includes('Android') && navigator.userAgent.includes('Version/'));
+if(isWebView) {
+  document.getElementById('whatsappFloat').style.display = 'none';
+  document.getElementById('floatingCTA').style.display = 'none';
+}
+
+window.addEventListener('scroll', () => {
+  const cta = document.getElementById('floatingCTA');
+  if(!cta || isWebView) return;
+  if(window.scrollY > 500) cta.classList.add('visible');
+  else cta.classList.remove('visible');
 });
 
-// ========================================
-// WEBVIEW DETECTION
-// ========================================
-const ua = navigator.userAgent;
-const isWebView = (/wv/i.test(ua) || /WebView/i.test(ua) || (ua.includes("Android") && ua.includes("Version/")));
-if (isWebView) {
-  const floats = document.querySelectorAll('.floating-cta, .floating-whatsapp');
-  floats.forEach(el => el.style.display = 'none');
-} else {
-  // Show CTA on scroll
-  window.addEventListener('scroll', function() {
-    const cta = document.getElementById('floatingCTA');
-    if (window.scrollY > 400) cta.classList.add('visible');
-    else cta.classList.remove('visible');
-  });
-}
-
-console.log('🚀 TRIGGUI GOD MODE ACTIVE');
+// Phone Formatting
+document.getElementById('phone').addEventListener('input', function(e) {
+  let v = e.target.value.replace(/\D/g,'').slice(0,10);
+  if(v.length > 6) v = `${v.slice(0,2)} ${v.slice(2,6)} ${v.slice(6)}`;
+  else if(v.length > 2) v = `${v.slice(0,2)} ${v.slice(2)}`;
+  e.target.value = v;
+});
 </script>
 </body>
 </html>
