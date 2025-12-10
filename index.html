@@ -12,6 +12,9 @@
 <meta property="og:type" content="website" />
 <meta name="theme-color" content="#000000">
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📊 GOOGLE ANALYTICS
+     ═══════════════════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -20,6 +23,9 @@
   gtag('config', 'G-ZKG8ZNSB35');
 </script>
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🔧 TRACKING UTILITIES
+     ═══════════════════════════════════════════════════════════════════════ -->
 <script>
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
@@ -42,17 +48,89 @@ function trackEngagement(action) {
 }
 </script>
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📦 EXTERNAL DEPENDENCIES
+     ═══════════════════════════════════════════════════════════════════════ -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
-<style>
-  /* === RESET PERFECTO & ANTI-FLASH === */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🎨 SECCIÓN 1: DESIGN TOKENS
+     Variables CSS universales - Colores, tipografías, espaciados
+     MODIFICAR: Solo cambiar valores de variables
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="design-tokens">
+  :root {
+    /* ── COLORES DE MARCA ── */
+    --triggui-black: #000000;
+    --triggui-white: #FFFFFF;
+    --triggui-accent-pink: #FF0080;
+    --triggui-accent-orange: #FF8C00;
+    --triggui-accent-gold: #FFD700;
+    --triggui-accent-cyan: #30ffe4;
+    --triggui-green: #10b981;
+    --triggui-green-dark: #059669;
+    --triggui-red: #ef4444;
+    
+    /* ── GRADIENTES ── */
+    --triggui-fire: linear-gradient(135deg, #FF0080 0%, #FF8C00 50%, #FFD700 100%);
+    --triggui-nuclear: linear-gradient(135deg, #FF0080 0%, #FF4500 100%);
+    --triggui-green-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    --triggui-purple: linear-gradient(135deg, #ff0080, #7928ca);
+    
+    /* ── OPACIDADES ── */
+    --triggui-white-3: rgba(255, 255, 255, 0.03);
+    --triggui-white-5: rgba(255, 255, 255, 0.05);
+    --triggui-white-8: rgba(255, 255, 255, 0.08);
+    --triggui-white-12: rgba(255, 255, 255, 0.12);
+    --triggui-white-15: rgba(255, 255, 255, 0.15);
+    --triggui-white-20: rgba(255, 255, 255, 0.2);
+    --triggui-white-40: rgba(255, 255, 255, 0.4);
+    
+    /* ── TIPOGRAFÍAS ── */
+    --triggui-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    /* ── RADIOS ── */
+    --triggui-radius-md: 12px;
+    --triggui-radius-lg: 16px;
+    --triggui-radius-xl: 20px;
+    --triggui-radius-2xl: 24px;
+    --triggui-radius-full: 9999px;
+    
+    /* ── SOMBRAS ── */
+    --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+    --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.28);
+    --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.35);
+    --triggui-shadow-glow-pink: 0 0 20px rgba(255, 0, 128, 0.3);
+    --triggui-shadow-glow-green: 0 4px 12px rgba(16, 185, 129, 0.3);
+    
+    /* ── BLUR ── */
+    --triggui-blur-md: blur(10px);
+    --triggui-blur-lg: blur(12px);
+    
+    /* ── TRANSICIONES ── */
+    --triggui-transition-fast: 0.15s ease;
+    --triggui-transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🧱 SECCIÓN 2: RESET & BASE
+     Reseteo de estilos del navegador y configuración base
+     MODIFICAR: Solo si necesitas cambiar comportamiento global del documento
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="reset-base">
+  * { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+  }
   
   html, body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #000000 !important;
-    color: #FFFFFF;
+    font-family: var(--triggui-font-primary);
+    background-color: var(--triggui-black) !important;
+    color: var(--triggui-white);
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
@@ -62,14 +140,30 @@ function trackEngagement(action) {
     scroll-behavior: smooth;
   }
 
-  /* PRELOADER ANTI-SALTO */
+  html {
+    scroll-padding-top: 80px;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ⏳ SECCIÓN 3: PRELOADER
+     Pantalla de carga inicial para evitar flash
+     MODIFICAR: Estilos de animación del loader
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="preloader">
   .page-loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000;
+    background: var(--triggui-black);
     z-index: 9999;
     opacity: 1;
     transition: opacity 0.3s ease-out;
@@ -78,8 +172,14 @@ function trackEngagement(action) {
   .page-loader.loaded {
     opacity: 0;
   }
+</style>
 
-  /* HERO TITLE - Responsive perfecto con jerarquía visual */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📝 SECCIÓN 4: TIPOGRAFÍA
+     Estilos de texto, títulos, párrafos
+     MODIFICAR: Tamaños, pesos, espaciados de texto
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="typography">
   .hero-title {
     font-weight: 800;
     line-height: 0.95;
@@ -89,7 +189,6 @@ function trackEngagement(action) {
     font-size: clamp(2.5rem, 8vw, 7.5rem);
   }
   
-  /* SUBTÍTULO más chico */
   .hero-subtitle {
     font-weight: 800;
     line-height: 0.95;
@@ -99,21 +198,22 @@ function trackEngagement(action) {
     font-size: clamp(1.75rem, 6vw, 5.5rem);
   }
 
-  /* Gradiente animado BRUTAL */
   .text-fire {
-    background: linear-gradient(135deg, #FF0080 0%, #FF8C00 50%, #FFD700 100%);
+    background: var(--triggui-fire);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: fire-move 4s ease infinite;
   }
-  @keyframes fire-move {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
+</style>
 
-  /* Noise texture premium */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🎭 SECCIÓN 5: EFECTOS DE FONDO
+     Texturas, gradientes, overlays
+     MODIFICAR: Efectos visuales de fondo
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="background-effects">
   .bg-grain {
     position: fixed;
     top: 0;
@@ -126,7 +226,6 @@ function trackEngagement(action) {
     pointer-events: none;
   }
 
-  /* Spotlight effect MEJORADO */
   .spotlight {
     position: absolute;
     top: -50%;
@@ -142,22 +241,25 @@ function trackEngagement(action) {
     z-index: 1;
     animation: spotlight-pulse 8s ease-in-out infinite;
   }
-  @keyframes spotlight-pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
+</style>
 
-  /* Cards de cristal PERFECTOS */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🃏 SECCIÓN 6: GLASS CARDS
+     Tarjetas con efecto glassmorphism
+     MODIFICAR: Estilos de tarjetas de vidrio
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="glass-cards">
   .glass-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 24px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--triggui-white-3);
+    border: 1px solid var(--triggui-white-12);
+    backdrop-filter: var(--triggui-blur-md);
+    -webkit-backdrop-filter: var(--triggui-blur-md);
+    border-radius: var(--triggui-radius-2xl);
+    transition: all var(--triggui-transition-base);
     position: relative;
     overflow: hidden;
   }
+  
   .glass-card::before {
     content: '';
     position: absolute;
@@ -165,22 +267,30 @@ function trackEngagement(action) {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    background: linear-gradient(90deg, transparent, var(--triggui-white-8), transparent);
     transition: left 0.6s;
   }
+  
   .glass-card:hover::before {
     left: 100%;
   }
+  
   .glass-card:hover {
     transform: translateY(-8px);
     border-color: rgba(255, 0, 128, 0.4);
     box-shadow: 0 20px 60px rgba(255, 0, 128, 0.25);
   }
+</style>
 
-  /* Botón principal EXPLOSIVO MEJORADO */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🔘 SECCIÓN 7: BOTONES
+     Todos los estilos de botones
+     MODIFICAR: Colores, tamaños, efectos de botones
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="buttons">
   .btn-nuclear {
     position: relative;
-    background: linear-gradient(135deg, #FF0080 0%, #FF4500 100%);
+    background: var(--triggui-nuclear);
     color: white;
     font-weight: 700;
     border: none;
@@ -188,8 +298,9 @@ function trackEngagement(action) {
     cursor: pointer;
     box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7);
     animation: nuclear-pulse 2s infinite;
-    transition: all 0.3s ease;
+    transition: all var(--triggui-transition-base);
   }
+  
   .btn-nuclear::before {
     content: '';
     position: absolute;
@@ -202,47 +313,61 @@ function trackEngagement(action) {
     transform: translate(-50%, -50%);
     transition: width 0.6s, height 0.6s;
   }
+  
   .btn-nuclear:hover {
     transform: scale(1.02);
   }
+  
   .btn-nuclear:hover::before {
     width: 300px;
     height: 300px;
   }
+  
   .btn-nuclear:active {
     transform: scale(0.96);
   }
-  @keyframes nuclear-pulse {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 0 15px rgba(255, 0, 128, 0),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
-    }
-  }
 
-  /* Input fields perfectos */
+  .btn-monthly {
+    background: var(--triggui-green-gradient);
+    color: white;
+    font-weight: 700;
+    border: none;
+    transition: all var(--triggui-transition-base);
+    box-shadow: var(--triggui-shadow-glow-green);
+  }
+  
+  .btn-monthly:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📝 SECCIÓN 8: INPUTS & FORMS
+     Campos de formulario
+     MODIFICAR: Estilos de inputs, selects
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="inputs-forms">
   .input-god {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1.5px solid rgba(255, 255, 255, 0.12);
+    background: var(--triggui-white-5);
+    border: 1.5px solid var(--triggui-white-12);
     color: white;
     font-weight: 500;
     font-size: 16px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all var(--triggui-transition-base);
   }
+  
   .input-god:focus {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: #FF0080;
+    background: var(--triggui-white-8);
+    border-color: var(--triggui-accent-pink);
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 0, 128, 0.15);
   }
+  
   .input-god::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--triggui-white-40);
   }
 
-  /* Select personalizado */
   select.select-god {
     appearance: none;
     -webkit-appearance: none;
@@ -254,32 +379,85 @@ function trackEngagement(action) {
     cursor: pointer;
     font-size: 16px;
   }
+  
   select.select-god option {
     background-color: #1a1a1a;
     color: white;
     padding: 12px;
   }
+</style>
 
-  /* Badge de descuento PERFECTO */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🏷️ SECCIÓN 9: BADGES
+     Etiquetas y badges
+     MODIFICAR: Estilos de badges y labels
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="badges">
   .badge-save {
     position: absolute;
     top: -18px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--triggui-green-gradient);
     color: white;
     font-weight: 700;
     font-size: 0.7rem;
     padding: 5px 14px;
-    border-radius: 999px;
+    border-radius: var(--triggui-radius-full);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    box-shadow: var(--triggui-shadow-glow-green);
     white-space: nowrap;
     z-index: 10;
     overflow: visible !important;
   }
 
-  /* Contenedor de pricing con overflow visible */
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: var(--triggui-white-5);
+    border: 1px solid var(--triggui-white-15);
+    backdrop-filter: var(--triggui-blur-lg);
+    border-radius: var(--triggui-radius-full);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 2rem;
+    box-shadow: var(--triggui-shadow-md);
+  }
+
+  .pulse-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+  }
+
+  .pulse-dot::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--triggui-green);
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--triggui-green);
+    border-radius: 50%;
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     💳 SECCIÓN 10: PRICING CARDS
+     Tarjetas de precios
+     MODIFICAR: Estilos de planes de pricing
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="pricing-cards">
   .pricing-container {
     overflow: visible !important;
     padding-top: 2.5rem;
@@ -291,60 +469,43 @@ function trackEngagement(action) {
     position: relative;
   }
 
-  /* PLAN MENSUAL CON COLOR - YA NO TRISTE */
   .pricing-card-monthly {
     background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%);
     border: 1px solid rgba(16, 185, 129, 0.3);
     position: relative;
   }
+  
   .pricing-card-monthly:hover {
     border-color: rgba(16, 185, 129, 0.5);
     box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2);
   }
 
-  /* Botón mensual con gradiente verde */
-  .btn-monthly {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    font-weight: 700;
-    border: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-  }
-  .btn-monthly:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-  }
-
-  /* Tarjeta de pricing con glow BRUTAL */
   .pricing-card-glow {
     position: relative;
   }
+  
   .pricing-card-glow::after {
     content: '';
     position: absolute;
     inset: -2px;
     background: linear-gradient(135deg, #FF0080, #FF8C00, #FFD700);
-    border-radius: 24px;
+    border-radius: var(--triggui-radius-2xl);
     z-index: -1;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
+  
   .pricing-card-glow:hover::after {
     opacity: 0.5;
     animation: glow-rotate 3s linear infinite;
   }
-  @keyframes glow-rotate {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
 
-  /* Precio tachado */
   .price-strike {
     position: relative;
     color: #9ca3af;
     text-decoration: none;
   }
+  
   .price-strike::after {
     content: '';
     position: absolute;
@@ -352,11 +513,40 @@ function trackEngagement(action) {
     top: 50%;
     width: 100%;
     height: 2px;
-    background: #ef4444;
+    background: var(--triggui-red);
     transform: translateY(-50%) rotate(-8deg);
   }
+</style>
 
-  /* APP STORE BADGES PERFECTOS - CENTRADOS */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     💬 SECCIÓN 11: TESTIMONIALS
+     Tarjetas de testimonios
+     MODIFICAR: Estilos de testimonios
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="testimonials">
+  .testimonial-card {
+    background: var(--triggui-white-3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: var(--triggui-blur-lg);
+    -webkit-backdrop-filter: var(--triggui-blur-lg);
+    border-radius: var(--triggui-radius-xl);
+    padding: 24px;
+    transition: all var(--triggui-transition-base);
+  }
+  
+  .testimonial-card:hover {
+    border-color: var(--triggui-white-20);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(255, 0, 128, 0.15);
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📱 SECCIÓN 12: APP STORE BADGES
+     Botones de descarga de apps
+     MODIFICAR: Tamaños y comportamiento de badges de tiendas
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="app-store-badges">
   .store-badge-container {
     display: flex;
     align-items: center;
@@ -372,8 +562,8 @@ function trackEngagement(action) {
     height: 100%;
     display: inline-flex;
     align-items: center;
-    border-radius: 12px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    border-radius: var(--triggui-radius-md);
+    transition: transform var(--triggui-transition-base), opacity var(--triggui-transition-base);
   }
   
   .store-badge img {
@@ -394,82 +584,14 @@ function trackEngagement(action) {
     transform: scale(1.05);
     opacity: 0.9;
   }
+</style>
 
-  @media (max-width: 640px) {
-    .store-badge-container {
-      height: 52px;
-    }
-  }
-
-  /* Badge live contador MEJORADO */
-  .live-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(12px);
-    border-radius: 999px;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
-
-  .pulse-dot {
-    position: relative;
-    width: 8px;
-    height: 8px;
-  }
-
-  .pulse-dot::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #10b981;
-    border-radius: 50%;
-    animation: pulse-ring 2s ease-out infinite;
-  }
-
-  .pulse-dot::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #10b981;
-    border-radius: 50%;
-  }
-
-  @keyframes pulse-ring {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2.5);
-      opacity: 0;
-    }
-  }
-
-  /* Testimonial cards MEJORADOS */
-  .testimonial-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 20px;
-    padding: 24px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .testimonial-card:hover {
-    border-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(255, 0, 128, 0.15);
-  }
-
-  /* Botones flotantes */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🎈 SECCIÓN 13: FLOATING ELEMENTS
+     Botones flotantes (WhatsApp, CTA)
+     MODIFICAR: Estilos de elementos flotantes
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="floating-elements">
   .wa-float {
     position: fixed;
     bottom: 85px;
@@ -486,12 +608,9 @@ function trackEngagement(action) {
     transition: transform 0.2s;
     animation: pulse-wa 3s infinite;
   }
+  
   .wa-float:hover {
     transform: scale(1.1);
-  }
-  @keyframes pulse-wa {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
   }
 
   .cta-float {
@@ -510,13 +629,69 @@ function trackEngagement(action) {
     transform: translateY(20px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  
   .cta-float.visible {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
   }
+</style>
 
-  /* Container seguro */
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🎬 SECCIÓN 14: ANIMACIONES
+     Todas las @keyframes animations
+     MODIFICAR: Comportamiento de animaciones
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="animations">
+  @keyframes fire-move {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes nuclear-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7),
+                  0 10px 30px rgba(255, 0, 128, 0.3);
+    }
+    50% {
+      box-shadow: 0 0 0 15px rgba(255, 0, 128, 0),
+                  0 10px 30px rgba(255, 0, 128, 0.3);
+    }
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-wa {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+  }
+
+  @keyframes spotlight-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes glow-rotate {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+</style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🔧 SECCIÓN 15: UTILITIES
+     Clases de utilidad reutilizables
+     MODIFICAR: Utilidades globales
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="utilities">
   .container-safe {
     max-width: 1200px;
     width: 100%;
@@ -525,25 +700,28 @@ function trackEngagement(action) {
     padding-right: 1.5rem;
   }
 
-  /* Smooth scroll */
-  html {
-    scroll-padding-top: 80px;
-  }
-
-  img {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* Micro-interactions */
   .hover-lift {
-    transition: transform 0.3s ease;
+    transition: transform var(--triggui-transition-base);
   }
+  
   .hover-lift:hover {
     transform: translateY(-2px);
   }
 </style>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     📱 SECCIÓN 16: RESPONSIVE
+     Media queries para mobile
+     MODIFICAR: Comportamiento en diferentes tamaños de pantalla
+     ═══════════════════════════════════════════════════════════════════════ -->
+<style id="responsive">
+  @media (max-width: 640px) {
+    .store-badge-container {
+      height: 52px;
+    }
+  }
+</style>
+
 </head>
 
 <body>
@@ -554,19 +732,19 @@ function trackEngagement(action) {
 <!-- Background Effects -->
 <div class="bg-grain"></div>
 
-<!-- HERO SECTION -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🦸 HERO SECTION
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
   <div class="spotlight"></div>
   
   <div class="relative z-10 text-center max-w-5xl mx-auto">
     
-    <!-- LIVE BADGE ARRIBA -->
     <div class="live-badge hover-lift">
       <span class="pulse-dot"></span>
       <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <!-- TÍTULO JERARQUIZADO PERFECTO -->
     <h1 class="hero-title text-white mb-4">
       El libro correcto.
     </h1>
@@ -579,7 +757,7 @@ function trackEngagement(action) {
       Recibe <span class="text-white font-semibold">ideas que llegaron para ti</span> justo ahora.
     </p>
 
-    <!-- FORMULARIO PERFECTO -->
+    <!-- FORMULARIO -->
     <div class="max-w-xl mx-auto mb-12">
       <div class="glass-card p-8">
         
@@ -652,7 +830,7 @@ function trackEngagement(action) {
       </div>
     </div>
 
-    <!-- APP STORE BADGES PERFECTOS CENTRADOS -->
+    <!-- APP STORE BADGES -->
     <p class="text-sm text-gray-400 mb-4">O descarga la app gratis</p>
     <div class="store-badge-container mb-8">
       <a href="https://apps.apple.com/mx/app/triggui/id6738892938" target="_blank" class="store-badge apple" onclick="trackEngagement('app_store')">
@@ -671,7 +849,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: ¿Qué es Triggui? -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ❓ SECCIÓN: ¿Qué es Triggui?
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="py-24 relative">
   <div class="container-safe mx-auto">
     
@@ -712,7 +892,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: Cómo funciona -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     ⚙️ SECCIÓN: Cómo funciona
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="py-24 bg-gradient-to-b from-black via-gray-900/20 to-black">
   <div class="container-safe mx-auto">
     
@@ -757,7 +939,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: Pricing MEJORADA -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     💰 SECCIÓN: Pricing
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section id="planes" class="py-24 relative scroll-mt-20">
   <div class="container-safe mx-auto">
     
@@ -770,7 +954,7 @@ function trackEngagement(action) {
 
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
-      <!-- Plan Anual - PRIMERO Y DESTACADO -->
+      <!-- Plan Anual -->
       <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative bg-gradient-to-b from-white/8 to-white/3 border-pink-500/60 transform md:scale-110 shadow-2xl order-2 md:order-1">
         <div class="badge-save">
           MÁS POPULAR
@@ -816,7 +1000,7 @@ function trackEngagement(action) {
         </a>
       </div>
 
-      <!-- Plan Mensual - CON COLOR VERDE -->
+      <!-- Plan Mensual -->
       <div class="pricing-card-monthly p-8 hover:bg-white/5 transition-all order-1 md:order-2 rounded-3xl">
         <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
@@ -863,7 +1047,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: Testimonios -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     💬 SECCIÓN: Testimonios
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="py-24 border-t border-gray-900">
   <div class="container-safe mx-auto">
     
@@ -942,7 +1128,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: CTA FINAL -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🚀 SECCIÓN: CTA FINAL
+     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="py-32 text-center relative bg-gradient-to-b from-black via-gray-900/30 to-black">
   <div class="container-safe mx-auto px-6">
     
@@ -988,7 +1176,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- BOTONES FLOTANTES -->
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🎈 BOTONES FLOTANTES
+     ═══════════════════════════════════════════════════════════════════════ -->
 <a 
   href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20más%20info%20sobre%20Triggui" 
   target="_blank"
@@ -1010,6 +1200,9 @@ function trackEngagement(action) {
   Activar Ahora
 </a>
 
+<!-- ═══════════════════════════════════════════════════════════════════════
+     🧠 JAVASCRIPT
+     ═══════════════════════════════════════════════════════════════════════ -->
 <script>
 // === PRELOADER ===
 window.addEventListener('load', function() {
@@ -1018,7 +1211,7 @@ window.addEventListener('load', function() {
   }, 100);
 });
 
-// === CAPTURA DE FORMULARIO - SIN REDIRECT A WHATSAPP ===
+// === CAPTURA DE FORMULARIO ===
 async function handleCapture(event) {
   event.preventDefault();
   const btn = document.getElementById('submitBtn');
@@ -1036,7 +1229,6 @@ async function handleCapture(event) {
   const fullPhone = code + phone;
   const utm = getUTMParams();
 
-  // Validar longitud de teléfono
   if (phone.length !== 10) {
     btn.innerHTML = '⚠️ Teléfono debe tener 10 dígitos';
     btn.style.background = '#ef4444';
@@ -1074,7 +1266,6 @@ async function handleCapture(event) {
     btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
     btn.innerHTML = '✨ Te llegará cuando menos lo esperes';
     
-    // Limpiar form después de 3 segundos
     setTimeout(() => {
       document.getElementById('fname').value = '';
       document.getElementById('lname').value = '';
@@ -1135,7 +1326,7 @@ function updateLiveCounter() {
 updateLiveCounter();
 setInterval(updateLiveCounter, 30000);
 
-// === DETECCIÓN DE WEBVIEW MEJORADA ===
+// === DETECCIÓN DE WEBVIEW ===
 const isWebView = (function() {
   const ua = navigator.userAgent || navigator.vendor || window.opera;
   
@@ -1183,20 +1374,17 @@ window.addEventListener('scroll', () => {
   }, 100);
 }, { passive: true });
 
-// === FORMATO DE TELÉFONO - LIMITADO A 10 DÍGITOS ===
+// === FORMATO DE TELÉFONO ===
 const phoneInput = document.getElementById('phone');
 if (phoneInput) {
   phoneInput.addEventListener('input', function(e) {
-    // Solo números
     let value = e.target.value.replace(/\D/g, '');
-    // Máximo 10 dígitos
     if (value.length > 10) {
       value = value.slice(0, 10);
     }
     e.target.value = value;
   });
   
-  // Prevenir pegado de más de 10 dígitos
   phoneInput.addEventListener('paste', function(e) {
     e.preventDefault();
     const pastedText = (e.clipboardData || window.clipboardData).getData('text');
@@ -1238,7 +1426,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 TRIGGUI - VERSIÓN SUPREMA KAYOSAMA 100%');
+console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS');
 </script>
 
 </body>
