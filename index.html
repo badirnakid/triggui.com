@@ -147,12 +147,12 @@ function trackEngagement(action) {
     50% { opacity: 0.7; }
   }
 
-  /* Cards de cristal MEJORADOS */
+  /* Cards de cristal PERFECTOS - SIN BLUR RARO */
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(10px); /* BLUR REDUCIDO */
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 24px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -291,6 +291,31 @@ function trackEngagement(action) {
     position: relative;
   }
 
+  /* PLAN MENSUAL CON COLOR - YA NO TRISTE */
+  .pricing-card-monthly {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    position: relative;
+  }
+  .pricing-card-monthly:hover {
+    border-color: rgba(16, 185, 129, 0.5);
+    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2);
+  }
+
+  /* Botón mensual con gradiente verde */
+  .btn-monthly {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    font-weight: 700;
+    border: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  .btn-monthly:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+  }
+
   /* Tarjeta de pricing con glow BRUTAL */
   .pricing-card-glow {
     position: relative;
@@ -335,7 +360,7 @@ function trackEngagement(action) {
   .store-badge-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* CENTRADO PERFECTO */
+    justify-content: center;
     gap: 2px;
     flex-wrap: wrap;
     height: 56px;
@@ -444,7 +469,7 @@ function trackEngagement(action) {
     box-shadow: 0 12px 40px rgba(255, 0, 128, 0.15);
   }
 
-  /* Botones flotantes */
+  /* Botones flotantes - FIX PARA IPHONE */
   .wa-float {
     position: fixed;
     bottom: 85px;
@@ -554,7 +579,7 @@ function trackEngagement(action) {
       Recibe <span class="text-white font-semibold">ideas que llegaron para ti</span> justo ahora.
     </p>
 
-    <!-- FORMULARIO -->
+    <!-- FORMULARIO PERFECTO - SIN BLUR RARO -->
     <div class="max-w-xl mx-auto mb-12">
       <div class="glass-card p-8">
         
@@ -788,21 +813,21 @@ function trackEngagement(action) {
         </a>
       </div>
 
-      <!-- Plan Mensual -->
-      <div class="glass-card p-8 hover:bg-white/5 transition-all order-1 md:order-2">
-        <h3 class="text-gray-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
+      <!-- Plan Mensual - CON COLOR VERDE -->
+      <div class="pricing-card-monthly p-8 hover:bg-white/5 transition-all order-1 md:order-2 rounded-3xl">
+        <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
         </h3>
         <div class="text-center mb-6">
           <span class="text-4xl font-bold text-white">$149</span>
-          <span class="text-gray-500 text-sm">/mes</span>
+          <span class="text-gray-400 text-sm">/mes</span>
         </div>
-        <p class="text-sm text-gray-400 mb-8 text-center">
+        <p class="text-sm text-gray-300 mb-8 text-center">
           Cancela cuando quieras.
         </p>
         <a 
           href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" 
-          class="block w-full py-3 text-center rounded-xl border-2 border-white/20 hover:bg-white hover:text-black font-bold text-sm transition-all"
+          class="btn-monthly block w-full py-3 text-center rounded-xl font-bold text-sm"
           onclick="trackConversion('mensual', 149)"
         >
           Empezar Ahora
@@ -1026,7 +1051,7 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=supremo_definitivo&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=divino_definitivo&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -1086,15 +1111,37 @@ function updateLiveCounter() {
 updateLiveCounter();
 setInterval(updateLiveCounter, 30000);
 
-// === DETECCIÓN DE WEBVIEW ===
-const isWebView = /wv|WebView/i.test(navigator.userAgent) || 
-                  (window.navigator.standalone === false);
+// === DETECCIÓN DE WEBVIEW MEJORADA - FIX IPHONE ===
+const isWebView = (function() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  
+  // Detectar WebView Android
+  if (/wv|WebView/i.test(ua)) return true;
+  
+  // Detectar Instagram/Facebook in-app browser
+  if (/Instagram|FBAN|FBAV/i.test(ua)) return true;
+  
+  // Detectar WebView iOS - PERO NO Safari normal
+  if (/iPhone|iPad|iPod/.test(ua)) {
+    // Si tiene Safari en UA y NO está en standalone, es Safari normal
+    if (/Safari/i.test(ua) && !window.navigator.standalone) {
+      return false; // ES SAFARI NORMAL
+    }
+    // Si NO tiene Safari o está en standalone, es WebView
+    if (!(/Safari/i.test(ua)) || window.navigator.standalone) {
+      return true; // ES WEBVIEW
+    }
+  }
+  
+  return false;
+})();
 
 if (isWebView) {
   const whatsappFloat = document.getElementById('whatsappFloat');
   const floatingCTA = document.getElementById('floatingCTA');
   if (whatsappFloat) whatsappFloat.style.display = 'none';
   if (floatingCTA) floatingCTA.style.display = 'none';
+  console.log('WebView detectado - Flotantes ocultados');
 }
 
 // === CTA FLOTANTE EN SCROLL ===
@@ -1161,7 +1208,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 TRIGGUI - VERSIÓN SUPREMA NIVEL DIOS ABSOLUTO');
+console.log('🔥 TRIGGUI - VERSIÓN DIVINA DEFINITIVA 100%');
 </script>
 
 </body>
