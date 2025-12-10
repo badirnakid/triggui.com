@@ -248,17 +248,17 @@ function trackEngagement(action) {
     padding: 12px;
   }
 
-  /* Badge de descuento PERFECTO - SIN CORTE */
+  /* Badge de descuento PERFECTO - SIN CORTE GARANTIZADO */
   .badge-save {
     position: absolute;
-    top: -14px;
+    top: -18px; /* MÁS ARRIBA */
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
     font-weight: 700;
-    font-size: 0.75rem;
-    padding: 6px 18px;
+    font-size: 0.7rem;
+    padding: 5px 14px;
     border-radius: 999px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
@@ -267,10 +267,17 @@ function trackEngagement(action) {
     overflow: visible !important;
   }
 
-  /* Contenedor de pricing con overflow visible */
+  /* Contenedor de pricing con overflow visible y PADDING EXTRA */
   .pricing-container {
     overflow: visible !important;
-    padding-top: 2rem;
+    padding-top: 2.5rem; /* MÁS PADDING */
+    position: relative;
+  }
+
+  /* Card destacada con overflow visible */
+  .pricing-card-featured {
+    overflow: visible !important;
+    position: relative;
   }
 
   /* Precio tachado más visible */
@@ -290,24 +297,26 @@ function trackEngagement(action) {
     transform: translateY(-50%) rotate(-8deg);
   }
 
-  /* APP STORE BADGES PERFECTOS - SIMÉTRICOS */
+  /* APP STORE BADGES PERFECTOS - EXACTAMENTE IGUALES */
   .store-badge-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
+    margin: 0 auto;
   }
   
   .store-badge {
-    display: inline-block;
-    height: 48px;
-    width: auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    height: 40px;
   }
   
   .store-badge img {
-    height: 48px;
+    height: 40px; /* ALTURA EXACTA IGUAL */
     width: auto;
     display: block;
   }
@@ -320,10 +329,10 @@ function trackEngagement(action) {
   /* Responsive adjustments */
   @media (max-width: 640px) {
     .store-badge {
-      height: 44px;
+      height: 38px;
     }
     .store-badge img {
-      height: 44px;
+      height: 38px;
     }
   }
 
@@ -422,7 +431,7 @@ function trackEngagement(action) {
 <div class="bg-grain"></div>
 
 <!-- HERO: El libro correcto. En el momento exacto. -->
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-16 px-4">
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
   <div class="spotlight"></div>
   
   <div class="relative z-10 text-center max-w-5xl mx-auto">
@@ -448,7 +457,7 @@ function trackEngagement(action) {
       <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <!-- APP STORE BADGES PERFECTOS -->
+    <!-- APP STORE BADGES PERFECTOS - IGUALES -->
     <div class="store-badge-container mb-8">
       <a href="https://apps.apple.com/mx/app/triggui/id6738892938" target="_blank" class="store-badge" onclick="trackEngagement('app_store')">
         <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/es-mx?size=250x83&amp;releaseDate=1734998400" alt="Descargar en App Store" />
@@ -458,17 +467,91 @@ function trackEngagement(action) {
       </a>
     </div>
 
-    <a 
-      href="#registro" 
-      class="btn-nuclear inline-block px-10 py-5 rounded-2xl text-lg font-bold shadow-2xl"
-      onclick="trackEngagement('hero_cta')"
-    >
-      Activar Mi Primera Idea
-    </a>
-
-    <p class="text-sm text-gray-500 mt-6">
-      <span id="numeroImpacto" class="text-fire font-bold">+8,324</span> ideas enviadas · Sin spam, sin compromiso
+    <p class="text-sm text-gray-500 mt-6 mb-8">
+      <span id="numeroImpacto" class="text-fire font-bold text-2xl">+6,187</span><br>
+      <span class="text-gray-400">libros abiertos juntos</span>
     </p>
+
+  </div>
+</section>
+
+<!-- SECCIÓN: Registro - PRIMERO (después del hero) -->
+<section id="registro" class="py-16 relative">
+  <div class="container-safe mx-auto max-w-xl">
+    
+    <div class="glass-card p-8 md:p-12">
+      
+      <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-4">
+        Empieza hoy
+      </h2>
+      <p class="text-gray-400 text-center mb-8">
+        Tu primera idea llega el próximo lunes. Sin spam. Sin compromiso.
+      </p>
+
+      <form onsubmit="handleCapture(event)" class="space-y-5">
+        
+        <div class="grid grid-cols-2 gap-4">
+          <input 
+            type="text" 
+            id="fname" 
+            placeholder="Nombre" 
+            required
+            class="input-god w-full px-5 py-4 rounded-xl"
+          />
+          <input 
+            type="text" 
+            id="lname" 
+            placeholder="Apellido" 
+            required
+            class="input-god w-full px-5 py-4 rounded-xl"
+          />
+        </div>
+
+        <input 
+          type="email" 
+          id="email" 
+          placeholder="Email" 
+          required
+          class="input-god w-full px-5 py-4 rounded-xl"
+        />
+
+        <div class="grid grid-cols-3 gap-4">
+          <select 
+            id="country" 
+            class="input-god select-god px-4 py-4 rounded-xl"
+          >
+            <option value="+52">🇲🇽 +52</option>
+            <option value="+1">🇺🇸 +1</option>
+            <option value="+34">🇪🇸 +34</option>
+            <option value="+54">🇦🇷 +54</option>
+            <option value="+57">🇨🇴 +57</option>
+            <option value="+51">🇵🇪 +51</option>
+            <option value="+56">🇨🇱 +56</option>
+          </select>
+          <input 
+            type="tel" 
+            id="phone" 
+            placeholder="5512345678" 
+            required
+            class="input-god col-span-2 px-5 py-4 rounded-xl"
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          id="submitBtn"
+          class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
+        >
+          Activar Mi Crecimiento
+        </button>
+
+      </form>
+
+      <p class="text-xs text-gray-500 text-center mt-6">
+        Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp. Cancela cuando quieras.
+      </p>
+
+    </div>
 
   </div>
 </section>
@@ -559,87 +642,6 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<!-- SECCIÓN: Registro -->
-<section id="registro" class="py-32 relative">
-  <div class="container-safe mx-auto max-w-xl">
-    
-    <div class="glass-card p-8 md:p-12">
-      
-      <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-4">
-        Empieza hoy
-      </h2>
-      <p class="text-gray-400 text-center mb-8">
-        Tu primera idea llega el próximo lunes. Sin spam. Sin compromiso.
-      </p>
-
-      <form onsubmit="handleCapture(event)" class="space-y-5">
-        
-        <div class="grid grid-cols-2 gap-4">
-          <input 
-            type="text" 
-            id="fname" 
-            placeholder="Nombre" 
-            required
-            class="input-god w-full px-5 py-4 rounded-xl"
-          />
-          <input 
-            type="text" 
-            id="lname" 
-            placeholder="Apellido" 
-            required
-            class="input-god w-full px-5 py-4 rounded-xl"
-          />
-        </div>
-
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="Email" 
-          required
-          class="input-god w-full px-5 py-4 rounded-xl"
-        />
-
-        <div class="grid grid-cols-3 gap-4">
-          <select 
-            id="country" 
-            class="input-god select-god px-4 py-4 rounded-xl"
-          >
-            <option value="+52">🇲🇽 +52</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+34">🇪🇸 +34</option>
-            <option value="+54">🇦🇷 +54</option>
-            <option value="+57">🇨🇴 +57</option>
-            <option value="+51">🇵🇪 +51</option>
-            <option value="+56">🇨🇱 +56</option>
-          </select>
-          <input 
-            type="tel" 
-            id="phone" 
-            placeholder="5512345678" 
-            required
-            class="input-god col-span-2 px-5 py-4 rounded-xl"
-          />
-        </div>
-
-        <button 
-          type="submit" 
-          id="submitBtn"
-          class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
-        >
-          Activar Mi Crecimiento
-        </button>
-
-      </form>
-
-      <p class="text-xs text-gray-500 text-center mt-6">
-        Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp. Cancela cuando quieras.
-      </p>
-
-    </div>
-
-  </div>
-</section>
-
 <!-- SECCIÓN: Pricing -->
 <section id="planes" class="py-24 relative">
   <div class="container-safe mx-auto">
@@ -675,12 +677,12 @@ function trackEngagement(action) {
       </div>
 
       <!-- Plan Anual - DESTACADO -->
-      <div class="glass-card p-8 relative bg-gradient-to-b from-white/5 to-transparent border-pink-500/50 transform md:scale-105 shadow-2xl">
+      <div class="pricing-card-featured glass-card p-8 relative bg-gradient-to-b from-white/5 to-transparent border-pink-500/50 transform md:scale-105 shadow-2xl">
         <div class="badge-save">
           MÁS POPULAR
         </div>
         
-        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-4">
+        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6">
           Anual Pro
         </h3>
         <div class="text-center mb-2">
@@ -927,7 +929,7 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_perfect_definitivo&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_mas_cabron&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -959,7 +961,7 @@ function updateLiveCounter() {
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(r => r.json())
     .then(d => {
-      const total = d.total || 8324;
+      const total = d.total || 6187;
       const activeNow = Math.max(1, Math.floor(total / 100));
       el.textContent = `${activeNow} lectores ahora`;
       
@@ -981,6 +983,8 @@ function updateLiveCounter() {
     })
     .catch(() => { 
       el.textContent = "127 lectores ahora";
+      const counterEl = document.getElementById("numeroImpacto");
+      if (counterEl) counterEl.textContent = "+6,187";
     });
 }
 updateLiveCounter();
@@ -1061,7 +1065,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 Triggui NIVEL DIOS PERFECTO loaded successfully');
+console.log('🔥 Triggui - EL MÁS CABRÓN QUE HA EXISTIDO JAMÁS');
 </script>
 
 </body>
