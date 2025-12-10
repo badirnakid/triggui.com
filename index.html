@@ -89,14 +89,14 @@ function trackEngagement(action) {
     font-size: clamp(2.5rem, 8vw, 7.5rem);
   }
   
-  /* SUBTÍTULO más chico - ARREGLADO */
+  /* SUBTÍTULO más chico */
   .hero-subtitle {
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: -0.04em;
     text-align: center;
     margin: 0;
-    font-size: clamp(1.75rem, 6vw, 5.5rem); /* 30% más chico que el título */
+    font-size: clamp(1.75rem, 6vw, 5.5rem);
   }
 
   /* Gradiente animado BRUTAL */
@@ -217,7 +217,7 @@ function trackEngagement(action) {
     border: 1.5px solid rgba(255, 255, 255, 0.1);
     color: white;
     font-weight: 500;
-    font-size: 16px; /* Previene zoom en iOS */
+    font-size: 16px;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .input-god:focus {
@@ -230,7 +230,7 @@ function trackEngagement(action) {
     color: rgba(255, 255, 255, 0.4);
   }
 
-  /* Select personalizado - MEJORADO */
+  /* Select personalizado */
   select.select-god {
     appearance: none;
     -webkit-appearance: none;
@@ -240,7 +240,7 @@ function trackEngagement(action) {
     background-size: 14px;
     padding-right: 40px;
     cursor: pointer;
-    font-size: 16px; /* Previene zoom en iOS */
+    font-size: 16px;
   }
   select.select-god option {
     background-color: #1a1a1a;
@@ -248,10 +248,10 @@ function trackEngagement(action) {
     padding: 12px;
   }
 
-  /* Badge de descuento PERFECTO - SIN CORTE GARANTIZADO */
+  /* Badge de descuento PERFECTO */
   .badge-save {
     position: absolute;
-    top: -18px; /* MÁS ARRIBA */
+    top: -18px;
     left: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
@@ -267,20 +267,19 @@ function trackEngagement(action) {
     overflow: visible !important;
   }
 
-  /* Contenedor de pricing con overflow visible y PADDING EXTRA */
+  /* Contenedor de pricing con overflow visible */
   .pricing-container {
     overflow: visible !important;
-    padding-top: 2.5rem; /* MÁS PADDING */
+    padding-top: 2.5rem;
     position: relative;
   }
 
-  /* Card destacada con overflow visible */
   .pricing-card-featured {
     overflow: visible !important;
     position: relative;
   }
 
-  /* Precio tachado más visible */
+  /* Precio tachado */
   .price-strike {
     position: relative;
     color: #9ca3af;
@@ -297,28 +296,38 @@ function trackEngagement(action) {
     transform: translateY(-50%) rotate(-8deg);
   }
 
-  /* APP STORE BADGES PERFECTOS - EXACTAMENTE IGUALES */
+  /* APP STORE BADGES PERFECTOS - DEL CÓDIGO QUE MANDASTE */
   .store-badge-container {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 16px;
+    justify-center: center;
+    gap: 2px;
     flex-wrap: wrap;
+    height: 56px;
     margin: 0 auto;
   }
   
   .store-badge {
+    height: 100%;
     display: inline-flex;
     align-items: center;
-    justify-content: center;
+    border-radius: 12px;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    height: 40px;
   }
   
   .store-badge img {
-    height: 40px; /* ALTURA EXACTA IGUAL */
+    height: 100%;
     width: auto;
     display: block;
+  }
+
+  /* Ajustes específicos para cada badge */
+  .store-badge.apple img {
+    transform: scale(0.78);
+  }
+
+  .store-badge.google img {
+    transform: scale(1.18);
   }
   
   .store-badge:hover {
@@ -326,17 +335,65 @@ function trackEngagement(action) {
     opacity: 0.9;
   }
 
-  /* Responsive adjustments */
+  /* Responsive */
   @media (max-width: 640px) {
-    .store-badge {
-      height: 38px;
-    }
-    .store-badge img {
-      height: 38px;
+    .store-badge-container {
+      height: 52px;
     }
   }
 
-  /* Testimonial cards perfeccionados */
+  /* Badge live contador */
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2rem;
+  }
+
+  .pulse-dot {
+    position: relative;
+    width: 8px;
+    height: 8px;
+  }
+
+  .pulse-dot::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #10b981;
+    border-radius: 50%;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+
+  /* Testimonial cards */
   .testimonial-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -408,12 +465,11 @@ function trackEngagement(action) {
     padding-right: 1.5rem;
   }
 
-  /* Smooth scroll mejorado */
+  /* Smooth scroll */
   html {
     scroll-padding-top: 80px;
   }
 
-  /* Prevenir layout shift */
   img {
     display: block;
     max-width: 100%;
@@ -430,128 +486,116 @@ function trackEngagement(action) {
 <!-- Background Effects -->
 <div class="bg-grain"></div>
 
-<!-- HERO: El libro correcto. En el momento exacto. -->
+<!-- HERO SECTION -->
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
   <div class="spotlight"></div>
   
   <div class="relative z-10 text-center max-w-5xl mx-auto">
     
+    <!-- LIVE BADGE ARRIBA -->
+    <div class="live-badge">
+      <span class="pulse-dot"></span>
+      <span id="liveCounter">127 lectores ahora</span>
+    </div>
+
     <!-- TÍTULO JERARQUIZADO PERFECTO -->
     <h1 class="hero-title text-white mb-4">
       El libro correcto.
     </h1>
-    <h2 class="hero-subtitle text-fire">
+    <h2 class="hero-subtitle text-fire mb-8">
       En el momento exacto.
     </h2>
 
-    <p class="text-xl md:text-2xl text-gray-400 mt-8 mb-6 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
       No más libros sin terminar.<br>
       Recibe <span class="text-white font-semibold">ideas que llegaron para ti</span> justo ahora.
     </p>
 
-    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-12">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-      </span>
-      <span id="liveCounter">127 lectores ahora</span>
+    <!-- FORMULARIO -->
+    <div class="max-w-xl mx-auto mb-12">
+      <div class="glass-card p-8">
+        
+        <form onsubmit="handleCapture(event)" class="space-y-5">
+          
+          <div class="grid grid-cols-2 gap-4">
+            <input 
+              type="text" 
+              id="fname" 
+              placeholder="Nombre" 
+              required
+              class="input-god w-full px-5 py-4 rounded-xl"
+            />
+            <input 
+              type="text" 
+              id="lname" 
+              placeholder="Apellido" 
+              required
+              class="input-god w-full px-5 py-4 rounded-xl"
+            />
+          </div>
+
+          <input 
+            type="email" 
+            id="email" 
+            placeholder="Email" 
+            required
+            class="input-god w-full px-5 py-4 rounded-xl"
+          />
+
+          <div class="grid grid-cols-3 gap-4">
+            <select 
+              id="country" 
+              class="input-god select-god px-4 py-4 rounded-xl"
+            >
+              <option value="+52">🇲🇽 +52</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+34">🇪🇸 +34</option>
+              <option value="+54">🇦🇷 +54</option>
+              <option value="+57">🇨🇴 +57</option>
+              <option value="+51">🇵🇪 +51</option>
+              <option value="+56">🇨🇱 +56</option>
+            </select>
+            <input 
+              type="tel" 
+              id="phone" 
+              placeholder="5512345678" 
+              required
+              class="input-god col-span-2 px-5 py-4 rounded-xl"
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            id="submitBtn"
+            class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
+          >
+            Activar Mi Crecimiento
+          </button>
+
+        </form>
+
+        <p class="text-xs text-gray-500 text-center mt-6">
+          Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp. Cancela cuando quieras.
+        </p>
+
+      </div>
     </div>
 
-    <!-- APP STORE BADGES PERFECTOS - IGUALES -->
+    <!-- APP STORE BADGES PERFECTOS -->
+    <p class="text-sm text-gray-400 mb-4">O descarga la app gratis</p>
     <div class="store-badge-container mb-8">
-      <a href="https://apps.apple.com/mx/app/triggui/id6738892938" target="_blank" class="store-badge" onclick="trackEngagement('app_store')">
-        <img src="https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/es-mx?size=250x83&amp;releaseDate=1734998400" alt="Descargar en App Store" />
+      <a href="https://apps.apple.com/mx/app/triggui/id6738892938" target="_blank" class="store-badge apple" onclick="trackEngagement('app_store')">
+        <img src="./downloadappstore.png" alt="Descargar en App Store" loading="lazy" />
       </a>
-      <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" class="store-badge" onclick="trackEngagement('play_store')">
-        <img src="https://play.google.com/intl/en_us/badges/static/images/badges/es-419_badge_web_generic.png" alt="Disponible en Google Play" />
+      <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" class="store-badge google" onclick="trackEngagement('play_store')">
+        <img src="./getitonplaystore.png" alt="Disponible en Google Play" loading="lazy" />
       </a>
     </div>
 
-    <p class="text-sm text-gray-500 mt-6 mb-8">
+    <p class="text-sm text-gray-500 mt-8">
       <span id="numeroImpacto" class="text-fire font-bold text-2xl">+6,187</span><br>
       <span class="text-gray-400">libros abiertos juntos</span>
     </p>
-
-  </div>
-</section>
-
-<!-- SECCIÓN: Registro - PRIMERO (después del hero) -->
-<section id="registro" class="py-16 relative">
-  <div class="container-safe mx-auto max-w-xl">
-    
-    <div class="glass-card p-8 md:p-12">
-      
-      <h2 class="text-3xl md:text-4xl font-black text-white text-center mb-4">
-        Empieza hoy
-      </h2>
-      <p class="text-gray-400 text-center mb-8">
-        Tu primera idea llega el próximo lunes. Sin spam. Sin compromiso.
-      </p>
-
-      <form onsubmit="handleCapture(event)" class="space-y-5">
-        
-        <div class="grid grid-cols-2 gap-4">
-          <input 
-            type="text" 
-            id="fname" 
-            placeholder="Nombre" 
-            required
-            class="input-god w-full px-5 py-4 rounded-xl"
-          />
-          <input 
-            type="text" 
-            id="lname" 
-            placeholder="Apellido" 
-            required
-            class="input-god w-full px-5 py-4 rounded-xl"
-          />
-        </div>
-
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="Email" 
-          required
-          class="input-god w-full px-5 py-4 rounded-xl"
-        />
-
-        <div class="grid grid-cols-3 gap-4">
-          <select 
-            id="country" 
-            class="input-god select-god px-4 py-4 rounded-xl"
-          >
-            <option value="+52">🇲🇽 +52</option>
-            <option value="+1">🇺🇸 +1</option>
-            <option value="+34">🇪🇸 +34</option>
-            <option value="+54">🇦🇷 +54</option>
-            <option value="+57">🇨🇴 +57</option>
-            <option value="+51">🇵🇪 +51</option>
-            <option value="+56">🇨🇱 +56</option>
-          </select>
-          <input 
-            type="tel" 
-            id="phone" 
-            placeholder="5512345678" 
-            required
-            class="input-god col-span-2 px-5 py-4 rounded-xl"
-          />
-        </div>
-
-        <button 
-          type="submit" 
-          id="submitBtn"
-          class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
-        >
-          Activar Mi Crecimiento
-        </button>
-
-      </form>
-
-      <p class="text-xs text-gray-500 text-center mt-6">
-        Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp. Cancela cuando quieras.
-      </p>
-
-    </div>
 
   </div>
 </section>
@@ -840,7 +884,7 @@ function trackEngagement(action) {
     </p>
 
     <a 
-      href="#registro" 
+      href="#planes" 
       class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl"
       onclick="trackEngagement('footer_cta')"
     >
@@ -877,7 +921,7 @@ function trackEngagement(action) {
 </a>
 
 <a 
-  href="#registro" 
+  href="#planes" 
   class="cta-float"
   id="floatingCTA"
   onclick="trackEngagement('floating_cta')"
@@ -929,7 +973,7 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_mas_cabron&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=perfecto_definitivo&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -965,7 +1009,6 @@ function updateLiveCounter() {
       const activeNow = Math.max(1, Math.floor(total / 100));
       el.textContent = `${activeNow} lectores ahora`;
       
-      // Animar contador principal
       const counterEl = document.getElementById("numeroImpacto");
       if (counterEl) {
         let cur = 0;
@@ -1001,7 +1044,7 @@ if (isWebView) {
   if (floatingCTA) floatingCTA.style.display = 'none';
 }
 
-// === CTA FLOTANTE EN SCROLL (OPTIMIZADO) ===
+// === CTA FLOTANTE EN SCROLL ===
 let scrollTimer;
 let lastScrollY = 0;
 
@@ -1043,7 +1086,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// === INTERSECTION OBSERVER PARA ANIMACIONES ===
+// === INTERSECTION OBSERVER ===
 const observerOptions = {
   threshold: 0.1,
   rootMargin: '0px 0px -50px 0px'
@@ -1065,7 +1108,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 Triggui - EL MÁS CABRÓN QUE HA EXISTIDO JAMÁS');
+console.log('🔥 TRIGGUI - VERSIÓN PERFECTA DEFINITIVA NIVEL DIOS 100%');
 </script>
 
 </body>
