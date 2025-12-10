@@ -53,23 +53,22 @@ function trackEngagement(action) {
     background-color: #000000 !important;
     color: #FFFFFF;
     overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: transparent;
   }
 
-  /* HERO TITLE - Lock inicial para evitar CLS */
+  /* HERO TITLE - Responsive perfecto */
   .hero-title {
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: -0.04em;
     text-align: center;
     margin: 0;
-    font-size: 3.5rem;
+    font-size: clamp(2.5rem, 8vw, 7.5rem);
   }
-  @media (min-width: 640px) { .hero-title { font-size: 5rem; } }
-  @media (min-width: 768px) { .hero-title { font-size: 6.5rem; } }
-  @media (min-width: 1024px) { .hero-title { font-size: 7.5rem; } }
 
   /* Gradiente animado BRUTAL */
   .text-fire {
@@ -149,6 +148,7 @@ function trackEngagement(action) {
     font-weight: 700;
     border: none;
     overflow: hidden;
+    cursor: pointer;
     box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7);
     animation: nuclear-pulse 2s infinite;
   }
@@ -182,12 +182,13 @@ function trackEngagement(action) {
     }
   }
 
-  /* Input fields perfectos */
+  /* Input fields perfectos - RESPONSIVE */
   .input-god {
     background: rgba(255, 255, 255, 0.05);
     border: 1.5px solid rgba(255, 255, 255, 0.1);
     color: white;
     font-weight: 500;
+    font-size: 16px; /* Previene zoom en iOS */
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .input-god:focus {
@@ -200,7 +201,7 @@ function trackEngagement(action) {
     color: rgba(255, 255, 255, 0.4);
   }
 
-  /* Select personalizado */
+  /* Select personalizado - MEJORADO */
   select.select-god {
     appearance: none;
     -webkit-appearance: none;
@@ -210,6 +211,7 @@ function trackEngagement(action) {
     background-size: 14px;
     padding-right: 40px;
     cursor: pointer;
+    font-size: 16px; /* Previene zoom en iOS */
   }
   select.select-god option {
     background-color: #1a1a1a;
@@ -217,13 +219,22 @@ function trackEngagement(action) {
     padding: 12px;
   }
 
-  /* Badge de descuento mejorado */
+  /* Badge de descuento mejorado - SIN CORTE */
   .badge-save {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
     background: linear-gradient(135deg, #10b981 0%, #059669 100%);
     color: white;
     font-weight: 700;
+    font-size: 0.75rem;
+    padding: 6px 16px;
+    border-radius: 999px;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    white-space: nowrap;
+    z-index: 10;
   }
 
   /* Precio tachado más visible */
@@ -239,15 +250,14 @@ function trackEngagement(action) {
     width: 100%;
     height: 2px;
     background: #ef4444;
-    transform: rotate(-8deg);
+    transform: rotate(-5deg);
   }
 
-  /* WhatsApp float mejorado */
-  .wa-float {
+  /* Floating WhatsApp Button */
+  .floating-whatsapp {
     position: fixed;
-    bottom: 90px;
+    bottom: 24px;
     right: 24px;
-    z-index: 9999;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -255,248 +265,316 @@ function trackEngagement(action) {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-    transition: all 0.3s;
-    animation: wa-pulse 2.5s infinite;
+    box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
   }
-  .wa-float:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-  }
-  @keyframes wa-pulse {
-    0%, 100% {
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
-                  0 0 0 0 rgba(37, 211, 102, 0.7);
-    }
-    50% {
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
-                  0 0 0 15px rgba(37, 211, 102, 0);
-    }
+  .floating-whatsapp:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 32px rgba(37, 211, 102, 0.6);
   }
 
-  /* CTA flotante */
-  .cta-float {
+  /* Floating CTA Button */
+  .floating-cta {
     position: fixed;
-    bottom: 24px;
+    bottom: 96px;
     right: 24px;
-    z-index: 9999;
-    background: white;
-    color: black;
-    font-weight: 800;
-    padding: 14px 28px;
-    border-radius: 50px;
-    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.3);
+    padding: 14px 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #FF0080 0%, #FF4500 100%);
+    color: white;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 8px 24px rgba(255, 0, 128, 0.4);
+    z-index: 9998;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(20px) scale(0.9);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    white-space: nowrap;
   }
-  .cta-float.visible {
+  .floating-cta.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0) scale(1);
   }
-  .cta-float:hover {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.4);
-  }
-
-  /* Badge live con mejor animación */
-  .live-badge {
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    backdrop-filter: blur(10px);
-  }
-  .live-dot {
-    width: 8px;
-    height: 8px;
-    background: #10b981;
-    border-radius: 50%;
-    animation: live-pulse 2s ease-in-out infinite;
-  }
-  @keyframes live-pulse {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1.3);
-    }
+  .floating-cta:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 32px rgba(255, 0, 128, 0.6);
   }
 
-  /* Testimoniales más elegantes */
+  /* Testimonial cards */
   .testimonial-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(16px);
     border-radius: 20px;
-    padding: 24px;
+    padding: 28px;
     transition: all 0.3s;
   }
   .testimonial-card:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 0, 128, 0.2);
     transform: translateY(-4px);
   }
 
-  /* Efecto de aparición suave */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+  /* RESPONSIVE FIXES CRÍTICOS */
+  @media (max-width: 640px) {
+    .hero-title {
+      line-height: 1;
+      letter-spacing: -0.02em;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+    
+    .badge-save {
+      font-size: 0.65rem;
+      padding: 5px 12px;
+      top: -10px;
     }
-  }
-  .animate-in {
-    animation: fadeInUp 0.8s ease-out;
+    
+    .floating-whatsapp {
+      width: 56px;
+      height: 56px;
+      bottom: 20px;
+      right: 20px;
+    }
+    
+    .floating-cta {
+      bottom: 84px;
+      right: 20px;
+      font-size: 0.8rem;
+      padding: 12px 20px;
+    }
   }
 
-  /* Mejora de legibilidad */
-  ::selection {
-    background: #FF0080;
-    color: white;
+  /* Container safety */
+  .container-safe {
+    width: 100%;
+    max-width: 100vw;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: hidden;
+  }
+
+  /* Grid responsivo seguro */
+  @media (max-width: 768px) {
+    .grid-safe {
+      grid-template-columns: 1fr !important;
+      gap: 1rem !important;
+    }
+  }
+
+  /* Store badges container - PERFECTAMENTE ALINEADO */
+  .store-badges-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    height: 56px;
+    margin: 0 auto;
+  }
+  
+  .store-badge {
+    height: 56px;
+    width: auto;
+    display: block;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .store-badge:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Ajuste fino para que ambos badges sean exactamente del mismo tamaño visible */
+  .store-badge-apple {
+    transform: scale(0.78);
+    transform-origin: center;
+  }
+  
+  .store-badge-google {
+    transform: scale(1.18);
+    transform-origin: center;
+  }
+
+  @media (max-width: 640px) {
+    .store-badges-container {
+      gap: 8px;
+      height: 48px;
+    }
+    
+    .store-badge {
+      height: 48px;
+    }
+  }
+
+  /* Live badge - posicionamiento perfecto */
+  .live-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #10b981;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 640px) {
+    .live-badge {
+      top: 12px;
+      right: 12px;
+      font-size: 0.7rem;
+      padding: 6px 12px;
+    }
   }
 </style>
 </head>
-<body class="antialiased">
+<body>
 
+<!-- GRAIN TEXTURE -->
 <div class="bg-grain"></div>
 
-<!-- WhatsApp Float -->
-<a href="https://wa.me/5215532394017" target="_blank" class="wa-float" id="whatsappFloat" onclick="trackEngagement('whatsapp_float')">
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+<!-- FLOATING WHATSAPP -->
+<a 
+  href="https://wa.me/5215532394017" 
+  target="_blank" 
+  class="floating-whatsapp" 
+  id="whatsappFloat"
+  aria-label="WhatsApp"
+  onclick="trackEngagement('whatsapp_float_clicked')"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="28" height="28" fill="white">
+    <path d="M16 .5C7.6.5.5 7.6.5 16c0 2.8.7 5.6 2.1 8L.5 31.5l7.7-2.1c2.3 1.3 5 2 7.8 2 8.4 0 15.5-7.1 15.5-15.5S24.4.5 16 .5zm0 28.2c-2.4 0-4.8-.6-6.9-1.9l-.5-.3-4.6 1.3 1.3-4.5-.3-.5c-1.3-2.1-2-4.5-2-7 0-7.2 5.8-13 13-13s13 5.8 13 13-5.8 13-13 13zm7.4-9.7c-.4-.2-2.4-1.2-2.8-1.3-.4-.2-.7-.2-1 .2-.3.4-1.1 1.3-1.3 1.5-.2.2-.5.3-.9.1s-1.9-.7-3.6-2.2c-1.3-1.1-2.2-2.4-2.5-2.8-.2-.4 0-.6.1-.8.1-.1.3-.4.4-.6.1-.2.2-.4.3-.6.1-.2 0-.5 0-.7s-.9-2.3-1.2-3.1c-.3-.8-.7-.7-1-.7h-.9c-.3 0-.7.1-1 .5-.3.4-1.3 1.2-1.3 3s1.3 3.5 1.5 3.7c.2.2 2.6 4 6.4 5.6.9.4 1.6.6 2.2.8.9.3 1.7.2 2.3.1.7-.1 2.4-1 2.7-2 .3-1 .3-1.8.2-2-.2-.4-.3-.8-.5z"/>
   </svg>
 </a>
 
-<!-- CTA Flotante -->
-<a href="#registro" class="cta-float" id="floatingCTA" onclick="trackEngagement('cta_float')">
-  🔥 Quiero Activarme
+<!-- FLOATING CTA -->
+<a 
+  href="#registro" 
+  class="floating-cta" 
+  id="floatingCTA"
+  onclick="trackEngagement('floating_cta_clicked')"
+>
+  💌 Empieza Hoy
 </a>
 
 <!-- HERO SECTION -->
-<header class="relative min-h-screen flex flex-col items-center justify-center px-6 py-20 z-10">
+<section id="registro" class="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
   <div class="spotlight"></div>
   
-  <div class="max-w-6xl mx-auto text-center relative z-10 animate-in">
+  <div class="relative z-10 w-full container-safe mx-auto text-center">
     
-    <!-- Badge Live -->
-    <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full live-badge mb-8">
-      <span class="live-dot"></span>
-      <span class="text-xs font-semibold text-green-400 tracking-wider uppercase" id="liveCounter">127 lectores ahora</span>
+    <!-- Live Badge -->
+    <div class="live-badge" id="liveBadge">
+      🟢 <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <!-- Título Principal -->
-    <h1 class="hero-title text-white mb-6 leading-none">
-      El libro<br>
-      <span class="text-fire">correcto.</span>
+    <!-- Hero Title -->
+    <h1 class="hero-title mb-8">
+      EL LIBRO<br>
+      <span class="text-fire">CORRECTO.</span><br>
+      EN EL MOMENTO<br>
+      <span class="text-fire">EXACTO.</span>
     </h1>
 
-    <h2 class="hero-title text-white opacity-90 mb-10 leading-none" style="font-size: 0.5em;">
-      En el momento<br>
-      <span class="text-fire">exacto.</span>
-    </h2>
-
-    <!-- Subtítulo poderoso -->
-    <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-4 font-medium leading-relaxed">
-      No más libros empolvándose en tu buró.<br>
-      <span class="text-white font-semibold">Ideas que llegaron para ti. Justo ahora. En tu WhatsApp.</span>
+    <p class="text-lg md:text-2xl text-gray-400 mb-6 max-w-2xl mx-auto leading-relaxed px-4">
+      No más libros sin terminar.<br>
+      <span class="text-white font-semibold">Recibe ideas que llegaron para ti justo ahora.</span><br>
+      En tu WhatsApp.
     </p>
 
-    <p class="text-sm text-gray-500 mb-12 max-w-xl mx-auto">
-      La sincronicidad no es coincidencia. Es que alguien leyó por ti<br>y supo exactamente qué necesitabas escuchar hoy.
-    </p>
-
-    <!-- Formulario -->
-    <div id="registro" class="w-full max-w-lg mx-auto glass-card p-8 relative">
-      <div class="absolute -inset-1 bg-gradient-to-r from-pink-600/20 via-purple-600/20 to-pink-600/20 rounded-[25px] blur-xl opacity-50"></div>
-      
-      <form class="relative flex flex-col gap-4" onsubmit="return handleCapture(event)">
+    <!-- FORMULARIO -->
+    <div class="max-w-lg mx-auto px-4">
+      <form onsubmit="return handleCapture(event)" class="space-y-3 mb-8">
         
-        <div class="flex gap-3">
-          <input 
-            type="text" 
-            id="fname" 
-            placeholder="Nombre" 
-            required 
-            class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
+        <!-- Nombre y Apellido -->
+        <div class="grid grid-cols-2 gap-3">
+          <input
+            type="text"
+            id="fname"
+            name="firstname"
+            placeholder="Nombre"
+            class="input-god px-5 py-3.5 rounded-2xl w-full"
+            required
           />
-          <input 
-            type="text" 
-            id="lname" 
-            placeholder="Apellido" 
-            required 
-            class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
+          <input
+            type="text"
+            id="lname"
+            name="lastname"
+            placeholder="Apellido"
+            class="input-god px-5 py-3.5 rounded-2xl w-full"
+            required
           />
         </div>
 
-        <input 
-          type="email" 
-          id="email" 
-          placeholder="tu@email.com" 
-          required 
-          class="input-god w-full rounded-2xl px-5 py-4 text-base font-medium"
+        <!-- Email -->
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="tu@email.com"
+          class="input-god px-5 py-3.5 rounded-2xl w-full"
+          required
         />
-
-        <div class="flex gap-3 w-full">
+        
+        <!-- Teléfono -->
+        <div class="grid grid-cols-5 gap-3">
           <select 
-            id="country" 
-            class="select-god input-god w-28 shrink-0 rounded-2xl px-4 py-4 text-base font-bold"
+            id="country"
+            name="countryCode"
+            class="input-god select-god px-3 py-3.5 rounded-2xl col-span-2"
           >
-            <option value="+52">🇲🇽 +52</option>
+            <option value="+52" selected>🇲🇽 +52</option>
             <option value="+1">🇺🇸 +1</option>
             <option value="+34">🇪🇸 +34</option>
-            <option value="+57">🇨🇴 +57</option>
             <option value="+54">🇦🇷 +54</option>
+            <option value="+57">🇨🇴 +57</option>
             <option value="+56">🇨🇱 +56</option>
             <option value="+51">🇵🇪 +51</option>
-            <option value="+506">🇨🇷 +506</option>
-            <option value="+44">🇬🇧 +44</option>
           </select>
-          <input 
-            type="tel" 
-            id="phone" 
-            placeholder="WhatsApp (sin espacios)" 
-            pattern="[0-9]+" 
-            required 
-            class="input-god flex-1 min-w-0 rounded-2xl px-5 py-4 text-base font-medium"
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="5512345678"
+            class="input-god px-5 py-3.5 rounded-2xl col-span-3"
+            required
           />
         </div>
 
         <button 
-          id="submitBtn" 
+          id="submitBtn"
           type="submit" 
-          class="btn-nuclear w-full rounded-2xl py-5 text-lg font-bold tracking-wide relative z-10 mt-2"
-          aria-label="Activar mi primera dosis de lectura gratis"
+          class="btn-nuclear w-full px-8 py-4 rounded-2xl text-lg font-bold"
         >
-          🔥 Activar Mi Primera Dosis
+          📬 Activar Mi Primera Dosis
         </button>
-        
-        <p class="text-xs text-center text-gray-500 mt-3 font-medium flex items-center justify-center gap-4">
-          <span>✓ Sin tarjeta</span>
-          <span>✓ Sin spam</span>
-          <span>✓ Cancela fácil</span>
-        </p>
       </form>
+
+      <p class="text-xs text-gray-500 mb-8">
+        ✓ Gratis · ✓ Cancela cuando quieras · ✓ Sin spam
+      </p>
     </div>
 
-    <!-- App Store Badges -->
-    <div class="flex items-center justify-center gap-4 mt-12 h-14 opacity-70 hover:opacity-100 transition-opacity duration-500">
+    <!-- STORE BADGES - PERFECTAMENTE ALINEADOS -->
+    <p class="text-sm text-gray-500 mb-4">
+      O descarga la app gratis
+    </p>
+    <div class="store-badges-container mb-8">
       <a 
         href="https://apps.apple.com/mx/app/triggui/id6752839016" 
         target="_blank" 
         rel="noopener"
-        class="h-full flex items-center transition-all duration-300 hover:scale-105"
         onclick="trackEngagement('app_store_download')"
       >
         <img 
           src="./downloadappstore.png" 
           alt="Descargar en App Store" 
-          class="h-full w-auto object-contain"
+          class="store-badge store-badge-apple"
           loading="lazy"
         />
       </a>
@@ -504,267 +582,286 @@ function trackEngagement(action) {
         href="https://play.google.com/store/apps/details?id=com.triggui.app" 
         target="_blank" 
         rel="noopener"
-        class="h-full flex items-center transition-all duration-300 hover:scale-105"
         onclick="trackEngagement('google_play_download')"
       >
         <img 
           src="./getitonplaystore.png" 
           alt="Descargar en Google Play" 
-          class="h-full w-auto object-contain"
+          class="store-badge store-badge-google"
           loading="lazy"
         />
       </a>
     </div>
 
-  </div>
-</header>
-
-<!-- SECCIÓN: POR QUÉ PAGAR -->
-<section class="py-32 relative bg-gradient-to-b from-black via-gray-900/20 to-black">
-  <div class="max-w-6xl mx-auto px-6">
-    
-    <div class="text-center mb-20">
-      <h2 class="text-4xl md:text-6xl font-black mb-6 text-white leading-tight">
-        La App es Gratis.<br>
-        <span class="text-fire">El Hábito es Premium.</span>
-      </h2>
-      <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-        Explorar es adictivo. <span class="text-white font-semibold">Recibir ideas sin buscarlas es transformador.</span>
+    <div class="max-w-2xl mx-auto border-t border-gray-800 pt-8 px-4">
+      <p class="text-base text-gray-400 leading-relaxed">
+        Te llegan en el momento exacto.<br>
+        Los lunes cuando más las necesitas.<br>
+        Y sorpresas en la semana.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 gap-8 items-stretch">
+  </div>
+</section>
+
+<!-- SECCIÓN: CÓMO FUNCIONA -->
+<section class="py-24 relative bg-gradient-to-b from-black via-gray-900/20 to-black">
+  <div class="container-safe mx-auto px-6">
+    
+    <h2 class="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+      CÓMO <span class="text-fire">FUNCIONA</span>
+    </h2>
+    <p class="text-center text-gray-400 mb-16 max-w-2xl mx-auto">
+      No es un algoritmo. Es <strong class="text-white">curación humana</strong> basada en cronobiología y sincronicidad.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto grid-safe">
       
-      <!-- Opción 1: App -->
-      <div class="glass-card p-10 flex flex-col border-l-4 border-gray-700">
-        <div class="flex items-start justify-between mb-6">
-          <div>
-            <h3 class="text-2xl font-bold text-gray-200 mb-2">La Brújula</h3>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">App · Gratis</p>
-          </div>
-          <span class="text-4xl">🧭</span>
-        </div>
-        
-        <ul class="space-y-5 text-base text-gray-400 mb-8 flex-1">
-          <li class="flex gap-3 items-start">
-            <span class="text-gray-600 text-xl shrink-0">•</span>
-            <span><strong class="text-gray-300">Exploras</strong> cuando TÚ quieres</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-gray-600 text-xl shrink-0">•</span>
-            <span><strong class="text-gray-300">Eliges</strong> tu estado emocional</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-gray-600 text-xl shrink-0">•</span>
-            <span><strong class="text-gray-300">Descubres</strong> autores nuevos</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-gray-600 text-xl shrink-0">•</span>
-            <span>Depende de <strong class="text-gray-300">tu voluntad</strong></span>
-          </li>
-        </ul>
-        
-        <div class="text-sm font-bold text-gray-500 border border-gray-700 px-4 py-2 rounded-xl inline-block">
-          Perfecta para curiosos
-        </div>
+      <div class="glass-card p-8 text-center">
+        <div class="text-5xl mb-4">🧭</div>
+        <h3 class="text-xl font-bold mb-3 text-white">1. Lunes 6 AM</h3>
+        <p class="text-gray-400 leading-relaxed">
+          La página exacta que necesitas para arrancar la semana difícil.
+        </p>
       </div>
 
-      <!-- Opción 2: WhatsApp (DESTACADA) -->
-      <div class="glass-card p-10 flex flex-col border-l-4 border-pink-500 bg-gradient-to-br from-pink-950/20 to-transparent relative transform md:-translate-y-4 shadow-2xl">
-        <div class="absolute top-6 right-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg">
-          RECOMENDADO
-        </div>
-        
-        <div class="flex items-start justify-between mb-6">
-          <div>
-            <h3 class="text-2xl font-bold text-white mb-2">El Empujón</h3>
-            <p class="text-xs text-pink-400 uppercase tracking-widest font-bold">WhatsApp · Premium</p>
-          </div>
-          <span class="text-4xl">⚡</span>
-        </div>
-        
-        <ul class="space-y-5 text-base text-gray-200 mb-8 flex-1">
-          <li class="flex gap-3 items-start">
-            <span class="text-green-400 font-bold text-xl shrink-0">✓</span>
-            <span><strong class="text-white">Lunes 6 AM:</strong> El mensaje exacto para arrancar tu semana</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-green-400 font-bold text-xl shrink-0">✓</span>
-            <span><strong class="text-white">Curaduría Humana:</strong> Alguien leyó 700 libros para que tú no tengas que hacerlo</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-green-400 font-bold text-xl shrink-0">✓</span>
-            <span><strong class="text-white">Sincronicidad:</strong> La idea que necesitabas llega sin que la busques</span>
-          </li>
-          <li class="flex gap-3 items-start">
-            <span class="text-green-400 font-bold text-xl shrink-0">✓</span>
-            <span><strong class="text-white">Cero Fricción:</strong> No abres nada. El crecimiento te encuentra</span>
-          </li>
-        </ul>
-        
-        <div class="text-sm font-bold text-white bg-pink-600 px-4 py-2 rounded-xl inline-block shadow-lg">
-          Para los que actúan
-        </div>
+      <div class="glass-card p-8 text-center">
+        <div class="text-5xl mb-4">⚡</div>
+        <h3 class="text-xl font-bold mb-3 text-white">2. Martes 9 AM</h3>
+        <p class="text-gray-400 leading-relaxed">
+          Segunda dosis para sostener el impulso cuando más lo necesitas.
+        </p>
+      </div>
+
+      <div class="glass-card p-8 text-center">
+        <div class="text-5xl mb-4">❤️</div>
+        <h3 class="text-xl font-bold mb-3 text-white">3. Sorpresas</h3>
+        <p class="text-gray-400 leading-relaxed">
+          2 mensajes más en la semana. Cuando menos lo esperas, justo lo que necesitas.
+        </p>
       </div>
 
     </div>
 
-    <p class="text-center text-gray-500 mt-12 text-sm max-w-2xl mx-auto">
-      <strong class="text-white">Spoiler:</strong> Nadie cancela. Porque cuando algo te cambia la vida cada lunes, $149 al mes es un chiste.
+    <p class="text-center text-sm text-gray-500 mt-12 max-w-xl mx-auto">
+      La diferencia no es tecnología.<br>
+      Es que <strong class="text-white">alguien SÍ sabe</strong> qué libro necesitas hoy.
     </p>
 
   </div>
 </section>
 
-<!-- SECCIÓN: PRECIOS -->
-<section id="planes" class="py-32 relative">
-  <div class="max-w-7xl mx-auto px-6">
+<!-- SECCIÓN: PLANES -->
+<section id="planes" class="py-24 relative bg-gradient-to-b from-black via-purple-900/10 to-black">
+  <div class="container-safe mx-auto px-6">
     
-    <div class="text-center mb-20">
-      <h2 class="text-4xl md:text-6xl font-black mb-6 text-white">
-        Menos que un Libro.<br>
-        <span class="text-fire">Más Valor que 100.</span>
-      </h2>
-      <p class="text-gray-400 text-lg">
-        Cancela cuando quieras. Pero no querrás.
-      </p>
-    </div>
-    
-    <div class="grid md:grid-cols-3 gap-8 items-end max-w-5xl mx-auto">
+    <h2 class="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+      ELIGE TU <span class="text-fire">PLAN</span>
+    </h2>
+    <p class="text-center text-gray-400 mb-16">
+      Cancela cuando quieras. Sin preguntas.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto grid-safe">
       
       <!-- Plan Mensual -->
-      <div class="glass-card p-8 hover:scale-105 transition-all duration-300">
-        <div class="text-center">
-          <h3 class="text-gray-400 font-bold uppercase text-xs tracking-widest mb-6">Mensual</h3>
-          <div class="mb-8">
-            <span class="text-5xl font-black text-white">$149</span>
-            <span class="text-gray-500 text-sm">/mes</span>
-          </div>
-          <p class="text-sm text-gray-400 mb-8">
-            Compromiso cero. Flexibilidad total.
+      <div class="glass-card p-8 flex flex-col">
+        <h3 class="text-2xl font-bold mb-4 text-white">Triggui itch</h3>
+        
+        <ul class="text-sm text-gray-300 space-y-3 mb-8 flex-grow">
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>2 páginas lunes y martes</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>2 sorpresas en semana</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>Timing perfecto por WhatsApp</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>App gratis incluida</span>
+          </li>
+        </ul>
+        
+        <div class="mb-6">
+          <p class="text-3xl font-bold text-white mb-1">
+            <span class="price-strike text-xl">$149</span>
+            $100 / mes
           </p>
-          <a 
-            href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000" 
-            class="block w-full py-4 rounded-xl border-2 border-white/20 text-white font-bold text-base hover:bg-white hover:text-black transition-all duration-300"
-            onclick="trackConversion('mensual', 149)"
-          >
-            Probar Ahora
-          </a>
-        </div>
-      </div>
-
-      <!-- Plan Anual (DESTACADO) -->
-      <div class="glass-card p-10 relative border-2 border-pink-500/50 transform scale-105 md:scale-110 z-10 shadow-2xl bg-gradient-to-b from-pink-950/30 to-transparent">
-        <div class="absolute -top-4 left-0 right-0 flex justify-center">
-          <span class="badge-save text-xs px-5 py-2 rounded-full uppercase tracking-widest">
-            Ahorras $298
-          </span>
+          <p class="text-xs text-pink-400 font-bold">
+            🎁 Precio de lanzamiento
+          </p>
         </div>
         
-        <div class="text-center pt-2">
-          <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4">Anual Pro</h3>
-          <div class="mb-2">
-            <span class="text-6xl font-black text-white">$1,490</span>
-            <span class="text-gray-400 text-sm">/año</span>
-          </div>
-          <div class="flex items-center justify-center gap-3 mb-8">
-            <span class="price-strike text-base">$1,788</span>
-            <span class="badge-save text-xs px-3 py-1 rounded-lg">2 meses gratis</span>
-          </div>
-          
-          <ul class="text-sm text-gray-300 space-y-3 mb-8 text-left">
-            <li class="flex gap-2 items-center">
-              <span class="text-pink-500">✓</span>
-              <span>Precio congelado 365 días</span>
-            </li>
-            <li class="flex gap-2 items-center">
-              <span class="text-pink-500">✓</span>
-              <span>Te olvidas del pago mensual</span>
-            </li>
-            <li class="flex gap-2 items-center">
-              <span class="text-pink-500">✓</span>
-              <span>Inversión única en ti</span>
-            </li>
-          </ul>
-          
-          <a 
-            href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-            class="btn-nuclear block w-full py-5 rounded-xl text-center text-base font-bold shadow-xl relative z-10"
-            onclick="trackConversion('anual', 1490)"
-          >
-            Comprometerme Conmigo
-          </a>
+        <a 
+          href="https://donate.stripe.com/fZueVf0Jg5UgeCQ8n324000"
+          class="btn-nuclear px-6 py-3.5 rounded-xl text-center block"
+          onclick="trackConversion('plan_itch_clicked', 100); return true;"
+        >
+          Empezar ahora
+        </a>
+        
+        <p class="text-xs text-gray-500 mt-4 text-center">
+          Cancela cuando quieras
+        </p>
+      </div>
+
+      <!-- Plan Anual - MÁS POPULAR -->
+      <div class="glass-card p-8 flex flex-col border-2 border-green-500/40 relative">
+        
+        <!-- Badge SIN CORTE -->
+        <div class="badge-save">
+          MÁS POPULAR
         </div>
+        
+        <h3 class="text-2xl font-bold mb-4 text-white mt-2">Triggui Anual</h3>
+        
+        <ul class="text-sm text-gray-300 space-y-3 mb-8 flex-grow">
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>Todo lo de Itch mensual</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span><strong class="text-white">Ahorras $588 al año</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>Solo $100/mes efectivo</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-green-400 shrink-0">✓</span>
+            <span>Olvídate por 12 meses</span>
+          </li>
+        </ul>
+        
+        <div class="mb-6">
+          <p class="text-3xl font-bold text-white mb-1">
+            $1,199 / año
+          </p>
+          <p class="text-xs text-green-400 font-bold">
+            💰 Ahorras casi $600
+          </p>
+        </div>
+        
+        <a 
+          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
+          class="btn-nuclear px-6 py-3.5 rounded-xl text-center block"
+          onclick="trackConversion('plan_anual_clicked', 1199); return true;"
+        >
+          Pagar anual
+        </a>
+        
+        <p class="text-xs text-gray-500 mt-4 text-center">
+          El plan más inteligente
+        </p>
       </div>
 
       <!-- Plan Lifetime -->
-      <div class="glass-card p-8 opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-300">
-        <div class="text-center">
-          <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-6">Lifetime</h3>
-          <div class="mb-8">
-            <span class="text-5xl font-black text-white">$4,999</span>
-            <span class="text-gray-500 text-sm block mt-1">pago único</span>
-          </div>
-          <p class="text-sm text-gray-400 mb-8">
-            Una vez. Para siempre.<br>
-            Para los visionarios.
+      <div class="glass-card p-8 flex flex-col">
+        <h3 class="text-2xl font-bold mb-4 text-white">Triggui Lifetime</h3>
+        
+        <ul class="text-sm text-gray-300 space-y-3 mb-8 flex-grow">
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 shrink-0">✓</span>
+            <span>Todo lo de Itch mensual</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 shrink-0">✓</span>
+            <span><strong class="text-white">Para siempre</strong></span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 shrink-0">✓</span>
+            <span>Nunca vuelves a pagar</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-purple-400 shrink-0">✓</span>
+            <span>Inversión única</span>
+          </li>
+        </ul>
+        
+        <div class="mb-6">
+          <p class="text-3xl font-bold text-white mb-1">
+            $3,999
           </p>
-          <a 
-            href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-            class="block w-full py-4 rounded-xl border-2 border-purple-500/30 text-purple-300 font-bold text-base hover:bg-purple-500/20 transition-all duration-300"
-            onclick="trackConversion('lifetime', 4999)"
-          >
-            Ser Fundador
-          </a>
+          <p class="text-xs text-purple-400 font-bold">
+            ♾️ De por vida
+          </p>
         </div>
+        
+        <a 
+          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
+          class="btn-nuclear px-6 py-3.5 rounded-xl text-center block"
+          onclick="trackConversion('plan_lifetime_clicked', 3999); return true;"
+        >
+          Pago único
+        </a>
+        
+        <p class="text-xs text-gray-500 mt-4 text-center">
+          La mejor inversión
+        </p>
       </div>
 
     </div>
 
-    <p class="text-center text-gray-500 mt-16 text-sm max-w-xl mx-auto leading-relaxed">
-      💳 Procesado por Stripe · 🔒 100% Seguro · ✓ Garantía de reembolso 30 días
-    </p>
+    <div class="mt-16 text-center">
+      <p class="text-sm text-gray-400">
+        <span class="text-pink-400 font-bold">Solo para 100 personas este mes.</span><br>
+        Después sube a $149/mes.
+      </p>
+    </div>
 
   </div>
 </section>
 
-<!-- SECCIÓN: TESTIMONIALES -->
-<section class="py-32 border-t border-gray-900/50">
-  <div class="max-w-5xl mx-auto px-6">
+<!-- SECCIÓN: TESTIMONIOS -->
+<section class="py-24 relative bg-gradient-to-b from-black via-gray-900/20 to-black">
+  <div class="container-safe mx-auto px-6">
     
+    <h2 class="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+      QUÉ DICEN QUIENES<br>
+      <span class="text-fire">YA ESTÁN</span>
+    </h2>
+
     <div class="text-center mb-16">
-      <h2 class="text-3xl md:text-5xl font-black mb-4 text-white">
-        Lo Que Dicen Los Que<br>
-        <span class="text-fire">Ya Crecieron</span>
-      </h2>
+      <div class="text-5xl md:text-6xl font-black text-fire mb-2" id="numeroImpacto">
+        +8,324
+      </div>
+      <p class="text-sm text-gray-400">
+        libros abiertos juntos. Vamos por 100 millones.
+      </p>
     </div>
 
-    <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="max-w-4xl mx-auto space-y-6">
       
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start mb-4">
+        <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             M
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "El lunes pasado me llegó un fragmento de <strong class="text-white">Invicto</strong> justo cuando estaba a punto de renunciar a un proyecto. No fue casualidad. Fue <strong class="text-white">exactamente lo que necesitaba</strong> leer en ese momento."
+              "El lunes me llegó justo el libro que necesitaba. <strong class="text-white">¿Cómo supiste?</strong> Es como si me conocieras."
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
-              Mariana R. · Directora de Marketing
+              María R. · Directora de Logística
             </p>
           </div>
         </div>
       </div>
 
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start mb-4">
+        <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             C
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Tengo 47 libros en mi buró sin leer. <strong class="text-white">Triggui es lo único que realmente leo</strong> y aplico. Los lunes me vuelvo mejor emprendedor. $149 es risa comparado con el valor."
+              "Tengo 47 libros en mi buró sin leer. <strong class="text-white">Triggui es lo único que realmente leo</strong> y aplico. Los lunes me vuelvo mejor emprendedor."
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Carlos D. · Fundador Startup
@@ -774,13 +871,13 @@ function trackEngagement(action) {
       </div>
 
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start mb-4">
+        <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             A
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "No tengo tiempo de leer libros completos. Pero <strong class="text-white">cada mensaje de Triggui me da una herramienta concreta</strong> que uso el mismo día. Es como tener un mentor en mi bolsillo."
+              "No tengo tiempo de leer libros completos. Pero <strong class="text-white">cada mensaje me da una herramienta concreta</strong> que uso el mismo día."
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Ana L. · Ejecutiva Corporativa
@@ -790,13 +887,13 @@ function trackEngagement(action) {
       </div>
 
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start mb-4">
+        <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
             J
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "La sincronicidad es real. <strong class="text-white">Las ideas llegan justo cuando las necesito</strong>, no cuando las busco. Eso no es algoritmo, es intuición humana curada."
+              "La sincronicidad es real. <strong class="text-white">Las ideas llegan justo cuando las necesito</strong>, no cuando las busco."
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Jorge M. · Coach de Liderazgo
@@ -812,9 +909,9 @@ function trackEngagement(action) {
 
 <!-- SECCIÓN: CTA FINAL -->
 <section class="py-32 text-center relative bg-gradient-to-b from-black via-gray-900/30 to-black">
-  <div class="max-w-4xl mx-auto px-6">
+  <div class="container-safe mx-auto px-6">
     
-    <h2 class="text-4xl sm:text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
+    <h2 class="text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
       DEJA DE<br>
       <span class="text-fire">ACUMULAR.</span><br>
       EMPIEZA A<br>
@@ -828,20 +925,20 @@ function trackEngagement(action) {
 
     <a 
       href="#registro" 
-      class="btn-nuclear inline-block px-10 sm:px-12 py-5 sm:py-6 rounded-2xl text-lg sm:text-xl font-bold shadow-2xl"
+      class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl"
       onclick="trackEngagement('footer_cta')"
     >
       Activar Mi Crecimiento
     </a>
 
-    <div class="mt-16 text-xs text-gray-600 space-y-3">
+    <div class="mt-16 text-xs text-gray-600 space-y-2">
       <p>© 2025 Triggui Inc. · Hecho con 🖤 en México</p>
-      <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-gray-500">
-        <a href="#" class="hover:text-white transition-colors duration-300">Privacidad</a>
-        <span class="hidden sm:inline">·</span>
-        <a href="#" class="hover:text-white transition-colors duration-300">Términos</a>
-        <span class="hidden sm:inline">·</span>
-        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="hover:text-white transition-colors duration-300">
+      <div class="flex items-center justify-center gap-4 text-gray-500">
+        <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+        <span>·</span>
+        <a href="#" class="hover:text-white transition-colors">Términos</a>
+        <span>·</span>
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="hover:text-white transition-colors">
           Dona
         </a>
       </div>
@@ -871,7 +968,7 @@ async function handleCapture(event) {
 
   if(!fname || !lname || !email || !phone) {
     btn.innerHTML = '⚠️ Completa todos los campos';
-    btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+    btn.style.background = '#ef4444';
     setTimeout(() => { 
       btn.innerHTML = original; 
       btn.disabled = false; 
@@ -887,7 +984,7 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_ultimate&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=god_level_perfect&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
@@ -901,7 +998,7 @@ async function handleCapture(event) {
   } catch (error) {
     console.error('Error:', error);
     btn.innerHTML = '❌ Error. Intenta de nuevo';
-    btn.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+    btn.style.background = '#ef4444';
     setTimeout(() => { 
       btn.innerHTML = original; 
       btn.disabled = false; 
@@ -916,15 +1013,35 @@ function updateLiveCounter() {
   const el = document.getElementById("liveCounter");
   if (!el) return;
   
-  let count = 127;
-  const variation = () => Math.floor(Math.random() * 5) - 2;
-  
-  setInterval(() => {
-    count = Math.max(95, Math.min(150, count + variation()));
-    el.textContent = `${count} lectores ahora`;
-  }, 5000);
+  fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
+    .then(r => r.json())
+    .then(d => {
+      const total = d.total || 8324;
+      const activeNow = Math.max(1, Math.floor(total / 100));
+      el.textContent = `${activeNow} lectores ahora`;
+      
+      // Animar contador principal
+      const counterEl = document.getElementById("numeroImpacto");
+      if (counterEl) {
+        let cur = 0;
+        const tgt = total;
+        const inc = Math.ceil(tgt / 40);
+        
+        const step = () => {
+          cur += inc;
+          if (cur >= tgt) cur = tgt;
+          counterEl.textContent = "+" + cur.toLocaleString("es-MX");
+          if (cur < tgt) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+    })
+    .catch(() => { 
+      el.textContent = "127 lectores ahora";
+    });
 }
 updateLiveCounter();
+setInterval(updateLiveCounter, 30000);
 
 // === DETECCIÓN DE WEBVIEW ===
 const isWebView = /wv|WebView/i.test(navigator.userAgent) || 
@@ -995,7 +1112,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 Triggui God Level loaded successfully');
+console.log('🔥 Triggui God Level PERFECT loaded successfully');
 </script>
 
 </body>
