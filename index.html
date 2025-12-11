@@ -1108,7 +1108,7 @@ function trackEngagement(action) {
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span><strong>Mientras Triggui exista</strong></span>
+            <span><strong>Acceso de por vida</strong></span>
           </li>
         </ul>
         <a 
@@ -1139,49 +1139,19 @@ function trackEngagement(action) {
             Apoyo Libre
           </h3>
           <p class="text-gray-400 text-sm mb-6">
-            Elige la cantidad que quieras aportar.<br>
-            <span class="text-white font-semibold">Tu generosidad mantiene Triggui vivo.</span>
+            Tu generosidad mantiene Triggui vivo.<br>
+            <span class="text-white font-semibold">Elige la cantidad que quieras aportar.</span>
           </p>
         </div>
 
-        <div class="mb-6">
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-white text-2xl font-bold">$</span>
-            <input 
-              type="number" 
-              id="customAmount" 
-              placeholder="500" 
-              min="50"
-              step="50"
-              class="input-god flex-1 px-5 py-4 rounded-xl text-center text-2xl font-bold"
-              style="appearance: textfield;"
-            />
-            <span class="text-gray-400 text-sm">MXN</span>
-          </div>
-          <div class="flex flex-wrap gap-2 justify-center">
-            <button onclick="setAmount(100)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
-              $100
-            </button>
-            <button onclick="setAmount(250)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
-              $250
-            </button>
-            <button onclick="setAmount(500)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
-              $500
-            </button>
-            <button onclick="setAmount(1000)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
-              $1,000
-            </button>
-          </div>
-        </div>
-
-        <ul class="text-sm text-gray-300 space-y-2 mb-6">
+        <ul class="text-sm text-gray-300 space-y-2 mb-8">
           <li class="flex gap-2 items-center justify-center">
             <span class="text-yellow-400">✓</span> 
             <span>Sin compromiso. Sin suscripción.</span>
           </li>
           <li class="flex gap-2 items-center justify-center">
             <span class="text-yellow-400">✓</span> 
-            <span>Apoyas la cultura de lectura en México.</span>
+            <span>Apoyas la cultura de lectura.</span>
           </li>
           <li class="flex gap-2 items-center justify-center">
             <span class="text-yellow-400">✓</span> 
@@ -1189,14 +1159,14 @@ function trackEngagement(action) {
           </li>
         </ul>
 
-        <button 
-          onclick="handleDonation()"
-          class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all"
+        <a 
+          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
+          class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all hover:scale-102"
           style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;"
-          id="donateBtn"
+          onclick="trackConversion('donation_click', 0)"
         >
           Aportar Ahora
-        </button>
+        </a>
 
         <p class="text-center text-xs text-gray-500 mt-4">
           Gracias por mantener la chispa encendida 🔥
@@ -1559,41 +1529,6 @@ if (phoneInput) {
     const numbers = pastedText.replace(/\D/g, '').slice(0, 10);
     e.target.value = numbers;
   });
-}
-
-// === DONACIÓN PERSONALIZADA ===
-function setAmount(amount) {
-  const input = document.getElementById('customAmount');
-  if (input) {
-    input.value = amount;
-  }
-}
-
-function handleDonation() {
-  const input = document.getElementById('customAmount');
-  const btn = document.getElementById('donateBtn');
-  
-  if (!input || !btn) return;
-  
-  const amount = parseInt(input.value) || 0;
-  
-  if (amount < 50) {
-    btn.innerHTML = '⚠️ Monto mínimo: $50 MXN';
-    btn.style.background = '#ef4444';
-    setTimeout(() => {
-      btn.innerHTML = 'Aportar Ahora';
-      btn.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
-    }, 2500);
-    return;
-  }
-  
-  // Track donation intent
-  if (typeof trackConversion !== 'undefined') {
-    trackConversion('donation_custom', amount);
-  }
-  
-  // Redirect to Stripe donation link
-  window.location.href = 'https://donate.stripe.com/9B66oJ8bI1E02U85aR24001';
 }
 
 // === SMOOTH SCROLL ===
