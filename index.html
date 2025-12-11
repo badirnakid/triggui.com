@@ -385,6 +385,17 @@ function trackEngagement(action) {
     color: white;
     padding: 12px;
   }
+
+  /* Remove number input arrows */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 </style>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
@@ -899,7 +910,7 @@ function trackEngagement(action) {
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
       
       <div class="glass-card p-8">
-        <div class="text-5xl mb-6">💡</div>
+        <div class="text-5xl mb-6">🏋️</div>
         <h3 class="text-2xl font-bold text-white mb-4">El problema</h3>
         <p class="text-gray-400 leading-relaxed">
           No es falta de ganas. No es falta de tiempo. 
@@ -1097,7 +1108,7 @@ function trackEngagement(action) {
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span><strong>Acceso eterno</strong></span>
+            <span><strong>Mientras Triggui exista</strong></span>
           </li>
         </ul>
         <a 
@@ -1107,6 +1118,89 @@ function trackEngagement(action) {
         >
           Ser Socio Vitalicio
         </a>
+      </div>
+
+    </div>
+
+    <!-- SECCIÓN: SÓLO QUIERO APOYAR EL PROYECTO -->
+    <div class="max-w-2xl mx-auto mt-20">
+      
+      <div class="text-center mb-8">
+        <p class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-2">
+          Sólo quiero apoyar el proyecto
+        </p>
+        <div class="w-16 h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-auto"></div>
+      </div>
+
+      <div class="glass-card p-8 border-2 border-yellow-500/30 hover:border-yellow-500/50 transition-all">
+        <div class="text-center mb-6">
+          <div class="text-5xl mb-4">💝</div>
+          <h3 class="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2">
+            Apoyo Libre
+          </h3>
+          <p class="text-gray-400 text-sm mb-6">
+            Elige la cantidad que quieras aportar.<br>
+            <span class="text-white font-semibold">Tu generosidad mantiene Triggui vivo.</span>
+          </p>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="text-white text-2xl font-bold">$</span>
+            <input 
+              type="number" 
+              id="customAmount" 
+              placeholder="500" 
+              min="50"
+              step="50"
+              class="input-god flex-1 px-5 py-4 rounded-xl text-center text-2xl font-bold"
+              style="appearance: textfield;"
+            />
+            <span class="text-gray-400 text-sm">MXN</span>
+          </div>
+          <div class="flex flex-wrap gap-2 justify-center">
+            <button onclick="setAmount(100)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
+              $100
+            </button>
+            <button onclick="setAmount(250)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
+              $250
+            </button>
+            <button onclick="setAmount(500)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
+              $500
+            </button>
+            <button onclick="setAmount(1000)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
+              $1,000
+            </button>
+          </div>
+        </div>
+
+        <ul class="text-sm text-gray-300 space-y-2 mb-6">
+          <li class="flex gap-2 items-center justify-center">
+            <span class="text-yellow-400">✓</span> 
+            <span>Sin compromiso. Sin suscripción.</span>
+          </li>
+          <li class="flex gap-2 items-center justify-center">
+            <span class="text-yellow-400">✓</span> 
+            <span>Apoyas la cultura de lectura en México.</span>
+          </li>
+          <li class="flex gap-2 items-center justify-center">
+            <span class="text-yellow-400">✓</span> 
+            <span>100% transparencia. Cada peso cuenta.</span>
+          </li>
+        </ul>
+
+        <button 
+          onclick="handleDonation()"
+          class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all"
+          style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;"
+          id="donateBtn"
+        >
+          Aportar Ahora
+        </button>
+
+        <p class="text-center text-xs text-gray-500 mt-4">
+          Gracias por mantener la chispa encendida 🔥
+        </p>
       </div>
 
     </div>
@@ -1465,6 +1559,41 @@ if (phoneInput) {
     const numbers = pastedText.replace(/\D/g, '').slice(0, 10);
     e.target.value = numbers;
   });
+}
+
+// === DONACIÓN PERSONALIZADA ===
+function setAmount(amount) {
+  const input = document.getElementById('customAmount');
+  if (input) {
+    input.value = amount;
+  }
+}
+
+function handleDonation() {
+  const input = document.getElementById('customAmount');
+  const btn = document.getElementById('donateBtn');
+  
+  if (!input || !btn) return;
+  
+  const amount = parseInt(input.value) || 0;
+  
+  if (amount < 50) {
+    btn.innerHTML = '⚠️ Monto mínimo: $50 MXN';
+    btn.style.background = '#ef4444';
+    setTimeout(() => {
+      btn.innerHTML = 'Aportar Ahora';
+      btn.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
+    }, 2500);
+    return;
+  }
+  
+  // Track donation intent
+  if (typeof trackConversion !== 'undefined') {
+    trackConversion('donation_custom', amount);
+  }
+  
+  // Redirect to Stripe donation link
+  window.location.href = 'https://donate.stripe.com/9B66oJ8bI1E02U85aR24001';
 }
 
 // === SMOOTH SCROLL ===
