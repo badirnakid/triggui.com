@@ -740,6 +740,17 @@ function trackEngagement(action) {
   
   <div class="relative z-10 text-center max-w-5xl mx-auto">
     
+    <!-- LOGO CENTRADO -->
+    <div class="mb-8">
+      <img 
+        src="./trigguiletrasblanco.png" 
+        alt="Triggui" 
+        class="h-8 md:h-10 w-auto mx-auto opacity-90"
+        style="max-width: 200px;"
+        loading="eager"
+      />
+    </div>
+    
     <div class="live-badge hover-lift">
       <span class="pulse-dot"></span>
       <span id="liveCounter">127 lectores ahora</span>
@@ -801,6 +812,24 @@ function trackEngagement(action) {
               <option value="+57">🇨🇴 +57</option>
               <option value="+51">🇵🇪 +51</option>
               <option value="+56">🇨🇱 +56</option>
+              <option value="+593">🇪🇨 +593</option>
+              <option value="+58">🇻🇪 +58</option>
+              <option value="+506">🇨🇷 +506</option>
+              <option value="+507">🇵🇦 +507</option>
+              <option value="+503">🇸🇻 +503</option>
+              <option value="+502">🇬🇹 +502</option>
+              <option value="+504">🇭🇳 +504</option>
+              <option value="+505">🇳🇮 +505</option>
+              <option value="+591">🇧🇴 +591</option>
+              <option value="+595">🇵🇾 +595</option>
+              <option value="+598">🇺🇾 +598</option>
+              <option value="+55">🇧🇷 +55</option>
+              <option value="+1">🇨🇦 +1</option>
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+49">🇩🇪 +49</option>
+              <option value="+33">🇫🇷 +33</option>
+              <option value="+39">🇮🇹 +39</option>
+              <option value="+351">🇵🇹 +351</option>
             </select>
             <input 
               type="tel" 
@@ -954,54 +983,8 @@ function trackEngagement(action) {
 
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
-      <!-- Plan Anual -->
-      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative bg-gradient-to-b from-white/8 to-white/3 border-pink-500/60 transform md:scale-110 shadow-2xl order-2 md:order-1">
-        <div class="badge-save">
-          MÁS POPULAR
-        </div>
-        
-        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6">
-          Anual Pro
-        </h3>
-        <div class="text-center mb-2">
-          <span class="text-5xl font-black text-white">$1,490</span>
-          <span class="text-gray-400 text-sm">/año</span>
-        </div>
-        <div class="text-center mb-6">
-          <span class="price-strike text-sm inline-block mr-2">$1,788</span>
-          <span class="text-green-400 text-xs font-bold bg-green-900/40 px-3 py-1 rounded-full">
-            Ahorras $298
-          </span>
-        </div>
-        <ul class="text-sm text-gray-200 space-y-2 mb-8">
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>1 mensaje semanal por WhatsApp</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>La frase. El impulso. 30 segundos.</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>App complementaria incluida</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>Cancela cuando quieras</span>
-          </li>
-        </ul>
-        <a 
-          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-          class="btn-nuclear block w-full py-4 text-center rounded-xl font-bold shadow-xl"
-          onclick="trackConversion('anual', 1490)"
-        >
-          Quiero mi chispa semanal
-        </a>
-      </div>
-
       <!-- Plan Mensual -->
-      <div class="pricing-card-monthly p-8 hover:bg-white/5 transition-all order-1 md:order-2 rounded-3xl">
+      <div class="pricing-card-monthly p-8 hover:bg-white/5 transition-all order-1 rounded-3xl">
         <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
         </h3>
@@ -1036,6 +1019,56 @@ function trackEngagement(action) {
         </a>
       </div>
 
+      <!-- Plan Anual -->
+      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative bg-gradient-to-b from-white/8 to-white/3 border-pink-500/60 transform md:scale-110 shadow-2xl order-2">
+        <div class="badge-save">
+          MÁS POPULAR
+        </div>
+        
+        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6">
+          Anual Pro
+        </h3>
+        <div class="text-center mb-2">
+          <span class="text-5xl font-black text-white">$1,490</span>
+          <span class="text-gray-400 text-sm">/año</span>
+        </div>
+        <div class="text-center mb-6">
+          <span class="price-strike text-sm inline-block mr-2">$1,788</span>
+          <span class="text-green-400 text-xs font-bold bg-green-900/40 px-3 py-1 rounded-full">
+            Ahorras $298
+          </span>
+        </div>
+        <ul class="text-sm text-gray-200 space-y-2 mb-8">
+          <li class="flex gap-2 items-center">
+            <span class="text-pink-500 font-bold">✓</span> 
+            <span>1 mensaje semanal</span>
+          </li>
+          <li class="flex gap-2 items-center">
+            <span class="text-pink-500 font-bold">✓</span> 
+            <span>La chispa. 30 segundos.</span>
+          </li>
+          <li class="flex gap-2 items-center">
+            <span class="text-pink-500 font-bold">✓</span> 
+            <span>App incluida gratis</span>
+          </li>
+          <li class="flex gap-2 items-center">
+            <span class="text-pink-500 font-bold">✓</span> 
+            <span><strong>Precio congelado 1 año</strong></span>
+          </li>
+          <li class="flex gap-2 items-center">
+            <span class="text-pink-500 font-bold">✓</span> 
+            <span><strong>Ahorras $298 MXN</strong></span>
+          </li>
+        </ul>
+        <a 
+          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
+          class="btn-nuclear block w-full py-4 text-center rounded-xl font-bold shadow-xl"
+          onclick="trackConversion('anual', 1490)"
+        >
+          Quiero mi chispa semanal
+        </a>
+      </div>
+
       <!-- Plan Lifetime -->
       <div class="glass-card p-8 hover:bg-white/5 transition-all opacity-95 hover:opacity-100 order-3">
         <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
@@ -1048,19 +1081,23 @@ function trackEngagement(action) {
         <ul class="text-sm text-gray-300 space-y-2 mb-8">
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span>Pago único. Para siempre.</span>
+            <span>1 mensaje semanal</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span>Nunca más pagas</span>
+            <span>La chispa. 30 segundos.</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span>Acceso eterno</span>
+            <span>App incluida gratis</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span>La mejor inversión</span>
+            <span><strong>Nunca más pagas</strong></span>
+          </li>
+          <li class="flex gap-2 items-center">
+            <span class="text-purple-400 font-bold">✓</span> 
+            <span><strong>Acceso eterno</strong></span>
           </li>
         </ul>
         <a 
@@ -1185,6 +1222,16 @@ function trackEngagement(action) {
       Quiero mi chispa semanal
     </a>
 
+    <div class="mt-8">
+      <a 
+        href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
+        class="inline-block text-gray-500 hover:text-gray-300 transition-colors text-sm font-medium"
+        onclick="trackEngagement('donate_link')"
+      >
+        💝 Apoyar el proyecto
+      </a>
+    </div>
+
     <div class="mt-16 text-xs text-gray-600 space-y-4">
       <img 
         src="./trigguiletrasblanco.png" 
@@ -1197,10 +1244,6 @@ function trackEngagement(action) {
         <a href="#" class="hover:text-white transition-colors">Privacidad</a>
         <span>·</span>
         <a href="#" class="hover:text-white transition-colors">Términos</a>
-        <span>·</span>
-        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="hover:text-white transition-colors">
-          Dona
-        </a>
       </div>
     </div>
 
