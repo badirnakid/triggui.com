@@ -489,13 +489,19 @@ function trackEngagement(action) {
     padding-top: 2.5rem;
     position: relative;
   }
+  
+  /* CRITICAL FIX: Eliminar cualquier ::before/::after del contenedor */
+  .pricing-container::before,
+  .pricing-container::after {
+    content: none !important;
+    display: none !important;
+  }
 
   .pricing-card-featured {
     overflow: visible !important;
     position: relative;
   }
 
-  /* CRITICAL FIX: Clase específica que anula TODO conflicto */
   .pricing-card-monthly {
     background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%) !important;
     border: 1px solid rgba(0, 255, 136, 0.3) !important;
@@ -504,14 +510,24 @@ function trackEngagement(action) {
     border-radius: var(--triggui-radius-2xl);
     position: relative;
     overflow: hidden;
-    /* Anular completamente el transform de .glass-card */
     transform: none !important;
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
   
-  /* Anular el ::before de .glass-card para esta tarjeta */
+  /* Mantener el shine individual pero con timing más lento */
   .pricing-card-monthly::before {
-    display: none !important;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+    transition: left 0.8s ease;
+  }
+  
+  .pricing-card-monthly:hover::before {
+    left: 100%;
   }
   
   .pricing-card-monthly:hover {
@@ -558,7 +574,7 @@ function trackEngagement(action) {
     transform: translateY(-50%) rotate(-8deg);
   }
 </style>
-
+     
 <!-- ═══════════════════════════════════════════════════════════════════════
      💬 SECCIÓN 11: TESTIMONIALS
      Tarjetas de testimonios
