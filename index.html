@@ -487,30 +487,15 @@ function trackEngagement(action) {
     position: relative;
   }
 
-  /* CRITICAL FIX: Clase específica que anula TODO conflicto */
   .pricing-card-monthly {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%) !important;
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
-    backdrop-filter: var(--triggui-blur-md);
-    -webkit-backdrop-filter: var(--triggui-blur-md);
-    border-radius: var(--triggui-radius-2xl);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%);
+    border: 1px solid rgba(0, 255, 136, 0.3);
     position: relative;
-    overflow: hidden;
-    /* Anular completamente el transform de .glass-card */
-    transform: none !important;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
-  }
-  
-  /* Anular el ::before de .glass-card para esta tarjeta */
-  .pricing-card-monthly::before {
-    display: none !important;
   }
   
   .pricing-card-monthly:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(0, 189, 99, 0.08) 100%) !important;
-    border-color: rgba(0, 255, 136, 0.5) !important;
-    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2) !important;
-    transform: translateY(-8px) !important;
+    border-color: rgba(0, 255, 136, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
   }
 
   .pricing-card-glow {
@@ -1027,7 +1012,7 @@ function trackEngagement(action) {
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
       <!-- Plan Mensual -->
-      <div class="pricing-card-monthly p-8 order-1">
+      <div class="pricing-card-monthly glass-card p-8 hover:bg-white/5 transition-all order-1 rounded-3xl">
         <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
         </h3>
@@ -1594,7 +1579,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS - WHATSAPP PERSISTENCE ACTIVATED - ZERO FLICKER');
+console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS - WHATSAPP PERSISTENCE ACTIVATED');
 </script>
 
 </body>
