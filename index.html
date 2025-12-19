@@ -185,20 +185,22 @@ function trackEngagement(action) {
 <style id="typography">
   .hero-title {
     font-weight: 900;
-    line-height: 0.88;
+    line-height: 0.95;
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
     font-size: clamp(3rem, 10vw, 8.5rem);
+    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
   }
   
   .hero-subtitle {
     font-weight: 900;
-    line-height: 0.88;
+    line-height: 0.95;
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
     font-size: clamp(2rem, 8vw, 6.8rem);
+    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
   }
 
   .text-fire {
@@ -210,7 +212,7 @@ function trackEngagement(action) {
     animation: fire-move 4s ease infinite;
   }
 </style>
-
+     
 <!-- ═══════════════════════════════════════════════════════════════════════
      🎭 SECCIÓN 5: EFECTOS DE FONDO
      Texturas, gradientes, overlays
