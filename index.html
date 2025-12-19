@@ -491,11 +491,15 @@ function trackEngagement(action) {
     background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%);
     border: 1px solid rgba(0, 255, 136, 0.3);
     position: relative;
+    /* CRITICAL FIX: Anular el transform de .glass-card para evitar conflicto */
+    transform: none !important;
   }
   
   .pricing-card-monthly:hover {
     border-color: rgba(0, 255, 136, 0.5);
     box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
+    /* Solo aplicar transform aquí, sin conflicto */
+    transform: translateY(-8px) !important;
   }
 
   .pricing-card-glow {
@@ -535,7 +539,7 @@ function trackEngagement(action) {
     transform: translateY(-50%) rotate(-8deg);
   }
 </style>
-
+     
 <!-- ═══════════════════════════════════════════════════════════════════════
      💬 SECCIÓN 11: TESTIMONIALS
      Tarjetas de testimonios
