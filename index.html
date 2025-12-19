@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Triggui - La chispa que elimina la fricción de leer</title>
+<title>Triggui - Cuando el impulso llega, el libro ya te espera</title>
 
-<meta name="description" content="La chispa. La frase. El impulso. Una idea por semana. 30 segundos. Directo a tu WhatsApp. El libro correcto. El momento exacto." />
-<meta property="og:title" content="Triggui - La chispa que elimina la fricción de leer" />
-<meta property="og:description" content="30 segundos. Una idea semanal. El impulso que te hace empezar. El libro correcto. El momento exacto." />
+<meta name="description" content="No buscas el libro. El libro te encuentra. Directo a tu WhatsApp. Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto. 30 segundos que cambian tu semana." />
+<meta property="og:title" content="Triggui - La sabiduría que te espera en WhatsApp" />
+<meta property="og:description" content="El único lugar donde un mensaje sin leer es una promesa de conocimiento. Cuando el impulso llega, el libro ya está ahí." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:type" content="website" />
 <meta name="theme-color" content="#000000">
@@ -61,22 +61,22 @@ function trackEngagement(action) {
      ═══════════════════════════════════════════════════════════════════════ -->
 <style id="design-tokens">
   :root {
-    /* ── COLORES DE MARCA ── */
+    /* ── COLORES DE MARCA (REFINADOS PARA MAYOR PROFUNDIDAD) ── */
     --triggui-black: #000000;
     --triggui-white: #FFFFFF;
-    --triggui-accent-pink: #FF0080;
-    --triggui-accent-orange: #FF8C00;
+    --triggui-accent-pink: #FF0055; /* Más vibrante, tipo OLED */
+    --triggui-accent-orange: #FF5E00; /* Magma Surge */
     --triggui-accent-gold: #FFD700;
-    --triggui-accent-cyan: #30ffe4;
-    --triggui-green: #10b981;
-    --triggui-green-dark: #059669;
-    --triggui-red: #ef4444;
+    --triggui-accent-cyan: #00F2FF;
+    --triggui-green: #00FF88;
+    --triggui-green-dark: #00BD63;
+    --triggui-red: #FF3B30;
     
-    /* ── GRADIENTES ── */
-    --triggui-fire: linear-gradient(135deg, #FF0080 0%, #FF8C00 50%, #FFD700 100%);
-    --triggui-nuclear: linear-gradient(135deg, #FF0080 0%, #FF4500 100%);
-    --triggui-green-gradient: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    --triggui-purple: linear-gradient(135deg, #ff0080, #7928ca);
+    /* ── GRADIENTES (CINEMÁTICOS) ── */
+    --triggui-fire: linear-gradient(135deg, #FF0055 0%, #FF5E00 50%, #FFD700 100%);
+    --triggui-nuclear: linear-gradient(135deg, #FF0055 0%, #FF2E00 100%);
+    --triggui-green-gradient: linear-gradient(135deg, #00FF88 0%, #00BD63 100%);
+    --triggui-purple: linear-gradient(135deg, #FF0055, #7928CA);
     
     /* ── OPACIDADES ── */
     --triggui-white-3: rgba(255, 255, 255, 0.03);
@@ -97,21 +97,21 @@ function trackEngagement(action) {
     --triggui-radius-2xl: 24px;
     --triggui-radius-full: 9999px;
     
-    /* ── SOMBRAS ── */
+    /* ── SOMBRAS (CON DEPTH MEJORADO) ── */
     --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
     --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
     --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.28);
     --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.35);
-    --triggui-shadow-glow-pink: 0 0 20px rgba(255, 0, 128, 0.3);
-    --triggui-shadow-glow-green: 0 4px 12px rgba(16, 185, 129, 0.3);
+    --triggui-shadow-glow-pink: 0 0 25px rgba(255, 0, 85, 0.4);
+    --triggui-shadow-glow-green: 0 4px 15px rgba(0, 255, 136, 0.35);
     
     /* ── BLUR ── */
-    --triggui-blur-md: blur(10px);
-    --triggui-blur-lg: blur(12px);
+    --triggui-blur-md: blur(12px);
+    --triggui-blur-lg: blur(16px);
     
     /* ── TRANSICIONES ── */
     --triggui-transition-fast: 0.15s ease;
-    --triggui-transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --triggui-transition-base: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 </style>
 
@@ -166,8 +166,11 @@ function trackEngagement(action) {
     background: var(--triggui-black);
     z-index: 9999;
     opacity: 1;
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.5s ease-out;
     pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .page-loader.loaded {
     opacity: 0;
@@ -181,21 +184,21 @@ function trackEngagement(action) {
      ═══════════════════════════════════════════════════════════════════════ -->
 <style id="typography">
   .hero-title {
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    font-size: clamp(2.5rem, 8vw, 7.5rem);
+    font-size: clamp(3rem, 10vw, 8.5rem);
   }
   
   .hero-subtitle {
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    font-size: clamp(1.75rem, 6vw, 5.5rem);
+    font-size: clamp(2rem, 8vw, 6.8rem);
   }
 
   .text-fire {
@@ -221,25 +224,25 @@ function trackEngagement(action) {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.03;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
   }
 
   .spotlight {
     position: absolute;
-    top: -50%;
+    top: -40%;
     left: 50%;
     transform: translateX(-50%);
-    width: 150%;
-    height: 150%;
+    width: 180%;
+    height: 180%;
     background: radial-gradient(ellipse at center, 
-      rgba(255, 0, 128, 0.2) 0%, 
-      rgba(255, 140, 0, 0.1) 30%,
-      transparent 60%);
+      rgba(255, 0, 85, 0.18) 0%, 
+      rgba(255, 94, 0, 0.08) 35%,
+      transparent 65%);
     pointer-events: none;
     z-index: 1;
-    animation: spotlight-pulse 8s ease-in-out infinite;
+    animation: spotlight-pulse 10s ease-in-out infinite;
   }
 </style>
 
@@ -268,7 +271,7 @@ function trackEngagement(action) {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, var(--triggui-white-8), transparent);
-    transition: left 0.6s;
+    transition: left 0.7s;
   }
   
   .glass-card:hover::before {
@@ -276,9 +279,9 @@ function trackEngagement(action) {
   }
   
   .glass-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(255, 0, 128, 0.4);
-    box-shadow: 0 20px 60px rgba(255, 0, 128, 0.25);
+    transform: translateY(-12px) scale(1.01);
+    border-color: rgba(255, 0, 85, 0.45);
+    box-shadow: 0 30px 60px -12px rgba(255, 0, 85, 0.28);
   }
 </style>
 
@@ -292,13 +295,15 @@ function trackEngagement(action) {
     position: relative;
     background: var(--triggui-nuclear);
     color: white;
-    font-weight: 700;
+    font-weight: 800;
     border: none;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7);
+    box-shadow: 0 10px 30px rgba(255, 0, 85, 0.45);
     animation: nuclear-pulse 2s infinite;
     transition: all var(--triggui-transition-base);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
   }
   
   .btn-nuclear::before {
@@ -315,7 +320,8 @@ function trackEngagement(action) {
   }
   
   .btn-nuclear:hover {
-    transform: scale(1.02);
+    transform: scale(1.04);
+    filter: brightness(1.12);
   }
   
   .btn-nuclear:hover::before {
@@ -337,8 +343,8 @@ function trackEngagement(action) {
   }
   
   .btn-monthly:hover {
-    transform: scale(1.02);
-    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.45);
   }
 </style>
 
@@ -361,7 +367,7 @@ function trackEngagement(action) {
     background: var(--triggui-white-8);
     border-color: var(--triggui-accent-pink);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 0, 128, 0.15);
+    box-shadow: 0 0 0 4px rgba(255, 0, 85, 0.15);
   }
   
   .input-god::placeholder {
@@ -411,7 +417,7 @@ function trackEngagement(action) {
     transform: translateX(-50%);
     background: var(--triggui-green-gradient);
     color: white;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.7rem;
     padding: 5px 14px;
     border-radius: var(--triggui-radius-full);
@@ -425,8 +431,8 @@ function trackEngagement(action) {
   .live-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
+    gap: 10px;
+    padding: 12px 22px;
     background: var(--triggui-white-5);
     border: 1px solid var(--triggui-white-15);
     backdrop-filter: var(--triggui-blur-lg);
@@ -435,6 +441,7 @@ function trackEngagement(action) {
     color: rgba(255, 255, 255, 0.95);
     margin-bottom: 2rem;
     box-shadow: var(--triggui-shadow-md);
+    font-weight: 700;
   }
 
   .pulse-dot {
@@ -481,14 +488,14 @@ function trackEngagement(action) {
   }
 
   .pricing-card-monthly {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.05) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.3);
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%);
+    border: 1px solid rgba(0, 255, 136, 0.3);
     position: relative;
   }
   
   .pricing-card-monthly:hover {
-    border-color: rgba(16, 185, 129, 0.5);
-    box-shadow: 0 20px 60px rgba(16, 185, 129, 0.2);
+    border-color: rgba(0, 255, 136, 0.5);
+    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2);
   }
 
   .pricing-card-glow {
@@ -499,7 +506,7 @@ function trackEngagement(action) {
     content: '';
     position: absolute;
     inset: -2px;
-    background: linear-gradient(135deg, #FF0080, #FF8C00, #FFD700);
+    background: linear-gradient(135deg, #FF0055, #FF5E00, #FFD700);
     border-radius: var(--triggui-radius-2xl);
     z-index: -1;
     opacity: 0;
@@ -548,7 +555,7 @@ function trackEngagement(action) {
   .testimonial-card:hover {
     border-color: var(--triggui-white-20);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(255, 0, 128, 0.15);
+    box-shadow: 0 12px 40px rgba(255, 0, 85, 0.15);
   }
 </style>
 
@@ -661,12 +668,12 @@ function trackEngagement(action) {
 
   @keyframes nuclear-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(255, 0, 128, 0.7),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
+      box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7),
+                  0 10px 30px rgba(255, 0, 85, 0.3);
     }
     50% {
-      box-shadow: 0 0 0 15px rgba(255, 0, 128, 0),
-                  0 10px 30px rgba(255, 0, 128, 0.3);
+      box-shadow: 0 0 0 15px rgba(255, 0, 85, 0),
+                  0 10px 30px rgba(255, 0, 85, 0.3);
     }
   }
 
@@ -738,7 +745,9 @@ function trackEngagement(action) {
 <body>
 
 <!-- PRELOADER ANTI-FLASH -->
-<div class="page-loader" id="pageLoader"></div>
+<div class="page-loader" id="pageLoader">
+  <img src="./trigguiletrasblanco.png" alt="Triggui" class="h-8 animate-pulse opacity-80" />
+</div>
 
 <!-- Background Effects -->
 <div class="bg-grain"></div>
@@ -756,8 +765,8 @@ function trackEngagement(action) {
       <img 
         src="./trigguiletrasblanco.png" 
         alt="Triggui" 
-        class="h-8 md:h-10 w-auto mx-auto opacity-90"
-        style="max-width: 200px;"
+        class="h-10 md:h-12 w-auto mx-auto opacity-100"
+        style="max-width: 220px; filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));"
         loading="eager"
       />
     </div>
@@ -767,17 +776,17 @@ function trackEngagement(action) {
       <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <h1 class="hero-title text-white mb-4">
-      La chispa que elimina
+    <h1 class="hero-title text-white mb-3">
+      Cuando el impulso llega,
     </h1>
-    <h2 class="hero-subtitle text-fire mb-8">
-      la fricción de empezar.
+    <h2 class="hero-subtitle text-fire mb-10">
+      el libro ya te espera.
     </h2>
 
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-      El libro correcto. El momento exacto.<br>
-      La frase. El impulso.<br>
-      <span class="text-white font-semibold">Directo a tu WhatsApp. 30 segundos.</span>
+    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+      No busques libros. Deja que el conocimiento te encuentre.<br>
+      <span class="text-white font-semibold">Directo a tu WhatsApp. 30 segundos.</span><br>
+      Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.
     </p>
 
     <!-- FORMULARIO -->
@@ -859,7 +868,7 @@ function trackEngagement(action) {
             id="submitBtn"
             class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
           >
-            Quiero mi chispa semanal
+            Quiero que el libro me encuentre
           </button>
 
         </form>
@@ -884,7 +893,7 @@ function trackEngagement(action) {
 
     <p class="text-sm text-gray-500 mt-8">
       <span id="numeroImpacto" class="text-fire font-bold text-2xl">+6,187</span><br>
-      <span class="text-gray-400">libros abiertos juntos</span>
+      <span class="text-gray-400">libros esperando ser abiertos</span>
     </p>
 
   </div>
@@ -897,33 +906,33 @@ function trackEngagement(action) {
   <div class="container-safe mx-auto">
     
     <div class="max-w-3xl mx-auto text-center mb-16">
-      <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight">
-        Empezar<br>
-        <span class="text-fire">es lo más difícil.</span>
+      <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
+        No es falta de ganas.<br>
+        <span class="text-fire">Es fricción de empezar.</span>
       </h2>
       <p class="text-xl text-gray-400 leading-relaxed">
         Como el gym. Como escribir. Como meditar.<br>
-        <span class="text-white font-semibold">Triggui elimina esa fricción.</span>
+        <span class="text-white font-semibold">Triggui elimina la fricción entre querer y hacer.</span>
       </p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
       
       <div class="glass-card p-8">
-        <div class="text-5xl mb-6">🏋️</div>
-        <h3 class="text-2xl font-bold text-white mb-4">El problema</h3>
+        <div class="text-5xl mb-6">💭</div>
+        <h3 class="text-2xl font-bold text-white mb-4">El problema no es falta de tiempo</h3>
         <p class="text-gray-400 leading-relaxed">
-          No es falta de ganas. No es falta de tiempo. 
-          <span class="text-white font-semibold">Es la fricción entre querer y hacer.</span>
+          Es la fricción decisional. Esos 3-5 minutos donde piensas "¿qué leo?" y terminas en Instagram. 
+          <span class="text-white font-semibold">Triggui elimina esos 3 minutos.</span>
         </p>
       </div>
 
       <div class="glass-card p-8">
-        <div class="text-5xl mb-6">⚡</div>
-        <h3 class="text-2xl font-bold text-white mb-4">La chispa</h3>
+        <div class="text-5xl mb-6">💬</div>
+        <h3 class="text-2xl font-bold text-white mb-4">WhatsApp es la clave</h3>
         <p class="text-gray-400 leading-relaxed">
-          Una idea. 30 segundos. En tu WhatsApp.
-          <span class="text-white font-semibold">El impulso que te activa.</span>
+          Un mensaje sin leer en WhatsApp es una promesa. Si no puedes leerlo ahora, ahí se queda esperando. 
+          <span class="text-white font-semibold">Persistencia útil. Conocimiento que no se evapora.</span>
         </p>
       </div>
 
@@ -938,9 +947,15 @@ function trackEngagement(action) {
 <section class="py-24 bg-gradient-to-b from-black via-gray-900/20 to-black">
   <div class="container-safe mx-auto">
     
-    <h2 class="text-4xl md:text-6xl font-black text-center text-white mb-16 tracking-tight">
-      El micro-hábito más fácil que existe
+    <h2 class="text-4xl md:text-6xl font-black text-center text-white mb-6 tracking-tight leading-none">
+      Si el impulso nace de ti,<br>
+      <span class="text-fire">el libro ya está ahí.</span>
     </h2>
+    
+    <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto leading-relaxed">
+      Si el impulso lo generamos nosotros, te activamos con la idea perfecta.<br>
+      <span class="text-white font-semibold">Dos fuerzas. Un solo resultado: acción inmediata.</span>
+    </p>
 
     <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       
@@ -950,27 +965,27 @@ function trackEngagement(action) {
         </div>
         <h3 class="text-xl font-bold text-white mb-3">Te llega por WhatsApp</h3>
         <p class="text-gray-400 leading-relaxed">
-          La frase. El impulso. 30 segundos. Ya.
+          Una idea. 30 segundos. Sin abrir nada más. Ahí, entre tus chats cotidianos.
         </p>
       </div>
 
       <div class="text-center hover-lift">
         <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
-          ⚡
+          ⏳
         </div>
-        <h3 class="text-xl font-bold text-white mb-3">Sin abrir nada más</h3>
+        <h3 class="text-xl font-bold text-white mb-3">Persistencia útil</h3>
         <p class="text-gray-400 leading-relaxed">
-          Mientras revisas mensajes. Ahí está. Sin fricción.
+          Si no puedes leerlo ahora, el mensaje se queda ahí. Es la memoria de tu intención de aprender.
         </p>
       </div>
 
       <div class="text-center hover-lift">
         <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
-          🎯
+          🚀
         </div>
-        <h3 class="text-xl font-bold text-white mb-3">Si quieres más, perfecto</h3>
+        <h3 class="text-xl font-bold text-white mb-3">Cero fricción para empezar</h3>
         <p class="text-gray-400 leading-relaxed">
-          Ahí está el libro completo. Pero ya entraste. Ya empezaste.
+          Cuando tengas tu momento, solo abres y lees. El libro completo está ahí si quieres más.
         </p>
       </div>
 
@@ -986,16 +1001,18 @@ function trackEngagement(action) {
   <div class="container-safe mx-auto">
     
     <h2 class="text-4xl md:text-5xl font-black text-center text-white mb-6 tracking-tight">
-      El micro-hábito más barato que existe
+      Invierte en eliminar<br>
+      <span class="text-fire">la fricción de empezar.</span>
     </h2>
-    <p class="text-gray-400 text-center mb-16 text-lg">
-      $149 al mes = $4.90 por día. La chispa que elimina la fricción.
+    <p class="text-gray-400 text-center mb-16 text-lg max-w-2xl mx-auto">
+      $149 al mes = $4.90 por día. Menos que un café.<br>
+      <span class="text-white font-semibold">Más valioso que cualquier curso que nunca terminas.</span>
     </p>
 
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
       <!-- Plan Mensual -->
-      <div class="pricing-card-monthly p-8 hover:bg-white/5 transition-all order-1 rounded-3xl">
+      <div class="pricing-card-monthly glass-card p-8 hover:bg-white/5 transition-all order-1 rounded-3xl">
         <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
         </h3>
@@ -1010,7 +1027,7 @@ function trackEngagement(action) {
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-green-500 font-bold">✓</span> 
-            <span>La chispa. 30 segundos.</span>
+            <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-green-500 font-bold">✓</span> 
@@ -1056,7 +1073,7 @@ function trackEngagement(action) {
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-pink-500 font-bold">✓</span> 
-            <span>La chispa. 30 segundos.</span>
+            <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-pink-500 font-bold">✓</span> 
@@ -1076,7 +1093,7 @@ function trackEngagement(action) {
           class="btn-nuclear block w-full py-4 text-center rounded-xl font-bold shadow-xl"
           onclick="trackConversion('anual', 1490)"
         >
-          Quiero mi chispa semanal
+          Que el libro me encuentre
         </a>
       </div>
 
@@ -1096,7 +1113,7 @@ function trackEngagement(action) {
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
-            <span>La chispa. 30 segundos.</span>
+            <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
             <span class="text-purple-400 font-bold">✓</span> 
@@ -1169,7 +1186,7 @@ function trackEngagement(action) {
         </a>
 
         <p class="text-center text-xs text-gray-500 mt-4">
-          Gracias por mantener la chispa encendida 🔥
+          Gracias por mantener viva la chispa del conocimiento 🔥
         </p>
       </div>
 
@@ -1193,11 +1210,11 @@ function trackEngagement(action) {
       <div class="testimonial-card">
         <div class="flex gap-4 items-start">
           <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
-            M
+            L
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Me llega entre mensajes. Lo leo. <strong class="text-white">Y ese impulso me hace agarrar el libro después.</strong>"
+              "Me llega entre mensajes. Lo leo. <strong class="text-white">Y ese impulso me hace agarrar el libro después. Es como ponerte los tenis para correr.</strong>"
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Laura M.
@@ -1213,7 +1230,7 @@ function trackEngagement(action) {
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Es como ponerte los tenis para correr. <strong class="text-white">Ya entraste. Lo demás fluye solo.</strong>"
+              "El mensaje se queda ahí si no puedo leerlo. <strong class="text-white">Es como tener un mentor que sabe cuándo necesitas un empujón.</strong>"
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Carlos R.
@@ -1229,7 +1246,7 @@ function trackEngagement(action) {
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "30 segundos. Una idea. <strong class="text-white">El hábito más fácil que he logrado mantener.</strong>"
+              "30 segundos. Una idea. <strong class="text-white">El hábito más fácil que he logrado mantener. Sin fricción, sin excusas.</strong>"
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Ana G.
@@ -1245,7 +1262,7 @@ function trackEngagement(action) {
           </div>
           <div class="flex-1">
             <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Cada mensaje llega justo cuando lo necesito. <strong class="text-white">No cuando lo busco. Cuando lo necesito.</strong>"
+              "No es 'el libro correcto en el momento exacto'. <strong class="text-white">Es el libro que ya me está esperando cuando yo estoy listo.</strong>"
             </p>
             <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
               Jorge M.
@@ -1266,16 +1283,14 @@ function trackEngagement(action) {
   <div class="container-safe mx-auto px-6">
     
     <h2 class="text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
-      LA CHISPA<br>
-      <span class="text-fire">QUE ELIMINA</span><br>
-      LA FRICCIÓN<br>
-      <span class="text-fire">DE EMPEZAR.</span>
+      CUANDO EL IMPULSO LLEGA,<br>
+      <span class="text-fire">EL LIBRO YA TE ESPERA.</span>
     </h2>
 
     <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
       Una idea por semana.<br>
-      Directo a tu WhatsApp. 30 segundos. Listo.<br>
-      <span class="text-white font-semibold">El libro correcto. El momento exacto.</span>
+      Directo a tu WhatsApp. 30 segundos.<br>
+      <span class="text-white font-semibold">Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.</span>
     </p>
 
     <a 
@@ -1283,7 +1298,7 @@ function trackEngagement(action) {
       class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl"
       onclick="trackEngagement('footer_cta')"
     >
-      Quiero mi chispa semanal
+      Que el libro me encuentre
     </a>
 
     <div class="mt-8">
@@ -1318,7 +1333,7 @@ function trackEngagement(action) {
      🎈 BOTONES FLOTANTES
      ═══════════════════════════════════════════════════════════════════════ -->
 <a 
-  href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20más%20info%20sobre%20Triggui" 
+  href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20que%20el%20libro%20me%20encuentre" 
   target="_blank"
   class="wa-float"
   id="whatsappFloat"
@@ -1335,7 +1350,7 @@ function trackEngagement(action) {
   id="floatingCTA"
   onclick="trackEngagement('floating_cta')"
 >
-  Quiero mi chispa
+  Que me encuentre
 </a>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
@@ -1346,7 +1361,7 @@ function trackEngagement(action) {
 window.addEventListener('load', function() {
   setTimeout(function() {
     document.getElementById('pageLoader').classList.add('loaded');
-  }, 100);
+  }, 500);
 });
 
 // === CAPTURA DE FORMULARIO ===
@@ -1356,7 +1371,7 @@ async function handleCapture(event) {
   const original = btn.innerHTML;
   
   btn.disabled = true;
-  btn.innerHTML = '⚡ Conectando...';
+  btn.innerHTML = '⚡ Activando tu chispa...';
   btn.style.opacity = '0.7';
 
   const fname = document.getElementById('fname').value.trim();
@@ -1397,12 +1412,12 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=kayosama_supreme&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=triggui_god_whatsapp_persistence&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
-    btn.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-    btn.innerHTML = '✨ Te llegará cuando menos lo esperes';
+    btn.style.background = 'linear-gradient(135deg, #00FF88 0%, #00BD63 100%)';
+    btn.innerHTML = '✨ El libro te está esperando en WhatsApp';
     
     setTimeout(() => {
       document.getElementById('fname').value = '';
@@ -1564,7 +1579,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS');
+console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS - WHATSAPP PERSISTENCE ACTIVATED');
 </script>
 
 </body>
