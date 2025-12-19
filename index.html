@@ -283,6 +283,14 @@ function trackEngagement(action) {
     border-color: rgba(255, 0, 85, 0.45);
     box-shadow: 0 30px 60px -12px rgba(255, 0, 85, 0.28);
   }
+  
+  /* CRITICAL FIX: Desactivar completamente el ::before para pricing cards */
+  .pricing-card-monthly::before,
+  .pricing-card-featured::before,
+  .glass-card.p-8.hover\:bg-white\/5::before {
+    content: none !important;
+    display: none !important;
+  }
 </style>
 
 <!-- ═══════════════════════════════════════════════════════════════════════
