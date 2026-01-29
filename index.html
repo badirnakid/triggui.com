@@ -47,7 +47,7 @@ function trackEngagement(action) {
 
 <style id="design-tokens">
   :root {
-    /* ── COLORES DE MARCA (AURORA CYBERPUNK) ── */
+    /* ── COLORES DE MARCA ── */
     --triggui-black: #050505;
     --triggui-white: #FFFFFF;
     
@@ -55,17 +55,16 @@ function trackEngagement(action) {
     --triggui-accent-pink: #7000FF; /* Violeta */
     --triggui-accent-orange: #00F2FF; /* Cian */
     --triggui-accent-gold: #CCFF00; /* Lima */
-    --triggui-accent-cyan: #00F2FF;
     
     --triggui-green: #00FF88;
     --triggui-green-dark: #00BD63;
     --triggui-red: #FF3B30;
+    --triggui-wa-green: #25D366;
     
     /* ── GRADIENTES (AURORA) ── */
     --triggui-fire: linear-gradient(135deg, #7000FF 0%, #00F2FF 50%, #CCFF00 100%);
     --triggui-nuclear: linear-gradient(135deg, #7000FF 0%, #00F2FF 100%);
     --triggui-green-gradient: linear-gradient(135deg, #00FF88 0%, #00BD63 100%);
-    --triggui-purple: linear-gradient(135deg, #7000FF, #00d4ff);
     
     /* ── OPACIDADES ── */
     --triggui-white-3: rgba(255, 255, 255, 0.03);
@@ -86,12 +85,12 @@ function trackEngagement(action) {
     --triggui-radius-2xl: 24px;
     --triggui-radius-full: 9999px;
     
-    /* ── SOMBRAS (CON DEPTH MEJORADO) ── */
+    /* ── SOMBRAS ── */
     --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
     --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
     --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.28);
     --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.35);
-    --triggui-shadow-glow-pink: 0 0 35px rgba(112, 0, 255, 0.4); /* Glow Violeta */
+    --triggui-shadow-glow-pink: 0 0 35px rgba(112, 0, 255, 0.4);
     --triggui-shadow-glow-green: 0 4px 15px rgba(0, 255, 136, 0.35);
     
     /* ── BLUR ── */
@@ -163,10 +162,9 @@ function trackEngagement(action) {
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    /* FIX: Reducido min de 3rem a 2.5rem para pantallas pequeñas */
     font-size: clamp(2.5rem, 9vw, 8.5rem); 
     padding-bottom: 0.1em;
-    word-break: break-word; /* Prevención extra */
+    word-break: break-word;
   }
   
   .hero-subtitle {
@@ -175,7 +173,6 @@ function trackEngagement(action) {
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    /* FIX: Reducido min de 2rem a 1.8rem */
     font-size: clamp(1.8rem, 7vw, 6.8rem);
     padding-bottom: 0.1em;
   }
@@ -210,7 +207,6 @@ function trackEngagement(action) {
     transform: translateX(-50%);
     width: 180%;
     height: 180%;
-    /* Aurora Gradient */
     background: radial-gradient(ellipse at center, 
       rgba(112, 0, 255, 0.18) 0%, 
       rgba(0, 242, 255, 0.08) 35%,
@@ -254,10 +250,11 @@ function trackEngagement(action) {
     box-shadow: 0 30px 60px -12px rgba(112, 0, 255, 0.28);
   }
   
-  /* CRITICAL FIX: Desactivar completely el ::before para pricing cards */
+  /* EXCEPCIÓN: Desactivar shine para pricing cards */
   .pricing-card-monthly::before,
   .pricing-card-featured::before,
-  .glass-card.p-8.hover\:bg-white\/5::before {
+  .glass-card.p-8.hover\:bg-white\/5::before,
+  .glass-card.p-6.md\:p-8::before {
     content: none !important;
     display: none !important;
   }
@@ -284,16 +281,15 @@ function trackEngagement(action) {
 
   .card-3d-wrapper {
     flex: 0 0 auto;
-    width: 280px; /* Base Mobile Width */
+    width: 280px;
     perspective: 1000px;
     scroll-snap-align: center;
     position: relative;
   }
 
-  /* Spacers dinámicos */
   .rail-spacer {
     flex: 0 0 auto;
-    width: calc(50% - 140px); /* 140px es la mitad de 280px */
+    width: calc(50% - 140px); /* Centrado matemático */
   }
 
   @media (min-width: 768px) {
@@ -662,20 +658,41 @@ function trackEngagement(action) {
     bottom: 85px;
     right: 20px;
     z-index: 50;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
+    
+    /* SUBLIME GLASS EFFECT */
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 255, 136, 0.3); /* Subtle green edge */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-radius: 50%;
-    background: #25D366;
-    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s;
-    animation: pulse-wa 3s infinite;
+    
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.1);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .wa-float svg {
+    width: 30px;
+    height: 30px;
+    fill: #00FF88; /* Neon Green Icon Initial */
+    transition: fill 0.3s ease;
   }
   
   .wa-float:hover {
-    transform: scale(1.1);
+    transform: scale(1.1) translateY(-2px);
+    /* WA Brand Gradient fill on hover */
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    border-color: transparent;
+    box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
+  }
+  
+  .wa-float:hover svg {
+    fill: white; /* Turn white on interaction */
   }
 
   .cta-float {
@@ -1402,7 +1419,7 @@ function trackEngagement(action) {
   id="whatsappFloat"
   onclick="trackEngagement('whatsapp_float')"
 >
-  <svg width="30" height="30" fill="white" viewBox="0 0 24 24">
+  <svg viewBox="0 0 24 24">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
