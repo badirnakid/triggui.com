@@ -47,14 +47,14 @@ function trackEngagement(action) {
 
 <style id="design-tokens">
   :root {
-    /* ── COLORES DE MARCA (NUEVA PALETA DOPAMINÉRGICA) ── */
+    /* ── COLORES DE MARCA (AURORA CYBERPUNK) ── */
     --triggui-black: #050505;
     --triggui-white: #FFFFFF;
     
-    /* Reemplazo de Fuego por Aurora: Violeta Eléctrico, Cian Neón, Lima Ácida */
-    --triggui-accent-pink: #7000FF; /* Antes Rosa, ahora Violeta Principal */
-    --triggui-accent-orange: #00F2FF; /* Antes Naranja, ahora Cian */
-    --triggui-accent-gold: #CCFF00; /* Antes Oro, ahora Lima */
+    /* Nueva Tríada Dopaminérgica */
+    --triggui-accent-pink: #7000FF; /* Violeta Eléctrico */
+    --triggui-accent-orange: #00F2FF; /* Cian Neón */
+    --triggui-accent-gold: #CCFF00; /* Lima Ácida */
     --triggui-accent-cyan: #00F2FF;
     
     --triggui-green: #00FF88;
@@ -62,8 +62,7 @@ function trackEngagement(action) {
     --triggui-red: #FF3B30;
     
     /* ── GRADIENTES (AURORA) ── */
-    /* Reemplazamos el fuego por la Aurora Boreal */
-    --triggui-fire: linear-gradient(135deg, #7000FF 0%, #00F2FF 50%, #CCFF00 100%); 
+    --triggui-fire: linear-gradient(135deg, #7000FF 0%, #00F2FF 50%, #CCFF00 100%);
     --triggui-nuclear: linear-gradient(135deg, #7000FF 0%, #00F2FF 100%);
     --triggui-green-gradient: linear-gradient(135deg, #00FF88 0%, #00BD63 100%);
     --triggui-purple: linear-gradient(135deg, #7000FF, #00d4ff);
@@ -184,7 +183,7 @@ function trackEngagement(action) {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fire-move 6s ease infinite; /* Más lento para efecto aurora */
+    animation: fire-move 6s ease infinite;
   }
 </style>
      
@@ -208,7 +207,7 @@ function trackEngagement(action) {
     transform: translateX(-50%);
     width: 180%;
     height: 180%;
-    /* Modificado para tonos aurora */
+    /* Modificado a Tonos Aurora */
     background: radial-gradient(ellipse at center, 
       rgba(112, 0, 255, 0.18) 0%, 
       rgba(0, 242, 255, 0.08) 35%,
@@ -248,7 +247,7 @@ function trackEngagement(action) {
   
   .glass-card:hover {
     transform: translateY(-12px) scale(1.01);
-    border-color: rgba(112, 0, 255, 0.45); /* Violeta */
+    border-color: rgba(112, 0, 255, 0.45);
     box-shadow: 0 30px 60px -12px rgba(112, 0, 255, 0.28);
   }
   
@@ -260,7 +259,9 @@ function trackEngagement(action) {
     display: none !important;
   }
 
-  /* ════ NUEVO: ESTILOS PARA EL CARRUSEL NIVEL DIOS (INFINITY RAIL) ════ */
+  /* ═══════════════════════════════════════════════════════════════════════
+     🌟 NUEVO: INFINITY RAIL SYSTEM (RESPONSIVO MATEMÁTICO)
+     ═══════════════════════════════════════════════════════════════════════ */
   .cards-rail-container {
     width: 100%;
     overflow-x: auto;
@@ -270,34 +271,44 @@ function trackEngagement(action) {
     gap: 2rem;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
   
   .cards-rail-container::-webkit-scrollbar {
-    display: none;
+    display: none; /* Chrome/Safari */
   }
 
   .card-3d-wrapper {
     flex: 0 0 auto;
-    width: 280px;
+    width: 280px; /* Base Mobile Width */
     perspective: 1000px;
     scroll-snap-align: center;
     position: relative;
   }
 
+  /* Spacers dinámicos para centrado perfecto */
+  /* Cálculo: 50% del viewport - mitad del ancho de la tarjeta */
+  .rail-spacer {
+    flex: 0 0 auto;
+    width: calc(50% - 140px); 
+  }
+
   @media (min-width: 768px) {
     .card-3d-wrapper {
-      width: 340px;
+      width: 340px; /* Desktop Width */
+    }
+    .rail-spacer {
+      width: calc(50% - 170px);
     }
   }
 
   .card-3d-inner {
     width: 100%;
     height: auto;
-    transition: transform 0.1s ease-out; /* Super rápido para tilt JS */
+    transition: transform 0.1s ease-out;
     transform-style: preserve-3d;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -331,14 +342,14 @@ function trackEngagement(action) {
   .btn-nuclear {
     position: relative;
     background: var(--triggui-nuclear);
-    background-size: 200% 200%; /* Para animación aurora */
-    color: white; /* Aurora suele ir mejor con texto negro, pero blanco es seguro */
+    background-size: 200% 200%;
+    color: white;
     font-weight: 800;
     border: none;
     overflow: hidden;
     cursor: pointer;
     box-shadow: 0 10px 30px rgba(112, 0, 255, 0.45);
-    animation: fire-move 4s infinite; /* Usamos la misma keyframe */
+    animation: fire-move 4s infinite;
     transition: all var(--triggui-transition-base);
     text-transform: uppercase;
     letter-spacing: -0.02em;
@@ -398,7 +409,7 @@ function trackEngagement(action) {
   
   .input-god:focus {
     background: var(--triggui-white-8);
-    border-color: var(--triggui-accent-orange); /* Ahora es Cian */
+    border-color: var(--triggui-accent-orange);
     outline: none;
     box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.15);
   }
@@ -560,7 +571,7 @@ function trackEngagement(action) {
     content: '';
     position: absolute;
     inset: -2px;
-    background: var(--triggui-fire); /* Usando Aurora */
+    background: var(--triggui-fire);
     border-radius: var(--triggui-radius-2xl);
     z-index: -1;
     opacity: 0;
@@ -604,7 +615,7 @@ function trackEngagement(action) {
   .testimonial-card:hover {
     border-color: var(--triggui-white-20);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(112, 0, 255, 0.15); /* Violeta shadow */
+    box-shadow: 0 12px 40px rgba(112, 0, 255, 0.15);
   }
 </style>
 
@@ -814,51 +825,51 @@ function trackEngagement(action) {
         </p>
         
         <div class="cards-rail-container" id="cardRail">
-          <div class="shrink-0 w-4 md:w-[calc(50%-170px)]"></div>
+          <div class="rail-spacer"></div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="antifragil.jpg" alt="Antifragil" loading="lazy">
+              <img src="antifragil.png" alt="Antifragil" loading="lazy">
             </div>
           </div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="habitossecretosdelosgenios.jpg" alt="Hábitos Secretos" loading="lazy">
+              <img src="habitossecretosdelosgenios.png" alt="Hábitos Secretos" loading="lazy">
             </div>
           </div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="elartedevivirconsencillez.jpg" alt="Vivir con Sencillez" loading="lazy">
+              <img src="elartedevivirconsencillez.png" alt="Vivir con Sencillez" loading="lazy">
             </div>
           </div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="reinventate.jpg" alt="Reinvéntate" loading="lazy">
+              <img src="reinventate.png" alt="Reinvéntate" loading="lazy">
             </div>
           </div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="simonsinek.jpg" alt="Empieza con el porqué" loading="lazy">
+              <img src="simonsinek.png" alt="Empieza con el porqué" loading="lazy">
             </div>
           </div>
 
           <div class="card-3d-wrapper">
             <div class="card-3d-inner">
               <div class="card-shine"></div>
-              <img src="pensarrápidopensardespacio.jpg" alt="Pensar Rápido" loading="lazy">
+              <img src="pensarrápidopensardespacio.png" alt="Pensar Rápido" loading="lazy">
             </div>
           </div>
 
-          <div class="shrink-0 w-4 md:w-[calc(50%-170px)]"></div>
+          <div class="rail-spacer"></div>
         </div>
         
         <p class="text-center text-xs text-gray-600 mt-2 flex items-center justify-center gap-2">
