@@ -51,10 +51,10 @@ function trackEngagement(action) {
     --triggui-black: #050505;
     --triggui-white: #FFFFFF;
     
-    /* Nueva Tríada Dopaminérgica */
-    --triggui-accent-pink: #7000FF; /* Violeta Eléctrico */
-    --triggui-accent-orange: #00F2FF; /* Cian Neón */
-    --triggui-accent-gold: #CCFF00; /* Lima Ácida */
+    /* Tríada Dopaminérgica: Violeta, Cian, Lima */
+    --triggui-accent-pink: #7000FF; /* Violeta */
+    --triggui-accent-orange: #00F2FF; /* Cian */
+    --triggui-accent-gold: #CCFF00; /* Lima */
     --triggui-accent-cyan: #00F2FF;
     
     --triggui-green: #00FF88;
@@ -115,7 +115,7 @@ function trackEngagement(action) {
     font-family: var(--triggui-font-primary);
     background-color: var(--triggui-black) !important;
     color: var(--triggui-white);
-    overflow-x: hidden;
+    overflow-x: hidden; /* CRITICO: Evita desbordamiento horizontal */
     width: 100%;
     max-width: 100vw;
     -webkit-font-smoothing: antialiased;
@@ -163,8 +163,10 @@ function trackEngagement(action) {
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    font-size: clamp(3rem, 10vw, 8.5rem);
-    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
+    /* FIX: Reducido min de 3rem a 2.5rem para pantallas pequeñas */
+    font-size: clamp(2.5rem, 9vw, 8.5rem); 
+    padding-bottom: 0.1em;
+    word-break: break-word; /* Prevención extra */
   }
   
   .hero-subtitle {
@@ -173,8 +175,9 @@ function trackEngagement(action) {
     letter-spacing: -0.05em;
     text-align: center;
     margin: 0;
-    font-size: clamp(2rem, 8vw, 6.8rem);
-    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
+    /* FIX: Reducido min de 2rem a 1.8rem */
+    font-size: clamp(1.8rem, 7vw, 6.8rem);
+    padding-bottom: 0.1em;
   }
 
   .text-fire {
@@ -207,7 +210,7 @@ function trackEngagement(action) {
     transform: translateX(-50%);
     width: 180%;
     height: 180%;
-    /* Modificado a Tonos Aurora */
+    /* Aurora Gradient */
     background: radial-gradient(ellipse at center, 
       rgba(112, 0, 255, 0.18) 0%, 
       rgba(0, 242, 255, 0.08) 35%,
@@ -251,7 +254,7 @@ function trackEngagement(action) {
     box-shadow: 0 30px 60px -12px rgba(112, 0, 255, 0.28);
   }
   
-  /* CRITICAL FIX: Desactivar completamente el ::before para pricing cards */
+  /* CRITICAL FIX: Desactivar completely el ::before para pricing cards */
   .pricing-card-monthly::before,
   .pricing-card-featured::before,
   .glass-card.p-8.hover\:bg-white\/5::before {
@@ -259,9 +262,7 @@ function trackEngagement(action) {
     display: none !important;
   }
 
-  /* ═══════════════════════════════════════════════════════════════════════
-     🌟 NUEVO: INFINITY RAIL SYSTEM (RESPONSIVO MATEMÁTICO)
-     ═══════════════════════════════════════════════════════════════════════ */
+  /* ════ RAIL SYSTEM ════ */
   .cards-rail-container {
     width: 100%;
     overflow-x: auto;
@@ -271,14 +272,14 @@ function trackEngagement(action) {
     gap: 2rem;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    -ms-overflow-style: none; /* IE/Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
   
   .cards-rail-container::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+    display: none;
   }
 
   .card-3d-wrapper {
@@ -289,16 +290,15 @@ function trackEngagement(action) {
     position: relative;
   }
 
-  /* Spacers dinámicos para centrado perfecto */
-  /* Cálculo: 50% del viewport - mitad del ancho de la tarjeta */
+  /* Spacers dinámicos */
   .rail-spacer {
     flex: 0 0 auto;
-    width: calc(50% - 140px); 
+    width: calc(50% - 140px); /* 140px es la mitad de 280px */
   }
 
   @media (min-width: 768px) {
     .card-3d-wrapper {
-      width: 340px; /* Desktop Width */
+      width: 340px;
     }
     .rail-spacer {
       width: calc(50% - 170px);
@@ -435,8 +435,7 @@ function trackEngagement(action) {
     color: white;
     padding: 12px;
   }
-
-  /* Remove number input arrows */
+  
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -516,7 +515,6 @@ function trackEngagement(action) {
     position: relative;
   }
   
-  /* CRITICAL FIX: Eliminar cualquier ::before/::after del contenedor */
   .pricing-container::before,
   .pricing-container::after {
     content: none !important;
@@ -540,7 +538,6 @@ function trackEngagement(action) {
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
   }
   
-  /* Mantener el shine individual pero con timing más lento */
   .pricing-card-monthly::before {
     content: '';
     position: absolute;
@@ -788,7 +785,7 @@ function trackEngagement(action) {
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
   <div class="spotlight"></div>
   
-  <div class="relative z-10 text-center max-w-5xl mx-auto">
+  <div class="relative z-10 text-center max-w-5xl mx-auto w-full">
     
     <div class="mb-8">
       <img 
@@ -805,14 +802,16 @@ function trackEngagement(action) {
       <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <h1 class="hero-title text-white mb-3">
-      Cuando el impulso llega,
-    </h1>
-    <h2 class="hero-subtitle text-fire mb-10">
-      el libro ya te espera.
-    </h2>
+    <div class="px-2">
+      <h1 class="hero-title text-white mb-3">
+        Cuando el impulso llega,
+      </h1>
+      <h2 class="hero-subtitle text-fire mb-10">
+        el libro ya te espera.
+      </h2>
+    </div>
 
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light px-4">
       No busques libros. Deja que el conocimiento te encuentre.<br>
       <span class="text-white font-semibold">Directo a tu WhatsApp. 30 segundos.</span><br>
       Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.
@@ -877,8 +876,8 @@ function trackEngagement(action) {
         </p>
       </div>
     </div>
-    <div class="max-w-xl mx-auto mb-12">
-      <div class="glass-card p-8">
+    <div class="max-w-xl mx-auto mb-12 w-full px-2">
+      <div class="glass-card p-6 md:p-8">
         
         <form onsubmit="handleCapture(event)" class="space-y-5">
           
