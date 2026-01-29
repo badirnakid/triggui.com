@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth" style="background-color: #000000;">
+<html lang="es" class="scroll-smooth" style="background-color: #050505;">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -10,11 +10,8 @@
 <meta property="og:description" content="El único lugar donde un mensaje sin leer es una promesa de conocimiento. Cuando el impulso llega, el libro ya está ahí." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#050505">
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📊 GOOGLE ANALYTICS
-     ═══════════════════════════════════════════════════════════════════════ -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -23,9 +20,6 @@
   gtag('config', 'G-ZKG8ZNSB35');
 </script>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🔧 TRACKING UTILITIES
-     ═══════════════════════════════════════════════════════════════════════ -->
 <script>
 function getUTMParams() {
   const params = new URLSearchParams(window.location.search);
@@ -48,35 +42,25 @@ function trackEngagement(action) {
 }
 </script>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📦 EXTERNAL DEPENDENCIES
-     ═══════════════════════════════════════════════════════════════════════ -->
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🎨 SECCIÓN 1: DESIGN TOKENS
-     Variables CSS universales - Colores, tipografías, espaciados
-     MODIFICAR: Solo cambiar valores de variables
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="design-tokens">
   :root {
-    /* ── COLORES DE MARCA (REFINADOS PARA MAYOR PROFUNDIDAD) ── */
-    --triggui-black: #000000;
+    /* ── COLORES DE MARCA: AURORA CYBERPUNK ── */
+    --triggui-black: #050505;
+    --triggui-dark-bg: #0a0a0f;
     --triggui-white: #FFFFFF;
-    --triggui-accent-pink: #FF0055; /* Más vibrante, tipo OLED */
-    --triggui-accent-orange: #FF5E00; /* Magma Surge */
-    --triggui-accent-gold: #FFD700;
-    --triggui-accent-cyan: #00F2FF;
-    --triggui-green: #00FF88;
-    --triggui-green-dark: #00BD63;
-    --triggui-red: #FF3B30;
     
-    /* ── GRADIENTES (CINEMÁTICOS) ── */
-    --triggui-fire: linear-gradient(135deg, #FF0055 0%, #FF5E00 50%, #FFD700 100%);
-    --triggui-nuclear: linear-gradient(135deg, #FF0055 0%, #FF2E00 100%);
-    --triggui-green-gradient: linear-gradient(135deg, #00FF88 0%, #00BD63 100%);
-    --triggui-purple: linear-gradient(135deg, #FF0055, #7928CA);
+    /* Nueva Tríada Dopaminérgica: Violeta, Cian, Lima */
+    --triggui-accent-primary: #7000FF; /* Electric Violet */
+    --triggui-accent-secondary: #00F2FF; /* Cyber Cyan */
+    --triggui-accent-tertiary: #CCFF00; /* Acid Lime */
+    
+    /* ── GRADIENTES (AURORA) ── */
+    --triggui-aurora: linear-gradient(135deg, #7000FF 0%, #00F2FF 50%, #CCFF00 100%);
+    --triggui-deep-ocean: linear-gradient(135deg, #090979 0%, #00d4ff 100%);
+    --triggui-neon-glow: linear-gradient(135deg, #CCFF00 0%, #00FF88 100%);
     
     /* ── OPACIDADES ── */
     --triggui-white-3: rgba(255, 255, 255, 0.03);
@@ -98,12 +82,12 @@ function trackEngagement(action) {
     --triggui-radius-full: 9999px;
     
     /* ── SOMBRAS (CON DEPTH MEJORADO) ── */
-    --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-    --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-    --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.28);
-    --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.35);
-    --triggui-shadow-glow-pink: 0 0 25px rgba(255, 0, 85, 0.4);
-    --triggui-shadow-glow-green: 0 4px 15px rgba(0, 255, 136, 0.35);
+    --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+    --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.45);
+    --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.55);
+    --triggui-shadow-glow-purple: 0 0 35px rgba(112, 0, 255, 0.35);
+    --triggui-shadow-glow-cyan: 0 0 25px rgba(0, 242, 255, 0.3);
     
     /* ── BLUR ── */
     --triggui-blur-md: blur(12px);
@@ -115,11 +99,6 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🧱 SECCIÓN 2: RESET & BASE
-     Reseteo de estilos del navegador y configuración base
-     MODIFICAR: Solo si necesitas cambiar comportamiento global del documento
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="reset-base">
   * { 
     margin: 0; 
@@ -151,11 +130,6 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     ⏳ SECCIÓN 3: PRELOADER
-     Pantalla de carga inicial para evitar flash
-     MODIFICAR: Estilos de animación del loader
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="preloader">
   .page-loader {
     position: fixed;
@@ -177,11 +151,6 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📝 SECCIÓN 4: TIPOGRAFÍA
-     Estilos de texto, títulos, párrafos
-     MODIFICAR: Tamaños, pesos, espaciados de texto
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="typography">
   .hero-title {
     font-weight: 900;
@@ -190,7 +159,7 @@ function trackEngagement(action) {
     text-align: center;
     margin: 0;
     font-size: clamp(3rem, 10vw, 8.5rem);
-    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
+    padding-bottom: 0.1em;
   }
   
   .hero-subtitle {
@@ -200,24 +169,19 @@ function trackEngagement(action) {
     text-align: center;
     margin: 0;
     font-size: clamp(2rem, 8vw, 6.8rem);
-    padding-bottom: 0.1em; /* CRITICAL FIX: Da espacio para descendentes */
+    padding-bottom: 0.1em;
   }
 
-  .text-fire {
-    background: var(--triggui-fire);
+  .text-aurora {
+    background: var(--triggui-aurora);
     background-size: 200% 200%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: fire-move 4s ease infinite;
+    animation: aurora-move 6s ease infinite;
   }
 </style>
      
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🎭 SECCIÓN 5: EFECTOS DE FONDO
-     Texturas, gradientes, overlays
-     MODIFICAR: Efectos visuales de fondo
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="background-effects">
   .bg-grain {
     position: fixed;
@@ -226,7 +190,7 @@ function trackEngagement(action) {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.04;
+    opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
   }
@@ -239,8 +203,8 @@ function trackEngagement(action) {
     width: 180%;
     height: 180%;
     background: radial-gradient(ellipse at center, 
-      rgba(255, 0, 85, 0.18) 0%, 
-      rgba(255, 94, 0, 0.08) 35%,
+      rgba(112, 0, 255, 0.15) 0%, 
+      rgba(0, 242, 255, 0.08) 35%,
       transparent 65%);
     pointer-events: none;
     z-index: 1;
@@ -248,11 +212,6 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🃏 SECCIÓN 6: GLASS CARDS
-     Tarjetas con efecto glassmorphism
-     MODIFICAR: Estilos de tarjetas de vidrio
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="glass-cards">
   .glass-card {
     background: var(--triggui-white-3);
@@ -265,104 +224,121 @@ function trackEngagement(action) {
     overflow: hidden;
   }
   
-  .glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--triggui-white-8), transparent);
-    transition: left 0.7s;
-  }
-  
-  .glass-card:hover::before {
-    left: 100%;
-  }
-  
   .glass-card:hover {
-    transform: translateY(-12px) scale(1.01);
-    border-color: rgba(255, 0, 85, 0.45);
-    box-shadow: 0 30px 60px -12px rgba(255, 0, 85, 0.28);
+    transform: translateY(-8px);
+    border-color: rgba(112, 0, 255, 0.4);
+    box-shadow: 0 20px 50px -10px rgba(112, 0, 255, 0.2);
+  }
+
+  /* --- 3D SCROLL RAIL (NUEVO) --- */
+  .cards-rail-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 3rem 0;
+    display: flex;
+    gap: 2rem;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
   }
   
-  /* CRITICAL FIX: Desactivar completamente el ::before para pricing cards */
-  .pricing-card-monthly::before,
-  .pricing-card-featured::before,
-  .glass-card.p-8.hover\:bg-white\/5::before {
-    content: none !important;
-    display: none !important;
+  .cards-rail-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-3d-wrapper {
+    flex: 0 0 auto;
+    width: 280px; /* Ancho tarjeta móvil */
+    perspective: 1000px;
+    scroll-snap-align: center;
+    position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .card-3d-wrapper {
+      width: 340px; /* Ancho tarjeta escritorio */
+    }
+  }
+
+  .card-3d-inner {
+    width: 100%;
+    height: auto;
+    transition: transform 0.1s ease-out; /* Super fast for tilt */
+    transform-style: preserve-3d;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    position: relative;
+  }
+
+  .card-3d-inner img {
+    border-radius: 12px;
+    width: 100%;
+    display: block;
+    pointer-events: none; /* Evitar drag de imagen */
+  }
+
+  /* Brillo holográfico sobre la tarjeta */
+  .card-shine {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .card-3d-wrapper:hover .card-shine {
+    opacity: 1;
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🔘 SECCIÓN 7: BOTONES
-     Todos los estilos de botones
-     MODIFICAR: Colores, tamaños, efectos de botones
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="buttons">
-  .btn-nuclear {
+  .btn-aurora {
     position: relative;
-    background: var(--triggui-nuclear);
-    color: white;
+    background: var(--triggui-aurora);
+    background-size: 200% 200%;
+    color: black;
     font-weight: 800;
     border: none;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(255, 0, 85, 0.45);
-    animation: nuclear-pulse 2s infinite;
+    box-shadow: var(--triggui-shadow-glow-cyan);
+    animation: aurora-move 4s ease infinite;
     transition: all var(--triggui-transition-base);
     text-transform: uppercase;
     letter-spacing: -0.02em;
   }
   
-  .btn-nuclear::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-  }
-  
-  .btn-nuclear:hover {
+  .btn-aurora:hover {
     transform: scale(1.04);
-    filter: brightness(1.12);
+    box-shadow: var(--triggui-shadow-glow-purple);
   }
   
-  .btn-nuclear:hover::before {
-    width: 300px;
-    height: 300px;
-  }
-  
-  .btn-nuclear:active {
+  .btn-aurora:active {
     transform: scale(0.96);
   }
 
   .btn-monthly {
-    background: var(--triggui-green-gradient);
+    background: var(--triggui-white-15);
     color: white;
     font-weight: 700;
-    border: none;
+    border: 1px solid var(--triggui-white-20);
     transition: all var(--triggui-transition-base);
-    box-shadow: var(--triggui-shadow-glow-green);
   }
   
   .btn-monthly:hover {
-    transform: scale(1.03);
-    box-shadow: 0 8px 25px rgba(0, 255, 136, 0.45);
+    background: var(--triggui-white-20);
+    border-color: var(--triggui-accent-secondary);
+    transform: scale(1.02);
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📝 SECCIÓN 8: INPUTS & FORMS
-     Campos de formulario
-     MODIFICAR: Estilos de inputs, selects
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="inputs-forms">
   .input-god {
     background: var(--triggui-white-5);
@@ -375,9 +351,9 @@ function trackEngagement(action) {
   
   .input-god:focus {
     background: var(--triggui-white-8);
-    border-color: var(--triggui-accent-pink);
+    border-color: var(--triggui-accent-secondary);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(255, 0, 85, 0.15);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.15);
   }
   
   .input-god::placeholder {
@@ -401,63 +377,52 @@ function trackEngagement(action) {
     color: white;
     padding: 12px;
   }
-
-  /* Remove number input arrows */
+  
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-  
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🏷️ SECCIÓN 9: BADGES
-     Etiquetas y badges
-     MODIFICAR: Estilos de badges y labels
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="badges">
   .badge-save {
     position: absolute;
     top: -18px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--triggui-green-gradient);
+    background: var(--triggui-accent-primary);
     color: white;
     font-weight: 800;
     font-size: 0.7rem;
     padding: 5px 14px;
     border-radius: var(--triggui-radius-full);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: var(--triggui-shadow-glow-green);
+    box-shadow: 0 0 15px rgba(112, 0, 255, 0.5);
     white-space: nowrap;
     z-index: 10;
-    overflow: visible !important;
   }
 
   .live-badge {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 12px 22px;
-    background: var(--triggui-white-5);
-    border: 1px solid var(--triggui-white-15);
+    padding: 8px 16px;
+    background: rgba(112, 0, 255, 0.1);
+    border: 1px solid rgba(112, 0, 255, 0.3);
     backdrop-filter: var(--triggui-blur-lg);
     border-radius: var(--triggui-radius-full);
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.8rem;
+    color: var(--triggui-accent-secondary);
     margin-bottom: 2rem;
-    box-shadow: var(--triggui-shadow-md);
-    font-weight: 700;
+    font-weight: 600;
+    letter-spacing: 0.05em;
   }
 
   .pulse-dot {
     position: relative;
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   .pulse-dot::before {
@@ -465,7 +430,7 @@ function trackEngagement(action) {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: var(--triggui-green);
+    background: var(--triggui-accent-secondary);
     border-radius: 50%;
     animation: pulse-ring 2s ease-out infinite;
   }
@@ -475,93 +440,38 @@ function trackEngagement(action) {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: var(--triggui-green);
+    background: var(--triggui-accent-secondary);
     border-radius: 50%;
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     💳 SECCIÓN 10: PRICING CARDS
-     Tarjetas de precios
-     MODIFICAR: Estilos de planes de pricing
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="pricing-cards">
   .pricing-container {
     overflow: visible !important;
     padding-top: 2.5rem;
     position: relative;
   }
-  
-  /* CRITICAL FIX: Eliminar cualquier ::before/::after del contenedor */
-  .pricing-container::before,
-  .pricing-container::after {
-    content: none !important;
-    display: none !important;
-  }
 
   .pricing-card-featured {
     overflow: visible !important;
     position: relative;
+    background: linear-gradient(180deg, rgba(112, 0, 255, 0.1) 0%, rgba(0,0,0,0) 100%);
+    border: 1px solid var(--triggui-accent-primary);
   }
 
   .pricing-card-monthly {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.08) 0%, rgba(0, 189, 99, 0.05) 100%) !important;
-    border: 1px solid rgba(0, 255, 136, 0.3) !important;
-    backdrop-filter: var(--triggui-blur-md);
-    -webkit-backdrop-filter: var(--triggui-blur-md);
-    border-radius: var(--triggui-radius-2xl);
-    position: relative;
-    overflow: hidden;
-    transform: none !important;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1) !important;
-  }
-  
-  /* Mantener el shine individual pero con timing más lento */
-  .pricing-card-monthly::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
-    transition: left 0.8s ease;
-  }
-  
-  .pricing-card-monthly:hover::before {
-    left: 100%;
+    background: linear-gradient(135deg, rgba(255,255,255, 0.03) 0%, rgba(255,255,255, 0.01) 100%);
+    border: 1px solid var(--triggui-white-12);
   }
   
   .pricing-card-monthly:hover {
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.12) 0%, rgba(0, 189, 99, 0.08) 100%) !important;
-    border-color: rgba(0, 255, 136, 0.5) !important;
-    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.2) !important;
-    transform: translateY(-8px) !important;
-  }
-
-  .pricing-card-glow {
-    position: relative;
-  }
-  
-  .pricing-card-glow::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    background: linear-gradient(135deg, #FF0055, #FF5E00, #FFD700);
-    border-radius: var(--triggui-radius-2xl);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-  
-  .pricing-card-glow:hover::after {
-    opacity: 0.5;
-    animation: glow-rotate 3s linear infinite;
+    border-color: var(--triggui-accent-secondary);
+    box-shadow: 0 10px 40px rgba(0, 242, 255, 0.1);
   }
 
   .price-strike {
     position: relative;
-    color: #9ca3af;
+    color: #6b7280;
     text-decoration: none;
   }
   
@@ -571,40 +481,28 @@ function trackEngagement(action) {
     left: 0;
     top: 50%;
     width: 100%;
-    height: 2px;
-    background: var(--triggui-red);
+    height: 1px;
+    background: #ef4444;
     transform: translateY(-50%) rotate(-8deg);
   }
 </style>
      
-<!-- ═══════════════════════════════════════════════════════════════════════
-     💬 SECCIÓN 11: TESTIMONIALS
-     Tarjetas de testimonios
-     MODIFICAR: Estilos de testimonios
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="testimonials">
   .testimonial-card {
     background: var(--triggui-white-3);
     border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: var(--triggui-blur-lg);
-    -webkit-backdrop-filter: var(--triggui-blur-lg);
     border-radius: var(--triggui-radius-xl);
     padding: 24px;
     transition: all var(--triggui-transition-base);
   }
   
   .testimonial-card:hover {
-    border-color: var(--triggui-white-20);
+    border-color: var(--triggui-accent-secondary);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(255, 0, 85, 0.15);
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📱 SECCIÓN 12: APP STORE BADGES
-     Botones de descarga de apps
-     MODIFICAR: Tamaños y comportamiento de badges de tiendas
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="app-store-badges">
   .store-badge-container {
     display: flex;
@@ -631,13 +529,8 @@ function trackEngagement(action) {
     display: block;
   }
 
-  .store-badge.apple img {
-    transform: scale(0.78);
-  }
-
-  .store-badge.google img {
-    transform: scale(1.18);
-  }
+  .store-badge.apple img { transform: scale(0.78); }
+  .store-badge.google img { transform: scale(1.18); }
   
   .store-badge:hover {
     transform: scale(1.05);
@@ -645,11 +538,6 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🎈 SECCIÓN 13: FLOATING ELEMENTS
-     Botones flotantes (WhatsApp, CTA)
-     MODIFICAR: Estilos de elementos flotantes
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="floating-elements">
   .wa-float {
     position: fixed;
@@ -677,7 +565,7 @@ function trackEngagement(action) {
     bottom: 20px;
     right: 20px;
     z-index: 50;
-    background: white;
+    background: var(--triggui-white);
     color: black;
     font-weight: 800;
     padding: 14px 28px;
@@ -696,37 +584,16 @@ function trackEngagement(action) {
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🎬 SECCIÓN 14: ANIMACIONES
-     Todas las @keyframes animations
-     MODIFICAR: Comportamiento de animaciones
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="animations">
-  @keyframes fire-move {
-    0%, 100% { background-position: 0% 50%; }
+  @keyframes aurora-move {
+    0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-  }
-
-  @keyframes nuclear-pulse {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(255, 0, 85, 0.7),
-                  0 10px 30px rgba(255, 0, 85, 0.3);
-    }
-    50% {
-      box-shadow: 0 0 0 15px rgba(255, 0, 85, 0),
-                  0 10px 30px rgba(255, 0, 85, 0.3);
-    }
+    100% { background-position: 0% 50%; }
   }
 
   @keyframes pulse-ring {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2.5);
-      opacity: 0;
-    }
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(3); opacity: 0; }
   }
 
   @keyframes pulse-wa {
@@ -736,20 +603,10 @@ function trackEngagement(action) {
 
   @keyframes spotlight-pulse {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-  }
-
-  @keyframes glow-rotate {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+    50% { opacity: 0.6; }
   }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🔧 SECCIÓN 15: UTILITIES
-     Clases de utilidad reutilizables
-     MODIFICAR: Utilidades globales
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="utilities">
   .container-safe {
     max-width: 1200px;
@@ -758,26 +615,13 @@ function trackEngagement(action) {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
-
-  .hover-lift {
-    transition: transform var(--triggui-transition-base);
-  }
-  
-  .hover-lift:hover {
-    transform: translateY(-2px);
-  }
+  .hover-lift { transition: transform var(--triggui-transition-base); }
+  .hover-lift:hover { transform: translateY(-2px); }
 </style>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     📱 SECCIÓN 16: RESPONSIVE
-     Media queries para mobile
-     MODIFICAR: Comportamiento en diferentes tamaños de pantalla
-     ═══════════════════════════════════════════════════════════════════════ -->
 <style id="responsive">
   @media (max-width: 640px) {
-    .store-badge-container {
-      height: 52px;
-    }
+    .store-badge-container { height: 52px; }
   }
 </style>
 
@@ -785,29 +629,23 @@ function trackEngagement(action) {
 
 <body>
 
-<!-- PRELOADER ANTI-FLASH -->
 <div class="page-loader" id="pageLoader">
   <img src="./trigguiletrasblanco.png" alt="Triggui" class="h-8 animate-pulse opacity-80" />
 </div>
 
-<!-- Background Effects -->
 <div class="bg-grain"></div>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🦸 HERO SECTION
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
+<section class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pt-24 pb-12 px-4">
   <div class="spotlight"></div>
   
-  <div class="relative z-10 text-center max-w-5xl mx-auto">
+  <div class="relative z-10 text-center max-w-5xl mx-auto w-full">
     
-    <!-- LOGO CENTRADO -->
-    <div class="mb-8">
+    <div class="mb-10">
       <img 
         src="./trigguiletrasblanco.png" 
         alt="Triggui" 
         class="h-10 md:h-12 w-auto mx-auto opacity-100"
-        style="max-width: 220px; filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));"
+        style="max-width: 220px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));"
         loading="eager"
       />
     </div>
@@ -817,24 +655,82 @@ function trackEngagement(action) {
       <span id="liveCounter">127 lectores ahora</span>
     </div>
 
-    <h1 class="hero-title text-white mb-3">
+    <h1 class="hero-title text-white mb-2">
       Cuando el impulso llega,
     </h1>
-    <h2 class="hero-subtitle text-fire mb-10">
+    <h2 class="hero-subtitle text-aurora mb-8">
       el libro ya te espera.
     </h2>
 
     <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-      No busques libros. Deja que el conocimiento te encuentre.<br>
-      <span class="text-white font-semibold">Directo a tu WhatsApp. 30 segundos.</span><br>
-      Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.
+      Deja que el conocimiento te encuentre.<br>
+      <span class="text-white font-semibold">WhatsApp. 30 segundos. Sin fricción.</span>
     </p>
 
-    <!-- FORMULARIO -->
-    <div class="max-w-xl mx-auto mb-12">
-      <div class="glass-card p-8">
+    <div class="w-full mb-16 relative">
+      <div class="container-safe mx-auto">
+        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">
+          Lo que recibes en tu celular
+        </p>
         
-        <form onsubmit="handleCapture(event)" class="space-y-5">
+        <div class="cards-rail-container" id="cardRail">
+          <div class="shrink-0 w-4 md:w-[calc(50%-170px)]"></div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="antifragil.jpg" alt="Antifragil" loading="lazy">
+            </div>
+          </div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="habitossecretosdelosgenios.jpg" alt="Hábitos Secretos" loading="lazy">
+            </div>
+          </div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="elartedevivirconsencillez.jpg" alt="Vivir con Sencillez" loading="lazy">
+            </div>
+          </div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="reinventate.jpg" alt="Reinvéntate" loading="lazy">
+            </div>
+          </div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="simonsinek.jpg" alt="Empieza con el porqué" loading="lazy">
+            </div>
+          </div>
+
+          <div class="card-3d-wrapper">
+            <div class="card-3d-inner">
+              <div class="card-shine"></div>
+              <img src="pensarrápidopensardespacio.jpg" alt="Pensar Rápido" loading="lazy">
+            </div>
+          </div>
+
+          <div class="shrink-0 w-4 md:w-[calc(50%-170px)]"></div>
+        </div>
+        
+        <p class="text-center text-xs text-gray-600 mt-2 flex items-center justify-center gap-2">
+          <span class="animate-pulse">👈</span> Desliza para explorar <span class="animate-pulse">👉</span>
+        </p>
+      </div>
+    </div>
+    <div class="max-w-xl mx-auto mb-12 w-full px-4">
+      <div class="glass-card p-8 shadow-2xl relative overflow-hidden group">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-600 blur-3xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+
+        <form onsubmit="handleCapture(event)" class="space-y-5 relative z-10">
           
           <div class="grid grid-cols-2 gap-4">
             <input 
@@ -862,10 +758,7 @@ function trackEngagement(action) {
           />
 
           <div class="grid grid-cols-3 gap-4">
-            <select 
-              id="country" 
-              class="input-god select-god px-4 py-4 rounded-xl"
-            >
+            <select id="country" class="input-god select-god px-4 py-4 rounded-xl">
               <option value="+52">🇲🇽 +52</option>
               <option value="+1">🇺🇸 +1</option>
               <option value="+34">🇪🇸 +34</option>
@@ -885,12 +778,6 @@ function trackEngagement(action) {
               <option value="+595">🇵🇾 +595</option>
               <option value="+598">🇺🇾 +598</option>
               <option value="+55">🇧🇷 +55</option>
-              <option value="+1">🇨🇦 +1</option>
-              <option value="+44">🇬🇧 +44</option>
-              <option value="+49">🇩🇪 +49</option>
-              <option value="+33">🇫🇷 +33</option>
-              <option value="+39">🇮🇹 +39</option>
-              <option value="+351">🇵🇹 +351</option>
             </select>
             <input 
               type="tel" 
@@ -907,7 +794,7 @@ function trackEngagement(action) {
           <button 
             type="submit" 
             id="submitBtn"
-            class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
+            class="btn-aurora w-full py-5 rounded-xl text-lg font-bold"
           >
             Quiero que el libro me encuentre
           </button>
@@ -915,13 +802,12 @@ function trackEngagement(action) {
         </form>
 
         <p class="text-xs text-gray-500 text-center mt-6">
-          Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp. Cancela cuando quieras.
+          Al registrarte aceptas recibir mensajes de Triggui vía WhatsApp.
         </p>
 
       </div>
     </div>
 
-    <!-- APP STORE BADGES -->
     <p class="text-sm text-gray-400 mb-4">App complementaria incluida gratis</p>
     <div class="store-badge-container mb-8">
       <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" class="store-badge apple" onclick="trackEngagement('app_store')">
@@ -932,24 +818,15 @@ function trackEngagement(action) {
       </a>
     </div>
 
-    <p class="text-sm text-gray-500 mt-8">
-      <span id="numeroImpacto" class="text-fire font-bold text-2xl">+6,187</span><br>
-      <span class="text-gray-400">libros esperando ser abiertos</span>
-    </p>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     ❓ SECCIÓN: ¿Qué es Triggui?
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="py-24 relative">
+<section class="py-24 relative bg-gray-900/10">
   <div class="container-safe mx-auto">
-    
     <div class="max-w-3xl mx-auto text-center mb-16">
       <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
         No es falta de ganas.<br>
-        <span class="text-fire">Es fricción de empezar.</span>
+        <span class="text-aurora">Es fricción de empezar.</span>
       </h2>
       <p class="text-xl text-gray-400 leading-relaxed">
         Como el gym. Como escribir. Como meditar.<br>
@@ -958,7 +835,6 @@ function trackEngagement(action) {
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      
       <div class="glass-card p-8">
         <div class="text-5xl mb-6">💭</div>
         <h3 class="text-2xl font-bold text-white mb-4">El problema no es falta de tiempo</h3>
@@ -967,443 +843,169 @@ function trackEngagement(action) {
           <span class="text-white font-semibold">Triggui elimina esos 3 minutos.</span>
         </p>
       </div>
-
       <div class="glass-card p-8">
         <div class="text-5xl mb-6">💬</div>
         <h3 class="text-2xl font-bold text-white mb-4">WhatsApp es la clave</h3>
         <p class="text-gray-400 leading-relaxed">
           Un mensaje sin leer en WhatsApp es una promesa. Si no puedes leerlo ahora, ahí se queda esperando. 
-          <span class="text-white font-semibold">Persistencia útil. Conocimiento que no se evapora.</span>
+          <span class="text-white font-semibold">Persistencia útil.</span>
         </p>
       </div>
-
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     ⚙️ SECCIÓN: Cómo funciona
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="py-24 bg-gradient-to-b from-black via-gray-900/20 to-black">
-  <div class="container-safe mx-auto">
-    
-    <h2 class="text-4xl md:text-6xl font-black text-center text-white mb-6 tracking-tight leading-none">
-      Si el impulso nace de ti,<br>
-      <span class="text-fire">el libro ya está ahí.</span>
-    </h2>
-    
-    <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto leading-relaxed">
-      Si el impulso lo generamos nosotros, te activamos con la idea perfecta.<br>
-      <span class="text-white font-semibold">Dos fuerzas. Un solo resultado: acción inmediata.</span>
-    </p>
-
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-      
-      <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
-          💬
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Te llega por WhatsApp</h3>
-        <p class="text-gray-400 leading-relaxed">
-          Una idea. 30 segundos. Sin abrir nada más. Ahí, entre tus chats cotidianos.
-        </p>
-      </div>
-
-      <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
-          ⏳
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Persistencia útil</h3>
-        <p class="text-gray-400 leading-relaxed">
-          Si no puedes leerlo ahora, el mensaje se queda ahí. Es la memoria de tu intención de aprender.
-        </p>
-      </div>
-
-      <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
-          🚀
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Cero fricción para empezar</h3>
-        <p class="text-gray-400 leading-relaxed">
-          Cuando tengas tu momento, solo abres y lees. El libro completo está ahí si quieres más.
-        </p>
-      </div>
-
-    </div>
-
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════════════════
-     💰 SECCIÓN: Pricing
-     ═══════════════════════════════════════════════════════════════════════ -->
 <section id="planes" class="py-24 relative scroll-mt-20">
   <div class="container-safe mx-auto">
     
     <h2 class="text-4xl md:text-5xl font-black text-center text-white mb-6 tracking-tight">
       Invierte en eliminar<br>
-      <span class="text-fire">la fricción de empezar.</span>
+      <span class="text-aurora">la fricción de empezar.</span>
     </h2>
     <p class="text-gray-400 text-center mb-16 text-lg max-w-2xl mx-auto">
-      $149 al mes = $4.90 por día. Menos que un café.<br>
-      <span class="text-white font-semibold">Más valioso que cualquier curso que nunca terminas.</span>
+      $149 al mes = $4.90 por día. Menos que un café.
     </p>
 
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
-      <!-- Plan Mensual -->
       <div class="pricing-card-monthly p-8 order-1">
-        <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
+        <h3 class="text-gray-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
           Mensual
         </h3>
         <div class="text-center mb-6">
           <span class="text-4xl font-bold text-white">$149</span>
           <span class="text-gray-400 text-sm">/mes</span>
         </div>
-        <ul class="text-sm text-gray-200 space-y-2 mb-8">
-          <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
-            <span>1 mensaje semanal</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
-            <span>30 segundos. Directo a WhatsApp.</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
-            <span>App incluida gratis</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
-            <span>Cancela cuando quieras</span>
-          </li>
+        <ul class="text-sm text-gray-200 space-y-3 mb-8">
+          <li class="flex gap-2 items-center"><span class="text-cyan-400 font-bold">✓</span> 1 mensaje semanal</li>
+          <li class="flex gap-2 items-center"><span class="text-cyan-400 font-bold">✓</span> 30 segundos. Directo a WA.</li>
+          <li class="flex gap-2 items-center"><span class="text-cyan-400 font-bold">✓</span> App incluida gratis</li>
         </ul>
-        <a 
-          href="https://buy.stripe.com/8x2dRb4Zw6YkcuIbzf24003" 
-          class="btn-monthly block w-full py-3 text-center rounded-xl font-bold text-sm"
-          onclick="trackConversion('mensual', 149)"
-        >
-          Empezar Ahora
-        </a>
+        <a href="https://buy.stripe.com/8x2dRb4Zw6YkcuIbzf24003" class="btn-monthly block w-full py-3 text-center rounded-xl font-bold text-sm" onclick="trackConversion('mensual', 149)">Empezar Ahora</a>
       </div>
 
-      <!-- Plan Anual -->
-      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative bg-gradient-to-b from-white/8 to-white/3 border-pink-500/60 transform md:scale-110 shadow-2xl order-2">
-        <div class="badge-save">
-          MÁS POPULAR
-        </div>
-        
-        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6">
-          Anual Pro
-        </h3>
+      <div class="pricing-card-featured glass-card p-8 relative transform md:scale-110 shadow-2xl order-2">
+        <div class="badge-save">MÁS POPULAR</div>
+        <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-4">Anual Pro</h3>
         <div class="text-center mb-2">
           <span class="text-5xl font-black text-white">$1,490</span>
           <span class="text-gray-400 text-sm">/año</span>
         </div>
         <div class="text-center mb-6">
           <span class="price-strike text-sm inline-block mr-2">$1,788</span>
-          <span class="text-green-400 text-xs font-bold bg-green-900/40 px-3 py-1 rounded-full">
-            Ahorras $298
-          </span>
+          <span class="text-lime-400 text-xs font-bold bg-lime-900/30 px-3 py-1 rounded-full">Ahorras $298</span>
         </div>
-        <ul class="text-sm text-gray-200 space-y-2 mb-8">
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>1 mensaje semanal</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>30 segundos. Directo a WhatsApp.</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span>App incluida gratis</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span><strong>Precio congelado 1 año</strong></span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
-            <span><strong>Ahorras $298 MXN</strong></span>
-          </li>
+        <ul class="text-sm text-gray-200 space-y-3 mb-8">
+          <li class="flex gap-2 items-center"><span class="text-purple-400 font-bold">✓</span> 1 mensaje semanal</li>
+          <li class="flex gap-2 items-center"><span class="text-purple-400 font-bold">✓</span> 30 segundos. Directo a WA.</li>
+          <li class="flex gap-2 items-center"><span class="text-purple-400 font-bold">✓</span> <strong>Precio congelado 1 año</strong></li>
         </ul>
-        <a 
-          href="https://buy.stripe.com/00w7sN2Ro96s0M0fPv24004" 
-          class="btn-nuclear block w-full py-4 text-center rounded-xl font-bold shadow-xl"
-          onclick="trackConversion('anual', 1490)"
-        >
-          Que el libro me encuentre
-        </a>
+        <a href="https://buy.stripe.com/00w7sN2Ro96s0M0fPv24004" class="btn-aurora block w-full py-4 text-center rounded-xl font-bold shadow-xl" onclick="trackConversion('anual', 1490)">Que el libro me encuentre</a>
       </div>
 
-      <!-- Plan Lifetime -->
-      <div class="glass-card p-8 hover:bg-white/5 transition-all opacity-95 hover:opacity-100 order-3">
-        <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
-          Lifetime
-        </h3>
+      <div class="glass-card p-8 hover:bg-white/5 transition-all opacity-90 hover:opacity-100 order-3">
+        <h3 class="text-lime-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">Lifetime</h3>
         <div class="text-center mb-6">
           <span class="text-4xl font-bold text-white">$4,999</span>
           <span class="text-gray-500 text-sm">/único</span>
         </div>
-        <ul class="text-sm text-gray-300 space-y-2 mb-8">
-          <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
-            <span>1 mensaje semanal</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
-            <span>30 segundos. Directo a WhatsApp.</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
-            <span>App incluida gratis</span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
-            <span><strong>Nunca más pagas</strong></span>
-          </li>
-          <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
-            <span><strong>Acceso de por vida</strong></span>
-          </li>
+        <ul class="text-sm text-gray-300 space-y-3 mb-8">
+          <li class="flex gap-2 items-center"><span class="text-lime-400 font-bold">✓</span> Todo lo incluido</li>
+          <li class="flex gap-2 items-center"><span class="text-lime-400 font-bold">✓</span> <strong>Nunca más pagas</strong></li>
+          <li class="flex gap-2 items-center"><span class="text-lime-400 font-bold">✓</span> Acceso de por vida</li>
         </ul>
-        <a 
-          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-          class="block w-full py-3 text-center rounded-xl border-2 border-purple-500/30 text-purple-300 hover:bg-purple-500/10 font-bold text-sm transition-all"
-          onclick="trackConversion('lifetime', 4999)"
-        >
-          Ser Socio Vitalicio
-        </a>
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="block w-full py-3 text-center rounded-xl border-2 border-lime-500/30 text-lime-300 hover:bg-lime-500/10 font-bold text-sm transition-all" onclick="trackConversion('lifetime', 4999)">Ser Socio Vitalicio</a>
       </div>
 
     </div>
 
-    <!-- SECCIÓN: SÓLO QUIERO APOYAR EL PROYECTO -->
     <div class="max-w-2xl mx-auto mt-20">
-      
       <div class="text-center mb-8">
-        <p class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-2">
-          Sólo quiero apoyar el proyecto
-        </p>
+        <p class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-2">Sólo quiero apoyar</p>
         <div class="w-16 h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-auto"></div>
       </div>
-
       <div class="glass-card p-8 border-2 border-yellow-500/30 hover:border-yellow-500/50 transition-all">
         <div class="text-center mb-6">
           <div class="text-5xl mb-4">💝</div>
-          <h3 class="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2">
-            Apoyo Libre
-          </h3>
-          <p class="text-gray-400 text-sm mb-6">
-            Tu generosidad mantiene Triggui vivo.<br>
-            <span class="text-white font-semibold">Elige la cantidad que quieras aportar.</span>
-          </p>
+          <h3 class="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2">Apoyo Libre</h3>
+          <p class="text-gray-400 text-sm mb-6">Tu generosidad mantiene Triggui vivo.</p>
         </div>
-
-        <ul class="text-sm text-gray-300 space-y-2 mb-8">
-          <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
-            <span>Sin compromiso. Sin suscripción.</span>
-          </li>
-          <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
-            <span>Apoyas la cultura de lectura.</span>
-          </li>
-          <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
-            <span>100% transparencia. Cada peso cuenta.</span>
-          </li>
-        </ul>
-
-        <a 
-          href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
-          class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all hover:scale-102"
-          style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;"
-          onclick="trackConversion('donation_click', 0)"
-        >
-          Aportar Ahora
-        </a>
-
-        <p class="text-center text-xs text-gray-500 mt-4">
-          Gracias por mantener viva la chispa del conocimiento 🔥
-        </p>
+        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all hover:scale-102" style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;" onclick="trackConversion('donation_click', 0)">Aportar Ahora</a>
       </div>
-
     </div>
 
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     💬 SECCIÓN: Testimonios
-     ═══════════════════════════════════════════════════════════════════════ -->
 <section class="py-24 border-t border-gray-900">
   <div class="container-safe mx-auto">
-    
-    <h2 class="text-3xl md:text-5xl font-black text-center text-white mb-16 tracking-tight">
-      Lo que dicen nuestros lectores
-    </h2>
-
+    <h2 class="text-3xl md:text-5xl font-black text-center text-white mb-16 tracking-tight">Lo que dicen nuestros lectores</h2>
     <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-      
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
-            L
-          </div>
-          <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Me llega entre mensajes. Lo leo. <strong class="text-white">Y ese impulso me hace agarrar el libro después. Es como ponerte los tenis para correr.</strong>"
-            </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
-              Laura M.
-            </p>
-          </div>
-        </div>
+        <p class="text-gray-300 text-base mb-3 leading-relaxed italic">"Me llega entre mensajes. Lo leo. <strong class="text-white">Es como ponerte los tenis para correr.</strong>"</p>
+        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">— Laura M.</p>
       </div>
-
       <div class="testimonial-card">
-        <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
-            C
-          </div>
-          <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "El mensaje se queda ahí si no puedo leerlo. <strong class="text-white">Es como tener un mentor que sabe cuándo necesitas un empujón.</strong>"
-            </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
-              Carlos R.
-            </p>
-          </div>
-        </div>
+        <p class="text-gray-300 text-base mb-3 leading-relaxed italic">"<strong class="text-white">El hábito más fácil que he logrado mantener.</strong> Sin fricción."</p>
+        <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">— Ana G.</p>
       </div>
-
-      <div class="testimonial-card">
-        <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
-            A
-          </div>
-          <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "30 segundos. Una idea. <strong class="text-white">El hábito más fácil que he logrado mantener. Sin fricción, sin excusas.</strong>"
-            </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
-              Ana G.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="testimonial-card">
-        <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
-            J
-          </div>
-          <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "No es 'el libro correcto en el momento exacto'. <strong class="text-white">Es el libro que ya me está esperando cuando yo estoy listo.</strong>"
-            </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
-              Jorge M.
-            </p>
-          </div>
-        </div>
-      </div>
-
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🚀 SECCIÓN: CTA FINAL
-     ═══════════════════════════════════════════════════════════════════════ -->
-<section class="py-32 text-center relative bg-gradient-to-b from-black via-gray-900/30 to-black">
+<section class="py-32 text-center relative bg-gradient-to-b from-black via-purple-900/10 to-black">
   <div class="container-safe mx-auto px-6">
-    
     <h2 class="text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
       CUANDO EL IMPULSO LLEGA,<br>
-      <span class="text-fire">EL LIBRO YA TE ESPERA.</span>
+      <span class="text-aurora">EL LIBRO YA TE ESPERA.</span>
     </h2>
-
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
-      Una idea por semana.<br>
-      Directo a tu WhatsApp. 30 segundos.<br>
-      <span class="text-white font-semibold">Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.</span>
-    </p>
-
-    <a 
-      href="#planes" 
-      class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl"
-      onclick="trackEngagement('footer_cta')"
-    >
-      Que el libro me encuentre
-    </a>
-
-    <div class="mt-8">
-      <a 
-        href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-        class="inline-block text-gray-500 hover:text-gray-300 transition-colors text-sm font-medium"
-        onclick="trackEngagement('donate_link')"
-      >
-        💝 Apoyar el proyecto
-      </a>
-    </div>
-
+    <a href="#planes" class="btn-aurora inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl" onclick="trackEngagement('footer_cta')">Que el libro me encuentre</a>
+    
     <div class="mt-16 text-xs text-gray-600 space-y-4">
-      <img 
-        src="./trigguiletrasblanco.png" 
-        alt="Triggui" 
-        class="h-6 w-auto mx-auto opacity-40 hover:opacity-60 transition-opacity"
-        loading="lazy"
-      />
+      <img src="./trigguiletrasblanco.png" alt="Triggui" class="h-6 w-auto mx-auto opacity-40 hover:opacity-60 transition-opacity" loading="lazy" />
       <p>© 2025 Triggui · Hecho con 🖤 en México</p>
-      <div class="flex items-center justify-center gap-4 text-gray-500">
-        <a href="#" class="hover:text-white transition-colors">Privacidad</a>
-        <span>·</span>
-        <a href="#" class="hover:text-white transition-colors">Términos</a>
-      </div>
     </div>
-
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🎈 BOTONES FLOTANTES
-     ═══════════════════════════════════════════════════════════════════════ -->
-<a 
-  href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20que%20el%20libro%20me%20encuentre" 
-  target="_blank"
-  class="wa-float"
-  id="whatsappFloat"
-  onclick="trackEngagement('whatsapp_float')"
->
-  <svg width="30" height="30" fill="white" viewBox="0 0 24 24">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
+<a href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20que%20el%20libro%20me%20encuentre" target="_blank" class="wa-float" id="whatsappFloat" onclick="trackEngagement('whatsapp_float')">
+  <svg width="30" height="30" fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
+<a href="#planes" class="cta-float" id="floatingCTA" onclick="trackEngagement('floating_cta')">Que me encuentre</a>
 
-<a 
-  href="#planes" 
-  class="cta-float"
-  id="floatingCTA"
-  onclick="trackEngagement('floating_cta')"
->
-  Que me encuentre
-</a>
-
-<!-- ═══════════════════════════════════════════════════════════════════════
-     🧠 JAVASCRIPT
-     ═══════════════════════════════════════════════════════════════════════ -->
 <script>
 // === PRELOADER ===
 window.addEventListener('load', function() {
-  setTimeout(function() {
-    document.getElementById('pageLoader').classList.add('loaded');
-  }, 500);
+  setTimeout(function() { document.getElementById('pageLoader').classList.add('loaded'); }, 500);
 });
+
+// === 3D TILT EFFECT LOGIC (VANILLA JS NIVEL DIOS) ===
+// Detecta movimiento del mouse/touch para inclinar las tarjetas
+const cards = document.querySelectorAll('.card-3d-wrapper');
+
+if (window.matchMedia("(hover: hover)").matches) { // Solo en desktop
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+      const rotateY = ((x - centerX) / centerX) * 10;
+      
+      const inner = card.querySelector('.card-3d-inner');
+      inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      const inner = card.querySelector('.card-3d-inner');
+      inner.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+    });
+  });
+}
 
 // === CAPTURA DE FORMULARIO ===
 async function handleCapture(event) {
@@ -1412,7 +1014,7 @@ async function handleCapture(event) {
   const original = btn.innerHTML;
   
   btn.disabled = true;
-  btn.innerHTML = '⚡ Activando tu chispa...';
+  btn.innerHTML = '⚡ Activando...';
   btn.style.opacity = '0.7';
 
   const fname = document.getElementById('fname').value.trim();
@@ -1424,7 +1026,7 @@ async function handleCapture(event) {
   const utm = getUTMParams();
 
   if (phone.length !== 10) {
-    btn.innerHTML = '⚠️ Teléfono debe tener 10 dígitos';
+    btn.innerHTML = '⚠️ Teléfono a 10 dígitos';
     btn.style.background = '#ef4444';
     setTimeout(() => { 
       btn.innerHTML = original; 
@@ -1436,7 +1038,7 @@ async function handleCapture(event) {
   }
 
   if(!fname || !lname || !email || !phone) {
-    btn.innerHTML = '⚠️ Completa todos los campos';
+    btn.innerHTML = '⚠️ Completa todo';
     btn.style.background = '#ef4444';
     setTimeout(() => { 
       btn.innerHTML = original; 
@@ -1453,12 +1055,12 @@ async function handleCapture(event) {
     await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=triggui_god_whatsapp_persistence&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
+      body: `first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=triggui_aurora_deck&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`
     });
 
     trackConversion('lead_captured', 100);
     btn.style.background = 'linear-gradient(135deg, #00FF88 0%, #00BD63 100%)';
-    btn.innerHTML = '✨ El libro te está esperando en WhatsApp';
+    btn.innerHTML = '✨ ¡Listo! Revisa tu WhatsApp';
     
     setTimeout(() => {
       document.getElementById('fname').value = '';
@@ -1473,7 +1075,7 @@ async function handleCapture(event) {
 
   } catch (error) {
     console.error('Error:', error);
-    btn.innerHTML = '❌ Error. Intenta de nuevo';
+    btn.innerHTML = '❌ Error de red';
     btn.style.background = '#ef4444';
     setTimeout(() => { 
       btn.innerHTML = original; 
@@ -1488,139 +1090,61 @@ async function handleCapture(event) {
 function updateLiveCounter() {
   const el = document.getElementById("liveCounter");
   if (!el) return;
-  
   fetch("https://triggui-api.vercel.app/api/get?cb=" + Date.now())
     .then(r => r.json())
     .then(d => {
       const total = d.total || 6187;
       const activeNow = Math.max(1, Math.floor(total / 100));
       el.textContent = `${activeNow} lectores ahora`;
-      
-      const counterEl = document.getElementById("numeroImpacto");
-      if (counterEl) {
-        let cur = 0;
-        const tgt = total;
-        const inc = Math.ceil(tgt / 40);
-        
-        const step = () => {
-          cur += inc;
-          if (cur >= tgt) cur = tgt;
-          counterEl.textContent = "+" + cur.toLocaleString("es-MX");
-          if (cur < tgt) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      }
     })
-    .catch(() => { 
-      el.textContent = "127 lectores ahora";
-      const counterEl = document.getElementById("numeroImpacto");
-      if (counterEl) counterEl.textContent = "+6,187";
-    });
+    .catch(() => { el.textContent = "127 lectores ahora"; });
 }
 updateLiveCounter();
-setInterval(updateLiveCounter, 30000);
 
-// === DETECCIÓN DE WEBVIEW ===
-const isWebView = (function() {
-  const ua = navigator.userAgent || navigator.vendor || window.opera;
-  
-  if (/wv|WebView/i.test(ua)) return true;
-  if (/Instagram|FBAN|FBAV/i.test(ua)) return true;
-  
-  if (/iPhone|iPad|iPod/.test(ua)) {
-    if (/Safari/i.test(ua) && !window.navigator.standalone) {
-      return false;
-    }
-    if (!(/Safari/i.test(ua)) || window.navigator.standalone) {
-      return true;
-    }
-  }
-  
-  return false;
-})();
-
+// === UTILIDADES ===
+const isWebView = (/wv|WebView|Instagram|FBAN|FBAV/i.test(navigator.userAgent));
 if (isWebView) {
-  const whatsappFloat = document.getElementById('whatsappFloat');
-  const floatingCTA = document.getElementById('floatingCTA');
-  if (whatsappFloat) whatsappFloat.style.display = 'none';
-  if (floatingCTA) floatingCTA.style.display = 'none';
+  const wa = document.getElementById('whatsappFloat');
+  if (wa) wa.style.display = 'none';
 }
 
-// === CTA FLOTANTE EN SCROLL ===
 let scrollTimer;
 let lastScrollY = 0;
-
 window.addEventListener('scroll', () => {
   clearTimeout(scrollTimer);
   scrollTimer = setTimeout(() => {
     const cta = document.getElementById('floatingCTA');
     if (!cta || isWebView) return;
-    
     const currentScrollY = window.scrollY;
-    
     if (currentScrollY > 600 && currentScrollY > lastScrollY) {
       cta.classList.add('visible');
     } else if (currentScrollY < lastScrollY) {
       cta.classList.remove('visible');
     }
-    
     lastScrollY = currentScrollY;
   }, 100);
 }, { passive: true });
 
-// === FORMATO DE TELÉFONO ===
+// Input mask simple
 const phoneInput = document.getElementById('phone');
 if (phoneInput) {
   phoneInput.addEventListener('input', function(e) {
     let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
+    if (value.length > 10) value = value.slice(0, 10);
     e.target.value = value;
-  });
-  
-  phoneInput.addEventListener('paste', function(e) {
-    e.preventDefault();
-    const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-    const numbers = pastedText.replace(/\D/g, '').slice(0, 10);
-    e.target.value = numbers;
   });
 }
 
-// === SMOOTH SCROLL ===
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// === INTERSECTION OBSERVER ===
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-  observer.observe(el);
-});
-
-console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS - WHATSAPP PERSISTENCE ACTIVATED - ZERO FLICKER');
+console.log('🔥 TRIGGUI AURORA SYSTEM - ONLINE');
 </script>
 
 </body>
