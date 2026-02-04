@@ -3,1063 +3,357 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-<title>Trigguift - Libros + Artesanía Mexicana</title>
-
-<meta name="description" content="Regalos que transforman. Un libro curado por Triggui + una pieza artesanal mexicana única. El regalo perfecto para quien amas." />
-<meta property="og:title" content="Trigguift - El regalo que transforma" />
-<meta property="og:description" content="Un libro que cambia perspectivas + una pieza artesanal mexicana. Regalos con alma." />
-<meta property="og:type" content="website" />
+<title>Trigguift - Artesanía Mexicana + Un Libro que Transforma</title>
+<meta name="description" content="Piezas artesanales únicas hechas a mano en México + un libro curado que transforma. El regalo que nunca olvidarán." />
+<meta property="og:title" content="Trigguift - Artesanía Mexicana de Autor" />
+<meta property="og:description" content="Talavera, Alebrijes, Barro Negro, Cobre martillado. Cada pieza viene con un libro que amplifica su significado." />
 <meta name="theme-color" content="#050505">
-
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-
 <style>
-  :root {
-    --trigguift-black: #050505;
-    --trigguift-white: #FFFFFF;
-    --trigguift-gold: #D4AF37;
-    --trigguift-gold-light: #F4E4BC;
-    --trigguift-copper: #B87333;
-    --trigguift-terracotta: #C75B39;
-    --trigguift-clay: #8B4513;
-    --trigguift-sage: #9CAF88;
-    
-    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
-    --gradient-warm: linear-gradient(135deg, #C75B39 0%, #D4AF37 100%);
-    --gradient-earth: linear-gradient(135deg, #8B4513 0%, #B87333 50%, #D4AF37 100%);
-    
-    --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, sans-serif;
-    
-    --radius-lg: 16px;
-    --radius-xl: 24px;
-    --radius-2xl: 32px;
-    
-    --shadow-gold: 0 8px 32px rgba(212, 175, 55, 0.25);
-    --shadow-warm: 0 12px 40px rgba(199, 91, 57, 0.2);
-    
-    --transition-smooth: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  
-  html, body {
-    font-family: var(--font-body);
-    background-color: var(--trigguift-black);
-    color: var(--trigguift-white);
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* ══════════════════════════════════════════
-     TEXTURAS Y FONDOS
-  ══════════════════════════════════════════ */
-  .bg-grain {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 0;
-    opacity: 0.04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-
-  .pattern-aztec {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    opacity: 0.03;
-    background-image: 
-      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(212,175,55,0.1) 10px, rgba(212,175,55,0.1) 20px),
-      repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,175,55,0.1) 10px, rgba(212,175,55,0.1) 20px);
-    pointer-events: none;
-  }
-
-  .spotlight-warm {
-    position: absolute;
-    top: -30%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(ellipse at center, 
-      rgba(212, 175, 55, 0.12) 0%, 
-      rgba(199, 91, 57, 0.06) 35%,
-      transparent 60%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* ══════════════════════════════════════════
-     TIPOGRAFÍA
-  ══════════════════════════════════════════ */
-  .font-display { font-family: var(--font-display); }
-  .font-body { font-family: var(--font-body); }
-
-  .text-gold {
-    background: var(--gradient-gold);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmer 4s ease infinite;
-  }
-
-  @keyframes shimmer {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .hero-title {
-    font-family: var(--font-display);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  /* ══════════════════════════════════════════
-     COMPONENTES
-  ══════════════════════════════════════════ */
-  .glass-warm {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(212, 175, 55, 0.15);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: var(--radius-xl);
-  }
-
-  .badge-artesanal {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--trigguift-gold-light);
-  }
-
-  .badge-artesanal::before {
-    content: '✦';
-    color: var(--trigguift-gold);
-  }
-
-  /* ══════════════════════════════════════════
-     PRODUCT CARDS
-  ══════════════════════════════════════════ */
-  .product-card {
-    position: relative;
-    background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.12);
-    border-radius: var(--radius-2xl);
-    overflow: hidden;
-    transition: all var(--transition-smooth);
-  }
-
-  .product-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(212, 175, 55, 0.35);
-    box-shadow: var(--shadow-gold);
-  }
-
-  .product-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(212,175,55,0.08), transparent);
-    transition: left 0.8s ease;
-  }
-
-  .product-card:hover::before {
-    left: 100%;
-  }
-
-  .product-image-container {
-    position: relative;
-    aspect-ratio: 4/5;
-    background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
-    overflow: hidden;
-  }
-
-  .product-image-placeholder {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.3);
-    font-size: 0.75rem;
-    text-align: center;
-    padding: 20px;
-    border: 2px dashed rgba(212, 175, 55, 0.2);
-    margin: 16px;
-    border-radius: var(--radius-lg);
-  }
-
-  .product-image-placeholder span {
-    margin-top: 8px;
-    color: rgba(212, 175, 55, 0.5);
-    font-weight: 600;
-  }
-
-  .product-badge {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    padding: 6px 14px;
-    background: var(--trigguift-terracotta);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 100px;
-    z-index: 10;
-  }
-
-  .product-badge.bestseller {
-    background: var(--gradient-gold);
-    color: var(--trigguift-black);
-  }
-
-  .product-badge.limited {
-    background: rgba(0,0,0,0.7);
-    border: 1px solid var(--trigguift-gold);
-    color: var(--trigguift-gold);
-  }
-
-  .product-info {
-    padding: 24px;
-  }
-
-  .product-category {
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--trigguift-copper);
-    margin-bottom: 8px;
-  }
-
-  .product-title {
-    font-family: var(--font-display);
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-
-  .product-description {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-
-  .product-includes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-
-  .product-includes span {
-    padding: 4px 10px;
-    background: rgba(255,255,255,0.05);
-    border-radius: 100px;
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.6);
-  }
-
-  .product-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-  }
-
-  .product-price {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--trigguift-gold-light);
-  }
-
-  .product-price-note {
-    font-size: 0.7rem;
-    color: rgba(255,255,255,0.4);
-    font-family: var(--font-body);
-  }
-
-  /* ══════════════════════════════════════════
-     BUTTONS
-  ══════════════════════════════════════════ */
-  .btn-gold {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: var(--gradient-gold);
-    color: var(--trigguift-black);
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.02em;
-    border: none;
-    border-radius: 100px;
-    cursor: pointer;
-    overflow: hidden;
-    transition: all var(--transition-smooth);
-    box-shadow: var(--shadow-gold);
-  }
-
-  .btn-gold:hover {
-    transform: scale(1.03);
-    box-shadow: 0 12px 40px rgba(212, 175, 55, 0.4);
-  }
-
-  .btn-gold:active {
-    transform: scale(0.98);
-  }
-
-  .btn-outline-gold {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 28px;
-    background: transparent;
-    color: var(--trigguift-gold);
-    font-weight: 600;
-    font-size: 0.85rem;
-    border: 2px solid rgba(212, 175, 55, 0.4);
-    border-radius: 100px;
-    cursor: pointer;
-    transition: all var(--transition-smooth);
-  }
-
-  .btn-outline-gold:hover {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: var(--trigguift-gold);
-  }
-
-  /* ══════════════════════════════════════════
-     CATEGORÍAS
-  ══════════════════════════════════════════ */
-  .category-pill {
-    padding: 12px 24px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 100px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.6);
-    cursor: pointer;
-    transition: all var(--transition-smooth);
-  }
-
-  .category-pill:hover,
-  .category-pill.active {
-    background: rgba(212, 175, 55, 0.15);
-    border-color: rgba(212, 175, 55, 0.4);
-    color: var(--trigguift-gold-light);
-  }
-
-  /* ══════════════════════════════════════════
-     FEATURES
-  ══════════════════════════════════════════ */
-  .feature-card {
-    text-align: center;
-    padding: 32px 24px;
-  }
-
-  .feature-icon {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 16px;
-    font-size: 1.8rem;
-  }
-
-  .feature-title {
-    font-family: var(--font-display);
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 8px;
-  }
-
-  .feature-text {
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.6;
-  }
-
-  /* ══════════════════════════════════════════
-     ARTISAN SECTION
-  ══════════════════════════════════════════ */
-  .artisan-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-  }
-
-  @media (max-width: 768px) {
-    .artisan-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .artisan-item {
-    position: relative;
-    aspect-ratio: 1;
-    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-  }
-
-  .artisan-item::after {
-    content: attr(data-label);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 12px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.9));
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--trigguift-gold-light);
-    text-align: center;
-  }
-
-  .artisan-placeholder {
-    color: rgba(255,255,255,0.2);
-    font-size: 0.65rem;
-    text-align: center;
-    padding: 10px;
-  }
-
-  /* ══════════════════════════════════════════
-     FOOTER
-  ══════════════════════════════════════════ */
-  .footer-divider {
-    width: 60px;
-    height: 2px;
-    background: var(--gradient-gold);
-    margin: 0 auto 24px;
-  }
-
-  /* ══════════════════════════════════════════
-     ANIMACIONES
-  ══════════════════════════════════════════ */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  .animate-float {
-    animation: float 4s ease-in-out infinite;
-  }
-
-  /* ══════════════════════════════════════════
-     RESPONSIVE
-  ══════════════════════════════════════════ */
-  .container-safe {
-    max-width: 1200px;
-    width: 100%;
-    margin: 0 auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  @media (max-width: 768px) {
-    .hero-title {
-      font-size: 2.5rem;
-    }
-    
-    .product-grid {
-      grid-template-columns: 1fr;
-    }
-  }
+:root{--trigguift-black:#050505;--trigguift-white:#FFF;--trigguift-gold:#D4AF37;--trigguift-gold-light:#F4E4BC;--trigguift-copper:#B87333;--trigguift-terracotta:#C75B39;--gradient-gold:linear-gradient(135deg,#D4AF37 0%,#F4E4BC 50%,#D4AF37 100%);--font-display:'Playfair Display',Georgia,serif;--font-body:'Inter',-apple-system,sans-serif;--radius-xl:24px;--radius-2xl:32px;--shadow-gold:0 8px 32px rgba(212,175,55,0.25);--transition-smooth:0.4s cubic-bezier(0.22,1,0.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:var(--font-body);background:var(--trigguift-black);color:var(--trigguift-white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg-grain{position:fixed;inset:0;z-index:0;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.spotlight-warm{position:absolute;top:-20%;left:50%;transform:translateX(-50%);width:140%;height:140%;background:radial-gradient(ellipse at center,rgba(212,175,55,.15) 0%,rgba(184,115,51,.08) 30%,transparent 65%);pointer-events:none;z-index:1}
+.font-display{font-family:var(--font-display)}
+.text-gold{background:var(--gradient-gold);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s ease infinite}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.hero-title{font-family:var(--font-display);font-weight:700;line-height:1.05;letter-spacing:-.02em}
+.glass-warm{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.15);backdrop-filter:blur(12px);border-radius:var(--radius-xl)}
+.badge-artesanal{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:rgba(212,175,55,.12);border:1px solid rgba(212,175,55,.35);border-radius:100px;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--trigguift-gold-light)}
+.badge-artesanal::before{content:'◆';color:var(--trigguift-gold);font-size:.6rem}
+.region-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
+.region-tag{padding:8px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:100px;font-size:.75rem;color:rgba(255,255,255,.5);transition:all var(--transition-smooth)}
+.region-tag:hover{border-color:rgba(212,175,55,.4);color:var(--trigguift-gold-light);background:rgba(212,175,55,.08)}
+.product-card{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.05) 0%,rgba(255,255,255,.01) 100%);border:1px solid rgba(212,175,55,.1);border-radius:var(--radius-2xl);overflow:hidden;transition:all var(--transition-smooth)}
+.product-card:hover{transform:translateY(-12px) scale(1.01);border-color:rgba(212,175,55,.4);box-shadow:0 25px 50px rgba(0,0,0,.4),0 0 60px rgba(212,175,55,.15)}
+.product-image-container{position:relative;aspect-ratio:1/1;background:linear-gradient(160deg,#1a1612 0%,#0a0908 100%);overflow:hidden}
+.product-image-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:rgba(255,255,255,.25);font-size:.7rem;text-align:center;padding:20px}
+.product-image-placeholder .icon-large{font-size:4rem;margin-bottom:12px;opacity:.4}
+.product-image-placeholder .size-label{margin-top:8px;padding:4px 12px;background:rgba(212,175,55,.15);border-radius:100px;color:rgba(212,175,55,.6);font-weight:600;font-size:.65rem}
+.product-badge{position:absolute;top:16px;left:16px;padding:8px 16px;background:rgba(0,0,0,.75);backdrop-filter:blur(8px);color:var(--trigguift-gold);font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:100px;border:1px solid rgba(212,175,55,.3);z-index:10}
+.product-badge.bestseller{background:var(--gradient-gold);color:var(--trigguift-black);border:none}
+.product-badge.limited{background:rgba(199,91,57,.9);color:white;border:none}
+.product-origin{position:absolute;bottom:16px;left:16px;right:16px;display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(0,0,0,.7);backdrop-filter:blur(12px);border-radius:12px;border:1px solid rgba(255,255,255,.1);z-index:10}
+.product-origin-text{font-size:.7rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.product-origin-region{font-size:.65rem;color:var(--trigguift-copper);font-weight:500}
+.product-info{padding:24px}
+.product-artisan-type{font-family:var(--font-display);font-size:.85rem;font-weight:500;font-style:italic;color:var(--trigguift-gold);margin-bottom:6px}
+.product-title{font-family:var(--font-display);font-size:1.6rem;font-weight:700;color:white;margin-bottom:10px;line-height:1.2}
+.product-description{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:16px}
+.product-includes{display:flex;flex-direction:column;gap:8px;margin-bottom:20px;padding:16px;background:rgba(255,255,255,.02);border-radius:12px;border:1px solid rgba(255,255,255,.05)}
+.product-includes-title{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px}
+.product-includes-item{display:flex;align-items:center;gap:10px;font-size:.85rem;color:rgba(255,255,255,.7)}
+.product-includes-item .icon{width:20px;text-align:center}
+.product-includes-item.highlight{color:var(--trigguift-gold-light);font-weight:500}
+.product-footer{display:flex;align-items:center;justify-content:space-between;padding-top:20px;border-top:1px solid rgba(255,255,255,.06)}
+.product-price{font-family:var(--font-display);font-size:1.8rem;font-weight:700;color:white}
+.product-price span{font-size:.9rem;font-weight:400;color:rgba(255,255,255,.4);font-family:var(--font-body)}
+.product-price-note{font-size:.7rem;color:var(--trigguift-copper);font-weight:500;margin-top:2px}
+.btn-gold{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:16px 32px;background:var(--gradient-gold);color:var(--trigguift-black);font-weight:700;font-size:.85rem;border:none;border-radius:100px;cursor:pointer;transition:all var(--transition-smooth);box-shadow:var(--shadow-gold)}
+.btn-gold:hover{transform:scale(1.03);box-shadow:0 12px 40px rgba(212,175,55,.45)}
+.btn-gold-sm{padding:12px 24px;font-size:.8rem}
+.btn-outline-gold{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 28px;background:transparent;color:var(--trigguift-gold);font-weight:600;font-size:.85rem;border:2px solid rgba(212,175,55,.4);border-radius:100px;cursor:pointer;transition:all var(--transition-smooth)}
+.btn-outline-gold:hover{background:rgba(212,175,55,.1);border-color:var(--trigguift-gold)}
+.category-scroll{display:flex;gap:10px;overflow-x:auto;padding:4px 0;scrollbar-width:none}
+.category-scroll::-webkit-scrollbar{display:none}
+.category-pill{flex-shrink:0;padding:10px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:.8rem;font-weight:500;color:rgba(255,255,255,.6);cursor:pointer;transition:all var(--transition-smooth);white-space:nowrap}
+.category-pill:hover,.category-pill.active{background:rgba(212,175,55,.15);border-color:rgba(212,175,55,.5);color:var(--trigguift-gold-light)}
+.features-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.05);border-radius:var(--radius-xl);overflow:hidden}
+@media(max-width:768px){.features-strip{grid-template-columns:repeat(2,1fr)}}
+.feature-item{padding:24px 16px;background:var(--trigguift-black);text-align:center}
+.feature-item-icon{font-size:1.5rem;margin-bottom:8px}
+.feature-item-text{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.7)}
+.artisan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;border-radius:var(--radius-xl);overflow:hidden}
+@media(max-width:768px){.artisan-grid{grid-template-columns:repeat(2,1fr)}}
+.artisan-item{position:relative;aspect-ratio:1;background:linear-gradient(145deg,#1a1612,#0d0b09);display:flex;align-items:center;justify-content:center;overflow:hidden;cursor:pointer;transition:all var(--transition-smooth)}
+.artisan-item:hover{z-index:10;transform:scale(1.05)}
+.artisan-item::after{content:attr(data-label);position:absolute;bottom:0;left:0;right:0;padding:16px 12px;background:linear-gradient(transparent,rgba(0,0,0,.95));font-size:.7rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--trigguift-gold-light);text-align:center}
+.artisan-placeholder{color:rgba(255,255,255,.15);font-size:.6rem;text-align:center;padding:10px}
+.book-callout{display:flex;align-items:center;gap:20px;padding:20px 24px;background:linear-gradient(135deg,rgba(212,175,55,.08) 0%,rgba(184,115,51,.05) 100%);border:1px solid rgba(212,175,55,.2);border-radius:16px}
+.book-callout-icon{font-size:2rem;flex-shrink:0}
+.book-callout-text{font-size:.9rem;color:rgba(255,255,255,.7);line-height:1.6}
+.book-callout-text strong{color:var(--trigguift-gold-light)}
+.footer-divider{width:60px;height:2px;background:var(--gradient-gold);margin:0 auto 24px}
+.container-safe{max-width:1280px;width:100%;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+@media(max-width:768px){.hero-title{font-size:2.8rem}.product-grid{grid-template-columns:1fr}.book-callout{flex-direction:column;text-align:center}}
 </style>
 </head>
-
 <body>
-
 <div class="bg-grain"></div>
 
-<!-- ══════════════════════════════════════════
-     HEADER / NAV
-══════════════════════════════════════════ -->
-<header class="fixed top-0 left-0 right-0 z-50 py-4" style="background: rgba(5,5,5,0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(212,175,55,0.1);">
-  <div class="container-safe flex items-center justify-between">
-    
-    <a href="https://triggui.com" class="flex items-center gap-3 opacity-80 hover:opacity-100 transition-opacity">
-      <span class="text-sm text-gray-400">← Volver a</span>
-      <span class="font-display text-lg text-white">Triggui</span>
-    </a>
-
-    <div class="flex items-center gap-2">
-      <span class="font-display text-2xl font-bold text-gold">Trigguift</span>
-    </div>
-
-    <a href="https://wa.me/5215532394017?text=Hola!%20Me%20interesa%20un%20Trigguift" class="btn-outline-gold text-sm py-2 px-4 hidden md:inline-flex">
-      Contactar
-    </a>
-
-  </div>
+<header class="fixed top-0 left-0 right-0 z-50 py-4" style="background:rgba(5,5,5,.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(212,175,55,.1)">
+<div class="container-safe flex items-center justify-between">
+<a href="https://triggui.com" class="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity"><span class="text-xs text-gray-500">←</span><span class="text-sm text-gray-400">Triggui</span></a>
+<span class="font-display text-2xl font-bold text-gold">Trigguift</span>
+<a href="https://wa.me/5215532394017?text=Hola!%20Quiero%20un%20Trigguift" class="btn-gold btn-gold-sm hidden md:inline-flex">Ordenar</a>
+</div>
 </header>
 
-<!-- ══════════════════════════════════════════
-     HERO
-══════════════════════════════════════════ -->
-<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-16 px-4">
-  <div class="spotlight-warm"></div>
-  <div class="pattern-aztec"></div>
-  
-  <div class="relative z-10 text-center max-w-4xl mx-auto">
-    
-    <div class="badge-artesanal mb-8">
-      Hecho en México
-    </div>
-
-    <h1 class="hero-title text-5xl md:text-7xl text-white mb-6">
-      Un libro que transforma.<br>
-      <span class="text-gold">Una pieza que perdura.</span>
-    </h1>
-
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-light">
-      Cada Trigguift une la sabiduría de un libro curado con la belleza de la artesanía mexicana.<br>
-      <span class="text-white font-medium">El regalo que nunca olvidarán.</span>
-    </p>
-
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#coleccion" class="btn-gold">
-        <span>Ver Colección</span>
-        <span>↓</span>
-      </a>
-      <a href="#como-funciona" class="btn-outline-gold">
-        ¿Cómo funciona?
-      </a>
-    </div>
-
-    <div class="mt-16 flex items-center justify-center gap-8 text-sm text-gray-500">
-      <div class="flex items-center gap-2">
-        <span class="text-trigguift-gold">✦</span>
-        <span>Envío a todo México</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="text-trigguift-gold">✦</span>
-        <span>Empaque premium</span>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="text-trigguift-gold">✦</span>
-        <span>Tarjeta personalizada</span>
-      </div>
-    </div>
-
-  </div>
+<section class="relative overflow-hidden pt-28 pb-12 px-4">
+<div class="spotlight-warm"></div>
+<div class="relative z-10 text-center max-w-4xl mx-auto">
+<div class="badge-artesanal mb-6">Artesanía Mexicana de Autor</div>
+<h1 class="hero-title text-5xl md:text-7xl text-white mb-5"><span class="text-gold">Piezas únicas.</span><br>Hechas a mano.</h1>
+<p class="text-lg md:text-xl text-gray-400 mb-6 max-w-2xl mx-auto leading-relaxed">Talavera, alebrijes, barro negro, cobre martillado.<br><span class="text-white font-medium">Cada pieza incluye un libro que amplifica su significado.</span></p>
+<div class="region-tags">
+<span class="region-tag">Puebla</span>
+<span class="region-tag">Oaxaca</span>
+<span class="region-tag">Michoacán</span>
+<span class="region-tag">Chiapas</span>
+<span class="region-tag">Jalisco</span>
+<span class="region-tag">Guanajuato</span>
+</div>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     FEATURES
-══════════════════════════════════════════ -->
-<section id="como-funciona" class="py-24 border-t border-gray-900">
-  <div class="container-safe">
-    
-    <div class="text-center mb-16">
-      <h2 class="font-display text-3xl md:text-5xl text-white mb-4">
-        Más que un regalo,<br>
-        <span class="text-gold">una experiencia.</span>
-      </h2>
-    </div>
-
-    <div class="grid md:grid-cols-4 gap-6">
-      
-      <div class="feature-card">
-        <div class="feature-icon">📚</div>
-        <h3 class="feature-title">Libro Curado</h3>
-        <p class="feature-text">Seleccionado de nuestra biblioteca de 1,000+ títulos según el pilar que elijas.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🏺</div>
-        <h3 class="feature-title">Artesanía Única</h3>
-        <p class="feature-text">Piezas hechas a mano por artesanos mexicanos. Cada una es irrepetible.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">💝</div>
-        <h3 class="feature-title">Empaque Premium</h3>
-        <p class="feature-text">Caja de regalo con materiales sustentables y acabados de lujo.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">✉️</div>
-        <h3 class="feature-title">Nota Personal</h3>
-        <p class="feature-text">Incluye tarjeta con tu mensaje escrito a mano por nosotros.</p>
-      </div>
-
-    </div>
-
-  </div>
+<section class="py-8">
+<div class="container-safe">
+<div class="features-strip">
+<div class="feature-item"><div class="feature-item-icon">🏺</div><p class="feature-item-text">Hecho a mano</p></div>
+<div class="feature-item"><div class="feature-item-icon">📚</div><p class="feature-item-text">+ Libro curado</p></div>
+<div class="feature-item"><div class="feature-item-icon">🎁</div><p class="feature-item-text">Empaque premium</p></div>
+<div class="feature-item"><div class="feature-item-icon">🇲🇽</div><p class="feature-item-text">Envío nacional</p></div>
+</div>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     CATEGORÍAS
-══════════════════════════════════════════ -->
+<section class="py-6">
+<div class="container-safe">
+<div class="category-scroll">
+<button class="category-pill active">Todas las piezas</button>
+<button class="category-pill">Talavera</button>
+<button class="category-pill">Alebrijes</button>
+<button class="category-pill">Barro Negro</button>
+<button class="category-pill">Cobre</button>
+<button class="category-pill">Textiles</button>
+<button class="category-pill">Vidrio Soplado</button>
+</div>
+</div>
+</section>
+
+<section id="coleccion" class="py-10">
+<div class="container-safe">
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 product-grid">
+
+<div class="product-card">
+<div class="product-badge bestseller">Más vendido</div>
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">🏺</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Talavera Poblana</p><p class="product-origin-region">Puebla, México</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Taza de Talavera pintada a mano</p>
+<h3 class="product-title">El Pensador</h3>
+<p class="product-description">Cerámica tradicional con patrones coloniales. Cada pieza tarda 3 semanas en crearse. Perfecta para tus rituales de reflexión.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">🏺</span><span>Taza de Talavera auténtica</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro de mindfulness curado</span></div>
+<div class="product-includes-item"><span class="icon">🎁</span><span>Caja de regalo premium</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$1,290 <span>MXN</span></p><p class="product-price-note">Envío gratis CDMX</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Pensador%20(Talavera)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-badge limited">Solo 8 piezas</div>
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">🦎</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Alebrije de Copal</p><p class="product-origin-region">San Martín Tilcajete, Oaxaca</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Alebrije tallado y pintado a mano</p>
+<h3 class="product-title">El Soñador</h3>
+<p class="product-description">Criatura fantástica tallada en madera de copal por artesanos zapotecas. Cada una es única e irrepetible.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">🦎</span><span>Alebrije único (15-20cm)</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro de filosofía curado</span></div>
+<div class="product-includes-item"><span class="icon">📜</span><span>Certificado del artesano</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$2,490 <span>MXN</span></p><p class="product-price-note">Pieza de colección</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Soñador%20(Alebrije)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">⚫</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Barro Negro Pulido</p><p class="product-origin-region">San Bartolo Coyotepec, Oaxaca</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Figura de barro negro bruñido</p>
+<h3 class="product-title">El Estratega</h3>
+<p class="product-description">Técnica ancestral zapoteca sin esmaltes. El brillo metálico se logra puliendo con cuarzo. Arte que susurra poder.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">⚫</span><span>Figura de barro negro</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro de estrategia curado</span></div>
+<div class="product-includes-item"><span class="icon">🎁</span><span>Caja de regalo premium</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$1,890 <span>MXN</span></p><p class="product-price-note">Técnica prehispánica</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Estratega%20(Barro%20Negro)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">🥃</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Cobre Martillado</p><p class="product-origin-region">Santa Clara del Cobre, Michoacán</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Vaso mezcalero de cobre forjado</p>
+<h3 class="product-title">El Próspero</h3>
+<p class="product-description">Cobre puro martillado a mano con técnicas del siglo XVI. El metal realza los sabores y simboliza abundancia.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">🥃</span><span>Vaso de cobre martillado</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro de finanzas curado</span></div>
+<div class="product-includes-item"><span class="icon">🎁</span><span>Caja de regalo premium</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$1,490 <span>MXN</span></p><p class="product-price-note">Tradición de 5 siglos</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Próspero%20(Cobre)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-badge">Comercio justo</div>
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">🧵</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Textil Tzotzil</p><p class="product-origin-region">San Juan Chamula, Chiapas</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Camino de mesa tejido en telar de cintura</p>
+<h3 class="product-title">El Guardián</h3>
+<p class="product-description">Tejido por mujeres tzotziles con técnicas mayas de 2,000 años. Cada patrón cuenta historias de la comunidad.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">🧵</span><span>Camino de mesa (40×150cm)</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro sobre familia curado</span></div>
+<div class="product-includes-item"><span class="icon">📜</span><span>Historia de la artesana</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$1,690 <span>MXN</span></p><p class="product-price-note">100% a la artesana</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Guardián%20(Textil)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+<div class="product-card">
+<div class="product-badge">Ideal primer regalo</div>
+<div class="product-image-container">
+<div class="product-image-placeholder"><span class="icon-large">🕯️</span><span class="size-label">800 × 800 px</span></div>
+<div class="product-origin"><span style="font-size:1.2rem">🇲🇽</span><div><p class="product-origin-text">Vela Artesanal</p><p class="product-origin-region">CDMX, México</p></div></div>
+</div>
+<div class="product-info">
+<p class="product-artisan-type">Vela de cera de soya con aromas mexicanos</p>
+<h3 class="product-title">El Ritual</h3>
+<p class="product-description">Cera de soya con esencias de copal, lavanda mexicana y madera de ocote. 45 horas de luz.</p>
+<div class="product-includes">
+<p class="product-includes-title">Este bundle incluye</p>
+<div class="product-includes-item highlight"><span class="icon">🕯️</span><span>Vela artesanal (45hrs)</span></div>
+<div class="product-includes-item"><span class="icon">📖</span><span>Libro de bienestar curado</span></div>
+<div class="product-includes-item"><span class="icon">🎁</span><span>Caja de regalo premium</span></div>
+</div>
+<div class="product-footer">
+<div><p class="product-price">$890 <span>MXN</span></p><p class="product-price-note">Entrada perfecta</p></div>
+<a href="https://wa.me/5215532394017?text=Quiero%20El%20Ritual%20(Vela)" class="btn-gold btn-gold-sm">Lo quiero</a>
+</div>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
 <section class="py-12">
-  <div class="container-safe">
-    
-    <div class="flex flex-wrap items-center justify-center gap-3">
-      <button class="category-pill active">Todos</button>
-      <button class="category-pill">Cuerpo</button>
-      <button class="category-pill">Mente</button>
-      <button class="category-pill">Negocio</button>
-      <button class="category-pill">Familia</button>
-      <button class="category-pill">Espíritu</button>
-      <button class="category-pill">Relaciones</button>
-      <button class="category-pill">Finanzas</button>
-    </div>
-
-  </div>
+<div class="container-safe">
+<div class="book-callout max-w-3xl mx-auto">
+<div class="book-callout-icon">📚</div>
+<div class="book-callout-text"><strong>¿Por qué un libro con cada pieza?</strong><br>Porque la artesanía habla a tus sentidos y el libro habla a tu mente. Juntos crean una experiencia que transforma. Cada libro está curado de nuestra biblioteca de <strong>1,000+ títulos</strong>.</div>
+</div>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     PRODUCTOS / COLECCIÓN
-══════════════════════════════════════════ -->
-<section id="coleccion" class="py-16">
-  <div class="container-safe">
-    
-    <div class="text-center mb-12">
-      <h2 class="font-display text-3xl md:text-4xl text-white mb-4">
-        La Colección
-      </h2>
-      <p class="text-gray-400">Cada bundle es una combinación única de conocimiento y tradición.</p>
-    </div>
-
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 product-grid">
-      
-      <!-- PRODUCTO 1: TALAVERA -->
-      <div class="product-card">
-        <div class="product-badge bestseller">Más vendido</div>
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚🏺</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Taza Talavera</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Mente · Talavera Poblana</p>
-          <h3 class="product-title">El Pensador</h3>
-          <p class="product-description">Un libro de mindfulness + taza de Talavera pintada a mano. Para tus momentos de reflexión.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>☕ Taza Talavera</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$1,290 MXN</p>
-              <p class="product-price-note">Envío gratis CDMX</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Pensador" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 2: ALEBRIJE -->
-      <div class="product-card">
-        <div class="product-badge limited">Edición limitada</div>
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚🦎</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Alebrije Oaxaqueño</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Espíritu · Oaxaca</p>
-          <h3 class="product-title">El Soñador</h3>
-          <p class="product-description">Un libro de filosofía + alebrije tallado en copal por artesanos de Oaxaca. Para quienes ven más allá.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>🦎 Alebrije único</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$2,490 MXN</p>
-              <p class="product-price-note">Solo 12 disponibles</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Soñador" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 3: BARRO NEGRO -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚⚫</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Barro Negro</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Negocio · San Bartolo Coyotepec</p>
-          <h3 class="product-title">El Estratega</h3>
-          <p class="product-description">Un libro de estrategia + figura de barro negro pulido. Para mentes que construyen imperios.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>🖤 Barro negro</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$1,890 MXN</p>
-              <p class="product-price-note">Pieza de colección</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Estratega" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 4: TEXTIL -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚🧵</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Textil Chiapaneco</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Familia · Chiapas</p>
-          <h3 class="product-title">El Guardián</h3>
-          <p class="product-description">Un libro sobre familia + camino de mesa tejido a mano por artesanas tzotziles.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>🧵 Textil artesanal</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$1,690 MXN</p>
-              <p class="product-price-note">Comercio justo</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Guardián" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 5: COBRE -->
-      <div class="product-card">
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚🥃</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Cobre de Santa Clara</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Finanzas · Santa Clara del Cobre</p>
-          <h3 class="product-title">El Próspero</h3>
-          <p class="product-description">Un libro de finanzas personales + vaso mezcalero de cobre martillado a mano.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>🥃 Vaso de cobre</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$1,490 MXN</p>
-              <p class="product-price-note">Envío gratis +$1,500</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Próspero" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- PRODUCTO 6: VELA -->
-      <div class="product-card">
-        <div class="product-badge">Nuevo</div>
-        <div class="product-image-container">
-          <div class="product-image-placeholder">
-            <span style="font-size: 3rem; opacity: 0.3;">📚🕯️</span>
-            <span>IMAGEN: 600×750px</span>
-            <span style="font-size: 0.65rem; opacity: 0.5; margin-top: 4px;">Libro + Vela Artesanal</span>
-          </div>
-        </div>
-        <div class="product-info">
-          <p class="product-category">Cuerpo · CDMX</p>
-          <h3 class="product-title">El Ritual</h3>
-          <p class="product-description">Un libro de bienestar + vela de cera de soya con aromas de copal y lavanda mexicana.</p>
-          <div class="product-includes">
-            <span>📖 Libro curado</span>
-            <span>🕯️ Vela 45hrs</span>
-            <span>🎁 Caja premium</span>
-          </div>
-          <div class="product-footer">
-            <div>
-              <p class="product-price">$990 MXN</p>
-              <p class="product-price-note">Ideal primer regalo</p>
-            </div>
-            <a href="https://wa.me/5215532394017?text=Quiero%20el%20bundle%20El%20Ritual" class="btn-gold py-3 px-6 text-sm">
-              Lo quiero
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
+<section class="py-16 border-t border-gray-900">
+<div class="container-safe">
+<div class="text-center mb-10">
+<h2 class="font-display text-3xl md:text-4xl text-white mb-3">De las manos del artesano<br><span class="text-gold">a las tuyas</span></h2>
+<p class="text-gray-500 max-w-xl mx-auto text-sm">Trabajamos directamente con artesanos de 8 estados. Sin intermediarios.</p>
+</div>
+<div class="artisan-grid">
+<div class="artisan-item" data-label="Talavera · Puebla"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Alebrijes · Oaxaca"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Barro Negro · Oaxaca"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Cobre · Michoacán"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Textiles · Chiapas"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Vidrio · Jalisco"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Papel Amate · Puebla"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+<div class="artisan-item" data-label="Cerámica · Guanajuato"><div class="artisan-placeholder">IMAGEN<br>400×400px</div></div>
+</div>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     ARTESANÍAS / GALERÍA
-══════════════════════════════════════════ -->
-<section class="py-24 border-t border-gray-900">
-  <div class="container-safe">
-    
-    <div class="text-center mb-12">
-      <h2 class="font-display text-3xl md:text-4xl text-white mb-4">
-        Artesanía de<br>
-        <span class="text-gold">todo México</span>
-      </h2>
-      <p class="text-gray-400 max-w-xl mx-auto">Trabajamos directamente con artesanos de 8 estados. Cada pieza tiene nombre, historia y manos detrás.</p>
-    </div>
-
-    <div class="artisan-grid">
-      <div class="artisan-item" data-label="Talavera · Puebla">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Alebrijes · Oaxaca">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Barro Negro · Oaxaca">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Cobre · Michoacán">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Textiles · Chiapas">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Vidrio · Jalisco">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Papel Amate · Puebla">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-      <div class="artisan-item" data-label="Cerámica · Guanajuato">
-        <div class="artisan-placeholder">
-          IMAGEN<br>300×300px
-        </div>
-      </div>
-    </div>
-
-  </div>
+<section class="py-20 bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+<div class="container-safe">
+<div class="glass-warm p-8 md:p-12 max-w-3xl mx-auto text-center">
+<div class="text-4xl mb-6">✨</div>
+<h2 class="font-display text-2xl md:text-3xl text-white mb-4">Bundles a la medida</h2>
+<p class="text-gray-400 mb-8 max-w-lg mx-auto text-sm">Para bodas, eventos corporativos o regalos especiales.</p>
+<div class="grid grid-cols-3 gap-4 mb-8 text-center">
+<div><div class="text-2xl mb-2">👰</div><p class="text-xs text-gray-300 font-medium">Bodas</p></div>
+<div><div class="text-2xl mb-2">🏢</div><p class="text-xs text-gray-300 font-medium">Corporativos</p></div>
+<div><div class="text-2xl mb-2">🎓</div><p class="text-xs text-gray-300 font-medium">Graduaciones</p></div>
+</div>
+<a href="https://wa.me/5215532394017?text=Quiero%20cotizar%20bundles%20personalizados" class="btn-gold">Cotizar proyecto</a>
+</div>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     BUNDLE PERSONALIZADO
-══════════════════════════════════════════ -->
-<section class="py-24 bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
-  <div class="container-safe">
-    
-    <div class="glass-warm p-8 md:p-12 max-w-3xl mx-auto text-center">
-      
-      <div class="text-5xl mb-6">✨</div>
-      
-      <h2 class="font-display text-3xl md:text-4xl text-white mb-4">
-        ¿Quieres algo único?
-      </h2>
-      
-      <p class="text-gray-400 mb-8 max-w-lg mx-auto">
-        Creamos bundles personalizados para ocasiones especiales: bodas, graduaciones, aniversarios de empresa, o simplemente porque sí.
-      </p>
-
-      <div class="grid md:grid-cols-3 gap-6 mb-8 text-left">
-        <div class="text-center">
-          <div class="text-2xl mb-2">👰</div>
-          <p class="text-sm text-gray-300 font-medium">Regalos para bodas</p>
-          <p class="text-xs text-gray-500">Mínimo 20 piezas</p>
-        </div>
-        <div class="text-center">
-          <div class="text-2xl mb-2">🏢</div>
-          <p class="text-sm text-gray-300 font-medium">Corporativos</p>
-          <p class="text-xs text-gray-500">Con tu marca</p>
-        </div>
-        <div class="text-center">
-          <div class="text-2xl mb-2">🎓</div>
-          <p class="text-sm text-gray-300 font-medium">Graduaciones</p>
-          <p class="text-xs text-gray-500">Personalizado por carrera</p>
-        </div>
-      </div>
-
-      <a href="https://wa.me/5215532394017?text=Quiero%20un%20Trigguift%20personalizado" class="btn-gold">
-        <span>Cotizar Bundle Personalizado</span>
-        <span>→</span>
-      </a>
-
-    </div>
-
-  </div>
+<section class="py-24 text-center relative">
+<div class="spotlight-warm" style="top:-50%"></div>
+<div class="container-safe relative z-10">
+<h2 class="font-display text-3xl md:text-5xl text-white mb-5"><span class="text-gold">Artesanía</span> que perdura.<br><span class="text-gold">Conocimiento</span> que transforma.</h2>
+<p class="text-lg text-gray-400 mb-10 max-w-lg mx-auto">El regalo que nunca olvidarán.</p>
+<a href="#coleccion" class="btn-gold text-lg px-10 py-5">Ver Colección</a>
+</div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     CTA FINAL
-══════════════════════════════════════════ -->
-<section class="py-32 text-center relative">
-  <div class="spotlight-warm"></div>
-  <div class="container-safe relative z-10">
-    
-    <h2 class="font-display text-4xl md:text-6xl text-white mb-6">
-      Un regalo que<br>
-      <span class="text-gold">nunca olvidarán.</span>
-    </h2>
-
-    <p class="text-xl text-gray-400 mb-12 max-w-xl mx-auto">
-      Conocimiento que transforma + artesanía que perdura.<br>
-      <span class="text-white font-medium">Eso es Trigguift.</span>
-    </p>
-
-    <a href="#coleccion" class="btn-gold text-lg px-10 py-5">
-      Ver Colección
-    </a>
-
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     FOOTER
-══════════════════════════════════════════ -->
-<footer class="py-16 border-t border-gray-900">
-  <div class="container-safe text-center">
-    
-    <div class="footer-divider"></div>
-    
-    <p class="font-display text-2xl text-gold mb-4">Trigguift</p>
-    <p class="text-sm text-gray-500 mb-6">Una línea de <a href="https://triggui.com" class="text-gray-400 hover:text-white transition-colors">Triggui</a></p>
-    
-    <div class="flex items-center justify-center gap-6 text-sm text-gray-600 mb-8">
-      <a href="https://wa.me/5215532394017" class="hover:text-gold transition-colors">WhatsApp</a>
-      <span>·</span>
-      <a href="https://instagram.com/triggui" class="hover:text-gold transition-colors">Instagram</a>
-      <span>·</span>
-      <a href="mailto:hola@triggui.com" class="hover:text-gold transition-colors">Email</a>
-    </div>
-    
-    <p class="text-xs text-gray-700">
-      © 2025 Trigguift · Hecho con 🖤 en México
-    </p>
-
-  </div>
+<footer class="py-12 border-t border-gray-900">
+<div class="container-safe text-center">
+<div class="footer-divider"></div>
+<p class="font-display text-xl text-gold mb-3">Trigguift</p>
+<p class="text-xs text-gray-600 mb-6">Una línea de <a href="https://triggui.com" class="text-gray-500 hover:text-white transition-colors">Triggui</a></p>
+<div class="flex items-center justify-center gap-6 text-xs text-gray-600 mb-6">
+<a href="https://wa.me/5215532394017" class="hover:text-gold transition-colors">WhatsApp</a>
+<span>·</span>
+<a href="https://instagram.com/triggui" class="hover:text-gold transition-colors">Instagram</a>
+</div>
+<p class="text-xs text-gray-800">© 2025 · Hecho con 🖤 en México</p>
+</div>
 </footer>
 
-<!-- ══════════════════════════════════════════
-     WHATSAPP FLOAT
-══════════════════════════════════════════ -->
-<a 
-  href="https://wa.me/5215532394017?text=Hola!%20Me%20interesa%20un%20Trigguift" 
-  target="_blank"
-  class="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center rounded-full transition-all hover:scale-110"
-  style="background: linear-gradient(135deg, #D4AF37, #B87333); box-shadow: 0 4px 20px rgba(212,175,55,0.4);"
->
-  <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-  </svg>
+<a href="https://wa.me/5215532394017?text=Hola!%20Quiero%20un%20Trigguift" target="_blank" class="fixed bottom-6 right-6 z-50 w-14 h-14 flex items-center justify-center rounded-full transition-all hover:scale-110" style="background:linear-gradient(135deg,#D4AF37,#B87333);box-shadow:0 4px 24px rgba(212,175,55,.4)">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
 <script>
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function(e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-// Category pills interaction (demo)
-document.querySelectorAll('.category-pill').forEach(pill => {
-  pill.addEventListener('click', function() {
-    document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
-
-// Intersection Observer for fade-in
-const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-}, observerOptions);
-
-document.querySelectorAll('.product-card, .feature-card, .glass-warm').forEach(el => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(30px)';
-  el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-  observer.observe(el);
-});
-
-console.log('✦ TRIGGUIFT - Libros + Artesanía Mexicana - Nivel Dios ✦');
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',function(e){e.preventDefault();document.querySelector(this.getAttribute('href'))?.scrollIntoView({behavior:'smooth'})}));
+document.querySelectorAll('.category-pill').forEach(p=>p.addEventListener('click',function(){document.querySelectorAll('.category-pill').forEach(x=>x.classList.remove('active'));this.classList.add('active')}));
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.style.opacity='1';x.target.style.transform='translateY(0)'}}),{threshold:.1});
+document.querySelectorAll('.product-card,.glass-warm,.book-callout').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity .5s,transform .5s';obs.observe(el)});
+console.log('◆ TRIGGUIFT v2 - Artesanía Protagonista ◆');
 </script>
-
 </body>
 </html>
