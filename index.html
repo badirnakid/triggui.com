@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth" style="background-color: #050505;">
+<html lang="es" class="scroll-smooth" style="background-color: #0B0F1A;">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -13,7 +13,7 @@
 <meta property="og:description" content="El único lugar donde un mensaje sin leer es una promesa de conocimiento. Cuando el impulso llega, el libro ya está ahí." />
 <meta property="og:image" content="https://triggui.com/imagotipo.png" />
 <meta property="og:type" content="website" />
-<meta name="theme-color" content="#050505">
+<meta name="theme-color" content="#0B0F1A">
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>
@@ -46,40 +46,43 @@ function trackEngagement(action) {
 </script>
 
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
 
 <style id="design-tokens">
   :root {
-    /* ── COLORES DE MARCA ── */
-    --triggui-black: #050505;
-    --triggui-white: #FFFFFF;
+    /* ── NUEVA PALETA: MIDNIGHT LIBRARY ── */
+    --triggui-black: #0B0F1A;
+    --triggui-black-warm: #10141F;
+    --triggui-white: #F5F0E8;
     
-    /* Tríada Dopaminérgica: Violeta, Cian, Lima */
-    --triggui-accent-pink: #7000FF; /* Violeta */
-    --triggui-accent-orange: #00F2FF; /* Cian */
-    --triggui-accent-gold: #CCFF00; /* Lima */
+    /* Tríada Cálida: Gold, Coral, Teal */
+    --triggui-gold: #E8A838;
+    --triggui-coral: #FF6B4A;
+    --triggui-teal: #4ECDC4;
     
     --triggui-green: #00FF88;
     --triggui-green-dark: #00BD63;
     --triggui-red: #FF3B30;
     --triggui-wa-green: #25D366;
     
-    /* ── GRADIENTES (AURORA) ── */
-    --triggui-fire: linear-gradient(135deg, #7000FF 0%, #00F2FF 50%, #CCFF00 100%);
-    --triggui-nuclear: linear-gradient(135deg, #7000FF 0%, #00F2FF 100%);
+    /* ── GRADIENTES ── */
+    --triggui-fire: linear-gradient(135deg, #E8A838 0%, #FF6B4A 50%, #FF3F6C 100%);
+    --triggui-nuclear: linear-gradient(135deg, #E8A838 0%, #FF6B4A 100%);
     --triggui-green-gradient: linear-gradient(135deg, #00FF88 0%, #00BD63 100%);
+    --triggui-warm-glow: linear-gradient(135deg, #E8A838 0%, #4ECDC4 100%);
     
     /* ── OPACIDADES ── */
-    --triggui-white-3: rgba(255, 255, 255, 0.03);
-    --triggui-white-5: rgba(255, 255, 255, 0.05);
-    --triggui-white-8: rgba(255, 255, 255, 0.08);
-    --triggui-white-12: rgba(255, 255, 255, 0.12);
-    --triggui-white-15: rgba(255, 255, 255, 0.15);
-    --triggui-white-20: rgba(255, 255, 255, 0.2);
-    --triggui-white-40: rgba(255, 255, 255, 0.4);
+    --triggui-white-3: rgba(245, 240, 232, 0.03);
+    --triggui-white-5: rgba(245, 240, 232, 0.05);
+    --triggui-white-8: rgba(245, 240, 232, 0.08);
+    --triggui-white-12: rgba(245, 240, 232, 0.12);
+    --triggui-white-15: rgba(245, 240, 232, 0.15);
+    --triggui-white-20: rgba(245, 240, 232, 0.2);
+    --triggui-white-40: rgba(245, 240, 232, 0.4);
     
     /* ── TIPOGRAFÍAS ── */
-    --triggui-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --triggui-font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --triggui-font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     
     /* ── RADIOS ── */
     --triggui-radius-md: 12px;
@@ -89,11 +92,11 @@ function trackEngagement(action) {
     --triggui-radius-full: 9999px;
     
     /* ── SOMBRAS ── */
-    --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
-    --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-    --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.28);
-    --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.35);
-    --triggui-shadow-glow-pink: 0 0 35px rgba(112, 0, 255, 0.4);
+    --triggui-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+    --triggui-shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+    --triggui-shadow-lg: 0 8px 22px rgba(0, 0, 0, 0.4);
+    --triggui-shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.5);
+    --triggui-shadow-glow-gold: 0 0 35px rgba(232, 168, 56, 0.35);
     --triggui-shadow-glow-green: 0 4px 15px rgba(0, 255, 136, 0.35);
     
     /* ── BLUR ── */
@@ -114,10 +117,10 @@ function trackEngagement(action) {
   }
   
   html, body {
-    font-family: var(--triggui-font-primary);
+    font-family: var(--triggui-font-body);
     background-color: var(--triggui-black) !important;
     color: var(--triggui-white);
-    overflow-x: hidden; /* CRITICO: Evita desbordamiento horizontal */
+    overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
     -webkit-font-smoothing: antialiased;
@@ -128,6 +131,10 @@ function trackEngagement(action) {
 
   html {
     scroll-padding-top: 80px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--triggui-font-display);
   }
 
   img {
@@ -160,6 +167,7 @@ function trackEngagement(action) {
 
 <style id="typography">
   .hero-title {
+    font-family: var(--triggui-font-display);
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.05em;
@@ -171,6 +179,7 @@ function trackEngagement(action) {
   }
   
   .hero-subtitle {
+    font-family: var(--triggui-font-display);
     font-weight: 900;
     line-height: 0.95;
     letter-spacing: -0.05em;
@@ -198,7 +207,7 @@ function trackEngagement(action) {
     width: 100%;
     height: 100%;
     z-index: 0;
-    opacity: 0.05;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
   }
@@ -211,8 +220,8 @@ function trackEngagement(action) {
     width: 180%;
     height: 180%;
     background: radial-gradient(ellipse at center, 
-      rgba(112, 0, 255, 0.18) 0%, 
-      rgba(0, 242, 255, 0.08) 35%,
+      rgba(232, 168, 56, 0.12) 0%, 
+      rgba(78, 205, 196, 0.05) 35%,
       transparent 65%);
     pointer-events: none;
     z-index: 1;
@@ -249,11 +258,10 @@ function trackEngagement(action) {
   
   .glass-card:hover {
     transform: translateY(-12px) scale(1.01);
-    border-color: rgba(112, 0, 255, 0.45);
-    box-shadow: 0 30px 60px -12px rgba(112, 0, 255, 0.28);
+    border-color: rgba(232, 168, 56, 0.45);
+    box-shadow: 0 30px 60px -12px rgba(232, 168, 56, 0.2);
   }
   
-  /* EXCEPCIÓN: Desactivar shine para pricing cards */
   .pricing-card-monthly::before,
   .pricing-card-featured::before,
   .glass-card.p-8.hover\:bg-white\/5::before,
@@ -292,7 +300,7 @@ function trackEngagement(action) {
 
   .rail-spacer {
     flex: 0 0 auto;
-    width: calc(50% - 140px); /* Centrado matemático */
+    width: calc(50% - 140px);
   }
 
   @media (min-width: 768px) {
@@ -325,7 +333,7 @@ function trackEngagement(action) {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     border-radius: 12px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 60%);
+    background: linear-gradient(135deg, rgba(232,168,56,0.2) 0%, rgba(255,255,255,0) 60%);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
@@ -343,11 +351,12 @@ function trackEngagement(action) {
     background: var(--triggui-nuclear);
     background-size: 200% 200%;
     color: white;
+    font-family: var(--triggui-font-display);
     font-weight: 800;
     border: none;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(112, 0, 255, 0.45);
+    box-shadow: 0 10px 30px rgba(232, 168, 56, 0.4);
     animation: fire-move 4s infinite;
     transition: all var(--triggui-transition-base);
     text-transform: uppercase;
@@ -384,6 +393,7 @@ function trackEngagement(action) {
   .btn-monthly {
     background: var(--triggui-green-gradient);
     color: white;
+    font-family: var(--triggui-font-display);
     font-weight: 700;
     border: none;
     transition: all var(--triggui-transition-base);
@@ -400,7 +410,8 @@ function trackEngagement(action) {
   .input-god {
     background: var(--triggui-white-5);
     border: 1.5px solid var(--triggui-white-12);
-    color: white;
+    color: var(--triggui-white);
+    font-family: var(--triggui-font-body);
     font-weight: 500;
     font-size: 16px;
     transition: all var(--triggui-transition-base);
@@ -408,9 +419,9 @@ function trackEngagement(action) {
   
   .input-god:focus {
     background: var(--triggui-white-8);
-    border-color: var(--triggui-accent-orange);
+    border-color: var(--triggui-gold);
     outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.15);
+    box-shadow: 0 0 0 4px rgba(232, 168, 56, 0.15);
   }
   
   .input-god::placeholder {
@@ -420,7 +431,7 @@ function trackEngagement(action) {
   select.select-god {
     appearance: none;
     -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(245,240,232,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 14px center;
     background-size: 14px;
@@ -430,8 +441,8 @@ function trackEngagement(action) {
   }
   
   select.select-god option {
-    background-color: #1a1a1a;
-    color: white;
+    background-color: #1a1a2e;
+    color: var(--triggui-white);
     padding: 12px;
   }
   
@@ -454,6 +465,7 @@ function trackEngagement(action) {
     transform: translateX(-50%);
     background: var(--triggui-green-gradient);
     color: white;
+    font-family: var(--triggui-font-display);
     font-weight: 800;
     font-size: 0.7rem;
     padding: 5px 14px;
@@ -475,7 +487,7 @@ function trackEngagement(action) {
     backdrop-filter: var(--triggui-blur-lg);
     border-radius: var(--triggui-radius-full);
     font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.95);
+    color: rgba(245, 240, 232, 0.95);
     margin-bottom: 2rem;
     box-shadow: var(--triggui-shadow-md);
     font-weight: 700;
@@ -504,6 +516,269 @@ function trackEngagement(action) {
     height: 100%;
     background: var(--triggui-green);
     border-radius: 50%;
+  }
+</style>
+
+<style id="whatsapp-preview">
+  /* ════ WHATSAPP PHONE MOCKUP ════ */
+  .phone-frame {
+    width: 320px;
+    max-width: 90vw;
+    margin: 0 auto;
+    border-radius: 36px;
+    background: #0B141A;
+    border: 3px solid rgba(245, 240, 232, 0.12);
+    box-shadow: 
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(245,240,232,0.05),
+      inset 0 0 30px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .phone-notch {
+    width: 120px;
+    height: 28px;
+    background: #0B141A;
+    border-radius: 0 0 18px 18px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+  }
+  
+  .wa-header {
+    background: #1F2C34;
+    padding: 10px 16px 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .wa-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--triggui-gold), var(--triggui-coral));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--triggui-font-display);
+    font-weight: 800;
+    font-size: 14px;
+    color: white;
+  }
+  
+  .wa-contact-name {
+    font-family: var(--triggui-font-body);
+    font-weight: 600;
+    font-size: 14px;
+    color: #E9EDEF;
+  }
+  
+  .wa-contact-status {
+    font-size: 11px;
+    color: #8696A0;
+    font-weight: 400;
+  }
+  
+  .wa-chat-bg {
+    background: #0B141A;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    padding: 12px 10px 16px;
+    min-height: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .wa-bubble {
+    max-width: 85%;
+    border-radius: 8px;
+    font-family: var(--triggui-font-body);
+    font-size: 12.5px;
+    line-height: 1.45;
+    position: relative;
+  }
+  
+  .wa-bubble-incoming {
+    background: #1F2C34;
+    color: #E9EDEF;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .wa-bubble-text {
+    padding: 6px 10px;
+    color: #E9EDEF;
+    background: #1F2C34;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    align-self: flex-start;
+    max-width: 85%;
+  }
+  
+  .wa-tarjeta-mock {
+    width: 100%;
+    background: #FAFAF8;
+    padding: 14px;
+    color: #1a1a1a;
+  }
+  
+  .wa-tarjeta-mock .tarjeta-header {
+    font-family: var(--triggui-font-display);
+    font-weight: 800;
+    font-size: 13px;
+    color: #1a1a1a;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+  
+  .wa-tarjeta-mock .tarjeta-author {
+    font-size: 10px;
+    color: var(--triggui-coral);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  
+  .wa-tarjeta-mock .tarjeta-body {
+    font-size: 10px;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  
+  .wa-tarjeta-mock .tarjeta-hl {
+    background: rgba(232, 168, 56, 0.25);
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+  
+  .wa-tarjeta-mock .tarjeta-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 6px;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+  
+  .wa-tarjeta-mock .tarjeta-brand {
+    font-family: var(--triggui-font-display);
+    font-weight: 700;
+    font-size: 10px;
+    color: #999;
+  }
+  
+  .wa-og-preview {
+    width: 100%;
+    background: #111B21;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  
+  .wa-og-preview .og-image-area {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    padding: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .wa-og-preview .og-title-text {
+    font-family: var(--triggui-font-display);
+    font-weight: 800;
+    font-size: 12px;
+    color: #E9EDEF;
+    line-height: 1.3;
+    flex: 1;
+  }
+  
+  .wa-og-preview .og-book-thumb {
+    width: 50px;
+    height: 68px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, #c4a35a 0%, #8b6914 100%);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    padding: 4px;
+  }
+  
+  .wa-og-preview .og-meta {
+    padding: 8px 12px;
+    font-size: 10px;
+    color: #8696A0;
+  }
+  
+  .wa-og-preview .og-keywords {
+    font-size: 9px;
+    color: #8696A0;
+    letter-spacing: 0.3px;
+  }
+  
+  .wa-og-preview .og-action {
+    font-size: 9px;
+    color: #8696A0;
+    margin-top: 3px;
+  }
+  
+  .wa-og-preview .og-domain {
+    font-size: 9px;
+    color: #53BDEB;
+    margin-top: 3px;
+  }
+  
+  .wa-time {
+    font-size: 9px;
+    color: #8696A0;
+    text-align: right;
+    padding: 3px 8px 5px;
+  }
+
+  /* ════ FLOW ANNOTATIONS ════ */
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    text-align: left;
+  }
+  
+  .flow-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--triggui-font-display);
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: white;
+  }
+  
+  .flow-step-title {
+    font-family: var(--triggui-font-display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--triggui-white);
+    margin-bottom: 2px;
+  }
+  
+  .flow-step-desc {
+    font-size: 13px;
+    color: rgba(245, 240, 232, 0.5);
+    line-height: 1.5;
   }
 </style>
 
@@ -600,7 +875,7 @@ function trackEngagement(action) {
 <style id="testimonials">
   .testimonial-card {
     background: var(--triggui-white-3);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(245, 240, 232, 0.1);
     backdrop-filter: var(--triggui-blur-lg);
     -webkit-backdrop-filter: var(--triggui-blur-lg);
     border-radius: var(--triggui-radius-xl);
@@ -611,7 +886,7 @@ function trackEngagement(action) {
   .testimonial-card:hover {
     border-color: var(--triggui-white-20);
     transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(112, 0, 255, 0.15);
+    box-shadow: 0 12px 40px rgba(232, 168, 56, 0.12);
   }
 </style>
 
@@ -663,18 +938,14 @@ function trackEngagement(action) {
     z-index: 50;
     width: 60px;
     height: 60px;
-    
-    /* SUBLIME GLASS EFFECT */
-    background: rgba(0, 0, 0, 0.7);
-    border: 1px solid rgba(0, 255, 136, 0.3); /* Subtle green edge */
+    background: rgba(11, 15, 26, 0.8);
+    border: 1px solid rgba(0, 255, 136, 0.3);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 50%;
-    
     display: flex;
     align-items: center;
     justify-content: center;
-    
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 136, 0.1);
     transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -682,20 +953,19 @@ function trackEngagement(action) {
   .wa-float svg {
     width: 30px;
     height: 30px;
-    fill: #00FF88; /* Neon Green Icon Initial */
+    fill: #00FF88;
     transition: fill 0.3s ease;
   }
   
   .wa-float:hover {
     transform: scale(1.1) translateY(-2px);
-    /* WA Brand Gradient fill on hover */
     background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
     border-color: transparent;
     box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
   }
   
   .wa-float:hover svg {
-    fill: white; /* Turn white on interaction */
+    fill: white;
   }
 
   .cta-float {
@@ -703,12 +973,13 @@ function trackEngagement(action) {
     bottom: 20px;
     right: 20px;
     z-index: 50;
-    background: white;
-    color: black;
+    background: var(--triggui-gold);
+    color: #0B0F1A;
+    font-family: var(--triggui-font-display);
     font-weight: 800;
     padding: 14px 28px;
     border-radius: 50px;
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 30px rgba(232, 168, 56, 0.4);
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
@@ -730,24 +1001,18 @@ function trackEngagement(action) {
 
   @keyframes nuclear-pulse {
     0%, 100% {
-      box-shadow: 0 0 0 0 rgba(112, 0, 255, 0.7),
-                  0 10px 30px rgba(112, 0, 255, 0.3);
+      box-shadow: 0 0 0 0 rgba(232, 168, 56, 0.7),
+                  0 10px 30px rgba(232, 168, 56, 0.3);
     }
     50% {
-      box-shadow: 0 0 0 15px rgba(112, 0, 255, 0),
-                  0 10px 30px rgba(112, 0, 255, 0.3);
+      box-shadow: 0 0 0 15px rgba(232, 168, 56, 0),
+                  0 10px 30px rgba(232, 168, 56, 0.3);
     }
   }
 
   @keyframes pulse-ring {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    100% {
-      transform: scale(2.5);
-      opacity: 0;
-    }
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
   }
 
   @keyframes pulse-wa {
@@ -763,6 +1028,11 @@ function trackEngagement(action) {
   @keyframes glow-rotate {
     0% { filter: hue-rotate(0deg); }
     100% { filter: hue-rotate(360deg); }
+  }
+
+  @keyframes float-phone {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
 </style>
 
@@ -802,6 +1072,9 @@ function trackEngagement(action) {
 
 <div class="bg-grain"></div>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════ -->
 <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
   <div class="spotlight"></div>
   
@@ -812,7 +1085,7 @@ function trackEngagement(action) {
         src="./trigguiletrasblanco.png" 
         alt="Triggui" 
         class="h-10 md:h-12 w-auto mx-auto opacity-100"
-        style="max-width: 220px; filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));"
+        style="max-width: 220px; filter: drop-shadow(0 0 12px rgba(245,240,232,0.2));"
         loading="eager"
       />
     </div>
@@ -823,81 +1096,210 @@ function trackEngagement(action) {
     </div>
 
     <div class="px-2">
-      <h1 class="hero-title text-white mb-3">
+      <h1 class="hero-title mb-3" style="color: var(--triggui-white);">
         Cuando el impulso llega,
       </h1>
-      <h2 class="hero-subtitle text-fire mb-10">
+      <h2 class="hero-subtitle text-fire mb-6">
         el libro ya te espera.
       </h2>
     </div>
 
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light px-4">
-      En tu WhatsApp.<br>
-      <span class="text-white font-semibold">Con la idea que necesitas.<br>En el momento exacto.</span><br>
-      
+    <p class="text-xl md:text-2xl mb-6 max-w-3xl mx-auto leading-relaxed font-light px-4" style="color: rgba(245,240,232,0.45);">
+      Cada jueves recibes en tu WhatsApp<br>
+      <span style="color: var(--triggui-white); font-weight: 600;">la idea exacta que necesitas de un gran libro.</span><br>
+      <span style="color: rgba(245,240,232,0.35);">30 segundos. Sin buscar. Sin decidir.</span>
     </p>
 
-    <div class="w-full mb-12 relative">
-      <div class="container-safe mx-auto">
-        <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4 text-center">
-          Tu dosis semanal de 30 segundos
-        </p>
+    <!-- ════ FLECHA HACIA PREVIEW ════ -->
+    <a href="#preview" class="inline-block mb-10 opacity-50 hover:opacity-100 transition-opacity" style="animation: float-phone 3s ease-in-out infinite;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--triggui-gold);"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- WHATSAPP PREVIEW: "ESTO ES LO QUE RECIBES" -->
+<!-- ════════════════════════════════════════════ -->
+<section id="preview" class="py-20 relative scroll-mt-20" style="background: linear-gradient(180deg, var(--triggui-black) 0%, #0E1324 50%, var(--triggui-black) 100%);">
+  <div class="container-safe mx-auto">
+    
+    <h2 class="text-3xl md:text-5xl font-black text-center mb-4 tracking-tight leading-none" style="color: var(--triggui-white);">
+      Esto recibes cada jueves
+    </h2>
+    <p class="text-center mb-14 text-lg" style="color: rgba(245,240,232,0.4);">
+      Directo en tu WhatsApp. Exactamente así.
+    </p>
+
+    <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16">
+      
+      <!-- PHONE MOCKUP -->
+      <div style="animation: float-phone 6s ease-in-out infinite;">
+        <div class="phone-frame">
+          <div class="phone-notch"></div>
+          
+          <div class="wa-header">
+            <div class="wa-avatar">T</div>
+            <div>
+              <div class="wa-contact-name">Triggui</div>
+              <div class="wa-contact-status">en línea</div>
+            </div>
+          </div>
+          
+          <div class="wa-chat-bg">
+            
+            <!-- TARJETA -->
+            <div class="wa-bubble wa-bubble-incoming">
+              <div class="wa-tarjeta-mock">
+                <div class="tarjeta-header">Lo que Dalái Lama corrige</div>
+                <div class="tarjeta-author">Dalái Lama</div>
+                <div class="tarjeta-body">
+                  Transformar la ira en compasión comienza con <span class="tarjeta-hl">observarla sin juicio</span>. 
+                  Dedicar unos minutos a <span class="tarjeta-hl">anotar las fuentes de frustración</span> ayuda a tomar el control.
+                </div>
+                <div class="tarjeta-footer">
+                  <span class="tarjeta-brand">triggui</span>
+                  <span style="font-size:9px;color:#bbb;">@triggui | triggui.com</span>
+                </div>
+              </div>
+              <div class="wa-time">22:34 ✓✓</div>
+            </div>
+            
+            <!-- MICRO-MENSAJE -->
+            <div class="wa-bubble-text">
+              👀 Observa sin juicio.
+              <div style="font-size:9px;color:#8696A0;text-align:right;margin-top:2px;">22:34 ✓✓</div>
+            </div>
+            
+            <!-- OG PREVIEW -->
+            <div class="wa-bubble wa-bubble-incoming" style="margin-top:4px;">
+              <div class="wa-og-preview">
+                <div class="og-image-area">
+                  <div class="og-title-text">
+                    Respira profundamente y observa tu ira sin juzgarla
+                  </div>
+                  <div class="og-book-thumb">
+                    DALÁI<br>LAMA
+                  </div>
+                </div>
+                <div class="og-meta">
+                  <div class="og-keywords">tranquilidad · entendimiento · pasión · compasión</div>
+                  <div class="og-action">💬 Anota en un cuaderno las causas de tu frustración</div>
+                  <div class="og-domain">beta.app.triggui.com</div>
+                </div>
+              </div>
+              <div class="wa-time">22:34 ✓✓</div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      
+      <!-- FLOW STEPS -->
+      <div class="flex flex-col gap-8 max-w-sm">
         
-        <div class="cards-rail-container" id="cardRail">
-          <div class="rail-spacer"></div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="antifragil.png" alt="Antifragil" loading="lazy">
-            </div>
+        <div class="flow-step">
+          <div class="flow-number" style="background: var(--triggui-gold);">1</div>
+          <div>
+            <div class="flow-step-title">La tarjeta con la idea clave</div>
+            <div class="flow-step-desc">Un párrafo editorial que extrae la esencia del libro. Curado por un humano que ha leído 700+ libros en 21 años.</div>
           </div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="habitossecretosdelosgenios.png" alt="Hábitos Secretos" loading="lazy">
-            </div>
-          </div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="elartedevivirconsencillez.png" alt="Vivir con Sencillez" loading="lazy">
-            </div>
-          </div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="reinventate.png" alt="Reinvéntate" loading="lazy">
-            </div>
-          </div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="simonsinek.png" alt="Empieza con el porqué" loading="lazy">
-            </div>
-          </div>
-
-          <div class="card-3d-wrapper">
-            <div class="card-3d-inner">
-              <div class="card-shine"></div>
-              <img src="pensarrápidopensardespacio.png" alt="Pensar Rápido" loading="lazy">
-            </div>
-          </div>
-
-          <div class="rail-spacer"></div>
         </div>
         
-        <p class="text-center text-xs text-gray-600 mt-2 flex items-center justify-center gap-2">
-          <span class="animate-pulse">👈</span> Desliza <span class="animate-pulse">👉</span>
-        </p>
+        <div class="flow-step">
+          <div class="flow-number" style="background: var(--triggui-coral);">2</div>
+          <div>
+            <div class="flow-step-title">El micro-impulso</div>
+            <div class="flow-step-desc">Una frase que se queda en tu cabeza. Si no la lees ahora, ahí se queda esperando en tu chat.</div>
+          </div>
+        </div>
+        
+        <div class="flow-step">
+          <div class="flow-number" style="background: var(--triggui-teal);">3</div>
+          <div>
+            <div class="flow-step-title">La señal según tu momento</div>
+            <div class="flow-step-desc">Un link con contenido que se adapta a la hora del día. Palabras clave + una acción concreta que puedes hacer ahora mismo.</div>
+          </div>
+        </div>
+        
+        <div style="margin-top: 8px; padding: 14px 18px; border-radius: 14px; background: rgba(232,168,56,0.08); border: 1px solid rgba(232,168,56,0.2);">
+          <p style="font-family: var(--triggui-font-display); font-weight: 700; font-size: 14px; color: var(--triggui-gold); margin-bottom: 4px;">
+            30 segundos. Un libro completo esperándote.
+          </p>
+          <p style="font-size: 12px; color: rgba(245,240,232,0.4); line-height: 1.5;">
+            Si la idea te atrapa, el libro ya está ahí para que lo abras. Si no, el mensaje se queda en tu WhatsApp hasta que estés listo.
+          </p>
+        </div>
+        
       </div>
+      
     </div>
-    <div class="max-w-xl mx-auto mb-12 w-full px-2">
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- CARD RAIL + FORM -->
+<!-- ════════════════════════════════════════════ -->
+<section class="py-16 relative">
+  <div class="container-safe mx-auto text-center">
+
+    <p class="text-xs font-bold uppercase tracking-widest mb-4 text-center" style="color: rgba(245,240,232,0.3);">
+      Ediciones anteriores
+    </p>
+    
+    <div class="cards-rail-container" id="cardRail">
+      <div class="rail-spacer"></div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="antifragil.png" alt="Antifragil" loading="lazy">
+        </div>
+      </div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="habitossecretosdelosgenios.png" alt="Hábitos Secretos" loading="lazy">
+        </div>
+      </div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="elartedevivirconsencillez.png" alt="Vivir con Sencillez" loading="lazy">
+        </div>
+      </div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="reinventate.png" alt="Reinvéntate" loading="lazy">
+        </div>
+      </div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="simonsinek.png" alt="Empieza con el porqué" loading="lazy">
+        </div>
+      </div>
+      <div class="card-3d-wrapper">
+        <div class="card-3d-inner">
+          <div class="card-shine"></div>
+          <img src="pensarrápidopensardespacio.png" alt="Pensar Rápido" loading="lazy">
+        </div>
+      </div>
+      <div class="rail-spacer"></div>
+    </div>
+    
+    <p class="text-center text-xs mt-2 flex items-center justify-center gap-2" style="color: rgba(245,240,232,0.2);">
+      <span class="animate-pulse">←</span> Desliza <span class="animate-pulse">→</span>
+    </p>
+
+    <!-- FORM -->
+    <div class="max-w-xl mx-auto mt-14 mb-12 w-full px-2">
       <div class="glass-card p-6 md:p-8">
+        
+        <p class="text-center mb-6" style="font-family: var(--triggui-font-display); font-weight: 700; font-size: 18px; color: var(--triggui-white);">
+          Activa tu lectura semanal
+        </p>
         
         <form onsubmit="handleCapture(event)" class="space-y-5">
           
@@ -974,19 +1376,19 @@ function trackEngagement(action) {
             id="submitBtn"
             class="btn-nuclear w-full py-5 rounded-xl text-lg font-bold"
           >
-            Activar mi lectura
+            Que el libro me encuentre
           </button>
 
         </form>
 
-        <p class="text-xs text-gray-500 text-center mt-6">
+        <p class="text-xs text-center mt-6" style="color: rgba(245,240,232,0.3);">
           Sin spam. Solo ideas que valen la pena. Cancela cuando quieras.
         </p>
 
       </div>
     </div>
 
-    <p class="text-sm text-gray-400 mb-4">App complementaria incluida gratis</p>
+    <p class="text-sm mb-4" style="color: rgba(245,240,232,0.4);">App complementaria incluida gratis</p>
     <div class="store-badge-container mb-8">
       <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" class="store-badge apple" onclick="trackEngagement('app_store')">
         <img src="./downloadappstore.png" alt="Descargar en App Store" loading="lazy" />
@@ -996,25 +1398,28 @@ function trackEngagement(action) {
       </a>
     </div>
 
-    <p class="text-sm text-gray-500 mt-8">
+    <p class="text-sm mt-8" style="color: rgba(245,240,232,0.3);">
       <span id="numeroImpacto" class="text-fire font-bold text-2xl">+6,187</span><br>
-      <span class="text-gray-400">libros esperando ser abiertos</span>
+      <span style="color: rgba(245,240,232,0.35);">libros esperando ser abiertos</span>
     </p>
 
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- PROBLEMA / SOLUCIÓN -->
+<!-- ════════════════════════════════════════════ -->
 <section class="py-24 relative">
   <div class="container-safe mx-auto">
     
     <div class="max-w-3xl mx-auto text-center mb-16">
-      <h2 class="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight leading-none">
+      <h2 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-none" style="color: var(--triggui-white);">
         No es falta de ganas.<br>
         <span class="text-fire">Es fricción de empezar.</span>
       </h2>
-      <p class="text-xl text-gray-400 leading-relaxed">
+      <p class="text-xl leading-relaxed" style="color: rgba(245,240,232,0.4);">
         Como el gym. Como escribir. Como meditar.<br>
-        <span class="text-white font-semibold">Triggui elimina la fricción entre querer y hacer.</span>
+        <span style="color: var(--triggui-white); font-weight: 600;">Triggui elimina la fricción entre querer y hacer.</span>
       </p>
     </div>
 
@@ -1022,19 +1427,19 @@ function trackEngagement(action) {
       
       <div class="glass-card p-8">
         <div class="text-5xl mb-6">💭</div>
-        <h3 class="text-2xl font-bold text-white mb-4">El problema no es falta de tiempo</h3>
-        <p class="text-gray-400 leading-relaxed">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--triggui-white);">El problema no es falta de tiempo</h3>
+        <p class="leading-relaxed" style="color: rgba(245,240,232,0.45);">
           Es la fricción decisional. Esos 3-5 minutos donde piensas "¿qué leo?" y terminas en Instagram. 
-          <span class="text-white font-semibold">Triggui elimina esos 3 minutos.</span>
+          <span style="color: var(--triggui-white); font-weight: 600;">Triggui elimina esos 3 minutos.</span>
         </p>
       </div>
 
       <div class="glass-card p-8">
         <div class="text-5xl mb-6">💬</div>
-        <h3 class="text-2xl font-bold text-white mb-4">WhatsApp es la clave</h3>
-        <p class="text-gray-400 leading-relaxed">
+        <h3 class="text-2xl font-bold mb-4" style="color: var(--triggui-white);">WhatsApp es la clave</h3>
+        <p class="leading-relaxed" style="color: rgba(245,240,232,0.45);">
           Un mensaje sin leer en WhatsApp es una promesa. Si no puedes leerlo ahora, ahí se queda esperando. 
-          <span class="text-white font-semibold">Persistencia útil. Conocimiento que no se evapora.</span>
+          <span style="color: var(--triggui-white); font-weight: 600;">Persistencia útil. Conocimiento que no se evapora.</span>
         </p>
       </div>
 
@@ -1043,47 +1448,50 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<section class="py-24 bg-gradient-to-b from-black via-gray-900/20 to-black">
+<!-- ════════════════════════════════════════════ -->
+<!-- DOS FUERZAS -->
+<!-- ════════════════════════════════════════════ -->
+<section class="py-24" style="background: linear-gradient(180deg, var(--triggui-black) 0%, #0E1324 50%, var(--triggui-black) 100%);">
   <div class="container-safe mx-auto">
     
-    <h2 class="text-4xl md:text-6xl font-black text-center text-white mb-6 tracking-tight leading-none">
+    <h2 class="text-4xl md:text-6xl font-black text-center mb-6 tracking-tight leading-none" style="color: var(--triggui-white);">
       Si el impulso nace de ti,<br>
       <span class="text-fire">el libro ya está ahí.</span>
     </h2>
     
-    <p class="text-xl text-gray-400 text-center mb-16 max-w-3xl mx-auto leading-relaxed">
+    <p class="text-xl text-center mb-16 max-w-3xl mx-auto leading-relaxed" style="color: rgba(245,240,232,0.4);">
       Si el impulso lo generamos nosotros, te activamos con la idea perfecta.<br>
-      <span class="text-white font-semibold">Dos fuerzas. Un solo resultado: acción inmediata.</span>
+      <span style="color: var(--triggui-white); font-weight: 600;">Dos fuerzas. Un solo resultado: acción inmediata.</span>
     </p>
 
     <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       
       <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-pink-500 to-orange-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center text-3xl font-black text-white shadow-lg" style="background: linear-gradient(135deg, var(--triggui-gold), var(--triggui-coral));">
           💬
         </div>
-        <h3 class="text-xl font-bold text-white mb-3">Te llega por WhatsApp</h3>
-        <p class="text-gray-400 leading-relaxed">
+        <h3 class="text-xl font-bold mb-3" style="color: var(--triggui-white);">Te llega por WhatsApp</h3>
+        <p class="leading-relaxed" style="color: rgba(245,240,232,0.4);">
           Una idea. 30 segundos. Sin abrir nada más. Ahí, entre tus chats cotidianos.
         </p>
       </div>
 
       <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center text-3xl font-black text-white shadow-lg" style="background: linear-gradient(135deg, var(--triggui-coral), #FF3F6C);">
           ⏳
         </div>
-        <h3 class="text-xl font-bold text-white mb-3">Persistencia útil</h3>
-        <p class="text-gray-400 leading-relaxed">
+        <h3 class="text-xl font-bold mb-3" style="color: var(--triggui-white);">Persistencia útil</h3>
+        <p class="leading-relaxed" style="color: rgba(245,240,232,0.4);">
           Si no puedes leerlo ahora, el mensaje se queda ahí. Es la memoria de tu intención de aprender.
         </p>
       </div>
 
       <div class="text-center hover-lift">
-        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-3xl font-black text-white shadow-lg">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-2xl flex items-center justify-center text-3xl font-black text-white shadow-lg" style="background: linear-gradient(135deg, var(--triggui-teal), #2DD4BF);">
           🚀
         </div>
-        <h3 class="text-xl font-bold text-white mb-3">Cero fricción para empezar</h3>
-        <p class="text-gray-400 leading-relaxed">
+        <h3 class="text-xl font-bold mb-3" style="color: var(--triggui-white);">Cero fricción para empezar</h3>
+        <p class="leading-relaxed" style="color: rgba(245,240,232,0.4);">
           Cuando tengas tu momento, solo abres y lees. El libro completo está ahí si quieres más.
         </p>
       </div>
@@ -1093,43 +1501,46 @@ function trackEngagement(action) {
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- PRICING -->
+<!-- ════════════════════════════════════════════ -->
 <section id="planes" class="py-24 relative scroll-mt-20">
   <div class="container-safe mx-auto">
     
-    <h2 class="text-4xl md:text-5xl font-black text-center text-white mb-6 tracking-tight">
+    <h2 class="text-4xl md:text-5xl font-black text-center mb-6 tracking-tight" style="color: var(--triggui-white);">
       Invierte en eliminar<br>
       <span class="text-fire">la fricción de empezar.</span>
     </h2>
-    <p class="text-gray-400 text-center mb-16 text-lg max-w-2xl mx-auto">
+    <p class="text-center mb-16 text-lg max-w-2xl mx-auto" style="color: rgba(245,240,232,0.4);">
       $149 al mes = $4.90 por día. Menos que un café.<br>
-      <span class="text-white font-semibold">Más valioso que cualquier curso que nunca terminas.</span>
+      <span style="color: var(--triggui-white); font-weight: 600;">Más valioso que cualquier curso que nunca terminas.</span>
     </p>
 
     <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
       
       <div class="pricing-card-monthly p-8 order-1">
-        <h3 class="text-green-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center" style="color: #00FF88;">
           Mensual
         </h3>
         <div class="text-center mb-6">
-          <span class="text-4xl font-bold text-white">$149</span>
-          <span class="text-gray-400 text-sm">/mes</span>
+          <span class="text-4xl font-bold" style="color: var(--triggui-white);">$149</span>
+          <span class="text-sm" style="color: rgba(245,240,232,0.4);">/mes</span>
         </div>
-        <ul class="text-sm text-gray-200 space-y-2 mb-8">
+        <ul class="text-sm space-y-2 mb-8" style="color: rgba(245,240,232,0.8);">
           <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: #00FF88;">✓</span> 
             <span>1 mensaje semanal</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: #00FF88;">✓</span> 
             <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: #00FF88;">✓</span> 
             <span>App incluida gratis</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-green-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: #00FF88;">✓</span> 
             <span>Cancela cuando quieras</span>
           </li>
         </ul>
@@ -1142,43 +1553,43 @@ function trackEngagement(action) {
         </a>
       </div>
 
-      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative bg-gradient-to-b from-white/8 to-white/3 border-pink-500/60 transform md:scale-110 shadow-2xl order-2">
+      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative transform md:scale-110 shadow-2xl order-2" style="background: linear-gradient(180deg, rgba(232,168,56,0.08) 0%, rgba(245,240,232,0.03) 100%); border-color: rgba(232,168,56,0.4);">
         <div class="badge-save">
           MÁS POPULAR
         </div>
         
-        <h3 class="text-pink-400 font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6">
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6" style="color: var(--triggui-gold);">
           Anual Pro
         </h3>
         <div class="text-center mb-2">
-          <span class="text-5xl font-black text-white">$1,490</span>
-          <span class="text-gray-400 text-sm">/año</span>
+          <span class="text-5xl font-black" style="color: var(--triggui-white);">$1,490</span>
+          <span class="text-sm" style="color: rgba(245,240,232,0.4);">/año</span>
         </div>
         <div class="text-center mb-6">
           <span class="price-strike text-sm inline-block mr-2">$1,788</span>
-          <span class="text-green-400 text-xs font-bold bg-green-900/40 px-3 py-1 rounded-full">
+          <span class="text-xs font-bold px-3 py-1 rounded-full" style="color: #00FF88; background: rgba(0,255,136,0.1);">
             Ahorras $298
           </span>
         </div>
-        <ul class="text-sm text-gray-200 space-y-2 mb-8">
+        <ul class="text-sm space-y-2 mb-8" style="color: rgba(245,240,232,0.8);">
           <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-gold);">✓</span> 
             <span>1 mensaje semanal</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-gold);">✓</span> 
             <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-gold);">✓</span> 
             <span>App incluida gratis</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-gold);">✓</span> 
             <span><strong>Precio congelado 1 año</strong></span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-pink-500 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-gold);">✓</span> 
             <span><strong>Ahorras $298 MXN</strong></span>
           </li>
         </ul>
@@ -1192,38 +1603,40 @@ function trackEngagement(action) {
       </div>
 
       <div class="glass-card p-8 hover:bg-white/5 transition-all opacity-95 hover:opacity-100 order-3">
-        <h3 class="text-purple-400 font-bold uppercase text-xs tracking-widest mb-4 text-center">
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center" style="color: var(--triggui-teal);">
           Lifetime
         </h3>
         <div class="text-center mb-6">
-          <span class="text-4xl font-bold text-white">$4,999</span>
-          <span class="text-gray-500 text-sm">/único</span>
+          <span class="text-4xl font-bold" style="color: var(--triggui-white);">$4,999</span>
+          <span class="text-sm" style="color: rgba(245,240,232,0.3);">/único</span>
         </div>
-        <ul class="text-sm text-gray-300 space-y-2 mb-8">
+        <ul class="text-sm space-y-2 mb-8" style="color: rgba(245,240,232,0.7);">
           <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-teal);">✓</span> 
             <span>1 mensaje semanal</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-teal);">✓</span> 
             <span>30 segundos. Directo a WhatsApp.</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-teal);">✓</span> 
             <span>App incluida gratis</span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-teal);">✓</span> 
             <span><strong>Nunca más pagas</strong></span>
           </li>
           <li class="flex gap-2 items-center">
-            <span class="text-purple-400 font-bold">✓</span> 
+            <span class="font-bold" style="color: var(--triggui-teal);">✓</span> 
             <span><strong>Acceso de por vida</strong></span>
           </li>
         </ul>
         <a 
           href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-          class="block w-full py-3 text-center rounded-xl border-2 border-purple-500/30 text-purple-300 hover:bg-purple-500/10 font-bold text-sm transition-all"
+          class="block w-full py-3 text-center rounded-xl border-2 font-bold text-sm transition-all" style="border-color: rgba(78,205,196,0.3); color: var(--triggui-teal);"
+          onmouseover="this.style.background='rgba(78,205,196,0.1)'"
+          onmouseout="this.style.background='transparent'"
           onclick="trackConversion('lifetime', 4999)"
         >
           Ser Socio Vitalicio
@@ -1235,35 +1648,35 @@ function trackEngagement(action) {
     <div class="max-w-2xl mx-auto mt-20">
       
       <div class="text-center mb-8">
-        <p class="text-gray-400 text-sm uppercase tracking-widest font-bold mb-2">
+        <p class="text-sm uppercase tracking-widest font-bold mb-2" style="color: rgba(245,240,232,0.3);">
           Sólo quiero apoyar el proyecto
         </p>
-        <div class="w-16 h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent mx-auto"></div>
+        <div class="w-16 h-px mx-auto" style="background: linear-gradient(to right, transparent, rgba(245,240,232,0.2), transparent);"></div>
       </div>
 
-      <div class="glass-card p-8 border-2 border-yellow-500/30 hover:border-yellow-500/50 transition-all">
+      <div class="glass-card p-8" style="border: 2px solid rgba(232,168,56,0.25);">
         <div class="text-center mb-6">
           <div class="text-5xl mb-4">💝</div>
-          <h3 class="text-yellow-400 font-bold uppercase text-xs tracking-widest mb-2">
+          <h3 class="font-bold uppercase text-xs tracking-widest mb-2" style="color: var(--triggui-gold);">
             Apoyo Libre
           </h3>
-          <p class="text-gray-400 text-sm mb-6">
+          <p class="text-sm mb-6" style="color: rgba(245,240,232,0.4);">
             Tu generosidad mantiene Triggui vivo.<br>
-            <span class="text-white font-semibold">Elige la cantidad que quieras aportar.</span>
+            <span style="color: var(--triggui-white); font-weight: 600;">Elige la cantidad que quieras aportar.</span>
           </p>
         </div>
 
-        <ul class="text-sm text-gray-300 space-y-2 mb-8">
+        <ul class="text-sm space-y-2 mb-8" style="color: rgba(245,240,232,0.6);">
           <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
+            <span style="color: var(--triggui-gold);">✓</span> 
             <span>Sin compromiso. Sin suscripción.</span>
           </li>
           <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
+            <span style="color: var(--triggui-gold);">✓</span> 
             <span>Apoyas la cultura de lectura.</span>
           </li>
           <li class="flex gap-2 items-center justify-center">
-            <span class="text-yellow-400">✓</span> 
+            <span style="color: var(--triggui-gold);">✓</span> 
             <span>100% transparencia. Cada peso cuenta.</span>
           </li>
         </ul>
@@ -1271,14 +1684,14 @@ function trackEngagement(action) {
         <a 
           href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001"
           class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all hover:scale-102"
-          style="background: linear-gradient(135deg, #FFD700, #FFA500); color: #000;"
+          style="background: linear-gradient(135deg, var(--triggui-gold), var(--triggui-coral)); color: #0B0F1A;"
           onclick="trackConversion('donation_click', 0)"
         >
           Aportar Ahora
         </a>
 
-        <p class="text-center text-xs text-gray-500 mt-4">
-          Gracias por mantener viva la chispa del conocimiento 🔥
+        <p class="text-center text-xs mt-4" style="color: rgba(245,240,232,0.25);">
+          Gracias por mantener viva la chispa del conocimiento
         </p>
       </div>
 
@@ -1287,10 +1700,13 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<section class="py-24 border-t border-gray-900">
+<!-- ════════════════════════════════════════════ -->
+<!-- TESTIMONIOS -->
+<!-- ════════════════════════════════════════════ -->
+<section class="py-24" style="border-top: 1px solid rgba(245,240,232,0.06);">
   <div class="container-safe mx-auto">
     
-    <h2 class="text-3xl md:text-5xl font-black text-center text-white mb-16 tracking-tight">
+    <h2 class="text-3xl md:text-5xl font-black text-center mb-16 tracking-tight" style="color: var(--triggui-white);">
       Lo que dicen nuestros lectores
     </h2>
 
@@ -1298,14 +1714,14 @@ function trackEngagement(action) {
       
       <div class="testimonial-card">
         <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shrink-0" style="background: linear-gradient(135deg, var(--triggui-gold), var(--triggui-coral)); color: white;">
             L
           </div>
           <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "Me llega entre mensajes. Lo leo. <strong class="text-white">Y ese impulso me hace agarrar el libro después. Es como ponerte los tenis para correr.</strong>"
+            <p class="text-base mb-3 leading-relaxed italic" style="color: rgba(245,240,232,0.6);">
+              "Me llega entre mensajes. Lo leo. <strong style="color: var(--triggui-white);">Y ese impulso me hace agarrar el libro después. Es como ponerte los tenis para correr.</strong>"
             </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+            <p class="text-xs uppercase tracking-widest font-bold" style="color: rgba(245,240,232,0.3);">
               Laura M.
             </p>
           </div>
@@ -1314,14 +1730,14 @@ function trackEngagement(action) {
 
       <div class="testimonial-card">
         <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shrink-0" style="background: linear-gradient(135deg, var(--triggui-teal), #2DD4BF); color: white;">
             C
           </div>
           <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "El mensaje se queda ahí si no puedo leerlo. <strong class="text-white">Es como tener un mentor que sabe cuándo necesitas un empujón.</strong>"
+            <p class="text-base mb-3 leading-relaxed italic" style="color: rgba(245,240,232,0.6);">
+              "El mensaje se queda ahí si no puedo leerlo. <strong style="color: var(--triggui-white);">Es como tener un mentor que sabe cuándo necesitas un empujón.</strong>"
             </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+            <p class="text-xs uppercase tracking-widest font-bold" style="color: rgba(245,240,232,0.3);">
               Carlos R.
             </p>
           </div>
@@ -1330,14 +1746,14 @@ function trackEngagement(action) {
 
       <div class="testimonial-card">
         <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shrink-0" style="background: linear-gradient(135deg, var(--triggui-coral), #FF3F6C); color: white;">
             A
           </div>
           <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "30 segundos. Una idea. <strong class="text-white">El hábito más fácil que he logrado mantener. Sin fricción, sin excusas.</strong>"
+            <p class="text-base mb-3 leading-relaxed italic" style="color: rgba(245,240,232,0.6);">
+              "30 segundos. Una idea. <strong style="color: var(--triggui-white);">El hábito más fácil que he logrado mantener. Sin fricción, sin excusas.</strong>"
             </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+            <p class="text-xs uppercase tracking-widest font-bold" style="color: rgba(245,240,232,0.3);">
               Ana G.
             </p>
           </div>
@@ -1346,14 +1762,14 @@ function trackEngagement(action) {
 
       <div class="testimonial-card">
         <div class="flex gap-4 items-start">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+          <div class="w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg shrink-0" style="background: linear-gradient(135deg, #E8A838, #FFD700); color: #0B0F1A;">
             J
           </div>
           <div class="flex-1">
-            <p class="text-gray-300 text-base mb-3 leading-relaxed italic">
-              "No es 'el libro correcto en el momento exacto'. <strong class="text-white">Es el libro que ya me está esperando cuando yo estoy listo.</strong>"
+            <p class="text-base mb-3 leading-relaxed italic" style="color: rgba(245,240,232,0.6);">
+              "No es 'el libro correcto en el momento exacto'. <strong style="color: var(--triggui-white);">Es el libro que ya me está esperando cuando yo estoy listo.</strong>"
             </p>
-            <p class="text-xs text-gray-500 uppercase tracking-widest font-bold">
+            <p class="text-xs uppercase tracking-widest font-bold" style="color: rgba(245,240,232,0.3);">
               Jorge M.
             </p>
           </div>
@@ -1365,18 +1781,21 @@ function trackEngagement(action) {
   </div>
 </section>
 
-<section class="py-32 text-center relative bg-gradient-to-b from-black via-gray-900/30 to-black">
+<!-- ════════════════════════════════════════════ -->
+<!-- CTA FINAL -->
+<!-- ════════════════════════════════════════════ -->
+<section class="py-32 text-center relative" style="background: linear-gradient(180deg, var(--triggui-black) 0%, #0E1324 50%, var(--triggui-black) 100%);">
   <div class="container-safe mx-auto px-6">
     
-    <h2 class="text-5xl md:text-7xl font-black mb-8 text-white tracking-tight leading-none">
+    <h2 class="text-5xl md:text-7xl font-black mb-8 tracking-tight leading-none" style="color: var(--triggui-white);">
       CUANDO EL IMPULSO LLEGA,<br>
       <span class="text-fire">EL LIBRO YA TE ESPERA.</span>
     </h2>
 
-    <p class="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+    <p class="text-xl md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed" style="color: rgba(245,240,232,0.4);">
       Una idea por semana.<br>
       Directo a tu WhatsApp. 30 segundos.<br>
-      <span class="text-white font-semibold">Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.</span>
+      <span style="color: var(--triggui-white); font-weight: 600;">Si no puedes leerlo ahora, ahí se queda esperando tu momento exacto.</span>
     </p>
 
     <a 
@@ -1390,14 +1809,16 @@ function trackEngagement(action) {
     <div class="mt-8">
       <a 
         href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" 
-        class="inline-block text-gray-500 hover:text-gray-300 transition-colors text-sm font-medium"
+        class="inline-block transition-colors text-sm font-medium" style="color: rgba(245,240,232,0.3);"
+        onmouseover="this.style.color='rgba(245,240,232,0.7)'"
+        onmouseout="this.style.color='rgba(245,240,232,0.3)'"
         onclick="trackEngagement('donate_link')"
       >
         💝 Apoyar el proyecto
       </a>
     </div>
 
-    <div class="mt-16 text-xs text-gray-600 space-y-4">
+    <div class="mt-16 text-xs space-y-4" style="color: rgba(245,240,232,0.2);">
       <img 
         src="./trigguiletrasblanco.png" 
         alt="Triggui" 
@@ -1405,7 +1826,7 @@ function trackEngagement(action) {
         loading="lazy"
       />
       <p>© 2025 Triggui · Hecho con 🖤 en México</p>
-      <div class="flex items-center justify-center gap-4 text-gray-500">
+      <div class="flex items-center justify-center gap-4" style="color: rgba(245,240,232,0.25);">
         <a href="#" class="hover:text-white transition-colors">Privacidad</a>
         <span>·</span>
         <a href="#" class="hover:text-white transition-colors">Términos</a>
@@ -1415,6 +1836,9 @@ function trackEngagement(action) {
   </div>
 </section>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- FLOATING ELEMENTS -->
+<!-- ════════════════════════════════════════════ -->
 <a 
   href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20que%20el%20libro%20me%20encuentre" 
   target="_blank"
@@ -1436,6 +1860,9 @@ function trackEngagement(action) {
   Que me encuentre
 </a>
 
+<!-- ════════════════════════════════════════════ -->
+<!-- SCRIPTS (INTACTOS) -->
+<!-- ════════════════════════════════════════════ -->
 <script>
 // === PRELOADER ===
 window.addEventListener('load', function() {
@@ -1444,27 +1871,22 @@ window.addEventListener('load', function() {
   }, 500);
 });
 
-// === 3D TILT EFFECT LOGIC (VANILLA JS NIVEL DIOS - ADDED) ===
-// Detecta movimiento del mouse/touch para inclinar las tarjetas
+// === 3D TILT EFFECT ===
 const cards = document.querySelectorAll('.card-3d-wrapper');
 
-if (window.matchMedia("(hover: hover)").matches) { // Solo en desktop
+if (window.matchMedia("(hover: hover)").matches) {
   cards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-      
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
-      const rotateX = ((y - centerY) / centerY) * -10; // Max rotation deg
+      const rotateX = ((y - centerY) / centerY) * -10;
       const rotateY = ((x - centerX) / centerX) * 10;
-      
       const inner = card.querySelector('.card-3d-inner');
       inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
     });
-    
     card.addEventListener('mouseleave', () => {
       const inner = card.querySelector('.card-3d-inner');
       inner.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
@@ -1568,7 +1990,6 @@ function updateLiveCounter() {
         let cur = 0;
         const tgt = total;
         const inc = Math.ceil(tgt / 40);
-        
         const step = () => {
           cur += inc;
           if (cur >= tgt) cur = tgt;
@@ -1590,19 +2011,12 @@ setInterval(updateLiveCounter, 30000);
 // === DETECCIÓN DE WEBVIEW ===
 const isWebView = (function() {
   const ua = navigator.userAgent || navigator.vendor || window.opera;
-  
   if (/wv|WebView/i.test(ua)) return true;
   if (/Instagram|FBAN|FBAV/i.test(ua)) return true;
-  
   if (/iPhone|iPad|iPod/.test(ua)) {
-    if (/Safari/i.test(ua) && !window.navigator.standalone) {
-      return false;
-    }
-    if (!(/Safari/i.test(ua)) || window.navigator.standalone) {
-      return true;
-    }
+    if (/Safari/i.test(ua) && !window.navigator.standalone) return false;
+    if (!(/Safari/i.test(ua)) || window.navigator.standalone) return true;
   }
-  
   return false;
 })();
 
@@ -1622,15 +2036,12 @@ window.addEventListener('scroll', () => {
   scrollTimer = setTimeout(() => {
     const cta = document.getElementById('floatingCTA');
     if (!cta || isWebView) return;
-    
     const currentScrollY = window.scrollY;
-    
     if (currentScrollY > 600 && currentScrollY > lastScrollY) {
       cta.classList.add('visible');
     } else if (currentScrollY < lastScrollY) {
       cta.classList.remove('visible');
     }
-    
     lastScrollY = currentScrollY;
   }, 100);
 }, { passive: true });
@@ -1640,12 +2051,9 @@ const phoneInput = document.getElementById('phone');
 if (phoneInput) {
   phoneInput.addEventListener('input', function(e) {
     let value = e.target.value.replace(/\D/g, '');
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
+    if (value.length > 10) value = value.slice(0, 10);
     e.target.value = value;
   });
-  
   phoneInput.addEventListener('paste', function(e) {
     e.preventDefault();
     const pastedText = (e.clipboardData || window.clipboardData).getData('text');
@@ -1659,18 +2067,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {
     e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
 // === INTERSECTION OBSERVER ===
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1687,7 +2089,7 @@ document.querySelectorAll('.glass-card, .testimonial-card').forEach(el => {
   observer.observe(el);
 });
 
-console.log('🔥 TRIGGUI - ARQUITECTURA MODULAR NIVEL DIOS - WHATSAPP PERSISTENCE ACTIVATED - ZERO FLICKER');
+console.log('🔥 TRIGGUI - MIDNIGHT LIBRARY EDITION - ZERO FLICKER');
 </script>
 
 </body>
