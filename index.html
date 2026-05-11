@@ -119,16 +119,52 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
   }
 
   function extraerAccent(data) {
-    let libro = null;
-    if (data && Array.isArray(data.libros) && data.libros.length > 0) {
-      libro = data.libros[0];
-    } else if (data && data.tarjeta) {
-      libro = data;
+    // Caso 1: Single-book canonical (contenido_edicion.json)
+    if (data && data.tarjeta && data.tarjeta.style && data.tarjeta.style.accent) {
+      console.log('  📖 Libro detectado (single-book):', data.titulo || '(sin título)');
+      return data.tarjeta.style.accent;
     }
-    if (!libro || !libro.tarjeta || !libro.tarjeta.style || !libro.tarjeta.style.accent) {
+
+    // Caso 2: Array de libros (contenido.json con TODOS)
+    let libros = null;
+    if (data && Array.isArray(data.libros)) {
+      libros = data.libros;
+    } else if (Array.isArray(data)) {
+      libros = data;
+    }
+
+    if (!libros || libros.length === 0) {
+      console.warn('  ⚠️ JSON sin libros válidos');
       return null;
     }
-    return libro.tarjeta.style.accent;
+
+    // Si solo hay 1, ese es
+    if (libros.length === 1) {
+      const l = libros[0];
+      console.log('  📖 Único libro:', l.titulo);
+      return (l.tarjeta && l.tarjeta.style && l.tarjeta.style.accent) || null;
+    }
+
+    // Múltiples libros: buscar el de _edicion_numero más alto (el más reciente)
+    let libroActual = null;
+    let maxEd = -Infinity;
+    for (const libro of libros) {
+      const ed = parseInt(libro._edicion_numero || libro.edicion_numero || libro.edicion || 0, 10);
+      if (!isNaN(ed) && ed > maxEd) {
+        maxEd = ed;
+        libroActual = libro;
+      }
+    }
+
+    // Fallback: si ninguno tiene _edicion_numero, usar el último del array
+    if (!libroActual) {
+      libroActual = libros[libros.length - 1];
+      console.log('  📖 Sin _edicion_numero, tomando último del array:', libroActual.titulo);
+    } else {
+      console.log('  📖 Libro de edición #' + maxEd + ':', libroActual.titulo);
+    }
+
+    return (libroActual.tarjeta && libroActual.tarjeta.style && libroActual.tarjeta.style.accent) || null;
   }
 
   function fetchConTimeout(url, timeout) {
