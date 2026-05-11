@@ -23,30 +23,29 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script>
 // ════════════════════════════════════════════════════════════════════════
-// 🌒 V19 — DYNAMIC COLOR PALETTE FROM LATEST BOOK
+// 🌒 V19.1 — DYNAMIC COLOR PALETTE FROM LATEST BOOK (robust + observable)
 // ════════════════════════════════════════════════════════════════════════
 //
-// Aplica los colores del accent del último libro generado al sitio entero.
-// Se ejecuta INLINE en el head (antes del render) para minimizar el flash.
+// Estrategia cuántico-quark para que SIEMPRE funcione:
+//   1. Intento jsdelivr CDN primero (CORS confiable, edge-cached globalmente)
+//   2. Si falla, intento raw.githubusercontent.com (canónico pero CORS variable)
+//   3. Si falla todo, queda con colores hardcoded (fallback graceful)
 //
-// Fallback graceful: si fetch falla o tarda, queda con los colores hardcoded.
-// Transición CSS 600ms suaviza el cambio cuando llega la respuesta async.
-//
-// Arquitectura nivel dios:
-//   1. Fetch async a raw.githubusercontent (cdn ultra-rápido, edge)
-//   2. Extrae libro.tarjeta.style.accent del contenido_edicion.json
-//   3. Deriva --t-coral con HSL rotation +20° hue
-//   4. Genera --t-fire y --t-nuclear gradients
-//   5. Aplica via document.documentElement.style.setProperty (cascade)
-//   6. CSS transition: 600ms suaviza el cambio
+// Logging visible en consola del browser (F12 → Console) para debug fácil.
+// Window-level flag `__trigguiColorsApplied` para verificar desde DevTools.
 // ════════════════════════════════════════════════════════════════════════
 (function() {
   'use strict';
 
-  const FETCH_URL = 'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido_edicion.json';
-  const FETCH_TIMEOUT = 1500; // 1.5s max wait
+  const URLS = [
+    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido_edicion.json',
+    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido_edicion.json',
+    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido.json',
+    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido.json'
+  ];
+  const FETCH_TIMEOUT = 3000;
 
-  // HEX → HSL conversion
+  // HEX → HSL
   function hexToHsl(hex) {
     const h = hex.replace('#', '');
     const r = parseInt(h.substr(0, 2), 16) / 255;
@@ -68,7 +67,6 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
     return { h: hh * 360, s: s * 100, l: l * 100 };
   }
 
-  // HSL → HEX
   function hslToHex(hsl) {
     const h = hsl.h / 360;
     const s = hsl.s / 100;
@@ -94,7 +92,6 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
     return '#' + toHex(r) + toHex(g) + toHex(b);
   }
 
-  // Deriva un coral del accent rotando hue +20° y aumentando saturación
   function deriveCoral(accent) {
     const hsl = hexToHsl(accent);
     hsl.h = (hsl.h + 20) % 360;
@@ -103,60 +100,85 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
     return hslToHex(hsl);
   }
 
-  // Aplica la paleta al documento
   function aplicarPaleta(accent) {
-    if (!accent || !/^#[0-9a-fA-F]{6}$/.test(accent)) return;
-
+    if (!accent || !/^#[0-9a-fA-F]{6}$/.test(accent)) {
+      console.warn('🌒 Triggui: accent inválido', accent);
+      return false;
+    }
     const coral = deriveCoral(accent);
     const root = document.documentElement;
-
-    // Habilitar transición suave ANTES de cambiar (evita flash brusco)
     root.style.setProperty('transition', 'background-color 0.6s ease, color 0.6s ease');
-
     root.style.setProperty('--t-gold', accent);
     root.style.setProperty('--t-coral', coral);
     root.style.setProperty('--t-fire', `linear-gradient(135deg,${accent} 0%,${coral} 50%,#FF3F6C 100%)`);
     root.style.setProperty('--t-nuclear', `linear-gradient(135deg,${accent} 0%,${coral} 100%)`);
+
+    console.log('🌒 Triggui · Paleta dinámica aplicada:', { accent, coral });
+    window.__trigguiColorsApplied = { accent, coral, timestamp: Date.now() };
+    return true;
   }
 
-  // Fetch con timeout y fallback graceful
-  function loadDynamicPalette() {
-    if (typeof fetch === 'undefined') return; // browser muy viejo
+  function extraerAccent(data) {
+    let libro = null;
+    if (data && Array.isArray(data.libros) && data.libros.length > 0) {
+      libro = data.libros[0];
+    } else if (data && data.tarjeta) {
+      libro = data;
+    }
+    if (!libro || !libro.tarjeta || !libro.tarjeta.style || !libro.tarjeta.style.accent) {
+      return null;
+    }
+    return libro.tarjeta.style.accent;
+  }
 
-    const controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
-    const timeoutId = controller ? setTimeout(() => controller.abort(), FETCH_TIMEOUT) : null;
-
-    fetch(FETCH_URL, {
-      method: 'GET',
-      mode: 'cors',
-      signal: controller ? controller.signal : undefined,
-      cache: 'no-cache'
-    })
-      .then(r => {
-        if (timeoutId) clearTimeout(timeoutId);
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
+  function fetchConTimeout(url, timeout) {
+    return new Promise((resolve, reject) => {
+      const controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), timeout) : null;
+      fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        signal: controller ? controller.signal : undefined,
+        cache: 'no-cache'
       })
-      .then(data => {
-        // Soporta dos formatos: { libros: [...] } o el libro directo
-        let libro = null;
-        if (data && Array.isArray(data.libros) && data.libros.length > 0) {
-          libro = data.libros[0];
-        } else if (data && data.tarjeta) {
-          libro = data;
+        .then(r => {
+          if (timeoutId) clearTimeout(timeoutId);
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(resolve)
+        .catch(err => {
+          if (timeoutId) clearTimeout(timeoutId);
+          reject(err);
+        });
+    });
+  }
+
+  async function intentarTodasLasURLs() {
+    console.log('🌒 Triggui · Buscando paleta dinámica del último libro...');
+    for (const url of URLS) {
+      try {
+        console.log('  → Intentando:', url);
+        const data = await fetchConTimeout(url, FETCH_TIMEOUT);
+        const accent = extraerAccent(data);
+        if (accent) {
+          console.log('  ✓ Accent encontrado:', accent, 'en', url);
+          if (aplicarPaleta(accent)) return;
+        } else {
+          console.warn('  ⚠️ Sin accent válido en respuesta de', url);
         }
-        if (!libro || !libro.tarjeta || !libro.tarjeta.style) return;
-        const accent = libro.tarjeta.style.accent;
-        aplicarPaleta(accent);
-      })
-      .catch(() => {
-        // Silent fail: queda con los colores hardcoded
-        if (timeoutId) clearTimeout(timeoutId);
-      });
+      } catch (e) {
+        console.warn('  ✗ Falló', url, ':', e.message);
+      }
+    }
+    console.warn('🌒 Triggui · Ninguna URL respondió con accent válido. Manteniendo colores hardcoded.');
   }
 
-  // Ejecuta tan pronto como sea posible (sin esperar DOMContentLoaded)
-  loadDynamicPalette();
+  if (typeof fetch !== 'undefined') {
+    intentarTodasLasURLs();
+  } else {
+    console.warn('🌒 Triggui · fetch no disponible en este browser');
+  }
 })();
 </script>
 <style>
@@ -503,8 +525,8 @@ section, .section-padding {
         <div class="text-center mb-1"><span class="text-4xl font-bold" style="color:var(--t-white)">$129</span><span class="text-sm" style="color:rgba(245,240,232,.35)"> MXN/mes</span></div>
         <div class="text-center mb-6"><span class="text-xs font-bold px-3 py-1 rounded-full" style="color:var(--t-teal);background:rgba(78,205,196,.08)">Primer mes gratis</span></div>
         <ul class="text-sm space-y-2 mb-8" style="color:rgba(245,240,232,.65)">
-          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>2 mensajes por semana</span></li>
-          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>Directo a tu correo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>2 tarjetas por correo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span><strong>Timing cronobiológico</strong></span></li>
           <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>App incluida gratis</span></li>
         </ul>
         <a href="https://buy.stripe.com/7sYeVfgIebeAbqEdHn24007" class="block w-full py-3 text-center rounded-xl border-2 font-bold text-sm transition-all" style="border-color:rgba(78,205,196,.35);color:var(--t-teal)" onmouseover="this.style.background='rgba(78,205,196,.08)'" onmouseout="this.style.background='transparent'" onclick="trackConversion('mensual_basico',129)">Primer mes gratis</a>
