@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triggui</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" type="image/png" href="favicon4.jpg">
+  <link rel="apple-touch-icon" href="favicon4.jpg">
+  <meta name="theme-color" content="#0B0F1A">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #0B0F1A;
+      color: #F5F0E8;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      text-align: center;
+      max-width: 420px;
+      animation: fadeIn .6s cubic-bezier(.22,1,.36,1) both;
+    }
+    .check {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E8A838 0%, #FF6B4A 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      animation: pop .6s cubic-bezier(.34,1.56,.64,1) .15s both;
+    }
+    .check svg {
+      width: 28px;
+      height: 28px;
+      stroke: #0B0F1A;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .check svg path {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      animation: draw .4s cubic-bezier(.22,1,.36,1) .45s forwards;
+    }
+    h1 {
+      font-size: clamp(26px, 6vw, 36px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin: 0 0 14px;
+      color: #F5F0E8;
+    }
+    .sub {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(245, 240, 232, 0.45);
+      margin: 0;
+    }
+    .sub a {
+      color: #E8A838;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232, 168, 56, 0.3);
+      transition: border-color .2s;
+    }
+    .sub a:hover {
+      border-bottom-color: #E8A838;
+    }
+    .loading {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(245,240,232,0.15);
+      border-top-color: #E8A838;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 24px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pop {
+      0%   { transform: scale(0); opacity: 0; }
+      60%  { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Estado: cargando -->
+    <div id="state-loading">
+      <div class="loading"></div>
+      <p class="sub">Procesando…</p>
+    </div>
+
+    <!-- Estado: éxito (anti-enum: se muestra igual exista o no el email) -->
+    <div id="state-success" class="hidden">
+      <div class="check">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12.5l4.5 4.5L19 7.5"/>
+        </svg>
+      </div>
+      <h1 id="mensaje">Entendido.</h1>
+      <p class="sub">Si quieres volver, te esperamos en <a href="https://triggui.com">triggui.com</a></p>
+    </div>
+
+    <noscript>
+      <div class="check">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12.5l4.5 4.5L19 7.5"/>
+        </svg>
+      </div>
+      <h1>Entendido.</h1>
+      <p class="sub">Tu navegador necesita JavaScript para confirmar la baja. Si quieres volver, te esperamos en <a href="https://triggui.com">triggui.com</a></p>
+    </noscript>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ════════════════════════════════════════════════════════════════════
+      // Triggui · Entendido (frontend cuántico-quark nivel dios)
+      // ════════════════════════════════════════════════════════════════════
+      //
+      // Flujo:
+      //   1. Parsea email + token de URL query string
+      //   2. Fetch al Apps Script con format=json
+      //   3. Procesa unsubscribe en backend (invisible al usuario)
+      //   4. Muestra "Entendido, [Nombre]." con animación
+      //   5. Anti-enumeration: el mismo mensaje aparece exista o no el email
+      //
+      // ════════════════════════════════════════════════════════════════════
+
+      var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQHyASB3kiqKxdNszpZtxl2IZ9MXrvzrTp4mygKaSZzXVRKWae2VScJ9xCREcbOWk0/exec";
+      var MIN_LOADING_MS = 600;  // Para que se vea suave, no "flash"
+
+      function $(id) { return document.getElementById(id); }
+
+      function showSuccess(firstName) {
+        var nombre = (firstName || "").trim();
+        var mensaje = nombre
+          ? "Entendido, " + escapeHtml(nombre) + "."
+          : "Entendido.";
+
+        $("mensaje").textContent = nombre
+          ? "Entendido, " + nombre + "."
+          : "Entendido.";
+
+        $("state-loading").classList.add("hidden");
+        $("state-success").classList.remove("hidden");
+      }
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+        });
+      }
+
+      // Parsea email + token de URL
+      var params = new URLSearchParams(window.location.search);
+      var email = params.get("email") || "";
+      var token = params.get("token") || "";
+
+      var startTime = Date.now();
+
+      // Helper para asegurar mínimo de loading visible
+      function showSuccessWithDelay(firstName) {
+        var elapsed = Date.now() - startTime;
+        var remaining = Math.max(0, MIN_LOADING_MS - elapsed);
+        setTimeout(function() { showSuccess(firstName); }, remaining);
+      }
+
+      // Si no hay params (acceso directo sin click de email)
+      if (!email || !token) {
+        showSuccessWithDelay("");
+      } else {
+        // Fetch al Apps Script con format=json
+        var url = APPS_SCRIPT_URL +
+          "?action=unsubscribe" +
+          "&email=" + encodeURIComponent(email) +
+          "&token=" + encodeURIComponent(token) +
+          "&format=json";
+
+        fetch(url, { method: "GET", redirect: "follow", mode: "cors" })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            // Backend confirma (o anti-enum si email no existe — retorna ok igual)
+            showSuccessWithDelay(data && data.first_name ? data.first_name : "");
+          })
+          .catch(function(err) {
+            // Error de red: mostramos éxito igual (anti-enumeration + UX defensiva)
+            // El backend procesa por LockService si la petición llegó parcialmente
+            console.error("Triggui · unsubscribe fetch error:", err);
+            showSuccessWithDelay("");
+          });
+      }
+    })();
+  </script>
+</body>
+</html>
