@@ -847,7 +847,22 @@
         }
 
         btn.disabled = true;
-        btn.innerHTML = '<span class="spinner"></span>Agregando...';
+        btn.innerHTML = '<span class="spinner"></span>Verificando con bibliotecas...';
+
+        // 🌒 Spinner dinámico nivel divino: cambia mensaje según latencia percibida
+        const spinnerMessages = [
+          { at: 0,    text: 'Verificando con bibliotecas...' },
+          { at: 2000, text: 'Consultando IA semántica...' },
+          { at: 5000, text: 'Casi listo, un momento más...' }
+        ];
+        const spinnerTimers = spinnerMessages
+          .filter(m => m.at > 0)
+          .map(m => setTimeout(() => {
+            if (btn.disabled) {
+              btn.innerHTML = '<span class="spinner"></span>' + m.text;
+            }
+          }, m.at));
+        const clearSpinnerTimers = () => spinnerTimers.forEach(t => clearTimeout(t));
 
         try {
           const res = await fetch('/api/agregar-libro', {
@@ -855,6 +870,8 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
+
+          clearSpinnerTimers();
 
           let data = {};
           try { data = await res.json(); } catch (_) {}
