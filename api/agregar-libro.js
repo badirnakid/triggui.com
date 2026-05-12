@@ -27,6 +27,8 @@
 //
 // ════════════════════════════════════════════════════════════════════════
 
+import { verifyBookExternal } from './verify-book.js';
+
 const OWNER = 'badirnakid';
 const REPO = 'triggui-content';
 const PATH = 'data/libros_master.csv';
@@ -611,7 +613,42 @@ export default async function handler(req, res) {
         });
       }
 
-      // 4.3 — Construir nueva fila
+      // 4.3 — Verificación externa multi-API (Apple + Google + OpenLibrary)
+      // Solo si NO viene flag `omitir_verificacion` desde el frontend
+      // (cuando usuario eligió "mantener mi versión")
+      if (!body.omitir_verificacion) {
+        try {
+          const ext = await verifyBookExternal(tituloSan, autorSan);
+
+          // Si hay sugerencia con título canónico distinto → ofrecer corrección
+          if (ext.verified && !ext.already_canonical && ext.suggestion) {
+            return res.status(409).json({
+              error: 'Encontramos una versión más oficial del libro.',
+              tipo: 'external_suggestion',
+              tu_version: {
+                titulo: tituloSan,
+                autor: autorSan
+              },
+              sugerencia: {
+                titulo: ext.suggestion.titulo_canonico,
+                autor: ext.suggestion.autor_canonico,
+                year: ext.suggestion.year,
+                sim_titulo: ext.suggestion.sim_titulo,
+                sim_autor: ext.suggestion.sim_autor,
+                fuentes: ext.suggestion.sources,
+                confianza: ext.suggestion.confidence
+              },
+              accion: 'Reenvía con titulo/autor de la sugerencia, o agrega "omitir_verificacion: true" para mantener tu versión'
+            });
+          }
+          // Si already_canonical o no hay sugerencia → continuar normal
+        } catch (verifyErr) {
+          // Si verify falla, NO bloqueamos — degradación elegante
+          console.error('verify-book error:', verifyErr.message);
+        }
+      }
+
+      // 4.4 — Construir nueva fila
       // Formato: titulo,autor,portada,tagline
       // Portada vacía → F0 grounding-resolver del pipeline la busca solo
       const nuevaFila = `${tituloSan},${autorSan},,${notaSan}`;
@@ -619,7 +656,7 @@ export default async function handler(req, res) {
       // Agregar al final, asegurando un único newline final
       const newCsv = csvContent.trimEnd() + '\n' + nuevaFila + '\n';
 
-      // 4.4 — Commit via PUT con SHA
+      // 4.5 — Commit via PUT con SHA
       const putRes = await fetch(
         `https://api.github.com/repos/${OWNER}/${REPO}/contents/${encodeURIComponent(PATH)}`,
         {
