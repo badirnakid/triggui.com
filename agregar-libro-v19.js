@@ -613,22 +613,18 @@ export default async function handler(req, res) {
         });
       }
 
-      // 4.3 — Verificación externa multi-API (Apple + Google + OpenLibrary)
+      // 4.3 — Verificación externa multi-API NIVEL DIOS (v3)
       // Solo si NO viene flag `omitir_verificacion` desde el frontend
-      // (cuando usuario eligió "mantener mi versión")
       if (!body.omitir_verificacion) {
         try {
           const ext = await verifyBookExternal(tituloSan, autorSan);
 
-          // Si hay sugerencia con título canónico distinto → ofrecer corrección
-          if (ext.verified && !ext.already_canonical && ext.suggestion) {
+          // CASO A: strong_match → sugerencia con alta confianza
+          if (ext.verified && ext.tipo === 'strong_match' && ext.suggestion) {
             return res.status(409).json({
               error: 'Encontramos una versión más oficial del libro.',
               tipo: 'external_suggestion',
-              tu_version: {
-                titulo: tituloSan,
-                autor: autorSan
-              },
+              tu_version: { titulo: tituloSan, autor: autorSan },
               sugerencia: {
                 titulo: ext.suggestion.titulo_canonico,
                 autor: ext.suggestion.autor_canonico,
@@ -637,13 +633,36 @@ export default async function handler(req, res) {
                 sim_autor: ext.suggestion.sim_autor,
                 fuentes: ext.suggestion.sources,
                 confianza: ext.suggestion.confidence
-              },
-              accion: 'Reenvía con titulo/autor de la sugerencia, o agrega "omitir_verificacion: true" para mantener tu versión'
+              }
             });
           }
-          // Si already_canonical o no hay sugerencia → continuar normal
+
+          // CASO B: weak_match → autor matcheó pero título no fuerte
+          // Mostrar candidatos para que la persona elija
+          if (ext.verified && ext.tipo === 'weak_match' && Array.isArray(ext.candidates) && ext.candidates.length) {
+            return res.status(409).json({
+              error: 'Encontramos libros parecidos. ¿Es alguno de estos?',
+              tipo: 'external_candidates',
+              tu_version: { titulo: tituloSan, autor: autorSan },
+              candidates: ext.candidates
+            });
+          }
+
+          // CASO C: no_match → APIs respondieron pero nada coincide
+          // Pedir revisión antes de confirmar
+          if (!ext.verified && ext.tipo === 'no_match') {
+            return res.status(409).json({
+              error: 'No pudimos verificar este libro. Revisa que el título y autor estén correctos.',
+              tipo: 'external_no_match',
+              tu_version: { titulo: tituloSan, autor: autorSan }
+            });
+          }
+
+          // CASO D: no_api_results → APIs caídas o muy raras → no bloqueamos
+          // Si quieres también puedes mostrar warning aquí, pero por degradación
+          // elegante mejor seguir y commitear
+          // (already_canonical y otros: pasan de largo)
         } catch (verifyErr) {
-          // Si verify falla, NO bloqueamos — degradación elegante
           console.error('verify-book error:', verifyErr.message);
         }
       }

@@ -372,6 +372,111 @@
       0%, 100% { transform: translateX(0); }
       50%      { transform: translateX(3px); }
     }
+
+    /* ════════════════════════════════════════════════════════════════════
+       WEAK MATCH — botones de candidatos
+       ════════════════════════════════════════════════════════════════════ */
+    .suggestion-card.weak {
+      background: linear-gradient(135deg, #FFFEF7 0%, #FFF5E0 100%);
+      border-color: rgba(232, 168, 56, 0.4);
+    }
+    .weak-hint {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+    .candidates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .candidate-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(232, 168, 56, 0.3);
+      cursor: pointer;
+      transition: all .15s;
+      box-shadow: none;
+      font-family: inherit;
+    }
+    .candidate-btn:hover {
+      background: rgba(232, 168, 56, 0.12);
+      border-color: rgba(232, 168, 56, 0.65);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(232, 168, 56, 0.2);
+    }
+    .candidate-btn:active {
+      transform: scale(0.99);
+    }
+    .candidate-titulo {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A1A1A;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .candidate-autor {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+    .candidate-meta {
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.02em;
+    }
+
+    /* ════════════════════════════════════════════════════════════════════
+       REVIEW (no_match) — pedir revisión antes de confirmar
+       ════════════════════════════════════════════════════════════════════ */
+    .suggestion-card.review {
+      background: linear-gradient(135deg, #FFFBEB 0%, #FFF4D6 100%);
+      border-color: rgba(217, 119, 6, 0.45);
+    }
+    .review-icon {
+      color: #D97706;
+    }
+    .suggestion-card.review .suggestion-title {
+      color: #92400E;
+    }
+    .review-hint {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+    .review-currentvals {
+      background: rgba(255,255,255,0.75);
+      border-left: 3px solid #D97706;
+      padding: 10px 13px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+    .review-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #92400E;
+      margin-bottom: 5px;
+    }
+    .review-titulo {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1A1A1A;
+      line-height: 1.3;
+      margin-bottom: 2px;
+    }
+    .review-autor {
+      font-size: 13px;
+      color: #666;
+    }
     .feedback strong {
       font-weight: 700;
     }
@@ -821,6 +926,85 @@
               clearFeedback();
               submitForm({ omitir_verificacion: true });
             });
+          } else if (res.status === 409 && data.tipo === 'external_candidates' && Array.isArray(data.candidates)) {
+            // 🌒 Weak match: autor coincide pero título raro → mostrar candidatos
+            let cardsHtml = '';
+            data.candidates.forEach(function(c, idx) {
+              const yearTxt = c.year ? ' <span class="year-badge">' + c.year + '</span>' : '';
+              const fuentesShort = (c.sources || []).length + ' ' + (c.sources && c.sources.length === 1 ? 'fuente' : 'fuentes');
+              cardsHtml +=
+                '<button type="button" class="candidate-btn" data-idx="' + idx + '">' +
+                  '<div class="candidate-titulo">' + escapeHtml(c.titulo) + yearTxt + '</div>' +
+                  '<div class="candidate-autor">' + escapeHtml(c.autor) + '</div>' +
+                  '<div class="candidate-meta">' + c.sim_titulo + '% título · ' + c.sim_autor + '% autor · ' + fuentesShort + '</div>' +
+                '</button>';
+            });
+            const html =
+              '<div class="suggestion-card weak">' +
+                '<div class="suggestion-header">' +
+                  '<span class="suggestion-icon">🔍</span>' +
+                  '<span class="suggestion-title">¿Es alguno de estos libros?</span>' +
+                '</div>' +
+                '<div class="suggestion-body">' +
+                  '<div class="weak-hint">Tu título no coincidió exactamente con la versión oficial. Si es alguno de estos, tócalo:</div>' +
+                  '<div class="candidates-list">' + cardsHtml + '</div>' +
+                  '<button type="button" id="btnMantenerMia2" class="btn-secondary-suggest">Ninguno · agregar mi versión</button>' +
+                '</div>' +
+              '</div>';
+            showFeedback('suggestion', html);
+
+            document.querySelectorAll('.candidate-btn').forEach(function(btn) {
+              btn.addEventListener('click', function() {
+                const idx = parseInt(btn.getAttribute('data-idx'));
+                const chosen = data.candidates[idx];
+                fields.titulo.value = chosen.titulo;
+                fields.autor.value = chosen.autor;
+                clearFeedback();
+                submitForm({ omitir_verificacion: true });
+              });
+            });
+            const btnNone = document.getElementById('btnMantenerMia2');
+            if (btnNone) btnNone.addEventListener('click', function() {
+              clearFeedback();
+              submitForm({ omitir_verificacion: true });
+            });
+
+          } else if (res.status === 409 && data.tipo === 'external_no_match') {
+            // 🌒 No match: ninguna API encontró nada parecido → pedir revisión
+            const html =
+              '<div class="suggestion-card review">' +
+                '<div class="suggestion-header">' +
+                  '<span class="suggestion-icon review-icon">⚠</span>' +
+                  '<span class="suggestion-title">Revisa bien antes de continuar</span>' +
+                '</div>' +
+                '<div class="suggestion-body">' +
+                  '<div class="review-hint">' +
+                    'No pudimos verificar este libro en ninguna fuente externa.<br>' +
+                    'Asegúrate que el <strong>título</strong> y el <strong>autor</strong> estén bien escritos.' +
+                  '</div>' +
+                  '<div class="review-currentvals">' +
+                    '<div class="review-label">Lo que vas a agregar:</div>' +
+                    '<div class="review-titulo">' + escapeHtml(data.tu_version.titulo) + '</div>' +
+                    '<div class="review-autor">' + escapeHtml(data.tu_version.autor) + '</div>' +
+                  '</div>' +
+                  '<div class="suggestion-actions">' +
+                    '<button type="button" id="btnRevisarVolver" class="btn-secondary-suggest">Revisar (corregir)</button>' +
+                    '<button type="button" id="btnAgregarIgual" class="btn-primary-suggest">Está bien, agregar</button>' +
+                  '</div>' +
+                '</div>' +
+              '</div>';
+            showFeedback('suggestion', html);
+
+            document.getElementById('btnRevisarVolver').addEventListener('click', function() {
+              clearFeedback();
+              fields.titulo.focus();
+              fields.titulo.select();
+            });
+            document.getElementById('btnAgregarIgual').addEventListener('click', function() {
+              clearFeedback();
+              submitForm({ omitir_verificacion: true });
+            });
+
           } else if (res.status === 409 && data.tipo === 'fuzzy_match' && Array.isArray(data.similares)) {
             // Soft match: mostramos los similares y damos opción de confirmar
             const hayMuy = data.similares.some(function(s) { return s.tipo === 'muy_similar'; });
