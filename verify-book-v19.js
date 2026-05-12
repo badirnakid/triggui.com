@@ -1,48 +1,35 @@
 // ════════════════════════════════════════════════════════════════════════
-// 🌒 verify-book.js v3 — Verificación externa NIVEL DIOS TODOPODEROSO
+// 🌒 verify-book.js v4 — Confiar en las APIs, no rejuzgar lo que ya saben
 // ════════════════════════════════════════════════════════════════════════
-// CAPAS MATEMÁTICAS:
-//   1. Normalización Unicode + smart quotes + invisible chars
-//   2. Strip subtítulo (": " ". " " - " " — " " / ")
-//   3. Strip artículo inicial (el/la/the/etc.)
-//   4. Stemming básico ES/EN
-//   5. Jaro-Winkler similarity
-//   6. Jaccard token-set (orden de palabras + número-letra)
-//   7. ⭐ NUEVO: Sørensen-Dice de bigramas (captura typos transpuestos)
-//   8. ⭐ NUEVO: Best word-pair score (mejor par palabra-a-palabra)
-//   9. Threshold adaptativo dual (título O autor pueden ser anclas)
-//   10. ⭐ NUEVO: Fallback query solo por autor si primera no rinde
+// FILOSOFÍA v4:
+//   Las APIs (Apple/Google/OpenLibrary) son expertas en búsqueda fuzzy.
+//   Mi rol es PRESENTAR sus mejores resultados al usuario, no JUZGAR.
 //
-// TIPOS DE RESPUESTA:
-//   strong_match    → sugerencia confiable (botón "Usar versión oficial")
-//   weak_match      → candidatos posibles (botón "Es este libro" + "Otro")
-//   no_match        → no se encontró nada confiable
-//                     (botón "Verifica bien" + revisar)
-//   already_canonical → input ya es el título canónico
-//   no_api_results  → APIs caídas o sin resultados (fallback gracioso)
+// LÓGICA:
+//   1. Buscar en 3 APIs con query="titulo autor"
+//   2. Si pocos resultados (<5), fallback buscando solo por autor
+//   3. Deduplicar por título canónico
+//   4. Ordenar por: (a) consenso entre APIs (b) score combinado
+//   5. DECISIÓN:
+//      - input ≈ top1 → already_canonical (no interrumpe)
+//      - top1 score ≥ 0.88 → STRONG (sugerencia única)
+//      - autor en top candidatos coincide ≥ 0.65 → WEAK (mostrar candidatos)
+//      - sin matches buenos → NO_MATCH (pedir revisar)
+//      - APIs caídas → no_api_results (no interrumpe, degrada elegante)
+//
+// LOGGING: console.log en cada paso → visible en Vercel Dashboard → Logs
 // ════════════════════════════════════════════════════════════════════════
 
-const TIMEOUT_MS = 2500;
-
-// Umbrales nivel divino
-const STRONG_MATCH_THRESHOLD = 0.82;    // título Y autor combinado ≥ esto = strong
-const WEAK_MATCH_THRESHOLD = 0.55;       // título O autor + dice palabra-pair = weak
-const MIN_AUTHOR_FOR_WEAK = 0.80;        // autor mínimo para weak match
-const MAX_SIMILARITY_TO_SUGGEST = 0.985; // ≥99% = canónico, no sugerir
-
-const STOPWORDS = new Set([
-  'de','del','al','a','en','y','o','por','para','con','sin','la','el','los','las','un','una',
-  'of','in','on','and','or','to','for','with','without','by','the','an'
-]);
-
-const ARTICULOS = new Set(['el','la','los','las','un','una','the','a','an']);
+const TIMEOUT_MS = 3000;
+const STRONG_SCORE = 0.88;
+const WEAK_AUTHOR_MIN = 0.65;
 
 // ─── Helpers de red ─────────────────────────────────────────────────────
-async function fetchWithTimeout(url, opts = {}, ms = TIMEOUT_MS) {
+async function fetchWithTimeout(url, ms = TIMEOUT_MS) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), ms);
   try {
-    const res = await fetch(url, { ...opts, signal: controller.signal });
+    const res = await fetch(url, { signal: controller.signal });
     clearTimeout(timeoutId);
     return res;
   } catch (err) {
@@ -60,40 +47,42 @@ function normalize(s) {
     .replace(/[\u00A0\u1680\u2000-\u200B\u202F\u205F\u3000\uFEFF]/g, ' ')
     .toLowerCase()
     .replace(/^[\s.,;:!?"'`´¿¡()\[\]{}\-_]+|[\s.,;:!?"'`´¿¡()\[\]{}\-_]+$/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
+    .replace(/\s+/g, ' ').trim();
 }
 
 function stripSubtitle(n) {
-  const seps = [':', ' - ', ' — ', '. ', ' / '];
-  let cutAt = -1;
-  for (const sep of seps) {
+  for (const sep of [':', ' - ', ' — ', '. ', ' / ']) {
     const idx = n.indexOf(sep);
-    if (idx > 0 && (cutAt === -1 || idx < cutAt)) cutAt = idx;
+    if (idx > 0) return n.slice(0, idx).trim();
   }
-  if (cutAt > 0) return n.slice(0, cutAt).trim();
   return n;
 }
 
+const ARTICULOS = new Set(['el','la','los','las','un','una','the','a','an']);
 function stripArticle(n) {
-  const parts = n.split(' ');
-  if (parts.length < 2) return n;
-  if (ARTICULOS.has(parts[0])) return parts.slice(1).join(' ');
-  return n;
+  const p = n.split(' ');
+  return (p.length >= 2 && ARTICULOS.has(p[0])) ? p.slice(1).join(' ') : n;
 }
 
-function stem(w) {
-  if (w.length < 4) return w;
-  if (w.endsWith('mente')) return w.slice(0, -5);
-  if (w.endsWith('ciones')) return w.slice(0, -6) + 'cion';
-  if (w.endsWith('iones')) return w.slice(0, -5) + 'ion';
-  if (w.endsWith('ies')) return w.slice(0, -3) + 'y';
-  if (w.endsWith('es') && w.length > 4) return w.slice(0, -2);
-  if (w.endsWith('s') && w.length > 4) return w.slice(0, -1);
-  return w;
+// ─── Algoritmos de scoring ──────────────────────────────────────────────
+function bigrams(s) {
+  const arr = [];
+  for (let i = 0; i < s.length - 1; i++) arr.push(s.slice(i, i + 2));
+  return arr;
+}
+function diceBigrams(a, b) {
+  if (a === b) return 1;
+  if (a.length < 2 || b.length < 2) return 0;
+  const ba = bigrams(a), bb = bigrams(b);
+  const map = new Map();
+  ba.forEach(x => map.set(x, (map.get(x) || 0) + 1));
+  let inter = 0;
+  bb.forEach(x => {
+    if (map.get(x) > 0) { inter++; map.set(x, map.get(x) - 1); }
+  });
+  return (2 * inter) / (ba.length + bb.length);
 }
 
-// ─── Jaro-Winkler ───────────────────────────────────────────────────────
 function jaro(s1, s2) {
   if (s1 === s2) return 1;
   if (!s1.length || !s2.length) return 0;
@@ -119,142 +108,56 @@ function jaro(s1, s2) {
   t /= 2;
   return (matches / s1.length + matches / s2.length + (matches - t) / matches) / 3;
 }
-
 function jaroWinkler(s1, s2) {
   const j = jaro(s1, s2);
   if (j < 0.7) return j;
   let p = 0;
   const mp = Math.min(4, s1.length, s2.length);
-  for (let i = 0; i < mp; i++) {
-    if (s1[i] === s2[i]) p++; else break;
-  }
+  for (let i = 0; i < mp; i++) if (s1[i] === s2[i]) p++; else break;
   return j + p * 0.1 * (1 - j);
 }
 
-// ─── 🌒 Sørensen-Dice de bigramas (NUEVO v3) ────────────────────────────
-function bigrams(s) {
-  const arr = [];
-  for (let i = 0; i < s.length - 1; i++) arr.push(s.slice(i, i + 2));
-  return arr;
-}
+// Score título: combinación de bigramas + jaro-winkler, sin estricteces
+function scoreTitulo(inputTit, apiTit) {
+  const a = normalize(inputTit);
+  const b = normalize(apiTit);
+  if (a === b) return 1.0;
 
-function diceBigrams(a, b) {
-  if (a === b) return 1;
-  if (a.length < 2 || b.length < 2) return 0;
-  const ba = bigrams(a), bb = bigrams(b);
-  const map = new Map();
-  ba.forEach(x => map.set(x, (map.get(x) || 0) + 1));
-  let inter = 0;
-  bb.forEach(x => {
-    if (map.get(x) > 0) {
-      inter++;
-      map.set(x, map.get(x) - 1);
+  // Strip subtítulos y artículos
+  const aBare = stripSubtitle(stripArticle(a));
+  const bBare = stripSubtitle(stripArticle(b));
+  if (aBare === bBare) return 0.97;
+
+  // Bigrams + Jaro-Winkler en versiones bare
+  const bg = diceBigrams(aBare, bBare);
+  const jw = jaroWinkler(aBare, bBare);
+
+  // Best word-pair (cada palabra del input vs cada palabra del API)
+  const wA = aBare.split(/\s+/).filter(t => t.length >= 3);
+  const wB = bBare.split(/\s+/).filter(t => t.length >= 3);
+  let bestWP = 0;
+  if (wA.length && wB.length) {
+    let total = 0, count = 0;
+    for (const x of wA) {
+      let best = 0;
+      for (const y of wB) {
+        const s = diceBigrams(x, y);
+        if (s > best) best = s;
+      }
+      total += best; count++;
     }
-  });
-  return (2 * inter) / (ba.length + bb.length);
-}
-
-// 🌒 Best word-pair: para cada palabra del input, mejor match en API
-function bestWordPairScore(inputWords, apiWords) {
-  if (!inputWords.length || !apiWords.length) return 0;
-  let totalScore = 0;
-  let count = 0;
-  for (const iw of inputWords) {
-    if (iw.length < 3) continue; // skip palabras chicas
-    let bestForThis = 0;
-    for (const aw of apiWords) {
-      if (aw.length < 3) continue;
-      const s = diceBigrams(iw, aw);
-      if (s > bestForThis) bestForThis = s;
-    }
-    totalScore += bestForThis;
-    count++;
-  }
-  return count > 0 ? totalScore / count : 0;
-}
-
-// ─── Jaccard token-set ──────────────────────────────────────────────────
-function tokenizeForJaccard(n) {
-  const noArt = stripArticle(n);
-  const noSub = stripSubtitle(noArt);
-  return noSub.split(/\s+/)
-    .filter(t => (t.length >= 2 || /^\d+$/.test(t)) && !STOPWORDS.has(t))
-    .map(stem);
-}
-
-function tokenizeSimple(n) {
-  return stripSubtitle(stripArticle(n)).split(/\s+/)
-    .filter(t => t.length >= 2 && !STOPWORDS.has(t));
-}
-
-function jaccardSimilarity(aN, bN) {
-  const ta = tokenizeForJaccard(aN);
-  const tb = tokenizeForJaccard(bN);
-  if (!ta.length || !tb.length) return 0;
-  const sa = new Set(ta);
-  const sb = new Set(tb);
-  let intersection = 0;
-  for (const t of sa) if (sb.has(t)) intersection++;
-  const union = sa.size + sb.size - intersection;
-  return union === 0 ? 0 : intersection / union;
-}
-
-// ─── 🌒 Score título NIVEL DIVINO (multi-señal) ─────────────────────────
-function scoreTituloVsAPI(inputTitulo, apiTitulo) {
-  const aN = normalize(inputTitulo);
-  const bN = normalize(apiTitulo);
-  if (aN === bN) return 1.0;
-
-  const variants = (s) => {
-    const noArt = stripArticle(s);
-    const noSub = stripSubtitle(s);
-    const noBoth = stripSubtitle(stripArticle(s));
-    return [...new Set([s, noArt, noSub, noBoth])].filter(Boolean);
-  };
-  const aVars = variants(aN);
-  const bVars = variants(bN);
-
-  // Match exacto en alguna variante
-  for (const a of aVars) for (const b of bVars) {
-    if (a === b) return 0.97;
+    bestWP = count > 0 ? total / count : 0;
   }
 
-  // Señales paralelas
-  let maxJaccard = 0;
-  let maxJW = 0;
-  let maxBigram = 0;  // 🌒 NUEVO: dice bigram word-pair
-
-  for (const a of aVars) {
-    for (const b of bVars) {
-      const j = jaccardSimilarity(a, b);
-      if (j > maxJaccard) maxJaccard = j;
-
-      const jw = jaroWinkler(a, b);
-      if (jw > maxJW) maxJW = jw;
-
-      // Word-pair bigram
-      const inputWords = tokenizeSimple(a);
-      const apiWords = tokenizeSimple(b);
-      const wp = bestWordPairScore(inputWords, apiWords);
-      if (wp > maxBigram) maxBigram = wp;
-    }
-  }
-
-  // Decisión inteligente: cualquier señal fuerte gana
-  if (maxJaccard >= 0.8) return Math.max(0.9, maxJW);
-  if (maxJW >= 0.85) return maxJW;
-  if (maxBigram >= 0.7) return Math.max(0.85, maxBigram); // 🌒 typos transpuestos
-  if (maxBigram >= 0.55 && maxJW >= 0.5) return (maxBigram + maxJW) / 2 + 0.1;
-  if (maxJaccard >= 0.5 && maxJW >= 0.6) return Math.max(0.75, (maxJaccard + maxJW) / 2);
-
-  return Math.max(maxJW, maxJaccard, maxBigram * 0.85);
+  return Math.max(bg, jw, bestWP);
 }
 
-function scoreAutor(inputAutor, apiAutor) {
-  const aN = normalize(inputAutor);
-  const bN = normalize(apiAutor);
-  if (aN === bN) return 1.0;
+function scoreAutor(inputAut, apiAut) {
+  const a = normalize(inputAut);
+  const b = normalize(apiAut);
+  if (a === b) return 1.0;
 
+  // Tokens del autor (manejar "Apellido, Nombre")
   const tokenize = (s) => {
     let x = s;
     if (x.includes(',')) {
@@ -265,10 +168,9 @@ function scoreAutor(inputAutor, apiAutor) {
     x = x.split(/\s+&\s+|\s+and\s+|\s+y\s+/)[0].trim();
     return x.split(/\s+/).filter(t => t.length >= 2);
   };
-  const ta = tokenize(aN);
-  const tb = tokenize(bN);
+  const ta = tokenize(a), tb = tokenize(b);
 
-  // Subset match (Apellido completo en ambos)
+  // Subset match (apellidos compartidos)
   if (ta.length && tb.length) {
     const [short, long] = ta.length <= tb.length ? [ta, tb] : [tb, ta];
     const longSet = new Set(long);
@@ -277,32 +179,36 @@ function scoreAutor(inputAutor, apiAutor) {
     if (matches === short.length && matches >= 1) return 0.95;
   }
 
-  // 🌒 NUEVO: bigram word-pair para autor también
-  const bigramScore = bestWordPairScore(ta, tb);
-  if (bigramScore >= 0.85) return Math.max(0.9, bigramScore);
-  if (bigramScore >= 0.7) return Math.max(0.82, bigramScore);
+  // Best word-pair bigramas
+  let bestWP = 0;
+  if (ta.length && tb.length) {
+    let total = 0, count = 0;
+    for (const x of ta) {
+      if (x.length < 3) continue;
+      let best = 0;
+      for (const y of tb) {
+        if (y.length < 3) continue;
+        const s = diceBigrams(x, y);
+        if (s > best) best = s;
+      }
+      total += best; count++;
+    }
+    bestWP = count > 0 ? total / count : 0;
+  }
 
-  // Jaccard tokens
-  const sa = new Set(ta), sb = new Set(tb);
-  let inter = 0;
-  for (const t of sa) if (sb.has(t)) inter++;
-  const jaccardA = (sa.size + sb.size - inter) > 0 ? inter / (sa.size + sb.size - inter) : 0;
-
-  // Jaro-Winkler completo
-  const directJW = jaroWinkler(ta.join(' '), tb.join(' '));
-
-  return Math.max(directJW, jaccardA, bigramScore);
+  const jw = jaroWinkler(ta.join(' '), tb.join(' '));
+  return Math.max(bestWP, jw);
 }
 
-// ─── APIs externas ──────────────────────────────────────────────────────
+// ─── APIs ──────────────────────────────────────────────────────────────
 async function fetchAppleBooks(q) {
   try {
-    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=ebook&limit=10&country=mx`;
+    const url = `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=ebook&limit=15&country=mx`;
     const res = await fetchWithTimeout(url);
-    if (!res.ok) return null;
+    if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
-    if (!data?.results?.length) return null;
-    return data.results
+    if (!data?.results?.length) return { results: [], error: null };
+    const results = data.results
       .filter(r => r.trackName && r.artistName)
       .map(r => ({
         titulo: String(r.trackName).trim(),
@@ -310,17 +216,20 @@ async function fetchAppleBooks(q) {
         year: r.releaseDate ? new Date(r.releaseDate).getFullYear() : null,
         source: 'apple_books'
       }));
-  } catch { return null; }
+    return { results, error: null };
+  } catch (err) {
+    return { results: [], error: err.message };
+  }
 }
 
 async function fetchGoogleBooks(q) {
   try {
-    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=10&printType=books`;
+    const url = `https://www.googleapis.com/books/v1/volumes?q=${encodeURIComponent(q)}&maxResults=15&printType=books`;
     const res = await fetchWithTimeout(url);
-    if (!res.ok) return null;
+    if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
-    if (!data?.items?.length) return null;
-    return data.items
+    if (!data?.items?.length) return { results: [], error: null };
+    const results = data.items
       .map(it => {
         const info = it.volumeInfo || {};
         if (!info.title || !info.authors?.length) return null;
@@ -332,17 +241,20 @@ async function fetchGoogleBooks(q) {
         };
       })
       .filter(Boolean);
-  } catch { return null; }
+    return { results, error: null };
+  } catch (err) {
+    return { results: [], error: err.message };
+  }
 }
 
 async function fetchOpenLibrary(q) {
   try {
-    const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=10&fields=title,author_name,first_publish_year`;
+    const url = `https://openlibrary.org/search.json?q=${encodeURIComponent(q)}&limit=15&fields=title,author_name,first_publish_year`;
     const res = await fetchWithTimeout(url);
-    if (!res.ok) return null;
+    if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
-    if (!data?.docs?.length) return null;
-    return data.docs
+    if (!data?.docs?.length) return { results: [], error: null };
+    const results = data.docs
       .filter(d => d.title && d.author_name?.length)
       .map(d => ({
         titulo: String(d.title).trim(),
@@ -350,80 +262,94 @@ async function fetchOpenLibrary(q) {
         year: d.first_publish_year || null,
         source: 'openlibrary'
       }));
-  } catch { return null; }
+    return { results, error: null };
+  } catch (err) {
+    return { results: [], error: err.message };
+  }
 }
 
-// ─── 🌒 Multi-tier lookup con fallback ──────────────────────────────────
-async function gatherCandidates(titulo, autor) {
-  // TIER 1: query combinado
-  const q1 = `${titulo} ${autor}`.trim();
-  const t1 = await Promise.allSettled([
-    fetchAppleBooks(q1),
-    fetchGoogleBooks(q1),
-    fetchOpenLibrary(q1)
+// ─── Multi-tier search con fallback inteligente ─────────────────────────
+async function searchAllAPIs(query) {
+  const [apple, google, ol] = await Promise.all([
+    fetchAppleBooks(query),
+    fetchGoogleBooks(query),
+    fetchOpenLibrary(query)
   ]);
+  return {
+    apple: apple.results,
+    google: google.results,
+    openlibrary: ol.results,
+    errors: {
+      apple: apple.error,
+      google: google.error,
+      openlibrary: ol.error
+    },
+    total: apple.results.length + google.results.length + ol.results.length
+  };
+}
 
-  const candidates = [];
-  const succeeded = [];
-  const sourceNames = ['apple_books', 'google_books', 'openlibrary'];
+// ─── 🌒 Función principal nivel divino ──────────────────────────────────
+export async function verifyBookExternal(titulo, autor, opts = {}) {
+  const verbose = opts.verbose || false;
+  const startTime = Date.now();
+  const debugLog = [];
+  const log = (...args) => {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    debugLog.push(line);
+    if (verbose) console.log('[verify-book]', line);
+  };
 
-  t1.forEach((r, idx) => {
-    if (r.status === 'fulfilled' && Array.isArray(r.value)) {
-      if (!succeeded.includes(sourceNames[idx])) succeeded.push(sourceNames[idx]);
-      r.value.forEach(c => candidates.push(c));
-    }
+  log('input:', { titulo, autor });
+
+  // TIER 1: query principal
+  const q1 = `${titulo} ${autor}`.trim();
+  log('tier1 query:', q1);
+  const tier1 = await searchAllAPIs(q1);
+  log('tier1 results:', {
+    apple: tier1.apple.length,
+    google: tier1.google.length,
+    openlibrary: tier1.openlibrary.length,
+    errors: tier1.errors
   });
 
-  // 🌒 TIER 2 (fallback): si autor parece confiable y candidates pocos → buscar solo por autor
-  // Esto captura casos como "Abitus Tomicus James Claro" donde "James Clear"
-  // matchea fuerte y nos da el libro real
-  const needFallback = candidates.length < 5;
-  if (needFallback && autor.trim().length >= 4) {
-    const q2 = autor.trim();
-    const t2 = await Promise.allSettled([
-      fetchAppleBooks(q2),
-      fetchGoogleBooks(q2)
-    ]);
-    t2.forEach((r, idx) => {
-      if (r.status === 'fulfilled' && Array.isArray(r.value)) {
-        if (!succeeded.includes(sourceNames[idx])) succeeded.push(sourceNames[idx]);
-        r.value.forEach(c => candidates.push(c));
-      }
+  let allCandidates = [...tier1.apple, ...tier1.google, ...tier1.openlibrary];
+
+  // TIER 2 (fallback): si pocos resultados, buscar solo por autor
+  if (allCandidates.length < 8 && autor.trim().length >= 4) {
+    log('tier2 fallback: searching by author only');
+    const tier2 = await searchAllAPIs(autor.trim());
+    log('tier2 results:', {
+      apple: tier2.apple.length,
+      google: tier2.google.length,
+      openlibrary: tier2.openlibrary.length
     });
+    allCandidates = allCandidates.concat(tier2.apple, tier2.google, tier2.openlibrary);
   }
 
-  return { candidates, succeeded, sourceNames };
-}
-
-// ─── 🌒 API público nivel dios ──────────────────────────────────────────
-export async function verifyBookExternal(titulo, autor) {
-  const startTime = Date.now();
-
-  const { candidates, succeeded, sourceNames } = await gatherCandidates(titulo, autor);
   const elapsed = Date.now() - startTime;
 
-  // Si NADA respondió, devolver no_api_results (frontend mostrará "verifica bien")
-  if (candidates.length === 0) {
+  // Si TOTAL = 0, las APIs no devolvieron NADA
+  if (allCandidates.length === 0) {
+    log('decision: no_api_results');
     return {
       verified: false,
-      reason: 'no_api_results',
-      sources_attempted: sourceNames,
-      sources_succeeded: [],
-      elapsed_ms: elapsed
+      tipo: 'no_match', // 🌒 tratamos como no_match para mostrar "revisar bien"
+      reason: 'apis_no_results',
+      elapsed_ms: elapsed,
+      debug: debugLog
     };
   }
 
   // Score cada candidato
-  const tituloInputN = normalize(titulo);
-  candidates.forEach(c => {
-    c.sim_titulo = scoreTituloVsAPI(titulo, c.titulo);
+  allCandidates.forEach(c => {
+    c.sim_titulo = scoreTitulo(titulo, c.titulo);
     c.sim_autor = scoreAutor(autor, c.autor);
-    c.sim_combinado = c.sim_titulo * 0.6 + c.sim_autor * 0.4;
+    c.sim_combinado = c.sim_titulo * 0.55 + c.sim_autor * 0.45;
   });
 
-  // De-duplicar por título canónico (consenso entre APIs)
+  // Deduplicar por título canónico
   const consensus = new Map();
-  candidates.forEach(c => {
+  allCandidates.forEach(c => {
     const key = normalize(stripSubtitle(stripArticle(normalize(c.titulo))));
     if (!consensus.has(key)) {
       consensus.set(key, {
@@ -436,47 +362,56 @@ export async function verifyBookExternal(titulo, autor) {
         years: []
       });
     }
-    const entry = consensus.get(key);
-    if (!entry.sources.includes(c.source)) entry.sources.push(c.source);
-    if (c.sim_titulo > entry.max_sim_titulo) {
-      entry.max_sim_titulo = c.sim_titulo;
-      entry.titulo_canonico = c.titulo;
+    const e = consensus.get(key);
+    if (!e.sources.includes(c.source)) e.sources.push(c.source);
+    if (c.sim_titulo > e.max_sim_titulo) {
+      e.max_sim_titulo = c.sim_titulo;
+      e.titulo_canonico = c.titulo;
     }
-    if (c.sim_autor > entry.max_sim_autor) {
-      entry.max_sim_autor = c.sim_autor;
-      entry.autor_canonico = c.autor;
+    if (c.sim_autor > e.max_sim_autor) {
+      e.max_sim_autor = c.sim_autor;
+      e.autor_canonico = c.autor;
     }
-    if (c.sim_combinado > entry.max_sim_combinado) entry.max_sim_combinado = c.sim_combinado;
-    if (c.year) entry.years.push(c.year);
+    if (c.sim_combinado > e.max_sim_combinado) e.max_sim_combinado = c.sim_combinado;
+    if (c.year) e.years.push(c.year);
   });
 
-  // Rankear: por consenso (más fuentes) y por similitud combinada
+  // Rankear por: consenso (más fuentes) → similitud combinada
   const ranked = Array.from(consensus.values()).sort((a, b) => {
     if (b.sources.length !== a.sources.length) return b.sources.length - a.sources.length;
     return b.max_sim_combinado - a.max_sim_combinado;
   });
 
-  // ═══ DECISIÓN NIVEL DIVINO ═══
-  // strong_match: combinado ≥ 0.82
-  // weak_match: autor ≥ 0.80 y al menos algo de señal de título (≥ 0.40)
-  // no_match: nada se parece
+  log('top 5 candidates:', ranked.slice(0, 5).map(r => ({
+    t: r.titulo_canonico.slice(0, 50),
+    a: r.autor_canonico.slice(0, 30),
+    sT: Math.round(r.max_sim_titulo * 100),
+    sA: Math.round(r.max_sim_autor * 100),
+    sC: Math.round(r.max_sim_combinado * 100),
+    src: r.sources.length
+  })));
 
   const best = ranked[0];
-  const tituloCanonicoN = normalize(best.titulo_canonico);
+  const tituloInputN = normalize(titulo);
+  const autorInputN = normalize(autor);
+  const tituloBestN = normalize(best.titulo_canonico);
+  const autorBestN = normalize(best.autor_canonico);
 
-  // already_canonical
-  if (best.max_sim_titulo >= MAX_SIMILARITY_TO_SUGGEST && tituloCanonicoN === tituloInputN) {
+  // CASO A: ya canónico
+  if (tituloBestN === tituloInputN && autorBestN === autorInputN) {
+    log('decision: already_canonical');
     return {
       verified: true,
       already_canonical: true,
       sources_confirmed: best.sources,
-      elapsed_ms: elapsed
+      elapsed_ms: elapsed,
+      debug: debugLog
     };
   }
 
-  // strong_match: confianza alta para sugerencia
-  if (best.max_sim_combinado >= STRONG_MATCH_THRESHOLD) {
-    const confidence = best.sources.length >= 2 ? 'high' : 'medium';
+  // CASO B: STRONG match (combinado ≥ 0.88)
+  if (best.max_sim_combinado >= STRONG_SCORE) {
+    log('decision: strong_match', { score: best.max_sim_combinado });
     return {
       verified: true,
       tipo: 'strong_match',
@@ -487,40 +422,46 @@ export async function verifyBookExternal(titulo, autor) {
         sim_titulo: Math.round(best.max_sim_titulo * 100),
         sim_autor: Math.round(best.max_sim_autor * 100),
         sources: best.sources,
-        confidence,
-        consensus_count: best.sources.length
+        confidence: best.sources.length >= 2 ? 'high' : 'medium'
       },
-      elapsed_ms: elapsed
+      elapsed_ms: elapsed,
+      debug: debugLog
     };
   }
 
-  // weak_match: autor fuerte (≥0.80) y algo de título → mostrar candidatos
-  if (best.max_sim_autor >= MIN_AUTHOR_FOR_WEAK && best.max_sim_titulo >= 0.40) {
-    const topCandidates = ranked
-      .filter(r => r.max_sim_autor >= MIN_AUTHOR_FOR_WEAK)
-      .slice(0, 3)
-      .map(r => ({
+  // CASO C: WEAK match — autor matchea aunque sea decentemente → mostrar candidatos
+  const topByAuthor = ranked.filter(r => r.max_sim_autor >= WEAK_AUTHOR_MIN);
+  if (topByAuthor.length > 0) {
+    log('decision: weak_match (candidates)', { count: topByAuthor.length });
+    return {
+      verified: true,
+      tipo: 'weak_match',
+      candidates: topByAuthor.slice(0, 4).map(r => ({
         titulo: r.titulo_canonico,
         autor: r.autor_canonico,
         year: r.years.length ? Math.min(...r.years) : null,
         sim_titulo: Math.round(r.max_sim_titulo * 100),
         sim_autor: Math.round(r.max_sim_autor * 100),
         sources: r.sources
-      }));
-    return {
-      verified: true,
-      tipo: 'weak_match',
-      candidates: topCandidates,
-      elapsed_ms: elapsed
+      })),
+      elapsed_ms: elapsed,
+      debug: debugLog
     };
   }
 
-  // no_match: nada coincide bien → pedir revisión
+  // CASO D: APIs respondieron pero nada coincide con el autor → REVISAR
+  log('decision: no_match — sample top:', ranked.slice(0, 2));
   return {
     verified: false,
     tipo: 'no_match',
-    reason: 'low_confidence',
-    sources_succeeded: succeeded,
-    elapsed_ms: elapsed
+    reason: 'no_author_match',
+    sample: ranked.slice(0, 2).map(r => ({
+      titulo: r.titulo_canonico,
+      autor: r.autor_canonico,
+      sim_titulo: Math.round(r.max_sim_titulo * 100),
+      sim_autor: Math.round(r.max_sim_autor * 100)
+    })),
+    elapsed_ms: elapsed,
+    debug: debugLog
   };
 }
