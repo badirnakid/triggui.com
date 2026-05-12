@@ -1,28 +1,31 @@
 // ════════════════════════════════════════════════════════════════════════
-// 🌒 verify-book.js v4 — Confiar en las APIs, no rejuzgar lo que ya saben
+// 🌒 verify-book.js v5 — Multi-tier ECONÓMICO + NIVEL DIOS
 // ════════════════════════════════════════════════════════════════════════
-// FILOSOFÍA v4:
-//   Las APIs (Apple/Google/OpenLibrary) son expertas en búsqueda fuzzy.
-//   Mi rol es PRESENTAR sus mejores resultados al usuario, no JUZGAR.
+// FILOSOFÍA: GPT cuesta dinero (poco, pero algo). Lo invocamos SOLO cuando
+// las APIs gratuitas no resuelven con suficiente confianza.
 //
-// LÓGICA:
-//   1. Buscar en 3 APIs con query="titulo autor"
-//   2. Si pocos resultados (<5), fallback buscando solo por autor
-//   3. Deduplicar por título canónico
-//   4. Ordenar por: (a) consenso entre APIs (b) score combinado
-//   5. DECISIÓN:
-//      - input ≈ top1 → already_canonical (no interrumpe)
-//      - top1 score ≥ 0.88 → STRONG (sugerencia única)
-//      - autor en top candidatos coincide ≥ 0.65 → WEAK (mostrar candidatos)
-//      - sin matches buenos → NO_MATCH (pedir revisar)
-//      - APIs caídas → no_api_results (no interrumpe, degrada elegante)
+// FLUJO:
+//   1. APIs públicas (Apple + Google + OpenLibrary) en paralelo (gratis)
+//   2. Si APIs encuentran match fuerte → strong_match SIN GPT (ahorro)
+//   3. Si APIs encuentran match medio → strong_match SIN GPT (ahorro)
+//   4. Si NO hay match fuerte → GPT-4o-mini (~$0.0023 MXN)
+//   5. GPT validado contra APIs como sanity check
+//   6. Si todo falla → no_match → tarjeta "Revisa bien"
 //
-// LOGGING: console.log en cada paso → visible en Vercel Dashboard → Logs
+// AHORRO: ~70-90% de capturas no invocan GPT (ya bien escritas o typos leves)
+// COSTO: solo ~$0.0023 MXN para typos extremos
 // ════════════════════════════════════════════════════════════════════════
 
+import { identifyWithGPT } from './verify-book-gpt.js';
+
 const TIMEOUT_MS = 3000;
-const STRONG_SCORE = 0.88;
-const WEAK_AUTHOR_MIN = 0.65;
+
+// Thresholds para decidir si necesitamos GPT
+const STRONG_NO_GPT = 0.85;        // combinado ≥85% → strong sin GPT (ahorro)
+const MEDIUM_AUTHOR = 0.85;        // si autor ≥85% en TOP → strong sin GPT
+const MEDIUM_COMBINED = 0.75;      // título+autor combinado ≥75% Y autor fuerte
+const WEAK_AUTHOR_MIN = 0.65;      // mostrar candidatos sin GPT
+const GPT_CONFIDENCE_MIN = 0.80;   // confianza mínima de GPT para aceptar
 
 // ─── Helpers de red ─────────────────────────────────────────────────────
 async function fetchWithTimeout(url, ms = TIMEOUT_MS) {
@@ -64,7 +67,7 @@ function stripArticle(n) {
   return (p.length >= 2 && ARTICULOS.has(p[0])) ? p.slice(1).join(' ') : n;
 }
 
-// ─── Algoritmos de scoring ──────────────────────────────────────────────
+// ─── Algoritmos de scoring (Jaro-Winkler + Dice) ────────────────────────
 function bigrams(s) {
   const arr = [];
   for (let i = 0; i < s.length - 1; i++) arr.push(s.slice(i, i + 2));
@@ -89,15 +92,15 @@ function jaro(s1, s2) {
   const md = Math.max(1, Math.floor(Math.max(s1.length, s2.length) / 2) - 1);
   const m1 = new Array(s1.length).fill(false);
   const m2 = new Array(s2.length).fill(false);
-  let matches = 0;
+  let m = 0;
   for (let i = 0; i < s1.length; i++) {
     const st = Math.max(0, i - md), en = Math.min(i + md + 1, s2.length);
     for (let j = st; j < en; j++) {
       if (m2[j] || s1[i] !== s2[j]) continue;
-      m1[i] = true; m2[j] = true; matches++; break;
+      m1[i] = true; m2[j] = true; m++; break;
     }
   }
-  if (matches === 0) return 0;
+  if (m === 0) return 0;
   let k = 0, t = 0;
   for (let i = 0; i < s1.length; i++) {
     if (!m1[i]) continue;
@@ -106,7 +109,7 @@ function jaro(s1, s2) {
     k++;
   }
   t /= 2;
-  return (matches / s1.length + matches / s2.length + (matches - t) / matches) / 3;
+  return (m / s1.length + m / s2.length + (m - t) / m) / 3;
 }
 function jaroWinkler(s1, s2) {
   const j = jaro(s1, s2);
@@ -117,22 +120,18 @@ function jaroWinkler(s1, s2) {
   return j + p * 0.1 * (1 - j);
 }
 
-// Score título: combinación de bigramas + jaro-winkler, sin estricteces
 function scoreTitulo(inputTit, apiTit) {
   const a = normalize(inputTit);
   const b = normalize(apiTit);
   if (a === b) return 1.0;
-
-  // Strip subtítulos y artículos
   const aBare = stripSubtitle(stripArticle(a));
   const bBare = stripSubtitle(stripArticle(b));
   if (aBare === bBare) return 0.97;
 
-  // Bigrams + Jaro-Winkler en versiones bare
   const bg = diceBigrams(aBare, bBare);
   const jw = jaroWinkler(aBare, bBare);
 
-  // Best word-pair (cada palabra del input vs cada palabra del API)
+  // Best word-pair
   const wA = aBare.split(/\s+/).filter(t => t.length >= 3);
   const wB = bBare.split(/\s+/).filter(t => t.length >= 3);
   let bestWP = 0;
@@ -148,7 +147,6 @@ function scoreTitulo(inputTit, apiTit) {
     }
     bestWP = count > 0 ? total / count : 0;
   }
-
   return Math.max(bg, jw, bestWP);
 }
 
@@ -157,7 +155,6 @@ function scoreAutor(inputAut, apiAut) {
   const b = normalize(apiAut);
   if (a === b) return 1.0;
 
-  // Tokens del autor (manejar "Apellido, Nombre")
   const tokenize = (s) => {
     let x = s;
     if (x.includes(',')) {
@@ -170,7 +167,6 @@ function scoreAutor(inputAut, apiAut) {
   };
   const ta = tokenize(a), tb = tokenize(b);
 
-  // Subset match (apellidos compartidos)
   if (ta.length && tb.length) {
     const [short, long] = ta.length <= tb.length ? [ta, tb] : [tb, ta];
     const longSet = new Set(long);
@@ -179,7 +175,6 @@ function scoreAutor(inputAut, apiAut) {
     if (matches === short.length && matches >= 1) return 0.95;
   }
 
-  // Best word-pair bigramas
   let bestWP = 0;
   if (ta.length && tb.length) {
     let total = 0, count = 0;
@@ -195,12 +190,11 @@ function scoreAutor(inputAut, apiAut) {
     }
     bestWP = count > 0 ? total / count : 0;
   }
-
   const jw = jaroWinkler(ta.join(' '), tb.join(' '));
   return Math.max(bestWP, jw);
 }
 
-// ─── APIs ──────────────────────────────────────────────────────────────
+// ─── APIs externas ──────────────────────────────────────────────────────
 async function fetchAppleBooks(q) {
   try {
     const url = `https://itunes.apple.com/search?term=${encodeURIComponent(q)}&entity=ebook&limit=15&country=mx`;
@@ -208,15 +202,17 @@ async function fetchAppleBooks(q) {
     if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
     if (!data?.results?.length) return { results: [], error: null };
-    const results = data.results
-      .filter(r => r.trackName && r.artistName)
-      .map(r => ({
-        titulo: String(r.trackName).trim(),
-        autor: String(r.artistName).trim(),
-        year: r.releaseDate ? new Date(r.releaseDate).getFullYear() : null,
-        source: 'apple_books'
-      }));
-    return { results, error: null };
+    return {
+      results: data.results
+        .filter(r => r.trackName && r.artistName)
+        .map(r => ({
+          titulo: String(r.trackName).trim(),
+          autor: String(r.artistName).trim(),
+          year: r.releaseDate ? new Date(r.releaseDate).getFullYear() : null,
+          source: 'apple_books'
+        })),
+      error: null
+    };
   } catch (err) {
     return { results: [], error: err.message };
   }
@@ -229,19 +225,21 @@ async function fetchGoogleBooks(q) {
     if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
     if (!data?.items?.length) return { results: [], error: null };
-    const results = data.items
-      .map(it => {
-        const info = it.volumeInfo || {};
-        if (!info.title || !info.authors?.length) return null;
-        return {
-          titulo: String(info.title).trim(),
-          autor: String(info.authors[0]).trim(),
-          year: info.publishedDate ? parseInt(info.publishedDate.slice(0, 4)) : null,
-          source: 'google_books'
-        };
-      })
-      .filter(Boolean);
-    return { results, error: null };
+    return {
+      results: data.items
+        .map(it => {
+          const info = it.volumeInfo || {};
+          if (!info.title || !info.authors?.length) return null;
+          return {
+            titulo: String(info.title).trim(),
+            autor: String(info.authors[0]).trim(),
+            year: info.publishedDate ? parseInt(info.publishedDate.slice(0, 4)) : null,
+            source: 'google_books'
+          };
+        })
+        .filter(Boolean),
+      error: null
+    };
   } catch (err) {
     return { results: [], error: err.message };
   }
@@ -254,21 +252,22 @@ async function fetchOpenLibrary(q) {
     if (!res.ok) return { results: [], error: `http_${res.status}` };
     const data = await res.json();
     if (!data?.docs?.length) return { results: [], error: null };
-    const results = data.docs
-      .filter(d => d.title && d.author_name?.length)
-      .map(d => ({
-        titulo: String(d.title).trim(),
-        autor: String(d.author_name[0]).trim(),
-        year: d.first_publish_year || null,
-        source: 'openlibrary'
-      }));
-    return { results, error: null };
+    return {
+      results: data.docs
+        .filter(d => d.title && d.author_name?.length)
+        .map(d => ({
+          titulo: String(d.title).trim(),
+          autor: String(d.author_name[0]).trim(),
+          year: d.first_publish_year || null,
+          source: 'openlibrary'
+        })),
+      error: null
+    };
   } catch (err) {
     return { results: [], error: err.message };
   }
 }
 
-// ─── Multi-tier search con fallback inteligente ─────────────────────────
 async function searchAllAPIs(query) {
   const [apple, google, ol] = await Promise.all([
     fetchAppleBooks(query),
@@ -279,75 +278,21 @@ async function searchAllAPIs(query) {
     apple: apple.results,
     google: google.results,
     openlibrary: ol.results,
-    errors: {
-      apple: apple.error,
-      google: google.error,
-      openlibrary: ol.error
-    },
+    errors: { apple: apple.error, google: google.error, openlibrary: ol.error },
     total: apple.results.length + google.results.length + ol.results.length
   };
 }
 
-// ─── 🌒 Función principal nivel divino ──────────────────────────────────
-export async function verifyBookExternal(titulo, autor, opts = {}) {
-  const verbose = opts.verbose || false;
-  const startTime = Date.now();
-  const debugLog = [];
-  const log = (...args) => {
-    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
-    debugLog.push(line);
-    if (verbose) console.log('[verify-book]', line);
-  };
+// ─── Análisis de candidatos (deduplica + scorea + rankea) ──────────────
+function analyzeCandidates(titulo, autor, allCandidates) {
+  if (!allCandidates.length) return [];
 
-  log('input:', { titulo, autor });
-
-  // TIER 1: query principal
-  const q1 = `${titulo} ${autor}`.trim();
-  log('tier1 query:', q1);
-  const tier1 = await searchAllAPIs(q1);
-  log('tier1 results:', {
-    apple: tier1.apple.length,
-    google: tier1.google.length,
-    openlibrary: tier1.openlibrary.length,
-    errors: tier1.errors
-  });
-
-  let allCandidates = [...tier1.apple, ...tier1.google, ...tier1.openlibrary];
-
-  // TIER 2 (fallback): si pocos resultados, buscar solo por autor
-  if (allCandidates.length < 8 && autor.trim().length >= 4) {
-    log('tier2 fallback: searching by author only');
-    const tier2 = await searchAllAPIs(autor.trim());
-    log('tier2 results:', {
-      apple: tier2.apple.length,
-      google: tier2.google.length,
-      openlibrary: tier2.openlibrary.length
-    });
-    allCandidates = allCandidates.concat(tier2.apple, tier2.google, tier2.openlibrary);
-  }
-
-  const elapsed = Date.now() - startTime;
-
-  // Si TOTAL = 0, las APIs no devolvieron NADA
-  if (allCandidates.length === 0) {
-    log('decision: no_api_results');
-    return {
-      verified: false,
-      tipo: 'no_match', // 🌒 tratamos como no_match para mostrar "revisar bien"
-      reason: 'apis_no_results',
-      elapsed_ms: elapsed,
-      debug: debugLog
-    };
-  }
-
-  // Score cada candidato
   allCandidates.forEach(c => {
     c.sim_titulo = scoreTitulo(titulo, c.titulo);
     c.sim_autor = scoreAutor(autor, c.autor);
     c.sim_combinado = c.sim_titulo * 0.55 + c.sim_autor * 0.45;
   });
 
-  // Deduplicar por título canónico
   const consensus = new Map();
   allCandidates.forEach(c => {
     const key = normalize(stripSubtitle(stripArticle(normalize(c.titulo))));
@@ -376,63 +321,262 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
     if (c.year) e.years.push(c.year);
   });
 
-  // Rankear por: consenso (más fuentes) → similitud combinada
-  const ranked = Array.from(consensus.values()).sort((a, b) => {
+  return Array.from(consensus.values()).sort((a, b) => {
     if (b.sources.length !== a.sources.length) return b.sources.length - a.sources.length;
     return b.max_sim_combinado - a.max_sim_combinado;
   });
+}
 
-  log('top 5 candidates:', ranked.slice(0, 5).map(r => ({
-    t: r.titulo_canonico.slice(0, 50),
-    a: r.autor_canonico.slice(0, 30),
-    sT: Math.round(r.max_sim_titulo * 100),
-    sA: Math.round(r.max_sim_autor * 100),
-    sC: Math.round(r.max_sim_combinado * 100),
-    src: r.sources.length
-  })));
+// ─── 🌒 FUNCIÓN PRINCIPAL NIVEL DIOS ECONÓMICO ─────────────────────────
+export async function verifyBookExternal(titulo, autor, opts = {}) {
+  const verbose = opts.verbose || false;
+  const startTime = Date.now();
+  const debugLog = [];
+  const log = (...args) => {
+    const line = args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ');
+    debugLog.push(line);
+    if (verbose) console.log('[verify-book]', line);
+  };
 
-  const best = ranked[0];
-  const tituloInputN = normalize(titulo);
-  const autorInputN = normalize(autor);
-  const tituloBestN = normalize(best.titulo_canonico);
-  const autorBestN = normalize(best.autor_canonico);
+  log('input:', { titulo, autor });
 
-  // CASO A: ya canónico
-  if (tituloBestN === tituloInputN && autorBestN === autorInputN) {
-    log('decision: already_canonical');
-    return {
-      verified: true,
-      already_canonical: true,
-      sources_confirmed: best.sources,
-      elapsed_ms: elapsed,
-      debug: debugLog
-    };
+  const apiKey = process.env.OPENAI_API_KEY;
+  const useGPT = opts.useGPT !== false && Boolean(apiKey);
+
+  if (!useGPT) {
+    log('warning: GPT no disponible (no API key) — solo APIs');
   }
 
-  // CASO B: STRONG match (combinado ≥ 0.88)
-  if (best.max_sim_combinado >= STRONG_SCORE) {
-    log('decision: strong_match', { score: best.max_sim_combinado });
+  // ═══════════════════════════════════════════════════════════════════════
+  // PASO 1: APIs PRIMERO (GRATIS) — query principal
+  // ═══════════════════════════════════════════════════════════════════════
+  log('paso1: querying APIs with title+author');
+  const q1 = `${titulo} ${autor}`.trim();
+  const tier1 = await searchAllAPIs(q1);
+  log('paso1 results:', {
+    apple: tier1.apple.length,
+    google: tier1.google.length,
+    openlibrary: tier1.openlibrary.length,
+    errors: tier1.errors
+  });
+
+  let allCandidates = [...tier1.apple, ...tier1.google, ...tier1.openlibrary];
+
+  // Fallback paso 1.5: si pocos resultados, buscar solo por autor
+  if (allCandidates.length < 5 && autor.trim().length >= 4) {
+    log('paso1.5: fallback search by author only');
+    const tier1b = await searchAllAPIs(autor.trim());
+    log('paso1.5 results:', {
+      apple: tier1b.apple.length,
+      google: tier1b.google.length,
+      openlibrary: tier1b.openlibrary.length
+    });
+    allCandidates = allCandidates.concat(tier1b.apple, tier1b.google, tier1b.openlibrary);
+  }
+
+  const ranked = analyzeCandidates(titulo, autor, allCandidates);
+  const top = ranked[0] || null;
+
+  if (top) {
+    log('paso1 top candidate:', {
+      titulo: top.titulo_canonico.slice(0, 50),
+      autor: top.autor_canonico.slice(0, 30),
+      sT: Math.round(top.max_sim_titulo * 100),
+      sA: Math.round(top.max_sim_autor * 100),
+      sC: Math.round(top.max_sim_combinado * 100),
+      sources: top.sources.length
+    });
+  }
+
+  const tituloInputN = normalize(titulo);
+  const autorInputN = normalize(autor);
+
+  // ─── CASO A: APIs encontraron match MUY FUERTE → sin GPT ───────────────
+  if (top && top.max_sim_combinado >= STRONG_NO_GPT) {
+    const tituloBestN = normalize(top.titulo_canonico);
+    const autorBestN = normalize(top.autor_canonico);
+
+    // Sub-caso: input ya es canónico
+    if (tituloBestN === tituloInputN && autorBestN === autorInputN) {
+      log('decision: already_canonical (via APIs, no GPT)');
+      return {
+        verified: true,
+        already_canonical: true,
+        via: 'apis_only',
+        elapsed_ms: Date.now() - startTime,
+        debug: debugLog
+      };
+    }
+
+    log('decision: strong_match (via APIs, no GPT needed)', {
+      score: top.max_sim_combinado
+    });
     return {
       verified: true,
       tipo: 'strong_match',
       suggestion: {
-        titulo_canonico: best.titulo_canonico,
-        autor_canonico: best.autor_canonico,
-        year: best.years.length ? Math.min(...best.years) : null,
-        sim_titulo: Math.round(best.max_sim_titulo * 100),
-        sim_autor: Math.round(best.max_sim_autor * 100),
-        sources: best.sources,
-        confidence: best.sources.length >= 2 ? 'high' : 'medium'
+        titulo_canonico: top.titulo_canonico,
+        autor_canonico: top.autor_canonico,
+        year: top.years.length ? Math.min(...top.years) : null,
+        sim_titulo: Math.round(top.max_sim_titulo * 100),
+        sim_autor: Math.round(top.max_sim_autor * 100),
+        sources: top.sources,
+        confidence: top.sources.length >= 2 ? 'high' : 'medium'
       },
-      elapsed_ms: elapsed,
+      via: 'apis_only',
+      elapsed_ms: Date.now() - startTime,
       debug: debugLog
     };
   }
 
-  // CASO C: WEAK match — autor matchea aunque sea decentemente → mostrar candidatos
+  // ─── CASO B: APIs encontraron match MEDIO con autor fuerte → sin GPT ───
+  if (top && top.max_sim_autor >= MEDIUM_AUTHOR && top.max_sim_combinado >= MEDIUM_COMBINED) {
+    log('decision: strong_match (via APIs, medium combined but strong author)', {
+      sT: top.max_sim_titulo, sA: top.max_sim_autor, sC: top.max_sim_combinado
+    });
+    return {
+      verified: true,
+      tipo: 'strong_match',
+      suggestion: {
+        titulo_canonico: top.titulo_canonico,
+        autor_canonico: top.autor_canonico,
+        year: top.years.length ? Math.min(...top.years) : null,
+        sim_titulo: Math.round(top.max_sim_titulo * 100),
+        sim_autor: Math.round(top.max_sim_autor * 100),
+        sources: top.sources,
+        confidence: top.sources.length >= 2 ? 'high' : 'medium'
+      },
+      via: 'apis_only',
+      elapsed_ms: Date.now() - startTime,
+      debug: debugLog
+    };
+  }
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // PASO 2: APIs NO resolvieron con suficiente fuerza → invocar GPT
+  // ═══════════════════════════════════════════════════════════════════════
+  if (!useGPT) {
+    log('warning: APIs insuficientes y GPT no disponible');
+    // Sin GPT: degradar a weak_match si hay autor decente, else no_match
+    const topByAuthor = ranked.filter(r => r.max_sim_autor >= WEAK_AUTHOR_MIN);
+    if (topByAuthor.length > 0) {
+      return {
+        verified: true,
+        tipo: 'weak_match',
+        candidates: topByAuthor.slice(0, 4).map(r => ({
+          titulo: r.titulo_canonico,
+          autor: r.autor_canonico,
+          year: r.years.length ? Math.min(...r.years) : null,
+          sim_titulo: Math.round(r.max_sim_titulo * 100),
+          sim_autor: Math.round(r.max_sim_autor * 100),
+          sources: r.sources
+        })),
+        via: 'apis_only_no_gpt',
+        elapsed_ms: Date.now() - startTime,
+        debug: debugLog
+      };
+    }
+    return {
+      verified: false,
+      tipo: 'no_match',
+      reason: 'apis_weak_no_gpt',
+      via: 'apis_only_no_gpt',
+      elapsed_ms: Date.now() - startTime,
+      debug: debugLog
+    };
+  }
+
+  log('paso2: APIs not strong enough → invoking GPT-4o-mini');
+  const gpt = await identifyWithGPT(titulo, autor, apiKey);
+  log('paso2 gpt:', {
+    available: gpt.available,
+    reconocido: gpt.reconocido,
+    confianza: gpt.confianza,
+    titulo_gpt: (gpt.titulo_canonico || '').slice(0, 50),
+    autor_gpt: (gpt.autor_canonico || '').slice(0, 30),
+    tokens: gpt.tokens,
+    error: gpt.error
+  });
+
+  // ─── CASO C: GPT reconoció con confianza ≥ 0.80 ────────────────────────
+  if (gpt.available && gpt.reconocido && gpt.confianza >= GPT_CONFIDENCE_MIN &&
+      gpt.titulo_canonico && gpt.autor_canonico) {
+
+    const gptTitN = normalize(gpt.titulo_canonico);
+    const gptAutN = normalize(gpt.autor_canonico);
+
+    // Sub-caso: GPT confirma que input ya es canónico
+    if (gptTitN === tituloInputN && gptAutN === autorInputN) {
+      log('decision: already_canonical (via GPT)');
+      return {
+        verified: true,
+        already_canonical: true,
+        via: 'gpt',
+        elapsed_ms: Date.now() - startTime,
+        debug: debugLog
+      };
+    }
+
+    // 🌒 DOUBLE-CHECK: validar GPT contra APIs como sanity check
+    log('paso3: double-check GPT result against APIs');
+    const gptQuery = `${gpt.titulo_canonico} ${gpt.autor_canonico}`.trim();
+    const gptValidation = await searchAllAPIs(gptQuery);
+    const gptAPIs = [...gptValidation.apple, ...gptValidation.google, ...gptValidation.openlibrary];
+
+    let apisConfirmedGPT = false;
+    let confirmingSources = [];
+    let confirmedYear = gpt.year;
+
+    if (gptAPIs.length > 0) {
+      // ¿alguna API devuelve un libro IGUAL al que GPT identificó?
+      for (const c of gptAPIs) {
+        const cT = scoreTitulo(gpt.titulo_canonico, c.titulo);
+        const cA = scoreAutor(gpt.autor_canonico, c.autor);
+        if (cT >= 0.85 && cA >= 0.75) {
+          apisConfirmedGPT = true;
+          if (!confirmingSources.includes(c.source)) confirmingSources.push(c.source);
+          if (c.year && !confirmedYear) confirmedYear = c.year;
+        }
+      }
+    }
+
+    const finalSources = apisConfirmedGPT
+      ? ['gpt-4o-mini', ...confirmingSources]
+      : ['gpt-4o-mini'];
+    const confidenceLevel = apisConfirmedGPT ? 'high' : (gpt.confianza >= 0.9 ? 'high' : 'medium');
+
+    log('decision: strong_match (via GPT)', {
+      gpt_confianza: gpt.confianza,
+      apis_confirmed: apisConfirmedGPT,
+      confirming_sources: confirmingSources
+    });
+
+    return {
+      verified: true,
+      tipo: 'strong_match',
+      suggestion: {
+        titulo_canonico: gpt.titulo_canonico,
+        autor_canonico: gpt.autor_canonico,
+        year: confirmedYear || gpt.year,
+        sim_titulo: Math.round(gpt.confianza * 100),
+        sim_autor: Math.round(gpt.confianza * 100),
+        sources: finalSources,
+        confidence: confidenceLevel,
+        razon: gpt.razon,
+        apis_confirmed: apisConfirmedGPT
+      },
+      via: apisConfirmedGPT ? 'gpt+apis' : 'gpt',
+      elapsed_ms: Date.now() - startTime,
+      debug: debugLog
+    };
+  }
+
+  // ─── CASO D: GPT NO reconoció → fallback a weak_match con APIs si hay ──
+  log('paso2 gpt: no recognition or low confidence');
+
   const topByAuthor = ranked.filter(r => r.max_sim_autor >= WEAK_AUTHOR_MIN);
   if (topByAuthor.length > 0) {
-    log('decision: weak_match (candidates)', { count: topByAuthor.length });
+    log('decision: weak_match (candidates from APIs, GPT did not help)');
     return {
       verified: true,
       tipo: 'weak_match',
@@ -444,24 +588,27 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
         sim_autor: Math.round(r.max_sim_autor * 100),
         sources: r.sources
       })),
-      elapsed_ms: elapsed,
+      gpt_razon: gpt.razon || null,
+      via: 'apis_fallback',
+      elapsed_ms: Date.now() - startTime,
       debug: debugLog
     };
   }
 
-  // CASO D: APIs respondieron pero nada coincide con el autor → REVISAR
-  log('decision: no_match — sample top:', ranked.slice(0, 2));
+  // ─── CASO E: nada coincide → REVISAR ───────────────────────────────────
+  log('decision: no_match — nothing matches well');
   return {
     verified: false,
     tipo: 'no_match',
-    reason: 'no_author_match',
+    reason: 'no_strong_match_anywhere',
+    gpt_razon: gpt.razon || null,
     sample: ranked.slice(0, 2).map(r => ({
       titulo: r.titulo_canonico,
       autor: r.autor_canonico,
       sim_titulo: Math.round(r.max_sim_titulo * 100),
       sim_autor: Math.round(r.max_sim_autor * 100)
     })),
-    elapsed_ms: elapsed,
+    elapsed_ms: Date.now() - startTime,
     debug: debugLog
   };
 }
