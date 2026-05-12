@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Triggui · Agregar libro</title>
+  <meta name="robots" content="noindex,nofollow">
+  <!--
+    V19.2.6 — AGREGAR LIBRO A WISHLIST (libros_master.csv)
+    Pantalla negra · minimalista · herramienta interna · nivel dios cuántico-quark
+
+    Flujo:
+      1. Ingreso título, autor, (opcional) nota, llave
+      2. POST a /api/agregar-libro
+      3. Backend valida + commitea al repo triggui-content
+      4. UI muestra resultado
+
+    Diseño:
+      - Pantalla negra (no compite con triggui.com público)
+      - Tipografía Inter (sans-serif neutral, no editorial)
+      - Inputs grandes, accesibles desde móvil
+      - Sin emojis, sin gradients, sin animaciones distractoras
+  -->
+  <link rel="icon" type="image/png" href="favicon4.jpg">
+  <link rel="apple-touch-icon" href="favicon4.jpg">
+  <meta name="theme-color" content="#000000">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #000;
+      color: #F5F0E8;
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-feature-settings: 'kern' 1, 'liga' 1;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 440px;
+      animation: fadeIn .4s ease-out both;
+    }
+    .header {
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .brand {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.45);
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #F5F0E8;
+      line-height: 1.25;
+    }
+    .subtitle {
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(245, 240, 232, 0.4);
+      margin-top: 8px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(245, 240, 232, 0.55);
+      letter-spacing: 0.03em;
+    }
+    label .opt {
+      color: rgba(245, 240, 232, 0.3);
+      font-weight: 400;
+      margin-left: 6px;
+    }
+    input, textarea {
+      background: rgba(245, 240, 232, 0.03);
+      border: 1px solid rgba(245, 240, 232, 0.1);
+      color: #F5F0E8;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 400;
+      padding: 14px 16px;
+      border-radius: 10px;
+      width: 100%;
+      transition: border-color .2s, background .2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(245, 240, 232, 0.35);
+      background: rgba(245, 240, 232, 0.05);
+    }
+    input::placeholder, textarea::placeholder {
+      color: rgba(245, 240, 232, 0.25);
+    }
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+    .row {
+      display: flex;
+      gap: 12px;
+    }
+    .row .field-key {
+      width: 110px;
+      flex-shrink: 0;
+    }
+    .row button {
+      flex: 1;
+    }
+    button {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 16px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      background: #F5F0E8;
+      color: #000;
+      transition: opacity .2s, transform .1s;
+      -webkit-tap-highlight-color: transparent;
+      width: 100%;
+    }
+    button:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+    button:active:not(:disabled) {
+      transform: scale(0.985);
+    }
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    .footer-hint {
+      text-align: center;
+      font-size: 11px;
+      color: rgba(245, 240, 232, 0.25);
+      margin-top: 20px;
+      line-height: 1.5;
+    }
+    .feedback {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.55;
+      animation: slideDown .3s ease-out;
+    }
+    .feedback.success {
+      background: rgba(76, 175, 80, 0.08);
+      border: 1px solid rgba(76, 175, 80, 0.25);
+      color: #A5D6A7;
+    }
+    .feedback.error {
+      background: rgba(244, 67, 54, 0.08);
+      border: 1px solid rgba(244, 67, 54, 0.25);
+      color: #EF9A9A;
+    }
+    .feedback strong {
+      color: #F5F0E8;
+      font-weight: 600;
+    }
+    .feedback-meta {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+    .feedback a {
+      color: inherit;
+      text-decoration: underline;
+      opacity: 0.7;
+    }
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .confirm-anyway-btn {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid rgba(245, 240, 232, 0.25);
+      background: transparent;
+      color: rgba(245, 240, 232, 0.85);
+      transition: all .15s;
+      -webkit-tap-highlight-color: transparent;
+      width: auto;
+    }
+    .confirm-anyway-btn:hover {
+      background: rgba(245, 240, 232, 0.06);
+      border-color: rgba(245, 240, 232, 0.45);
+      color: #F5F0E8;
+    }
+    .confirm-anyway-btn:active {
+      transform: scale(0.97);
+    }
+    .live-preview {
+      font-size: 12px;
+      line-height: 1.5;
+      color: rgba(245, 240, 232, 0.5);
+      padding: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease, padding .3s ease;
+    }
+    .live-preview.active {
+      padding: 10px 14px;
+      max-height: 200px;
+      background: rgba(245, 240, 232, 0.04);
+      border-radius: 8px;
+      border-left: 2px solid rgba(232, 168, 56, 0.4);
+    }
+    .live-preview .lp-header {
+      font-weight: 600;
+      color: rgba(232, 168, 56, 0.9);
+      margin-bottom: 6px;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .live-preview .lp-item {
+      padding: 3px 0;
+      color: rgba(245, 240, 232, 0.7);
+    }
+    .live-preview .lp-score {
+      opacity: 0.5;
+      margin-left: 4px;
+      font-size: 11px;
+    }
+    .live-preview .lp-loading {
+      color: rgba(245, 240, 232, 0.3);
+      font-style: italic;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    @media (max-width: 380px) {
+      .container { padding: 0 4px; }
+      h1 { font-size: 20px; }
+      input, textarea { font-size: 16px; padding: 12px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">triggui · interno</div>
+      <h1>Agregar libro al catálogo</h1>
+      <p class="subtitle">Se agrega a <code style="font-family:monospace;font-size:12px;color:rgba(245,240,232,.5)">libros_master.csv</code>. El pipeline busca la portada solo.</p>
+    </div>
+
+    <form id="form" autocomplete="off">
+      <div class="field">
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" placeholder="El Buda entra a un bar" required maxlength="200" autocapitalize="words">
+      </div>
+
+      <div class="field">
+        <label for="autor">Autor</label>
+        <input type="text" id="autor" name="autor" placeholder="Lodro Rinzler" required maxlength="200" autocapitalize="words">
+      </div>
+
+      <div id="livePreview" class="live-preview"></div>
+
+      <div class="field">
+        <label for="nota">Nota / tagline <span class="opt">opcional</span></label>
+        <textarea id="nota" name="nota" placeholder="Una guía moderna del budismo para principiantes" maxlength="500"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="field field-key">
+          <label for="llave">Llave</label>
+          <input type="password" id="llave" name="llave" placeholder="••" required maxlength="20">
+        </div>
+        <div class="field" style="justify-content:flex-end">
+          <label style="visibility:hidden">.</label>
+          <button type="submit" id="submitBtn">Agregar</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="feedback"></div>
+
+    <div class="footer-hint">
+      El próximo batch del workflow elegirá este libro<br>cuando alguien escriba algo que coincida.
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ════════════════════════════════════════════════════════════════════
+      // PRE-CHECK FRONTEND — dedup en vivo mientras tipeas
+      // ════════════════════════════════════════════════════════════════════
+      // Fetch del CSV (vía jsDelivr CDN, cacheado, gratis, sin token).
+      // Mientras escribes título + autor, comparamos contra los 226 libros
+      // en TIEMPO REAL con los mismos 9 algoritmos del backend.
+      // Esto previene ~90% de los duplicados ANTES de hacer submit.
+      // ════════════════════════════════════════════════════════════════════
+
+      const CSV_URL = 'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/data/libros_master.csv';
+      let catalogo = []; // populated después del fetch
+      let catalogoReady = false;
+
+      // ─── Algoritmos dedup (mismas funciones del backend) ────────────────
+      const ARTICULOS = new Set(['el','la','los','las','un','una','unos','unas','the','a','an']);
+      const STOPWORDS = new Set(['de','del','al','a','en','y','o','por','para','con','sin','of','in','on','and','or','to','for','with','without','by']);
+      const NUM_ES = {'cero':'0','uno':'1','una':'1','un':'1','dos':'2','tres':'3','cuatro':'4','cinco':'5','seis':'6','siete':'7','ocho':'8','nueve':'9','diez':'10','once':'11','doce':'12','trece':'13','catorce':'14','quince':'15','dieciseis':'16','diecisiete':'17','dieciocho':'18','diecinueve':'19','veinte':'20'};
+      const NUM_EN = {'zero':'0','one':'1','two':'2','three':'3','four':'4','five':'5','six':'6','seven':'7','eight':'8','nine':'9','ten':'10','eleven':'11','twelve':'12','thirteen':'13','fourteen':'14','fifteen':'15','sixteen':'16','seventeen':'17','eighteen':'18','nineteen':'19','twenty':'20'};
+
+      function normalize(s) {
+        return String(s || '').normalize('NFD')
+          .replace(/[\u0300-\u036f]/g,'')
+          .replace(/[\u2018\u2019\u02BC\u00B4\u0060]/g,"'")
+          .replace(/[\u201C\u201D]/g,'"')
+          .replace(/[\u00A0\u1680\u2000-\u200B\u202F\u205F\u3000\uFEFF]/g,' ')
+          .replace(/[\u2013\u2014]/g,'-').toLowerCase()
+          .replace(/^[\s.,;:!?"'`´¿¡()\[\]{}\-_]+|[\s.,;:!?"'`´¿¡()\[\]{}\-_]+$/g,'')
+          .replace(/\s+/g,' ').trim();
+      }
+      function stripArt(n) { const p = n.split(' '); return p.length>=2 && ARTICULOS.has(p[0]) ? p.slice(1).join(' ') : n; }
+      function stripSub(n) { const c=n.indexOf(':'), d=n.indexOf(' - '); let a=-1; if(c>=0&&d>=0)a=Math.min(c,d); else if(c>=0)a=c; else if(d>=0)a=d; return a>0?n.slice(0,a).trim():n; }
+      function aTokens(n) { let s=n; if(s.includes(',')){const[l,r]=s.split(',').map(x=>x.trim());s=(r+' '+l).trim();} s=s.replace(/\b[a-z]\./g,'').replace(/\s+/g,' ').trim(); s=s.split(/\s+&\s+|\s+and\s+|\s+y\s+/)[0].trim(); return s.split(' ').filter(t=>t.length>=2); }
+      function aCompat(a,b){ if(!a.length||!b.length)return false; const[s,l]=a.length<=b.length?[a,b]:[b,a]; const ls=new Set(l); let m=0; for(const t of s) if(ls.has(t))m++; return m===s.length&&m>=1; }
+      function jaro(s1,s2){ if(s1===s2)return 1; if(!s1.length||!s2.length)return 0; const md=Math.floor(Math.max(s1.length,s2.length)/2)-1; const m1=new Array(s1.length).fill(false),m2=new Array(s2.length).fill(false); let m=0; for(let i=0;i<s1.length;i++){const st=Math.max(0,i-md),en=Math.min(i+md+1,s2.length); for(let j=st;j<en;j++){if(m2[j]||s1[i]!==s2[j])continue; m1[i]=true; m2[j]=true; m++; break;}} if(m===0)return 0; let k=0,t=0; for(let i=0;i<s1.length;i++){if(!m1[i])continue; while(!m2[k])k++; if(s1[i]!==s2[k])t++; k++;} t/=2; return (m/s1.length+m/s2.length+(m-t)/m)/3; }
+      function jw(s1,s2){ const j=jaro(s1,s2); if(j<0.7)return j; let p=0; const mp=Math.min(4,s1.length,s2.length); for(let i=0;i<mp;i++){if(s1[i]===s2[i])p++;else break;} return j+p*0.1*(1-j); }
+      function stem(w){ if(w.length<4)return w; if(w.endsWith('mente'))return w.slice(0,-5); if(w.endsWith('ciones'))return w.slice(0,-6)+'cion'; if(w.endsWith('iones'))return w.slice(0,-5)+'ion'; if(w.endsWith('ies'))return w.slice(0,-3)+'y'; if(w.endsWith('es')&&w.length>4)return w.slice(0,-2); if(w.endsWith('s')&&w.length>4)return w.slice(0,-1); return w; }
+      function stemS(s){ return s.split(' ').map(stem).join(' '); }
+      function meta(w){ if(!w)return ''; let x=String(w).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ñ/gi,'n').toLowerCase().replace(/[^a-z]/g,''); if(!x)return''; x=x.replace(/([bcdfghjklmnpqrstvwxz])\1/g,'$1').replace(/^ph/g,'f').replace(/ph/g,'f').replace(/^kn/g,'n').replace(/^wr/g,'r').replace(/^ps/g,'s').replace(/^x/g,'s').replace(/qu/g,'k').replace(/sh/g,'x').replace(/sch/g,'x').replace(/ch/g,'x').replace(/th/g,'t').replace(/wh/g,'w').replace(/ck/g,'k').replace(/ll/g,'l').replace(/rr/g,'r').replace(/s$/g,''); let r='',pv=false; for(let i=0;i<x.length;i++){const c=x[i],iv='aeiouy'.includes(c); if(iv){if(!pv)r+='a'; pv=true;}else{let m=c; if(c==='c'){const n=x[i+1]||''; m=n&&'eiy'.includes(n)?'s':'k';} else if(c==='g'){const n=x[i+1]||''; m=n&&'eiy'.includes(n)?'h':'g';} else if(c==='h'){if(i===0)m='h'; else m='';} else if(c==='v')m='b'; else if(c==='z')m='s'; else if(c==='j')m='h'; else if(c==='y')m='i'; else if(c==='w')m='u'; r+=m; pv=false;}} return r.replace(/(.)\1+/g,'$1'); }
+      function metaS(s){ return s.split(' ').map(meta).filter(Boolean).join(' '); }
+      function nNum(t){ return NUM_ES[t]||NUM_EN[t]||t; }
+      function tokJac(n){ const a=stripSub(stripArt(n)); return a.split(' ').filter(t=>t.length>=2||/^\d+$/.test(t)).filter(t=>!STOPWORDS.has(t)).map(nNum).map(stem); }
+      function jaccard(a,b){ const ta=tokJac(a),tb=tokJac(b); if(!ta.length||!tb.length)return 0; const sa=new Set(ta),sb=new Set(tb); let i=0; for(const t of sa)if(sb.has(t))i++; const u=sa.size+sb.size-i; return u===0?0:i/u; }
+      function scoreT(aR,bR){ if(!aR||!bR)return 0; const aN=normalize(aR),bN=normalize(bR); if(aN===bN)return 1; const v=s=>[...new Set([s,stripArt(s),stripSub(s),stripSub(stripArt(s))])].filter(Boolean); const aV=v(aN),bV=v(bN); for(const a of aV)for(const b of bV)if(a===b)return 0.98; let mj=0; for(const a of aV)for(const b of bV){const j=jaccard(a,b); if(j>mj)mj=j;} if(mj>=0.85)return 0.93+(mj-0.85)*0.3; let ms=0; for(const a of aV)for(const b of bV){const j1=jw(a,b),j2=jw(stemS(a),stemS(b)); if(j1>ms)ms=j1; if(j2>ms)ms=j2;} if(mj>0.5&&ms<0.9)ms=Math.max(ms,0.7+mj*0.2); return ms; }
+      function scoreA(aR,bR){ if(!aR||!bR)return 0; const aN=normalize(aR),bN=normalize(bR); if(aN===bN)return 1; const ta=aTokens(aN),tb=aTokens(bN); if(aCompat(ta,tb))return 0.95; const pa=metaS(ta.join(' ')),pb=metaS(tb.join(' ')); if(pa&&pb&&pa===pb)return 0.92; const pj=jw(pa,pb); if(pj>=0.95)return Math.max(0.88,pj*0.92); const dj=jw(ta.join(' '),tb.join(' ')); return Math.max(dj,pj*0.9); }
+      function compararLibros(t1,a1,t2,a2){ const sT=scoreT(t1,t2), sA=scoreA(a1,a2), c=sT*0.65+sA*0.35; let tier=null; if(sT>=0.99&&sA>=0.95)tier='exact'; else if(c>=0.90)tier='muy_similar'; else if(c>=0.75)tier='posiblemente_similar'; return {sT:Math.round(sT*100),sA:Math.round(sA*100),sC:Math.round(c*100),tier}; }
+
+      // ─── Fetch del catálogo ────────────────────────────────────────────
+      async function loadCatalog() {
+        const lp = document.getElementById('livePreview');
+        lp.classList.add('active');
+        lp.innerHTML = '<div class="lp-loading">Cargando catálogo...</div>';
+        try {
+          const res = await fetch(CSV_URL, { cache: 'default' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const text = await res.text();
+          const lines = text.split('\n').filter(l => l && l.trim());
+          catalogo = lines.slice(1).map(l => {
+            const p = l.split(',');
+            return { titulo: (p[0] || '').trim(), autor: (p[1] || '').trim() };
+          }).filter(l => l.titulo && l.autor);
+          catalogoReady = true;
+          updateLivePreview();
+        } catch (err) {
+          lp.innerHTML = '<div class="lp-loading">No se pudo cargar el catálogo (no afecta agregar).</div>';
+          setTimeout(function() { lp.classList.remove('active'); }, 2500);
+        }
+      }
+
+      // ─── Live preview ───────────────────────────────────────────────────
+      function updateLivePreview() {
+        const lp = document.getElementById('livePreview');
+        if (!catalogoReady) return;
+
+        const t = document.getElementById('titulo').value.trim();
+        const a = document.getElementById('autor').value.trim();
+
+        if (!t || t.length < 3) {
+          lp.classList.remove('active');
+          lp.innerHTML = '';
+          return;
+        }
+
+        // Comparar contra catálogo, top 3 más cercanos (si score >= 0.6)
+        const matches = [];
+        for (const libro of catalogo) {
+          const r = compararLibros(t, a || libro.autor, libro.titulo, libro.autor);
+          if (r.tier || r.sC >= 60) {
+            matches.push({ libro, ...r });
+          }
+        }
+        matches.sort((x, y) => y.sC - x.sC);
+        const top = matches.slice(0, 3);
+
+        if (top.length === 0) {
+          lp.classList.remove('active');
+          lp.innerHTML = '';
+          return;
+        }
+
+        lp.classList.add('active');
+        const hasExact = top.some(m => m.tier === 'exact');
+        const hasMuy = top.some(m => m.tier === 'muy_similar');
+
+        const header = hasExact
+          ? 'YA EXISTE EN EL CATÁLOGO'
+          : hasMuy
+            ? 'POSIBLE DUPLICADO'
+            : 'LIBROS PARECIDOS YA EN CATÁLOGO';
+
+        let html = '<div class="lp-header">' + header + '</div>';
+        top.forEach(function(m) {
+          html += '<div class="lp-item">· ' + escapeHtml(m.libro.titulo) + ' — ' + escapeHtml(m.libro.autor);
+          html += '<span class="lp-score">(' + m.sC + '%)</span></div>';
+        });
+        lp.innerHTML = html;
+      }
+
+      // Debounce para no recalcular en cada keystroke (226 comparaciones × O(n²))
+      let debounceTimer = null;
+      function debouncedUpdate() {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(updateLivePreview, 220);
+      }
+
+      document.getElementById('titulo').addEventListener('input', debouncedUpdate);
+      document.getElementById('autor').addEventListener('input', debouncedUpdate);
+
+      // Arrancar fetch del catálogo en background al cargar la página
+      loadCatalog();
+
+      // ════════════════════════════════════════════════════════════════════
+      // Resto de la lógica (submit, etc.)
+      // ════════════════════════════════════════════════════════════════════
+      const form = document.getElementById('form');
+      const btn = document.getElementById('submitBtn');
+      const feedback = document.getElementById('feedback');
+      const fields = {
+        titulo: document.getElementById('titulo'),
+        autor: document.getElementById('autor'),
+        nota: document.getElementById('nota'),
+        llave: document.getElementById('llave')
+      };
+
+      function showFeedback(type, html) {
+        feedback.className = 'feedback ' + type;
+        feedback.innerHTML = html;
+      }
+
+      function clearFeedback() {
+        feedback.className = '';
+        feedback.innerHTML = '';
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        clearFeedback();
+        await submitForm(false);
+      });
+
+      async function submitForm(confirmarPeseAsimilar) {
+        const payload = {
+          titulo: fields.titulo.value.trim(),
+          autor: fields.autor.value.trim(),
+          nota: fields.nota.value.trim(),
+          llave: fields.llave.value.trim()
+        };
+
+        if (confirmarPeseAsimilar) {
+          payload.confirmar_pese_a_similar = true;
+        }
+
+        if (!payload.titulo || !payload.autor) {
+          showFeedback('error', 'Título y autor son obligatorios.');
+          return;
+        }
+        if (!payload.llave) {
+          showFeedback('error', 'Falta la llave.');
+          return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner"></span>Agregando...';
+
+        try {
+          const res = await fetch('/api/agregar-libro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          let data = {};
+          try { data = await res.json(); } catch (_) {}
+
+          if (res.ok && data.ok) {
+            const total = data.total_libros ? ' (' + data.total_libros + ' libros)' : '';
+            const commitLink = data.commit_url ? ' · <a href="' + data.commit_url + '" target="_blank" rel="noopener">ver commit</a>' : '';
+            showFeedback('success',
+              '<strong>' + escapeHtml(data.titulo) + '</strong> — ' + escapeHtml(data.autor) + ' agregado' + total + '.' +
+              '<div class="feedback-meta">El pipeline buscará la portada en la próxima generación' + commitLink + '.</div>'
+            );
+            fields.titulo.value = '';
+            fields.autor.value = '';
+            fields.nota.value = '';
+            fields.titulo.focus();
+          } else if (res.status === 409 && data.tipo === 'fuzzy_match' && Array.isArray(data.similares)) {
+            // Soft match: mostramos los similares y damos opción de confirmar
+            const hayMuy = data.similares.some(function(s) { return s.tipo === 'muy_similar'; });
+            const headerTxt = hayMuy
+              ? '<strong>Muy probablemente duplicado:</strong>'
+              : '<strong>Libro parecido encontrado:</strong>';
+            let similaresHtml = headerTxt + '<div class="feedback-meta" style="margin-top:8px">';
+            data.similares.forEach(function(s) {
+              const scoreBadge = s.score_combinado != null
+                ? ' <span style="opacity:.7">(' + s.score_combinado + '% similar)</span>'
+                : '';
+              similaresHtml += '· <em>' + escapeHtml(s.existente) + '</em>' + scoreBadge + '<br>';
+            });
+            similaresHtml += '</div>';
+            similaresHtml += '<div style="margin-top:14px"><button type="button" id="btnConfirmAnyway" class="confirm-anyway-btn">Sí, es un libro distinto · agregar igual</button></div>';
+            showFeedback('error', similaresHtml);
+
+            const confirmBtn = document.getElementById('btnConfirmAnyway');
+            if (confirmBtn) {
+              confirmBtn.addEventListener('click', function() {
+                clearFeedback();
+                submitForm(true);
+              });
+            }
+          } else if (res.status === 409 && data.existente) {
+            // Exact match: rechaza sin opción
+            showFeedback('error',
+              'Ya existe en el catálogo:<br><strong>' + escapeHtml(data.existente) + '</strong>'
+            );
+          } else if (res.status === 401) {
+            showFeedback('error', 'Llave incorrecta.');
+            fields.llave.value = '';
+            fields.llave.focus();
+          } else {
+            showFeedback('error',
+              (data.error || 'Error al agregar. Intenta de nuevo.') +
+              (res.status ? '<div class="feedback-meta">Código: ' + res.status + '</div>' : '')
+            );
+          }
+        } catch (err) {
+          showFeedback('error',
+            'Error de red. ¿Tienes señal?<div class="feedback-meta">' + escapeHtml(err.message || String(err)) + '</div>'
+          );
+        } finally {
+          btn.disabled = false;
+          btn.textContent = 'Agregar';
+        }
+      }
+
+      function escapeHtml(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
