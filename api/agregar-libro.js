@@ -489,9 +489,28 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Título y autor son obligatorios.' });
   }
 
-  // 2. Sanitizar: comas y newlines → espacio (CSV sin quoting)
+  // V20 SPRINT RAÍZ — sanitize nivel dios cuántico-quark
+  // Neutraliza TODO lo que rompe csv-parse strict (Node) downstream:
+  //   - Smart quotes "" '' '' (vienen de copiar/pegar de Word)
+  //   - Em/en dash — – (vienen de iOS auto-correction)
+  //   - NBSP, zero-width chars, BOM (caracteres invisibles)
+  //   - Comillas dobles " (evita abrir quoted field en CSV)
+  //   - Control chars 0x00-0x1F (texto corrupto)
+  //   - Comas, CR, LF, tabs (separadores CSV)
+  // Preserva: tildes (á é í ó ú), ñ, mayúsculas, signos básicos
   const sanitize = (s, maxLen) => {
-    let clean = s.replace(/[,\r\n\t]/g, ' ').replace(/\s+/g, ' ').trim();
+    if (!s) return '';
+    let clean = String(s)
+      .normalize('NFC')
+      .replace(/[\u201C\u201D\u201E\u201F\u2033\u2036"]/g, '')
+      .replace(/[\u2018\u2019\u201A\u201B\u02BC\u00B4\u0060\u2032\u2035]/g, "'")
+      .replace(/[\u2013\u2014\u2015\u2212]/g, '-')
+      .replace(/[\u00A0\u1680\u202F\u205F\u3000\uFEFF\u200C\u200D\u2060\u00AD]/g, ' ')
+      .replace(/[\u2000-\u200B]/g, ' ')
+      .replace(/[\x00-\x1F\x7F]/g, '')
+      .replace(/[,\r\n\t]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
     if (maxLen && clean.length > maxLen) clean = clean.slice(0, maxLen);
     return clean;
   };
@@ -674,6 +693,42 @@ export default async function handler(req, res) {
 
       // Agregar al final, asegurando un único newline final
       const newCsv = csvContent.trimEnd() + '\n' + nuevaFila + '\n';
+
+      // V20 SPRINT RAÍZ — Validación CSV strict ANTES del commit
+      // Verifica matemáticamente que el CSV resultante pasará csv-parse strict
+      // downstream (workflow build-contenido-nucleus.js). Si falla, NO se
+      // commitea y el frontend recibe error claro.
+      const csvValidation = (() => {
+        const linesNew = newCsv.split('\n');
+        if (linesNew.length < 2) return { ok: false, error: 'CSV demasiado corto' };
+        const headerColsCount = linesNew[0].split(',').length;
+        for (let li = 1; li < linesNew.length; li++) {
+          const line = linesNew[li];
+          if (!line.trim()) continue;
+          const commas = (line.match(/,/g) || []).length;
+          if (commas !== headerColsCount - 1) {
+            return {
+              ok: false,
+              error: 'Linea ' + (li + 1) + ': esperaba ' + (headerColsCount - 1) + ' comas, obtuvo ' + commas
+            };
+          }
+          if (line.indexOf('"') !== -1) {
+            return {
+              ok: false,
+              error: 'Linea ' + (li + 1) + ': contiene comilla doble sin escapar'
+            };
+          }
+        }
+        return { ok: true };
+      })();
+      if (!csvValidation.ok) {
+        return res.status(500).json({
+          error: 'CSV resultante invalido tras sanitizacion (V20 anti-bomba)',
+          detail: csvValidation.error,
+          tipo: 'csv_validation_failed',
+          tu_version: { titulo: tituloSan, autor: autorSan }
+        });
+      }
 
       // 4.5 — Commit via PUT con SHA
       const putRes = await fetch(
