@@ -383,15 +383,19 @@ section, .section-padding {
 </head>
 <body>
 
-<!-- 🌒 Banner top — Triggui Kids -->
+<!-- 🧸 Banner top — Triggui Kids (v2 con CTA visible) -->
 <a href="https://app.triggui.com/kids"
    target="_blank"
    onclick="trackEngagement('kids_banner_top')"
-   class="block w-full text-center py-3 px-4 text-sm font-medium transition-opacity hover:opacity-100"
-   style="background: linear-gradient(135deg, rgba(232,168,56,0.10), rgba(255,107,107,0.10)); border-bottom: 1px solid rgba(245,240,232,0.08); color: rgba(245,240,232,0.85); opacity: 0.95; text-decoration: none;">
-  <span style="margin-right: 8px;">🌒</span>
-  ¿Conoces <strong style="color: #F5F0E8">Triggui Kids</strong>? Para niños. Valores en 30 segundos
-  <span style="margin-left: 8px; opacity: 0.6;">→</span>
+   class="kids-banner-top"
+   style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; width: 100%; padding: 12px 16px; background: linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16)); border-bottom: 1px solid rgba(232,168,56,0.35); color: #F5F0E8; text-decoration: none; font-size: 14px; font-weight: 500; transition: background 0.2s ease;"
+   onmouseover="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.28), rgba(255,107,107,0.24))'"
+   onmouseout="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16))'">
+  <span style="font-size: 18px; line-height: 1;">🧸</span>
+  <span>Ya está <strong style="color: #FFE5A8;">Triggui Kids</strong> — para tus hijos · 30 seg</span>
+  <span style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; background: rgba(232,168,56,0.28); border: 1px solid rgba(232,168,56,0.55); border-radius: 999px; font-size: 11px; font-weight: 700; color: #FFE5A8; text-transform: uppercase; letter-spacing: 0.6px;">
+    Conocer <span style="font-size: 13px;">→</span>
+  </span>
 </a>
 
 
@@ -611,26 +615,6 @@ section, .section-padding {
       </div>
     </div>
 
-    <div class="max-w-2xl mx-auto mt-20">
-      <div class="text-center mb-8">
-        <p class="text-sm uppercase tracking-widest font-bold mb-2" style="color:rgba(245,240,232,.22)">Sólo quiero apoyar el proyecto</p>
-        <div class="w-16 h-px mx-auto" style="background:linear-gradient(to right,transparent,rgba(245,240,232,.12),transparent)"></div>
-      </div>
-      <div class="glass-card p-8" style="border:2px solid rgba(232,168,56,.18)">
-        <div class="text-center mb-6">
-          <div class="text-4xl mb-4">💝</div>
-          <h3 class="font-bold uppercase text-xs tracking-widest mb-2" style="color:var(--t-gold)">Apoyo Libre</h3>
-          <p class="text-sm mb-6" style="color:rgba(245,240,232,.4)">Triggui existe porque alguien como tú decide que exista.<br><span style="color:var(--t-white);font-weight:600">Elige la cantidad que quieras aportar.</span></p>
-        </div>
-        <ul class="text-sm space-y-2 mb-8" style="color:rgba(245,240,232,.5)">
-          <li class="flex gap-2 items-center justify-center"><span style="color:var(--t-gold)">✓</span><span>Sin compromiso. Sin suscripción.</span></li>
-          <li class="flex gap-2 items-center justify-center"><span style="color:var(--t-gold)">✓</span><span>Apoyas la cultura de lectura.</span></li>
-          <li class="flex gap-2 items-center justify-center"><span style="color:var(--t-gold)">✓</span><span>100% transparencia.</span></li>
-        </ul>
-        <a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="block w-full py-4 text-center rounded-xl font-bold shadow-xl transition-all hover:scale-102" style="background:linear-gradient(135deg,var(--t-gold),var(--t-coral));color:#0B0F1A" onclick="trackConversion('donation_click',0)">Aportar Ahora</a>
-        <p class="text-center text-xs mt-4" style="color:rgba(245,240,232,.18)">Cada peso cuenta. En serio.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -747,7 +731,6 @@ section, .section-padding {
     <h2 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-none" style="color:var(--t-white)">CUANDO EL IMPULSO LLEGA,<br><span class="text-fire">EL LIBRO YA TE ESPERA.</span></h2>
     <p class="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed" style="color:rgba(245,240,232,.4)">Un mensaje cada lunes. Otro cuando menos lo esperas. 30 segundos.<br><span style="color:var(--t-white);font-weight:600">Si no es tu momento, el mensaje te espera.</span></p>
     <a href="#form" class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl" onclick="trackEngagement('footer_cta')">Quiero mi primer mes gratis</a>
-    <div class="mt-8"><a href="https://donate.stripe.com/9B66oJ8bI1E02U85aR24001" class="inline-block transition-colors text-sm font-medium" style="color:rgba(245,240,232,.22)" onmouseover="this.style.color='rgba(245,240,232,.55)'" onmouseout="this.style.color='rgba(245,240,232,.22)'" onclick="trackEngagement('donate_link')">💝 Apoyar el proyecto</a></div>
     <div class="mt-16 text-xs space-y-4" style="color:rgba(245,240,232,.15)">
       <img src="./trigguiletrasblanco.png" alt="Triggui" class="h-6 w-auto mx-auto opacity-30 hover:opacity-50 transition-opacity" loading="lazy"/>
       <p>© 2026 Triggui</p>
