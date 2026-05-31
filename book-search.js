@@ -192,17 +192,32 @@
     const out = [];
     for (const item of items) {
       if (!item) continue;
-      const titleRel = titleQN ? fieldRelevance(titleQN, stripEdges(normalize(item.titulo))) : 0;
-      // Autor SOLO suma si el usuario escribió autor (sin fantasma). Si no, 0.
-      const authorRel = authorQN ? fieldRelevance(authorQN, stripEdges(normalize(item.autor))) : 0;
+      const itemTitleN = stripEdges(normalize(item.titulo));
+      const itemAuthorN = stripEdges(normalize(item.autor));
 
-      // Mostrar si el título alcanza el piso (o, con autor escrito, combinación fuerte)
-      const passTitle = titleRel >= floor;
-      const passCombo = authorQN && (titleRel * 0.6 + authorRel * 0.4) >= floor && titleRel >= 0.4;
-      if (!passTitle && !passCombo) continue;
+      let titleRel, authorRel, passTitle, passCombo, score;
 
-      // Score para ORDENAR: título manda; autor desempata/sube si fue escrito.
-      const score = authorQN ? (titleRel * 0.7 + authorRel * 0.3) : titleRel;
+      if (authorQN) {
+        // El usuario separó con "|": título a la izquierda, autor a la derecha.
+        titleRel = titleQN ? fieldRelevance(titleQN, itemTitleN) : 0;
+        authorRel = fieldRelevance(authorQN, itemAuthorN);
+        passTitle = titleRel >= floor;
+        passCombo = (titleRel * 0.6 + authorRel * 0.4) >= floor && titleRel >= 0.4;
+        if (!passTitle && !passCombo) continue;
+        score = titleRel * 0.7 + authorRel * 0.3;
+      } else {
+        // Sin "|": el texto puede ser TÍTULO o AUTOR. Probamos ambos y nos
+        // quedamos con el mejor — así "tu momento" (título) y "victor hugo"
+        // (autor) funcionan igual, sin que tú sepas cuál es cuál.
+        const relAsTitle = fieldRelevance(titleQN, itemTitleN);
+        const relAsAuthor = fieldRelevance(titleQN, itemAuthorN);
+        titleRel = relAsTitle;
+        authorRel = relAsAuthor;
+        const best = Math.max(relAsTitle, relAsAuthor);
+        if (best < floor) continue;
+        score = best;
+      }
+
       out.push({ item: item, score: score, titleRel: titleRel, authorRel: authorRel });
     }
 

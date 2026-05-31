@@ -481,7 +481,7 @@
         ranked.forEach(function (r, i) {
           var it = r.item;
           var tHtml = window.BookSearch.highlight(it.titulo, q);
-          var aHtml = window.BookSearch.highlight(it.autor, q.indexOf('|') !== -1 ? q.split('|').slice(1).join('|') : '');
+          var aHtml = window.BookSearch.highlight(it.autor, q.indexOf('|') !== -1 ? q.split('|').slice(1).join('|') : q);
           var badge = (it.num != null) ? ('<span class="sr-badge">#' + String(it.num).padStart(3, '0') + '</span>') : '';
           html += '<div class="sr-item" data-idx="' + i + '">' +
                     '<span class="sr-text"><span class="sr-titulo">' + tHtml + '</span>' +

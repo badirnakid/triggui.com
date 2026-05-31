@@ -775,7 +775,7 @@
         let html = '<div class="lp-header">' + header + '</div>';
         ranked.forEach(function (r) {
           const tHtml = window.BookSearch.highlight(r.item.titulo, query);
-          const aHtml = window.BookSearch.highlight(r.item.autor, a || '');
+          const aHtml = window.BookSearch.highlight(r.item.autor, a ? a : t);
           html += '<div class="lp-item">· ' + tHtml + ' — ' + aHtml + '</div>';
         });
         lp.innerHTML = html;
