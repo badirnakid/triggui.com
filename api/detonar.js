@@ -69,6 +69,7 @@ const MODOS_VALIDOS = [
   '🌍 Triggui busca el del mundo',
   '🎲 Batch para la app',
   '🧪 Batch shadow (no toca app)',
+  '🔁 Reconstruir imágenes (sin LLM)',
 ];
 
 const BOOLEAN_KEYS = new Set([
@@ -123,13 +124,15 @@ export default async function handler(req, res) {
 
   // 3. Validaciones por modo
   const esLibro = modo === '📘 Un libro específico';
+  const esReconstruir = modo === '🔁 Reconstruir imágenes (sin LLM)';
+  const necesitaLibro = esLibro || esReconstruir;
   const esBatch = modo === '🎲 Batch para la app' || modo === '🧪 Batch shadow (no toca app)';
   const libroInput = sanitizeStr(body.libro_input, STRING_MAXLEN.libro_input);
 
-  if (esLibro && !libroInput) {
-    return res.status(400).json({ error: 'Para “📘 Un libro específico” necesitas el campo “Título | Autor”.' });
+  if (necesitaLibro && !libroInput) {
+    return res.status(400).json({ error: 'Para este modo necesitas el campo “Título | Autor”.' });
   }
-  if (esLibro && !libroInput.includes('|')) {
+  if (necesitaLibro && !libroInput.includes('|')) {
     return res.status(400).json({ error: 'Formato del libro: Título | Autor (con la barra |).' });
   }
 
@@ -150,7 +153,7 @@ export default async function handler(req, res) {
   // strings / choices
   setIfChanged('catalogo', body.catalogo);
   setIfChanged('batch_size', esBatch ? body.batch_size : undefined);
-  setIfChanged('libro_input', esLibro ? libroInput : undefined);
+  setIfChanged('libro_input', necesitaLibro ? libroInput : undefined);
   setIfChanged('sentimiento', body.sentimiento);
   setIfChanged('lente', body.lente);
   setIfChanged('nota_libro', body.nota_libro);

@@ -260,6 +260,11 @@
             <span class="mc-text"><span class="mc-title">Batch shadow</span><span class="mc-sub">prueba, no toca la app</span></span>
             <span class="mc-check"></span>
           </div>
+          <div class="mode-card" data-modo="🔁 Reconstruir imágenes (sin LLM)">
+            <span class="emoji">🔁</span>
+            <span class="mc-text"><span class="mc-title">Reconstruir imágenes</span><span class="mc-sub">misma edición · sin LLM · idéntica</span></span>
+            <span class="mc-check"></span>
+          </div>
         </div>
       </div>
 
@@ -545,10 +550,11 @@
       var fieldBatch = document.getElementById('field-batch');
 
       function refreshConditionals() {
-        var esLibro = modoSel === '📘 Un libro específico';
+        var esReconstruir = modoSel === '🔁 Reconstruir imágenes (sin LLM)';
+        var mostrarLibro = modoSel === '📘 Un libro específico' || esReconstruir;
         var esSent = modoSel === '💭 Triggui elige de catálogo' || modoSel === '🌍 Triggui busca el del mundo';
         var esBatch = modoSel === '🎲 Batch para la app' || modoSel === '🧪 Batch shadow (no toca app)';
-        fieldLibro.classList.toggle('hidden', !esLibro);
+        fieldLibro.classList.toggle('hidden', !mostrarLibro);
         fieldSent.classList.toggle('hidden', !esSent);
         fieldBatch.classList.toggle('hidden', !esBatch);
       }
@@ -560,8 +566,8 @@
         card.classList.add('selected');
         modoSel = card.getAttribute('data-modo');
         refreshConditionals();
-        // Selector solo aplica a 📘; al salir de 📘, limpiar regen y lista
-        if (modoSel !== '📘 Un libro específico') {
+        // Selector aplica a 📘 y a 🔁 (ambos eligen una edición existente)
+        if (modoSel !== '📘 Un libro específico' && modoSel !== '🔁 Reconstruir imágenes (sin LLM)') {
           clearRegen();
           elResults.classList.remove('active'); elResults.innerHTML = '';
         } else {
@@ -601,9 +607,11 @@
         if (!llave) { showFeedback('error', 'Falta la llave.'); return; }
 
         var esLibro = modoSel === '📘 Un libro específico';
+        var esReconstruir = modoSel === '🔁 Reconstruir imágenes (sin LLM)';
+        var necesitaLibro = esLibro || esReconstruir;
         var libro = val('libro_input');
-        if (esLibro && !libro) { showFeedback('error', 'Para 📘 necesitas el libro: Título | Autor.'); return; }
-        if (esLibro && libro.indexOf('|') === -1) { showFeedback('error', 'Formato del libro: Título | Autor (con la barra |).'); return; }
+        if (necesitaLibro && !libro) { showFeedback('error', 'Necesitas el libro: Título | Autor.'); return; }
+        if (necesitaLibro && libro.indexOf('|') === -1) { showFeedback('error', 'Formato del libro: Título | Autor (con la barra |).'); return; }
 
         var payload = {
           llave: llave,
