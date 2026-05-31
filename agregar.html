@@ -615,7 +615,15 @@
         transition-duration: 0.01ms !important;
       }
     }
+    .live-preview .lp-item mark {
+      background: #FCE7A6;
+      color: inherit;
+      border-radius: 2px;
+      padding: 0 1px;
+      font-weight: 700;
+    }
   </style>
+  <script src="/book-search.js"></script>
 </head>
 <body>
   <div class="container">
@@ -744,37 +752,31 @@
           return;
         }
 
-        // Comparar contra catálogo, top 3 más cercanos (si score >= 0.6)
-        const matches = [];
-        for (const libro of catalogo) {
-          const r = compararLibros(t, a || libro.autor, libro.titulo, libro.autor);
-          if (r.tier || r.sC >= 60) {
-            matches.push({ libro, ...r });
-          }
-        }
-        matches.sort((x, y) => y.sC - x.sC);
-        const top = matches.slice(0, 3);
+        // 🌒 NIVEL DIOS: BookSearch ORDENA (no juzga). Sin autor-fantasma, sin
+        // umbral inflado: solo muestra lo que de verdad se parece, resaltado.
+        // Si nada se parece → silencio (no "libros que ni se parecen").
+        if (!window.BookSearch) { lp.classList.remove('active'); lp.innerHTML = ''; return; }
+        const query = a ? (t + ' | ' + a) : t;
+        const ranked = window.BookSearch.rank(query, catalogo, { floor: 0.6, limit: 4 });
 
-        if (top.length === 0) {
+        if (ranked.length === 0) {
           lp.classList.remove('active');
           lp.innerHTML = '';
           return;
         }
 
         lp.classList.add('active');
-        const hasExact = top.some(m => m.tier === 'exact');
-        const hasMuy = top.some(m => m.tier === 'muy_similar');
-
-        const header = hasExact
-          ? 'YA EXISTE EN EL CATÁLOGO'
-          : hasMuy
-            ? 'POSIBLE DUPLICADO'
-            : 'LIBROS PARECIDOS YA EN CATÁLOGO';
+        // Solo gritamos "ya existe" si el match es casi perfecto (substring/exacto)
+        const topRel = ranked[0].titleRel;
+        const header = topRel >= 0.97
+          ? 'YA ESTÁ EN EL CATÁLOGO'
+          : '¿Te refieres a alguno de estos?';
 
         let html = '<div class="lp-header">' + header + '</div>';
-        top.forEach(function(m) {
-          html += '<div class="lp-item">· ' + escapeHtml(m.libro.titulo) + ' — ' + escapeHtml(m.libro.autor);
-          html += '<span class="lp-score">(' + m.sC + '%)</span></div>';
+        ranked.forEach(function (r) {
+          const tHtml = window.BookSearch.highlight(r.item.titulo, query);
+          const aHtml = window.BookSearch.highlight(r.item.autor, a || '');
+          html += '<div class="lp-item">· ' + tHtml + ' — ' + aHtml + '</div>';
         });
         lp.innerHTML = html;
       }

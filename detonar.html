@@ -172,7 +172,53 @@
     @keyframes spin { to { transform: rotate(360deg); } }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
     @media (max-width: 360px) { .row .field-key { width: 100px; } h1 { font-size: 22px; } }
+
+    /* ── Buscador de ediciones existentes (selector nivel dios) ── */
+    .libro-search-wrap { position: relative; }
+    .search-results {
+      margin-top: 6px; border-radius: 10px; overflow: hidden;
+      border: 1.5px solid #E4E2DE; background: #FFFFFF; display: none;
+    }
+    .search-results.active { display: block; }
+    .sr-header {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      color: #8C6510; background: #FFF8E7; padding: 8px 13px; border-bottom: 1px solid #F0E6CC;
+    }
+    .sr-item {
+      display: flex; align-items: center; gap: 10px; padding: 11px 13px; cursor: pointer;
+      border-bottom: 1px solid #F2F1ED; transition: background .12s; -webkit-tap-highlight-color: transparent;
+    }
+    .sr-item:last-child { border-bottom: none; }
+    .sr-item:hover, .sr-item.kbd { background: #FFFBF2; }
+    .sr-item:active { background: #FFF3D9; }
+    .sr-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .sr-titulo { font-size: 15px; font-weight: 600; color: #1A1A1A; line-height: 1.25; }
+    .sr-titulo mark { background: #FCE7A6; color: inherit; border-radius: 2px; padding: 0 1px; }
+    .sr-autor { font-size: 12.5px; color: #777; line-height: 1.25; }
+    .sr-autor mark { background: #FCE7A6; color: inherit; border-radius: 2px; padding: 0 1px; }
+    .sr-badge {
+      margin-left: auto; flex-shrink: 0; font-size: 11px; font-weight: 700; color: #8C6510;
+      background: rgba(232,168,56,.15); padding: 2px 7px; border-radius: 999px;
+    }
+    .sr-loading { padding: 11px 13px; font-size: 13px; color: #999; font-style: italic; }
+    /* Chip "regenerando" cuando seleccionas una edición existente */
+    .regen-chip {
+      display: none; align-items: center; gap: 9px; margin-top: 8px;
+      padding: 11px 13px; border-radius: 10px;
+      background: linear-gradient(135deg, #FFFEF7 0%, #FFF5E0 100%);
+      border: 1.5px solid rgba(232,168,56,.5);
+    }
+    .regen-chip.active { display: flex; }
+    .regen-chip .rc-ico { font-size: 17px; flex-shrink: 0; }
+    .regen-chip .rc-text { font-size: 13.5px; color: #5C4708; line-height: 1.35; min-width: 0; }
+    .regen-chip .rc-text strong { color: #1A1A1A; }
+    .regen-chip .rc-url { font-size: 11.5px; color: #997B33; font-family: ui-monospace, Menlo, monospace; }
+    .regen-chip .rc-clear {
+      margin-left: auto; flex-shrink: 0; cursor: pointer; border: none; background: transparent;
+      color: #997B33; font-size: 18px; line-height: 1; padding: 2px 4px; -webkit-tap-highlight-color: transparent;
+    }
   </style>
+  <script src="/book-search.js"></script>
 </head>
 <body>
   <div class="container">
@@ -219,7 +265,16 @@
       <!-- CONDICIONAL: libro (📘) -->
       <div class="field hidden" id="field-libro">
         <label class="lbl" for="libro_input">Libro <span style="color:#999;font-weight:400">· Título | Autor</span></label>
-        <input type="text" id="libro_input" placeholder="Deep Work | Cal Newport" maxlength="200" autocapitalize="words">
+        <div class="libro-search-wrap">
+          <input type="text" id="libro_input" placeholder="Deep Work | Cal Newport" maxlength="200" autocapitalize="words" autocomplete="off">
+          <div class="search-results" id="searchResults"></div>
+          <div class="regen-chip" id="regenChip">
+            <span class="rc-ico">♻️</span>
+            <span class="rc-text" id="regenChipText"></span>
+            <button type="button" class="rc-clear" id="regenChipClear" title="Quitar">✕</button>
+          </div>
+        </div>
+        <div style="font-size:12px;color:#AAA;margin-top:5px">Si ya existe, tócala para regenerarla (misma URL). Si es nueva, escribe <b>Título | Autor</b>.</div>
       </div>
 
       <!-- CONDICIONAL: sentimiento (💭/🌍) -->
@@ -349,6 +404,121 @@
     (function () {
       'use strict';
 
+      // ════════════════════════════════════════════════════════════════
+      // SELECTOR DE EDICIONES EXISTENTES (nivel dios)
+      // ════════════════════════════════════════════════════════════════
+      // Busca contra las ediciones YA generadas (contenido.json). El matcher
+      // difuso (BookSearch) solo ORDENA; tú reconoces y tocas. Tocar rellena
+      // "Título | Autor" EXACTO como está guardado → al detonar, encimado
+      // limpio garantizado (mismo #, misma URL). Cero LLM, determinista.
+      var EDICIONES_URL = 'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido.json';
+      var ediciones = [];
+      var edicionesReady = false;
+      var elLibro = document.getElementById('libro_input');
+      var elResults = document.getElementById('searchResults');
+      var elChip = document.getElementById('regenChip');
+      var elChipText = document.getElementById('regenChipText');
+      var elChipClear = document.getElementById('regenChipClear');
+      var selectedEdition = null; // si != null, es regen de una edición existente
+
+      async function loadEdiciones() {
+        try {
+          var res = await fetch(EDICIONES_URL, { cache: 'default' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          var data = await res.json();
+          ediciones = (data && Array.isArray(data.libros) ? data.libros : [])
+            .filter(function (b) { return b && b.titulo && b.autor; })
+            .map(function (b) {
+              return {
+                titulo: String(b.titulo).trim(),
+                autor: String(b.autor).trim(),
+                num: (typeof b._edicion_numero === 'number') ? b._edicion_numero : null
+              };
+            });
+          edicionesReady = true;
+          renderResults();
+        } catch (err) {
+          edicionesReady = false; // si falla, el campo sigue 100% usable a mano
+        }
+      }
+
+      function clearRegen() {
+        selectedEdition = null;
+        elChip.classList.remove('active');
+        elChipText.innerHTML = '';
+      }
+
+      function renderResults() {
+        if (!window.BookSearch) { elResults.classList.remove('active'); return; }
+        var q = elLibro.value.trim();
+        // Si lo que está escrito YA es exactamente la edición seleccionada, no molestar
+        if (selectedEdition && q === (selectedEdition.titulo + ' | ' + selectedEdition.autor)) {
+          elResults.classList.remove('active'); elResults.innerHTML = ''; return;
+        }
+        if (!edicionesReady || q.length < 2) { elResults.classList.remove('active'); elResults.innerHTML = ''; return; }
+
+        var ranked = window.BookSearch.rank(q, ediciones, { floor: 0.55, limit: 6 });
+        if (!ranked.length) { elResults.classList.remove('active'); elResults.innerHTML = ''; return; }
+
+        var html = '<div class="sr-header">Ediciones que ya generaste · tócala para regenerar</div>';
+        ranked.forEach(function (r, i) {
+          var it = r.item;
+          var tHtml = window.BookSearch.highlight(it.titulo, q);
+          var aHtml = window.BookSearch.highlight(it.autor, q.indexOf('|') !== -1 ? q.split('|').slice(1).join('|') : '');
+          var badge = (it.num != null) ? ('<span class="sr-badge">#' + String(it.num).padStart(3, '0') + '</span>') : '';
+          html += '<div class="sr-item" data-idx="' + i + '">' +
+                    '<span class="sr-text"><span class="sr-titulo">' + tHtml + '</span>' +
+                    '<span class="sr-autor">' + aHtml + '</span></span>' + badge + '</div>';
+        });
+        elResults.innerHTML = html;
+        elResults.classList.add('active');
+
+        // Guardar el ranking actual para el tap
+        elResults._ranked = ranked;
+      }
+
+      function selectEdition(ed) {
+        selectedEdition = ed;
+        elLibro.value = ed.titulo + ' | ' + ed.autor; // forma EXACTA → match perfecto
+        elResults.classList.remove('active'); elResults.innerHTML = '';
+        var slug = window.BookSearch ? window.BookSearch.slugify(ed.titulo) : '';
+        var numTxt = (ed.num != null) ? (' · edición #' + String(ed.num).padStart(3, '0')) : '';
+        elChipText.innerHTML = 'Regenerará <strong>' + window.BookSearch.escapeHtml(ed.titulo) + '</strong>' + numTxt +
+          ' — todo nuevo, <strong>misma URL</strong>.<br><span class="rc-url">/t/' + window.BookSearch.escapeHtml(slug) + '/</span>';
+        elChip.classList.add('active');
+      }
+
+      elResults.addEventListener('click', function (e) {
+        var item = e.target.closest('.sr-item');
+        if (!item || !elResults._ranked) return;
+        var idx = parseInt(item.getAttribute('data-idx'), 10);
+        var r = elResults._ranked[idx];
+        if (r && r.item) selectEdition(r.item);
+      });
+
+      elChipClear.addEventListener('click', function () {
+        clearRegen();
+        elLibro.value = '';
+        elLibro.focus();
+        renderResults();
+      });
+
+      // Si editas el campo a mano, dejas de "regenerar lo seleccionado"
+      var srTimer = null;
+      elLibro.addEventListener('input', function () {
+        if (selectedEdition && elLibro.value.trim() !== (selectedEdition.titulo + ' | ' + selectedEdition.autor)) {
+          clearRegen();
+        }
+        clearTimeout(srTimer);
+        srTimer = setTimeout(renderResults, 160);
+      });
+      // Cerrar la lista al tocar fuera
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('#field-libro')) { elResults.classList.remove('active'); }
+      });
+
+      loadEdiciones();
+
       var modoSel = '📘 Un libro específico';
       var catSel = 'adulto';
 
@@ -372,6 +542,13 @@
         card.classList.add('selected');
         modoSel = card.getAttribute('data-modo');
         refreshConditionals();
+        // Selector solo aplica a 📘; al salir de 📘, limpiar regen y lista
+        if (modoSel !== '📘 Un libro específico') {
+          clearRegen();
+          elResults.classList.remove('active'); elResults.innerHTML = '';
+        } else {
+          renderResults();
+        }
       }
       cards.forEach(function (card) {
         card.addEventListener('click', function () { selectMode(card); });
