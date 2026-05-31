@@ -746,7 +746,8 @@
         const t = document.getElementById('titulo').value.trim();
         const a = document.getElementById('autor').value.trim();
 
-        if (!t || t.length < 3) {
+        // Arranca si título O autor tienen ≥3 chars (puedes buscar por cualquiera)
+        if (t.length < 3 && a.length < 3) {
           lp.classList.remove('active');
           lp.innerHTML = '';
           return;
@@ -756,7 +757,11 @@
         // umbral inflado: solo muestra lo que de verdad se parece, resaltado.
         // Si nada se parece → silencio (no "libros que ni se parecen").
         if (!window.BookSearch) { lp.classList.remove('active'); lp.innerHTML = ''; return; }
-        const query = a ? (t + ' | ' + a) : t;
+        // Query: si hay ambos, "Título | Autor"; si solo uno, ese (busca en
+        // título Y autor automáticamente). Así filtras escribiendo cualquiera.
+        let query;
+        if (t && a) query = t + ' | ' + a;
+        else query = t || a;
         const ranked = window.BookSearch.rank(query, catalogo, { floor: 0.6, limit: 4 });
 
         if (ranked.length === 0) {
@@ -774,8 +779,11 @@
 
         let html = '<div class="lp-header">' + header + '</div>';
         ranked.forEach(function (r) {
-          const tHtml = window.BookSearch.highlight(r.item.titulo, query);
-          const aHtml = window.BookSearch.highlight(r.item.autor, a ? a : t);
+          // Resaltar cada campo con el texto que le corresponda:
+          // título con la query de título (o autor si solo hay autor), y autor
+          // con la query de autor (o título si solo hay título). Así marca donde toca.
+          const tHtml = window.BookSearch.highlight(r.item.titulo, t || a);
+          const aHtml = window.BookSearch.highlight(r.item.autor, a || t);
           html += '<div class="lp-item">· ' + tHtml + ' — ' + aHtml + '</div>';
         });
         lp.innerHTML = html;
