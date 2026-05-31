@@ -774,8 +774,8 @@
         // Solo gritamos "ya existe" si el match es casi perfecto (substring/exacto)
         const topRel = ranked[0].titleRel;
         const header = topRel >= 0.97
-          ? 'YA ESTÁ EN EL CATÁLOGO'
-          : '¿Te refieres a alguno de estos?';
+          ? 'Este ya lo tenemos en la base :)'
+          : 'Parecidos que ya tenemos en la base:';
 
         let html = '<div class="lp-header">' + header + '</div>';
         ranked.forEach(function (r) {
