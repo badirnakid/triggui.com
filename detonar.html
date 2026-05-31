@@ -411,9 +411,12 @@
       // difuso (BookSearch) solo ORDENA; tú reconoces y tocas. Tocar rellena
       // "Título | Autor" EXACTO como está guardado → al detonar, encimado
       // limpio garantizado (mismo #, misma URL). Cero LLM, determinista.
-      var EDICIONES_URL = 'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido.json';
+      // Fuente: endpoint propio ligero (lee contenido.json del lado servidor,
+      // devuelve solo titulo/autor/num — unos KB, sin caché de terceros).
+      var EDICIONES_URL = '/api/ediciones';
       var ediciones = [];
       var edicionesReady = false;
+      var edicionesError = '';
       var elLibro = document.getElementById('libro_input');
       var elResults = document.getElementById('searchResults');
       var elChip = document.getElementById('regenChip');
@@ -426,19 +429,26 @@
           var res = await fetch(EDICIONES_URL, { cache: 'default' });
           if (!res.ok) throw new Error('HTTP ' + res.status);
           var data = await res.json();
-          ediciones = (data && Array.isArray(data.libros) ? data.libros : [])
+          if (!data || !data.ok || !Array.isArray(data.ediciones)) {
+            throw new Error((data && data.error) ? data.error : 'respuesta inesperada');
+          }
+          ediciones = data.ediciones
             .filter(function (b) { return b && b.titulo && b.autor; })
             .map(function (b) {
               return {
                 titulo: String(b.titulo).trim(),
                 autor: String(b.autor).trim(),
-                num: (typeof b._edicion_numero === 'number') ? b._edicion_numero : null
+                num: (typeof b.num === 'number') ? b.num : null
               };
             });
           edicionesReady = true;
+          edicionesError = '';
           renderResults();
         } catch (err) {
-          edicionesReady = false; // si falla, el campo sigue 100% usable a mano
+          // Ya NO silencioso: avisa, pero el campo sigue 100% usable a mano.
+          edicionesReady = false;
+          edicionesError = (err && err.message) ? err.message : String(err);
+          console.warn('[detonar] no se pudo cargar /api/ediciones:', edicionesError);
         }
       }
 
@@ -454,6 +464,13 @@
         // Si lo que está escrito YA es exactamente la edición seleccionada, no molestar
         if (selectedEdition && q === (selectedEdition.titulo + ' | ' + selectedEdition.autor)) {
           elResults.classList.remove('active'); elResults.innerHTML = ''; return;
+        }
+        // Si la carga de ediciones falló, avisarlo (no callar) — campo sigue usable
+        if (!edicionesReady && edicionesError && q.length >= 2) {
+          elResults.innerHTML = '<div class="sr-loading">No se pudo cargar la lista de ediciones (' +
+            window.BookSearch.escapeHtml(edicionesError) + '). Puedes escribir el libro a mano igual.</div>';
+          elResults.classList.add('active');
+          return;
         }
         if (!edicionesReady || q.length < 2) { elResults.classList.remove('active'); elResults.innerHTML = ''; return; }
 
