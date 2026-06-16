@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Triggui · /in — Preview LinkedIn</title>
+<title>Triggui · /in — Preparar post LinkedIn</title>
 <style>
   :root{
     --bg:#f4f2ee; --card:#fff; --ink:#1d2226; --muted:#5f6b7a; --line:#e6e0d6;
-    --accent:#0a66c2; --accentbg:#eaf3fc; --ok:#0a7d2b; --warn:#8a6d00; --warnbg:#fbf3d6;
+    --accent:#0a66c2; --accentbg:#eaf3fc; --ok:#0a7d2b; --okbg:#e7f6ec; --warn:#8a6d00; --warnbg:#fbf3d6;
     --radius:12px; --shadow:0 1px 3px rgba(0,0,0,.08),0 6px 24px rgba(0,0,0,.04);
   }
   *{box-sizing:border-box}
@@ -25,12 +25,12 @@
   .panel h2{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
     margin:0;padding:14px 16px;border-bottom:1px solid var(--line);background:#fafafa}
   .panel .body{padding:16px}
-  .seg{display:flex;gap:8px;margin-bottom:14px}
+  .seg{display:flex;gap:8px;margin-bottom:6px}
   .seg button{flex:1;padding:10px 8px;border:1px solid var(--line);background:#fff;border-radius:10px;
     cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:.12s}
   .seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentbg);color:var(--accent)}
-  .seg button small{display:block;font-weight:400;font-size:11px;margin-top:2px;opacity:.8}
-  label.field{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:14px 0 6px}
+  .seg button small{display:block;font-weight:400;font-size:11px;margin-top:2px;opacity:.85}
+  label.field{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:16px 0 6px}
   .frase-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);
     border-radius:10px;margin-bottom:8px;cursor:pointer;font-size:13.5px;transition:.12s;background:#fff}
   .frase-opt:hover{border-color:#cfd6dd}
@@ -38,7 +38,7 @@
   .frase-opt input{margin-top:3px;accent-color:var(--accent)}
   .frase-opt .tag{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
     border:1px solid var(--line);border-radius:6px;padding:1px 5px;margin-left:auto;white-space:nowrap}
-  .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin-top:6px;cursor:pointer}
+  .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin-top:10px;cursor:pointer}
   .toggle input{accent-color:var(--accent);width:16px;height:16px}
   .hint{font-size:12px;color:var(--muted);margin-top:10px}
   .li{max-width:480px;margin:0 auto;background:#fff;border:1px solid #e0dfdc;border-radius:10px;overflow:hidden;
@@ -51,7 +51,6 @@
   .li-id .h{color:var(--muted);font-size:12px;line-height:1.3}
   .li-id .t{color:var(--muted);font-size:12px}
   .li-body{padding:8px 12px 0;white-space:pre-wrap;word-wrap:break-word}
-  .li-link-cap{color:var(--accent)}
   .li-img{margin-top:10px;display:block;width:100%;background:#eef1f3}
   .li-img img{display:block;width:100%}
   .li-crop-note{font-size:11px;color:var(--muted);padding:4px 12px 0}
@@ -67,18 +66,27 @@
   .box{border-radius:10px;padding:14px 16px;font-size:14px}
   .box.warn{background:var(--warnbg);color:var(--warn);border:1px solid #ecd98a}
   .box.info{background:var(--accentbg);color:var(--accent);border:1px solid #bcdcfa}
-  .pub{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
-  .pub button{padding:11px 18px;border-radius:24px;border:none;font-weight:650;font-size:14px;cursor:not-allowed;
-    background:#e9e9e9;color:#9aa0a6}
-  .pub .note{font-size:12px;color:var(--muted);width:100%;margin-top:2px}
-  .meta-row{font-size:12px;color:var(--muted);margin-bottom:12px}
+  .btn-prep{width:100%;margin-top:18px;padding:13px 18px;border-radius:10px;border:none;font-weight:700;font-size:15px;
+    cursor:pointer;background:var(--accent);color:#fff;transition:.12s}
+  .btn-prep:hover{background:#08538f}
+  .btn-prep:disabled{background:#e9e9e9;color:#9aa0a6;cursor:not-allowed}
+  .feedback{margin-top:14px;border-radius:10px;border:1px solid #bfe4cb;background:var(--okbg);padding:12px 14px;font-size:13.5px;display:none}
+  .feedback.show{display:block}
+  .feedback ul{margin:4px 0 8px;padding-left:18px}
+  .feedback li{margin:2px 0;color:var(--ok)}
+  .feedback .todo{color:var(--ink);font-weight:600;margin-top:6px}
+  .fallback{margin-top:10px;display:none}
+  .fallback textarea{width:100%;height:70px;font-size:12.5px;padding:8px;border:1px solid var(--line);border-radius:8px}
+  .meta-row{font-size:12px;color:var(--muted);margin-bottom:14px}
   .meta-row b{color:var(--ink)}
+  .reco{font-size:11px;color:var(--ok);font-weight:600;margin-top:2px}
+  .devhint{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
 </style>
 </head>
 <body>
   <header>
     <h1>Triggui · /in</h1>
-    <p>Preview de cómo se verá la última edición publicada en tu perfil de LinkedIn. Elige la frase y la opción; el preview se actualiza solo.</p>
+    <p>Prepara el post de la última edición para tu perfil de LinkedIn. Un click te deja todo listo — solo pegas y publicas.</p>
   </header>
 
   <div id="status" class="box info">Cargando la última edición…</div>
@@ -88,17 +96,33 @@
       <h2>Componer</h2>
       <div class="body">
         <div class="meta-row" id="metaRow"></div>
-        <label class="field">Opción de publicación</label>
-        <div class="seg" id="segOpt">
-          <button data-opt="A" aria-pressed="true">Opción A<small>Tarjeta como imagen + link</small></button>
-          <button data-opt="B" aria-pressed="false">Opción B<small>Link con tarjeta OG</small></button>
+
+        <label class="field">Modo de publicación</label>
+        <div class="seg" id="segMode">
+          <button data-mode="img" aria-pressed="true">Imagen nativa<small>máximo reach · sin link</small></button>
+          <button data-mode="link" aria-pressed="false">Link + card<small>~19% menos reach</small></button>
         </div>
+        <div class="reco">✓ Recomendado: imagen nativa. El link cuesta reach y tu misión (depositar algo bueno) ya vive en la frase + imagen.</div>
+
+        <div id="imgChoice">
+          <label class="field">¿Cuál imagen?</label>
+          <div class="seg" id="segImg">
+            <button data-img="og" aria-pressed="true">Horizontal (og)<small>se ve completa en el feed</small></button>
+            <button data-img="tarjeta" aria-pressed="false">Vertical (tarjeta)<small>se recorta en el feed</small></button>
+          </div>
+        </div>
+
         <label class="field">Copy (elige una frase)</label>
         <div id="fraseList"></div>
         <label class="toggle"><input type="checkbox" id="stripEmoji" checked /> Quitar emoji para LinkedIn (§13.9)</label>
-        <div class="pub">
-          <button id="btnPublish" disabled>Publicar en LinkedIn</button>
-          <div class="note">El botón se activa en el Paso 4, cuando conectemos el token de LinkedIn. Por ahora es solo preview.</div>
+
+        <button class="btn-prep" id="btnPrep">Preparar post para LinkedIn</button>
+        <div class="devhint" id="devHint"></div>
+
+        <div class="feedback" id="feedback"></div>
+        <div class="fallback" id="fallback">
+          <label class="field">No pude copiar solo — copia esto a mano:</label>
+          <textarea id="fallbackText" readonly></textarea>
         </div>
       </div>
     </section>
@@ -133,9 +157,16 @@
 
   const APP_BASE = "https://app.triggui.com";
   let EDICION = null;
-  let opt = "A";
+  let mode = "img";
+  let imgTipo = "og";
   let fraseSel = null;
+  let preparedFile = null;
+  let preparedKey = null;
 
+  function isMobileDevice(){
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
   function stripLeadEmoji(s){
     return String(s||"").replace(/^\p{Extended_Pictographic}\uFE0F?\s*/u, "").trim();
   }
@@ -151,13 +182,25 @@
     el.innerHTML = html;
     el.hidden = false;
   }
-
   function renderProfile(){
     document.getElementById("liName").textContent = PROFILE.name;
     document.getElementById("liHead").textContent = PROFILE.headline;
     const av = document.getElementById("liAv");
     if(PROFILE.avatar){ av.innerHTML = '<img src="'+PROFILE.avatar+'" alt="">'; }
     else { av.textContent = (PROFILE.name||"?").trim().charAt(0).toUpperCase(); }
+  }
+
+  async function prefetchImage(){
+    if(!EDICION || !EDICION.urls || mode !== "img"){ return; }
+    const key = EDICION.slug + ":" + imgTipo;
+    if(preparedKey === key && preparedFile){ return; }
+    try{
+      const resp = await fetch("/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imgTipo);
+      if(!resp.ok){ preparedFile = null; preparedKey = null; return; }
+      const blob = await resp.blob();
+      preparedFile = new File([blob], "triggui-" + EDICION.slug + "-" + imgTipo + ".png", { type: "image/png" });
+      preparedKey = key;
+    }catch(e){ preparedFile = null; preparedKey = null; }
   }
 
   function renderPreview(){
@@ -167,13 +210,19 @@
     const txt = copyText();
     const u = EDICION && EDICION.urls;
 
-    if(opt === "A"){
-      body.innerHTML = esc(txt) + (u ? '\n\n<span class="li-link-cap">'+esc(u.edicion)+'</span>' : "");
+    document.getElementById("imgChoice").style.display = (mode === "img") ? "" : "none";
+
+    if(mode === "img"){
+      body.innerHTML = esc(txt);
       if(u){
-        media.innerHTML =
-          '<div class="li-img"><img src="'+u.tarjeta+'" alt="tarjeta"></div>' +
-          '<div class="li-crop-note">LinkedIn recorta verticales en el feed; se ve completa al hacer click.</div>';
-        extra.textContent = "Recomendado: publicar la imagen nativa y poner el link en el PRIMER COMENTARIO para no perder alcance (eso lo hace el botón en el Paso 4).";
+        const src = (imgTipo === "og") ? u.og : u.tarjeta;
+        media.innerHTML = '<div class="li-img"><img src="'+src+'" alt="imagen"></div>';
+        if(imgTipo === "tarjeta"){
+          media.innerHTML += '<div class="li-crop-note">Vertical: LinkedIn la recorta en el feed; se ve completa al hacer click.</div>';
+          extra.textContent = "Post nativo sin link = máximo reach. La frase es el depósito; la imagen acompaña.";
+        } else {
+          extra.textContent = "Post nativo sin link = máximo reach. La horizontal se ve completa en el feed.";
+        }
       } else { media.innerHTML = ""; extra.textContent = ""; }
     } else {
       body.innerHTML = esc(txt);
@@ -181,12 +230,9 @@
         media.innerHTML =
           '<div class="li-og">' +
             '<div class="img"><img src="'+u.og+'" alt="og"></div>' +
-            '<div class="meta">' +
-              '<div class="ti">'+esc(EDICION.titulo)+'</div>' +
-              '<div class="dom">app.triggui.com</div>' +
-            '</div>' +
+            '<div class="meta"><div class="ti">'+esc(EDICION.titulo)+'</div><div class="dom">app.triggui.com</div></div>' +
           '</div>';
-        extra.textContent = "La imagen (og.png) es exacta. El título/descripción de la card los toma LinkedIn de los meta de la página al publicar.";
+        extra.textContent = "Con link LinkedIn arma la card desde og.png — pero cuesta ~19% de reach vs el post nativo.";
       } else { media.innerHTML = ""; extra.textContent = ""; }
     }
   }
@@ -199,11 +245,10 @@
     if(EDICION.parrafo) items.push({f:EDICION.parrafo, tag:"párrafo"});
     list.innerHTML = "";
     items.forEach((it,idx)=>{
-      const id = "fr"+idx;
       const div = document.createElement("label");
       div.className = "frase-opt";
       div.setAttribute("data-sel", idx===0 ? "1" : "0");
-      div.innerHTML = '<input type="radio" name="frase" id="'+id+'" '+(idx===0?"checked":"")+'>' +
+      div.innerHTML = '<input type="radio" name="frase" '+(idx===0?"checked":"")+'>' +
                       '<span>'+esc(it.f)+'</span><span class="tag">'+it.tag+'</span>';
       div.querySelector("input").addEventListener("change", ()=>{
         fraseSel = it.f;
@@ -216,18 +261,105 @@
     fraseSel = items.length ? items[0].f : null;
   }
 
+  function showFeedback(lines, todo){
+    const fb = document.getElementById("feedback");
+    fb.innerHTML = "<ul>" + lines.map(l=>"<li>"+esc(l)+"</li>").join("") + "</ul>" +
+                   "<div class='todo'>"+esc(todo)+"</div>";
+    fb.classList.add("show");
+  }
+  async function copyToClipboard(text){
+    try{
+      await navigator.clipboard.writeText(text);
+      return true;
+    }catch(e){
+      const fb = document.getElementById("fallback");
+      document.getElementById("fallbackText").value = text;
+      fb.style.display = "block";
+      document.getElementById("fallbackText").select();
+      return false;
+    }
+  }
+
+  async function prepararPost(){
+    if(!EDICION || !EDICION.urls){ return; }
+    const u = EDICION.urls;
+    const txt = copyText();
+    document.getElementById("fallback").style.display = "none";
+    const mobile = isMobileDevice();
+
+    if(mode === "img"){
+      if(mobile){
+        const key = EDICION.slug + ":" + imgTipo;
+        if(preparedKey !== key || !preparedFile){ await prefetchImage(); }
+        const ok = await copyToClipboard(txt);
+        if(navigator.canShare && preparedFile && navigator.canShare({ files:[preparedFile] })){
+          try{
+            await navigator.share({ text: txt, files:[preparedFile] });
+            showFeedback(
+              [ "Menú de compartir abierto con la imagen", (ok ? "Texto copiado como respaldo" : "Texto listo abajo") ],
+              "Elige LinkedIn. Si el texto no aparece, pégalo (ya está copiado) y publica."
+            );
+            return;
+          }catch(e){ if(e && e.name === "AbortError"){ return; } }
+        }
+      }
+      const ok = await copyToClipboard(txt);
+      const a = document.createElement("a");
+      a.href = "/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imgTipo;
+      a.download = "triggui-" + EDICION.slug + "-" + imgTipo + ".png";
+      document.body.appendChild(a); a.click(); a.remove();
+      window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
+      showFeedback(
+        [ (ok ? "Copy copiado al portapapeles" : "Copy listo abajo para copiar a mano"),
+          "Imagen descargada (" + imgTipo + ")", "LinkedIn abierto" ],
+        "Ahora: pega el copy (Ctrl/Cmd+V), adjunta la imagen descargada, y publica."
+      );
+    } else {
+      if(mobile && navigator.canShare && navigator.canShare({ url: u.edicion })){
+        const ok = await copyToClipboard(txt);
+        try{
+          await navigator.share({ text: txt, url: u.edicion });
+          showFeedback(
+            [ "Menú de compartir abierto con el link", (ok ? "Texto copiado como respaldo" : "Texto listo abajo") ],
+            "Elige LinkedIn. Pega/ajusta el texto si hace falta, y publica."
+          );
+          return;
+        }catch(e){ if(e && e.name === "AbortError"){ return; } }
+      }
+      const ok = await copyToClipboard(txt);
+      window.open("https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(u.edicion), "_blank");
+      showFeedback(
+        [ (ok ? "Copy copiado al portapapeles" : "Copy listo abajo para copiar a mano"),
+          "LinkedIn abierto con la card precargada" ],
+        "Ahora: pega el copy (puedes borrar el URL, la card se queda), y publica."
+      );
+    }
+  }
+
   function wireControls(){
-    document.getElementById("segOpt").addEventListener("click",(e)=>{
+    document.getElementById("segMode").addEventListener("click",(e)=>{
       const b = e.target.closest("button"); if(!b) return;
-      opt = b.dataset.opt;
-      document.querySelectorAll("#segOpt button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+      mode = b.dataset.mode;
+      document.querySelectorAll("#segMode button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
       renderPreview();
+      prefetchImage();
+    });
+    document.getElementById("segImg").addEventListener("click",(e)=>{
+      const b = e.target.closest("button"); if(!b) return;
+      imgTipo = b.dataset.img;
+      document.querySelectorAll("#segImg button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
+      renderPreview();
+      prefetchImage();
     });
     document.getElementById("stripEmoji").addEventListener("change", renderPreview);
+    document.getElementById("btnPrep").addEventListener("click", prepararPost);
   }
 
   async function init(){
     renderProfile();
+    document.getElementById("devHint").textContent = isMobileDevice()
+      ? "En tu cel: abre el menú de compartir → elige LinkedIn."
+      : "En compu: copia el texto, descarga la imagen y abre LinkedIn.";
     try{
       const r = await fetch("/api/in-edicion", {cache:"no-store"});
       const j = await r.json();
@@ -242,9 +374,11 @@
       wireControls();
 
       if(!EDICION.slug){
-        setStatus("Esta edición (<b>"+esc(EDICION.titulo)+"</b>) es anterior al cambio de slug, así que aún no tiene las URLs de imagen. Puedes ver y elegir el copy abajo; para el preview completo con tarjeta/og, despacha un <b>single nuevo</b> y recarga.", "warn");
+        setStatus("Esta edición (<b>"+esc(EDICION.titulo)+"</b>) es anterior al cambio de slug, así que aún no tiene imágenes/link. Despacha un <b>single nuevo</b> y recarga para preparar el post.", "warn");
+        document.getElementById("btnPrep").disabled = true;
       } else {
         document.getElementById("status").hidden = true;
+        prefetchImage();
       }
       document.getElementById("app").hidden = false;
       renderPreview();
