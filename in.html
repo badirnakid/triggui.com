@@ -26,10 +26,10 @@
     margin:0;padding:14px 16px;border-bottom:1px solid var(--line);background:#fafafa}
   .panel .body{padding:16px}
   .seg{display:flex;gap:8px;margin-bottom:6px}
-  .seg button{flex:1;padding:10px 8px;border:1px solid var(--line);background:#fff;border-radius:10px;
+  .seg button{flex:1;padding:10px 6px;border:1px solid var(--line);background:#fff;border-radius:10px;
     cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);transition:.12s}
   .seg button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentbg);color:var(--accent)}
-  .seg button small{display:block;font-weight:400;font-size:11px;margin-top:2px;opacity:.85}
+  .seg button small{display:block;font-weight:400;font-size:10.5px;margin-top:2px;opacity:.85}
   label.field{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:16px 0 6px}
   .frase-opt{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);
     border-radius:10px;margin-bottom:8px;cursor:pointer;font-size:13.5px;transition:.12s;background:#fff}
@@ -40,7 +40,13 @@
     border:1px solid var(--line);border-radius:6px;padding:1px 5px;margin-left:auto;white-space:nowrap}
   .toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin-top:10px;cursor:pointer}
   .toggle input{accent-color:var(--accent);width:16px;height:16px}
+  .toggle .warnpill{font-size:10px;color:var(--warn);background:var(--warnbg);border:1px solid #ecd98a;border-radius:6px;padding:1px 6px;margin-left:4px}
+  select.dd{width:100%;margin-top:6px;padding:9px 10px;border:1px solid var(--line);border-radius:9px;font-size:13px;background:#fff;color:var(--ink)}
   .hint{font-size:12px;color:var(--muted);margin-top:10px}
+  .counter{margin-top:12px;font-size:12px;padding:8px 10px;border-radius:8px;background:#fafafa;border:1px solid var(--line)}
+  .counter b{color:var(--ink)}
+  .counter.over{background:var(--warnbg);border-color:#ecd98a;color:var(--warn)}
+  .counter.ok{color:var(--ok)}
   .li{max-width:480px;margin:0 auto;background:#fff;border:1px solid #e0dfdc;border-radius:10px;overflow:hidden;
     font-size:14px;color:#1d2226}
   .li-head{display:flex;gap:8px;padding:12px 12px 0;align-items:center}
@@ -51,6 +57,9 @@
   .li-id .h{color:var(--muted);font-size:12px;line-height:1.3}
   .li-id .t{color:var(--muted);font-size:12px}
   .li-body{padding:8px 12px 0;white-space:pre-wrap;word-wrap:break-word}
+  .li-body .dim{color:#9aa3ad}
+  .li-body .vermas{color:var(--muted);font-weight:600}
+  .li-link-cap{color:var(--accent)}
   .li-img{margin-top:10px;display:block;width:100%;background:#eef1f3}
   .li-img img{display:block;width:100%}
   .li-crop-note{font-size:11px;color:var(--muted);padding:4px 12px 0}
@@ -81,12 +90,17 @@
   .meta-row b{color:var(--ink)}
   .reco{font-size:11px;color:var(--ok);font-weight:600;margin-top:2px}
   .devhint{font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+  .comment-box{margin-top:16px;border:1px dashed #cdd5dd;border-radius:10px;padding:12px;background:#fafbfc}
+  .comment-box .lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+  .comment-box .txt{font-size:13.5px;margin:6px 0 8px;color:var(--ink)}
+  .comment-box button{font-size:12px;font-weight:600;color:var(--accent);background:#eaf3fc;border:1px solid #bcdcfa;border-radius:8px;padding:6px 12px;cursor:pointer}
+  .comment-box .why{font-size:11px;color:var(--muted);margin-top:6px}
 </style>
 </head>
 <body>
   <header>
     <h1>Triggui · /in</h1>
-    <p>Prepara el post de la última edición para tu perfil de LinkedIn. Un click te deja todo listo — solo pegas y publicas.</p>
+    <p>Prepara el post de la última edición para tu perfil de LinkedIn. Arma el copy, elige el escenario, y un click te deja todo listo.</p>
   </header>
 
   <div id="status" class="box info">Cargando la última edición…</div>
@@ -97,27 +111,38 @@
       <div class="body">
         <div class="meta-row" id="metaRow"></div>
 
-        <label class="field">Modo de publicación</label>
-        <div class="seg" id="segMode">
-          <button data-mode="img" aria-pressed="true">Imagen nativa<small>máximo reach · sin link</small></button>
-          <button data-mode="link" aria-pressed="false">Link + card<small>~19% menos reach</small></button>
-        </div>
-        <div class="reco">✓ Recomendado: imagen nativa. El link cuesta reach y tu misión (depositar algo bueno) ya vive en la frase + imagen.</div>
-
-        <div id="imgChoice">
-          <label class="field">¿Cuál imagen?</label>
-          <div class="seg" id="segImg">
-            <button data-img="og" aria-pressed="true">Horizontal (og)<small>se ve completa en el feed</small></button>
-            <button data-img="tarjeta" aria-pressed="false">Vertical (tarjeta)<small>se recorta en el feed</small></button>
-          </div>
+        <label class="field">Imagen</label>
+        <div class="seg" id="segImg">
+          <button data-img="og" aria-pressed="true">Horizontal<small>og · se ve completa</small></button>
+          <button data-img="tarjeta" aria-pressed="false">Vertical<small>tarjeta · se recorta</small></button>
+          <button data-img="ninguna" aria-pressed="false">Ninguna<small>solo texto/link</small></button>
         </div>
 
-        <label class="field">Copy (elige una frase)</label>
+        <label class="toggle"><input type="checkbox" id="incluirLink" /> Incluir link de la edición <span class="warnpill">~19% reach</span></label>
+        <div class="reco">✓ Sin link = máximo reach. Tu misión (depositar algo bueno) ya vive en la frase + imagen.</div>
+
+        <label class="field">Frase principal</label>
         <div id="fraseList"></div>
+
+        <label class="toggle"><input type="checkbox" id="hookOn" /> Agregar gancho arriba <span style="font-size:10px;color:var(--muted);margin-left:4px">(para parar el scroll)</span></label>
+        <select class="dd" id="hookDd" style="display:none"></select>
+
+        <label class="toggle"><input type="checkbox" id="cierreOn" /> Agregar pregunta de cierre <span style="font-size:10px;color:var(--ok);margin-left:4px">(invita comentarios)</span></label>
+        <select class="dd" id="cierreDd" style="display:none"></select>
+
         <label class="toggle"><input type="checkbox" id="stripEmoji" checked /> Quitar emoji para LinkedIn (§13.9)</label>
+
+        <div class="counter" id="counter"></div>
 
         <button class="btn-prep" id="btnPrep">Preparar post para LinkedIn</button>
         <div class="devhint" id="devHint"></div>
+
+        <div class="comment-box" id="commentBox" style="display:none">
+          <div class="lbl">Primer comentario sugerido</div>
+          <div class="txt" id="commentTxt"></div>
+          <button id="btnCopyComment">Copiar comentario</button>
+          <div class="why">Pégalo como TU primer comentario al publicar — sube el engagement de la primera hora. Sin links (eso castiga).</div>
+        </div>
 
         <div class="feedback" id="feedback"></div>
         <div class="fallback" id="fallback">
@@ -149,38 +174,46 @@
   </main>
 
 <script>
-  const PROFILE = {
-    name: "Badir Nakid",
-    headline: "Fundador de Triggui",
-    avatar: ""
-  };
+  const PROFILE = { name: "Badir Nakid", headline: "Fundador de Triggui", avatar: "" };
+  const VERMAS_LIMIT = 210; // ~corte de "ver más" en el feed móvil
 
-  const APP_BASE = "https://app.triggui.com";
   let EDICION = null;
-  let mode = "img";
-  let imgTipo = "og";
+  let imagen = "og";        // 'og' | 'tarjeta' | 'ninguna'
+  let incluirLink = false;
   let fraseSel = null;
-  let preparedFile = null;
-  let preparedKey = null;
+  let hookOn = false, hookSel = null;
+  let cierreOn = false, cierreSel = null;
+  let preparedFile = null, preparedKey = null;
+  let allFrases = [];       // pool completo para dropdowns
 
   function isMobileDevice(){
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   }
-  function stripLeadEmoji(s){
-    return String(s||"").replace(/^\p{Extended_Pictographic}\uFE0F?\s*/u, "").trim();
-  }
-  function copyText(){
-    if(!fraseSel) return "";
-    return document.getElementById("stripEmoji").checked ? stripLeadEmoji(fraseSel) : fraseSel;
-  }
+  function stripLeadEmoji(s){ return String(s||"").replace(/^\p{Extended_Pictographic}\uFE0F?\s*/u, "").trim(); }
+  function applyStrip(s){ return document.getElementById("stripEmoji").checked ? stripLeadEmoji(s) : String(s||"").trim(); }
   function esc(s){return String(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+  // Arma el copy: [gancho] + frase principal + [pregunta de cierre]
+  function buildCopy(){
+    const parts = [];
+    if(hookOn && hookSel) parts.push(applyStrip(hookSel));
+    if(fraseSel) parts.push(applyStrip(fraseSel));
+    if(cierreOn && cierreSel) parts.push(applyStrip(cierreSel));
+    return parts.join("\n\n");
+  }
+  // Texto que va al post (con link en el cuerpo solo cuando hay imagen nativa + link)
+  function copyForPost(){
+    let t = buildCopy();
+    if(incluirLink && imagen !== "ninguna" && EDICION.urls){
+      t += "\n\n" + EDICION.urls.edicion;
+    }
+    return t;
+  }
 
   function setStatus(html, cls){
     const el = document.getElementById("status");
-    el.className = "box " + (cls||"info");
-    el.innerHTML = html;
-    el.hidden = false;
+    el.className = "box " + (cls||"info"); el.innerHTML = html; el.hidden = false;
   }
   function renderProfile(){
     document.getElementById("liName").textContent = PROFILE.name;
@@ -191,60 +224,81 @@
   }
 
   async function prefetchImage(){
-    if(!EDICION || !EDICION.urls || mode !== "img"){ return; }
-    const key = EDICION.slug + ":" + imgTipo;
+    if(!EDICION || !EDICION.urls || imagen === "ninguna"){ return; }
+    const key = EDICION.slug + ":" + imagen;
     if(preparedKey === key && preparedFile){ return; }
     try{
-      const resp = await fetch("/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imgTipo);
+      const resp = await fetch("/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imagen);
       if(!resp.ok){ preparedFile = null; preparedKey = null; return; }
       const blob = await resp.blob();
-      preparedFile = new File([blob], "triggui-" + EDICION.slug + "-" + imgTipo + ".png", { type: "image/png" });
+      preparedFile = new File([blob], "triggui-" + EDICION.slug + "-" + imagen + ".png", { type: "image/png" });
       preparedKey = key;
     }catch(e){ preparedFile = null; preparedKey = null; }
+  }
+
+  // Divide el texto en lo visible antes del "ver más" y lo oculto
+  function splitVerMas(text){
+    if(text.length <= VERMAS_LIMIT) return { visible: text, hidden: "" };
+    let cut = text.lastIndexOf(" ", VERMAS_LIMIT);
+    if(cut < VERMAS_LIMIT * 0.6) cut = VERMAS_LIMIT;
+    return { visible: text.slice(0, cut), hidden: text.slice(cut) };
+  }
+
+  function updateCounter(){
+    const bodyText = (imagen === "ninguna") ? buildCopy() : copyForPost();
+    const n = bodyText.length;
+    const c = document.getElementById("counter");
+    if(n > VERMAS_LIMIT){
+      c.className = "counter over";
+      c.innerHTML = "<b>"+n+" caracteres</b> · se corta en \u201C…ver más\u201D (~"+VERMAS_LIMIT+"). Tu gancho debe enganchar antes de ese punto.";
+    } else {
+      c.className = "counter ok";
+      c.innerHTML = "<b>"+n+" caracteres</b> · cabe completo antes del \u201Cver más\u201D. \u2713";
+    }
   }
 
   function renderPreview(){
     const body = document.getElementById("liBody");
     const media = document.getElementById("liMedia");
     const extra = document.getElementById("liExtra");
-    const txt = copyText();
     const u = EDICION && EDICION.urls;
 
-    document.getElementById("imgChoice").style.display = (mode === "img") ? "" : "none";
+    document.getElementById("segImg").style.opacity = "1";
 
-    if(mode === "img"){
-      body.innerHTML = esc(txt);
+    const bodyText = (imagen === "ninguna") ? buildCopy() : copyForPost();
+    const sv = splitVerMas(bodyText);
+    body.innerHTML = esc(sv.visible) + (sv.hidden ? ' <span class="vermas">…ver más</span><span class="dim">'+esc(sv.hidden)+'</span>' : "");
+
+    if(imagen !== "ninguna"){
       if(u){
-        const src = (imgTipo === "og") ? u.og : u.tarjeta;
+        const src = (imagen === "og") ? u.og : u.tarjeta;
         media.innerHTML = '<div class="li-img"><img src="'+src+'" alt="imagen"></div>';
-        if(imgTipo === "tarjeta"){
+        if(imagen === "tarjeta"){
           media.innerHTML += '<div class="li-crop-note">Vertical: LinkedIn la recorta en el feed; se ve completa al hacer click.</div>';
-          extra.textContent = "Post nativo sin link = máximo reach. La frase es el depósito; la imagen acompaña.";
+          extra.textContent = incluirLink ? "Tarjeta + link de texto (~19% reach)." : "Tarjeta nativa sin link = máximo reach.";
         } else {
-          extra.textContent = "Post nativo sin link = máximo reach. La horizontal se ve completa en el feed.";
+          extra.textContent = incluirLink ? "OG + link de texto (~19% reach)." : "OG nativa sin link = máximo reach.";
         }
       } else { media.innerHTML = ""; extra.textContent = ""; }
     } else {
-      body.innerHTML = esc(txt);
-      if(u){
+      if(incluirLink && u){
         media.innerHTML =
-          '<div class="li-og">' +
-            '<div class="img"><img src="'+u.og+'" alt="og"></div>' +
-            '<div class="meta"><div class="ti">'+esc(EDICION.titulo)+'</div><div class="dom">app.triggui.com</div></div>' +
-          '</div>';
-        extra.textContent = "Con link LinkedIn arma la card desde og.png — pero cuesta ~19% de reach vs el post nativo.";
-      } else { media.innerHTML = ""; extra.textContent = ""; }
+          '<div class="li-og"><div class="img"><img src="'+u.og+'" alt="og"></div>' +
+          '<div class="meta"><div class="ti">'+esc(EDICION.titulo)+'</div><div class="dom">app.triggui.com</div></div></div>';
+        extra.textContent = "Solo link: LinkedIn arma la card del og.png (~19% reach).";
+      } else {
+        media.innerHTML = "";
+        extra.textContent = "Solo texto, sin imagen ni link. A veces da buen reach si el texto se sostiene.";
+      }
     }
+    updateCounter();
+    renderFirstComment();
   }
 
   function renderFrases(){
     const list = document.getElementById("fraseList");
-    const items = [];
-    (EDICION.frases||[]).forEach((f,i)=>items.push({f, tag:"frase " + (i+1)}));
-    (EDICION.frases_og||[]).forEach((f,i)=>items.push({f, tag:"og " + (i+1)}));
-    if(EDICION.parrafo) items.push({f:EDICION.parrafo, tag:"párrafo"});
     list.innerHTML = "";
-    items.forEach((it,idx)=>{
+    allFrases.forEach((it,idx)=>{
       const div = document.createElement("label");
       div.className = "frase-opt";
       div.setAttribute("data-sel", idx===0 ? "1" : "0");
@@ -258,23 +312,48 @@
       });
       list.appendChild(div);
     });
-    fraseSel = items.length ? items[0].f : null;
+    fraseSel = allFrases.length ? allFrases[0].f : null;
+  }
+
+  function fillDropdowns(){
+    const hookDd = document.getElementById("hookDd");
+    const cierreDd = document.getElementById("cierreDd");
+    hookDd.innerHTML = ""; cierreDd.innerHTML = "";
+    allFrases.forEach((it)=>{
+      const o1 = document.createElement("option"); o1.value = it.f; o1.textContent = it.f.slice(0,70);
+      hookDd.appendChild(o1);
+      const o2 = document.createElement("option"); o2.value = it.f; o2.textContent = it.f.slice(0,70);
+      cierreDd.appendChild(o2);
+    });
+    // default cierre: la primera frase que parezca pregunta
+    const q = allFrases.find(it => /[?¿]/.test(it.f));
+    hookSel = allFrases.length ? allFrases[0].f : null;
+    cierreSel = q ? q.f : (allFrases.length ? allFrases[allFrases.length-1].f : null);
+    if(cierreSel) cierreDd.value = cierreSel;
+    if(hookSel) hookDd.value = hookSel;
+  }
+
+  function renderFirstComment(){
+    const box = document.getElementById("commentBox");
+    // sugiere una frase que NO esté ya en el post
+    const used = new Set([fraseSel, hookOn?hookSel:null, cierreOn?cierreSel:null].filter(Boolean));
+    const cand = allFrases.find(it => !used.has(it.f));
+    if(!cand){ box.style.display = "none"; return; }
+    box.style.display = "block";
+    document.getElementById("commentTxt").textContent = applyStrip(cand.f);
+    box.dataset.text = applyStrip(cand.f);
   }
 
   function showFeedback(lines, todo){
     const fb = document.getElementById("feedback");
-    fb.innerHTML = "<ul>" + lines.map(l=>"<li>"+esc(l)+"</li>").join("") + "</ul>" +
-                   "<div class='todo'>"+esc(todo)+"</div>";
+    fb.innerHTML = "<ul>" + lines.map(l=>"<li>"+esc(l)+"</li>").join("") + "</ul><div class='todo'>"+esc(todo)+"</div>";
     fb.classList.add("show");
   }
   async function copyToClipboard(text){
-    try{
-      await navigator.clipboard.writeText(text);
-      return true;
-    }catch(e){
-      const fb = document.getElementById("fallback");
+    try{ await navigator.clipboard.writeText(text); return true; }
+    catch(e){
       document.getElementById("fallbackText").value = text;
-      fb.style.display = "block";
+      document.getElementById("fallback").style.display = "block";
       document.getElementById("fallbackText").select();
       return false;
     }
@@ -283,83 +362,103 @@
   async function prepararPost(){
     if(!EDICION || !EDICION.urls){ return; }
     const u = EDICION.urls;
-    const txt = copyText();
     document.getElementById("fallback").style.display = "none";
     const mobile = isMobileDevice();
+    const bodyTxt = (imagen === "ninguna") ? buildCopy() : copyForPost();
 
-    if(mode === "img"){
+    if(imagen !== "ninguna"){
+      // ── Imagen nativa (tarjeta u og), con o sin link en el cuerpo ──
       if(mobile){
-        const key = EDICION.slug + ":" + imgTipo;
+        const key = EDICION.slug + ":" + imagen;
         if(preparedKey !== key || !preparedFile){ await prefetchImage(); }
-        const ok = await copyToClipboard(txt);
+        const ok = await copyToClipboard(bodyTxt);
         if(navigator.canShare && preparedFile && navigator.canShare({ files:[preparedFile] })){
           try{
-            await navigator.share({ text: txt, files:[preparedFile] });
-            showFeedback(
-              [ "Menú de compartir abierto con la imagen", (ok ? "Texto copiado como respaldo" : "Texto listo abajo") ],
-              "Elige LinkedIn. Si el texto no aparece, pégalo (ya está copiado) y publica."
-            );
+            await navigator.share({ text: bodyTxt, files:[preparedFile] });
+            showFeedback([ "Menú de compartir abierto con la imagen", (ok?"Texto copiado como respaldo":"Texto listo abajo") ],
+              "Elige LinkedIn. Si el texto no aparece, pégalo (ya está copiado) y publica.");
             return;
           }catch(e){ if(e && e.name === "AbortError"){ return; } }
         }
       }
-      const ok = await copyToClipboard(txt);
+      const ok = await copyToClipboard(bodyTxt);
       const a = document.createElement("a");
-      a.href = "/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imgTipo;
-      a.download = "triggui-" + EDICION.slug + "-" + imgTipo + ".png";
+      a.href = "/api/in-imagen?slug=" + encodeURIComponent(EDICION.slug) + "&tipo=" + imagen;
+      a.download = "triggui-" + EDICION.slug + "-" + imagen + ".png";
       document.body.appendChild(a); a.click(); a.remove();
       window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
-      showFeedback(
-        [ (ok ? "Copy copiado al portapapeles" : "Copy listo abajo para copiar a mano"),
-          "Imagen descargada (" + imgTipo + ")", "LinkedIn abierto" ],
-        "Ahora: pega el copy (Ctrl/Cmd+V), adjunta la imagen descargada, y publica."
-      );
+      showFeedback([ (ok?"Copy copiado":"Copy listo abajo"), "Imagen descargada ("+imagen+")", "LinkedIn abierto" ],
+        "Pega el copy (Ctrl/Cmd+V), adjunta la imagen descargada, y publica.");
     } else {
-      if(mobile && navigator.canShare && navigator.canShare({ url: u.edicion })){
-        const ok = await copyToClipboard(txt);
-        try{
-          await navigator.share({ text: txt, url: u.edicion });
-          showFeedback(
-            [ "Menú de compartir abierto con el link", (ok ? "Texto copiado como respaldo" : "Texto listo abajo") ],
-            "Elige LinkedIn. Pega/ajusta el texto si hace falta, y publica."
-          );
-          return;
-        }catch(e){ if(e && e.name === "AbortError"){ return; } }
+      // ── Sin imagen ──
+      if(incluirLink){
+        // card OG desde el link
+        if(mobile && navigator.canShare && navigator.canShare({ url: u.edicion })){
+          const ok = await copyToClipboard(bodyTxt);
+          try{
+            await navigator.share({ text: bodyTxt, url: u.edicion });
+            showFeedback([ "Menú de compartir abierto con el link", (ok?"Texto copiado como respaldo":"Texto listo abajo") ],
+              "Elige LinkedIn. Pega/ajusta el texto si hace falta, y publica.");
+            return;
+          }catch(e){ if(e && e.name === "AbortError"){ return; } }
+        }
+        const ok = await copyToClipboard(bodyTxt);
+        window.open("https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(u.edicion), "_blank");
+        showFeedback([ (ok?"Copy copiado":"Copy listo abajo"), "LinkedIn abierto con la card precargada" ],
+          "Pega el copy (puedes borrar el URL, la card se queda), y publica.");
+      } else {
+        // solo texto
+        if(mobile && navigator.canShare && navigator.canShare({ text: bodyTxt })){
+          try{
+            await navigator.share({ text: bodyTxt });
+            showFeedback([ "Menú de compartir abierto con el texto" ], "Elige LinkedIn y publica.");
+            return;
+          }catch(e){ if(e && e.name === "AbortError"){ return; } }
+        }
+        const ok = await copyToClipboard(bodyTxt);
+        window.open("https://www.linkedin.com/feed/?shareActive=true", "_blank");
+        showFeedback([ (ok?"Copy copiado":"Copy listo abajo"), "LinkedIn abierto" ],
+          "Pega el copy (Ctrl/Cmd+V) y publica.");
       }
-      const ok = await copyToClipboard(txt);
-      window.open("https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(u.edicion), "_blank");
-      showFeedback(
-        [ (ok ? "Copy copiado al portapapeles" : "Copy listo abajo para copiar a mano"),
-          "LinkedIn abierto con la card precargada" ],
-        "Ahora: pega el copy (puedes borrar el URL, la card se queda), y publica."
-      );
     }
   }
 
   function wireControls(){
-    document.getElementById("segMode").addEventListener("click",(e)=>{
-      const b = e.target.closest("button"); if(!b) return;
-      mode = b.dataset.mode;
-      document.querySelectorAll("#segMode button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
-      renderPreview();
-      prefetchImage();
-    });
     document.getElementById("segImg").addEventListener("click",(e)=>{
       const b = e.target.closest("button"); if(!b) return;
-      imgTipo = b.dataset.img;
+      imagen = b.dataset.img;
       document.querySelectorAll("#segImg button").forEach(x=>x.setAttribute("aria-pressed", x===b ? "true":"false"));
-      renderPreview();
-      prefetchImage();
+      renderPreview(); prefetchImage();
     });
+    document.getElementById("incluirLink").addEventListener("change",(e)=>{ incluirLink = e.target.checked; renderPreview(); });
+    document.getElementById("hookOn").addEventListener("change",(e)=>{
+      hookOn = e.target.checked;
+      document.getElementById("hookDd").style.display = hookOn ? "block" : "none";
+      renderPreview();
+    });
+    document.getElementById("hookDd").addEventListener("change",(e)=>{ hookSel = e.target.value; renderPreview(); });
+    document.getElementById("cierreOn").addEventListener("change",(e)=>{
+      cierreOn = e.target.checked;
+      document.getElementById("cierreDd").style.display = cierreOn ? "block" : "none";
+      renderPreview();
+    });
+    document.getElementById("cierreDd").addEventListener("change",(e)=>{ cierreSel = e.target.value; renderPreview(); });
     document.getElementById("stripEmoji").addEventListener("change", renderPreview);
     document.getElementById("btnPrep").addEventListener("click", prepararPost);
+    document.getElementById("btnCopyComment").addEventListener("click", async ()=>{
+      const t = document.getElementById("commentBox").dataset.text || "";
+      const ok = await copyToClipboard(t);
+      const btn = document.getElementById("btnCopyComment");
+      btn.textContent = ok ? "¡Copiado! ✓" : "Cópialo abajo";
+      setTimeout(()=>{ btn.textContent = "Copiar comentario"; }, 1800);
+    });
   }
 
   async function init(){
     renderProfile();
     document.getElementById("devHint").textContent = isMobileDevice()
-      ? "En tu cel: abre el menú de compartir → elige LinkedIn."
-      : "En compu: copia el texto, descarga la imagen y abre LinkedIn.";
+      ? "En tu cel: abre el menú de compartir → elige LinkedIn → solo pícale a Publicar."
+      : "En compu: copia el texto, descarga la imagen (si aplica) y abre LinkedIn.";
     try{
       const r = await fetch("/api/in-edicion", {cache:"no-store"});
       const j = await r.json();
@@ -367,14 +466,22 @@
       if(!j.edicion){ setStatus("No hay edición vigente en el manual. Despacha un single (📘/💭/🌍) y recarga.", "warn"); return; }
       EDICION = j.edicion;
 
+      // pool completo de frases para selector y dropdowns
+      const arr = (x)=>Array.isArray(x)?x.filter(s=>typeof s==="string"&&s.trim()):[];
+      allFrases = [];
+      arr(EDICION.frases).forEach((f,i)=>allFrases.push({f, tag:"frase " + (i+1)}));
+      arr(EDICION.frases_og).forEach((f,i)=>allFrases.push({f, tag:"og " + (i+1)}));
+      if(EDICION.parrafo) allFrases.push({f:EDICION.parrafo, tag:"párrafo"});
+
       const numTxt = EDICION.edicion_numero ? ("#"+String(EDICION.edicion_numero).padStart(3,"0")+" · ") : "";
       document.getElementById("metaRow").innerHTML = numTxt + "<b>"+esc(EDICION.titulo)+"</b> — "+esc(EDICION.autor);
 
       renderFrases();
+      fillDropdowns();
       wireControls();
 
       if(!EDICION.slug){
-        setStatus("Esta edición (<b>"+esc(EDICION.titulo)+"</b>) es anterior al cambio de slug, así que aún no tiene imágenes/link. Despacha un <b>single nuevo</b> y recarga para preparar el post.", "warn");
+        setStatus("Esta edición (<b>"+esc(EDICION.titulo)+"</b>) es anterior al cambio de slug; aún no tiene imágenes/link. Despacha un <b>single nuevo</b> y recarga.", "warn");
         document.getElementById("btnPrep").disabled = true;
       } else {
         document.getElementById("status").hidden = true;
