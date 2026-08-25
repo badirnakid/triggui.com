@@ -283,7 +283,8 @@
         }
       }
 
-      function showSuccess(firstName) {
+      function showSuccess(firstName, reenviado) {
+        try { var _sx = document.getElementById("subExito"); if (_sx) _sx.textContent = reenviado ? T.exito : T.guardado; } catch (e) {}
         var nombre = (firstName || "").trim();
         $("mensaje").textContent = nombre
           ? (T.listo + ", " + nombre + ".")
@@ -291,10 +292,10 @@
         showState("state-success");
       }
 
-      function showSuccessWithDelay(firstName, startTime) {
+      function showSuccessWithDelay(firstName, startTime, reenviado) {
         var elapsed = Date.now() - startTime;
         var remaining = Math.max(0, MIN_LOADING_MS - elapsed);
-        setTimeout(function() { showSuccess(firstName); }, remaining);
+        setTimeout(function() { showSuccess(firstName, reenviado); }, remaining);
       }
 
       // Parsea email + token de URL
@@ -306,6 +307,7 @@
         no: "Not now", si: "Yes, switch to English",
         cargando: "Working\u2026", listo: "Done",
         exito: "This week\u2019s email is on its way in English. You can switch back anytime from the bar at the top of any email.",
+        guardado: "Your preference is saved. From now on you will receive Triggui in English.",
         doc: "en"
       } : {
         titulo: "\u00bfCambiar a espa\u00f1ol?",
@@ -313,6 +315,7 @@
         no: "Mejor no", si: "S\u00ed, cambiar a espa\u00f1ol",
         cargando: "Procesando\u2026", listo: "Listo",
         exito: "El correo de esta semana va en camino en espa\u00f1ol. Puedes cambiarlo cuando quieras desde la barra al inicio de cualquier correo.",
+        guardado: "Tu preferencia qued\u00f3 guardada. A partir de ahora recibes Triggui en espa\u00f1ol.",
         doc: "es"
       };
       try {
@@ -356,12 +359,12 @@
           .then(function(r) { return r.json(); })
           .then(function(data) {
             // Backend confirma (o anti-enum si email no existe — retorna ok igual)
-            showSuccessWithDelay(data && data.first_name ? data.first_name : "", startTime);
+            showSuccessWithDelay(data && data.first_name ? data.first_name : "", startTime, !!(data && data.resent));
           })
           .catch(function(err) {
             // Error de red: mostramos éxito igual (anti-enumeration + UX defensiva)
-            console.error("Triggui · unsubscribe fetch error:", err);
-            showSuccessWithDelay("", startTime);
+            console.error("Triggui · idioma fetch error:", err);
+            showSuccessWithDelay("", startTime, false);
           });
       });
     })();
