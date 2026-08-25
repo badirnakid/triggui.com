@@ -409,6 +409,75 @@ section, .section-padding {
 @media(max-width:860px){.eco-track{grid-template-columns:1fr;gap:18px;max-width:430px;margin:0 auto;}.eco-frame{margin-bottom:44px;}.eco-menu{padding:110px 20px 80px!important;}.eco-hook{max-width:34ch;}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
+<style id="tv-card-css">
+/* ═══ TARJETA EDITORIAL VIVA — calco del render impreso, dibujada con texto real ═══
+   Escala con el ancho del riel gracias a unidades de contenedor: una sola geometría
+   sirve para 270px en móvil y 320px en escritorio, con las mismas proporciones áureas
+   del original de 1024×1536. */
+.tv-card{
+  container-type:inline-size;
+  position:relative; width:100%; aspect-ratio:1024/1536;
+  background:var(--paper,#F5F3EF); color:var(--ink,#1C1718);
+  border-radius:12px; overflow:hidden; display:flex; flex-direction:column;
+  padding:5.4cqw 5.2cqw 4.4cqw;
+  font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
+  text-align:left; box-sizing:border-box;
+}
+/* textura de papel: las mismas líneas horizontales tenues del original */
+.tv-card::before{
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background:repeating-linear-gradient(180deg, rgba(0,0,0,.028) 0 1px, transparent 1px 7px);
+}
+/* retícula vertical del original */
+.tv-card::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  border-left:1px solid color-mix(in srgb, var(--bord,#908F8F) 34%, transparent);
+  border-right:1px solid color-mix(in srgb, var(--bord,#908F8F) 34%, transparent);
+  margin:0 3.2cqw;
+}
+.tv-card>*{position:relative; z-index:1}
+.tv-title{
+  font-size:7.4cqw; line-height:1.02; font-weight:800; letter-spacing:-0.02em;
+  text-transform:uppercase; margin:0 0 3.4cqw; color:var(--ink,#1C1718);
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+.tv-hr{height:1px; background:color-mix(in srgb, var(--bord,#908F8F) 55%, transparent); margin:0 0 3.6cqw}
+.tv-body{display:flex; gap:3.6cqw; align-items:flex-start; margin-bottom:3.4cqw}
+.tv-top{
+  flex:1 1 auto; margin:0; font-size:3.15cqw; line-height:1.42; font-weight:400;
+  color:color-mix(in srgb, var(--ink,#1C1718) 88%, transparent);
+  display:-webkit-box; -webkit-line-clamp:8; -webkit-box-orient:vertical; overflow:hidden;
+}
+.tv-cover{flex:0 0 34%; border-radius:2px; overflow:hidden; box-shadow:0 1.4cqw 3cqw rgba(0,0,0,.22)}
+.tv-cover img{width:100%; display:block; aspect-ratio:2/3; object-fit:cover}
+.tv-quote{display:flex; gap:2.6cqw; align-items:stretch; margin:0 0 3.2cqw}
+.tv-bar{flex:0 0 1.5cqw; background:var(--acc,#E8A838); border-radius:1px}
+.tv-quote p{
+  margin:0; font-size:3.5cqw; line-height:1.28; font-weight:700; letter-spacing:-0.01em;
+  color:var(--ink,#1C1718);
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
+}
+.tv-bot{
+  margin:0; font-size:3.1cqw; line-height:1.44; font-weight:400;
+  color:color-mix(in srgb, var(--ink,#1C1718) 86%, transparent);
+  display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden;
+}
+.tv-bot mark, .tv-quote mark{
+  background:color-mix(in srgb, var(--acc,#E8A838) 22%, transparent);
+  color:inherit; padding:0 .18em; border-radius:2px;
+}
+.tv-foot{margin-top:auto; padding-top:3.2cqw; text-align:center}
+.tv-mark{
+  display:block; font-size:6.2cqw; font-weight:700; letter-spacing:-0.03em; line-height:1;
+  font-family:'Noto Serif Display',Georgia,'Times New Roman',serif; color:var(--ink,#1C1718);
+}
+.tv-mark sup{font-size:.34em; vertical-align:super; font-weight:500}
+.tv-foot .tv-hr{margin:2.6cqw 0 2.2cqw}
+.tv-social{
+  display:block; font-size:2.7cqw; font-weight:500; letter-spacing:.02em;
+  color:color-mix(in srgb, var(--ink,#1C1718) 62%, transparent);
+}
+</style>
 </head>
 <body>
 
@@ -509,12 +578,8 @@ section, .section-padding {
     <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:rgba(245,240,232,.22)">Algunas ediciones recientes</p>
     <div class="cards-rail-container" id="cardRail">
       <div class="rail-spacer"></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="antifragil.png" alt="Antifragil" loading="lazy"></div></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="habitossecretosdelosgenios.png" alt="Hábitos Secretos" loading="lazy"></div></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="elartedevivirconsencillez.png" alt="Vivir con Sencillez" loading="lazy"></div></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="reinventate.png" alt="Reinvéntate" loading="lazy"></div></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="simonsinek.png" alt="Empieza con el porqué" loading="lazy"></div></div>
-      <div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div><img src="pensarrápidopensardespacio.png" alt="Pensar Rápido" loading="lazy"></div></div>
+      <!-- 🌀 Riel vivo: las tarjetas se dibujan desde vitrina.json (ES/EN), no son imágenes.
+           Antes: 6 PNG de ~2.5 MB cada una (≈15 MB) con el texto horneado en píxeles. -->
       <div class="rail-spacer"></div>
     </div>
     <p class="text-xs mt-1 flex items-center justify-center gap-2" style="color:rgba(245,240,232,.16)"><span class="animate-pulse">←</span> Desliza <span class="animate-pulse">→</span></p>
@@ -836,6 +901,59 @@ if(phoneInput){phoneInput.addEventListener('input',function(e){let v=e.target.va
 document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .6s ease-out,transform .6s ease-out';obs.observe(el)});
+</script>
+<script id="tv-rail-js">
+/* ═══ RIEL VIVO ═══ Dibuja las tarjetas desde vitrina.json en el idioma activo.
+   Sustituye 6 PNG de ~2.5 MB (≈15 MB) por texto real: traducible, seleccionable,
+   indexable por Google — y se renueva solo cuando la vitrina se regenera. */
+(function () {
+  var riel = document.getElementById("cardRail");
+  if (!riel) return;
+  function esc(s) {
+    return String(s == null ? "" : s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+  function destacar(txt) {                       /* [H]…[/H] → resaltado con el acento del libro */
+    return esc(txt).replace(/\[H\]([\s\S]*?)\[\/H\]/g, "<mark>$1</mark>");
+  }
+  function tarjetaHTML(t, lang) {
+    var c = t[lang] || t.es || {};
+    var s = t.style || {};
+    return '<div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div>' +
+      '<article class="tv-card" style="--acc:' + esc(s.accent) + ';--paper:' + esc(s.paper) +
+        ';--ink:' + esc(s.ink) + ';--bord:' + esc(s.border) + '">' +
+        '<h3 class="tv-title">' + esc(c.titulo) + "</h3>" +
+        '<div class="tv-hr"></div>' +
+        '<div class="tv-body">' +
+          '<p class="tv-top">' + destacar(c.top) + "</p>" +
+          '<div class="tv-cover"><img src="' + esc(t.portada) + '" alt="' + esc(c.libro) +
+            '" loading="lazy" referrerpolicy="no-referrer"></div>' +
+        "</div>" +
+        (c.sub ? '<div class="tv-quote"><span class="tv-bar"></span><p>' + destacar(c.sub) + "</p></div>" : "") +
+        (c.bot ? '<p class="tv-bot">' + destacar(c.bot) + "</p>" : "") +
+        '<div class="tv-foot"><span class="tv-mark">triggui<sup>&reg;</sup></span>' +
+          '<div class="tv-hr"></div><span class="tv-social">@triggui &nbsp;|&nbsp; triggui.com</span></div>' +
+      "</article></div></div>";
+  }
+  function pintar(datos, lang) {
+    var t = datos && datos.tarjetas;
+    if (!t || !t.length) return;
+    var html = '<div class="rail-spacer"></div>';
+    for (var i = 0; i < t.length; i++) html += tarjetaHTML(t[i], lang);
+    html += '<div class="rail-spacer"></div>';
+    riel.innerHTML = html;
+    if (typeof window.__tvRielPintado === "function") window.__tvRielPintado();
+  }
+  var LANG = (window.TRIGGUI_LANG === "en") ? "en" : "es";
+  fetch("/vitrina.json", { cache: "no-store" })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      window.__TV_VITRINA = d;
+      pintar(d, LANG);
+      window.__tvRepintarRiel = function (l) { pintar(window.__TV_VITRINA, (l === "en") ? "en" : "es"); };
+    })
+    .catch(function (e) { console.warn("Triggui · vitrina:", e); });
+})();
 </script>
 </body>
 </html>
