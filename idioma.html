@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triggui · Idioma / Language</title>
+  <meta name="robots" content="noindex,nofollow">
+  <!--
+    V19.2.5 — TWO-STEP UNSUBSCRIBE CONFIRMATION (NIVEL DIOS CUÁNTICO-QUARK)
+
+    Razón: scanners corporativos (SafeLinks de Microsoft, Proofpoint, Mimecast,
+    Barracuda, Trend Micro, etc.) hacen click automático en TODOS los links
+    de los emails ANTES de entregarlos al usuario. Si la página de unsubscribe
+    procesa la baja en automático al cargar, esos scanners disparan FALSOS
+    POSITIVOS — el usuario nunca vio el email y ya está dado de baja.
+
+    Solución: requerir confirmación EXPLÍCITA del usuario haciendo click en
+    un botón. Los scanners NO clickean botones (solo siguen links HTTP),
+    por lo tanto solo un humano completa el flow. ~99% de falsos positivos
+    eliminados.
+
+    Anti-enumeration: el flow funciona idéntico exista o no el email.
+    Idempotente: si ya está unsubscribed, repetir el click no rompe nada.
+  -->
+  <link rel="icon" type="image/png" href="favicon4.jpg">
+  <link rel="apple-touch-icon" href="favicon4.jpg">
+  <meta name="theme-color" content="#0B0F1A">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: #0B0F1A;
+      color: #F5F0E8;
+      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .container {
+      text-align: center;
+      max-width: 460px;
+      width: 100%;
+      animation: fadeIn .6s cubic-bezier(.22,1,.36,1) both;
+    }
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      animation: pop .6s cubic-bezier(.34,1.56,.64,1) .1s both;
+    }
+    .icon-confirm {
+      background: linear-gradient(135deg, rgba(232, 168, 56, 0.15) 0%, rgba(255, 107, 74, 0.15) 100%);
+      border: 1.5px solid rgba(232, 168, 56, 0.4);
+    }
+    .icon-confirm svg {
+      width: 26px;
+      height: 26px;
+      stroke: #E8A838;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .icon-success {
+      background: linear-gradient(135deg, #E8A838 0%, #FF6B4A 100%);
+    }
+    .icon-success svg {
+      width: 28px;
+      height: 28px;
+      stroke: #0B0F1A;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .icon-success svg path {
+      stroke-dasharray: 24;
+      stroke-dashoffset: 24;
+      animation: draw .4s cubic-bezier(.22,1,.36,1) .35s forwards;
+    }
+    h1 {
+      font-size: clamp(24px, 5.5vw, 32px);
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 12px;
+      color: #F5F0E8;
+    }
+    .sub {
+      font-size: 15px;
+      line-height: 1.55;
+      color: rgba(245, 240, 232, 0.55);
+      margin: 0 0 28px;
+    }
+    .sub-small {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(245, 240, 232, 0.45);
+      margin: 0;
+    }
+    .sub a, .sub-small a {
+      color: #E8A838;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(232, 168, 56, 0.3);
+      transition: border-color .2s;
+    }
+    .sub a:hover, .sub-small a:hover {
+      border-bottom-color: #E8A838;
+    }
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+    }
+    button {
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      padding: 14px 28px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all .2s ease;
+      width: 100%;
+      max-width: 320px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(232, 168, 56, 0.25);
+    }
+    .btn-confirm {
+      background: transparent;
+      color: rgba(245, 240, 232, 0.6);
+      border-color: rgba(245, 240, 232, 0.18);
+    }
+    .btn-confirm:hover {
+      background: rgba(245, 240, 232, 0.04);
+      color: rgba(245, 240, 232, 0.85);
+      border-color: rgba(245, 240, 232, 0.3);
+    }
+    .btn-stay {
+      background: linear-gradient(135deg, #E8A838 0%, #FF6B4A 100%);
+      color: #0B0F1A;
+      border: none;
+      font-weight: 700;
+    }
+    .btn-stay:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(232, 168, 56, 0.3);
+    }
+    .btn-stay:active {
+      transform: translateY(0);
+    }
+    .loading {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 2px solid rgba(245,240,232,0.15);
+      border-top-color: #E8A838;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 24px;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pop {
+      0%   { transform: scale(0); opacity: 0; }
+      60%  { transform: scale(1.08); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .hidden { display: none !important; }
+  </style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Estado 1: CONFIRMACIÓN (visible por defecto) -->
+    <!-- Esto previene que scanners corporativos disparen falsos positivos -->
+    <div id="state-confirm">
+      <div class="icon-circle icon-confirm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+      </div>
+      <h1><span id="tituloConfirm">Cambiar de idioma</span></h1>
+      <p class="sub"><span id="subConfirm">Elige tu idioma.</span></p>
+      <div class="actions">
+        <button class="btn-stay" id="btn-stay" type="button"><span id="btnNo">Mejor no</span></button>
+        <button class="btn-confirm" id="btn-confirm" type="button"><span id="btnSi">Sí, cambiar</span></button>
+      </div>
+    </div>
+
+    <!-- Estado 2: PROCESANDO (loading spinner) -->
+    <div id="state-loading" class="hidden">
+      <div class="loading"></div>
+      <p class="sub-small"><span id="txtLoading">Procesando…</span></p>
+    </div>
+
+    <!-- Estado 3: ÉXITO (anti-enum: se muestra igual exista o no el email) -->
+    <div id="state-success" class="hidden">
+      <div class="icon-circle icon-success">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12.5l4.5 4.5L19 7.5"/>
+        </svg>
+      </div>
+      <h1 id="mensaje">Entendido.</h1>
+      <p class="sub-small"><span id="subExito">Ya está.</span> <a href="https://triggui.com">triggui.com</a></p>
+    </div>
+
+    <noscript>
+      <div class="icon-circle icon-success">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12.5l4.5 4.5L19 7.5"/>
+        </svg>
+      </div>
+      <h1>Cancelar suscripción</h1>
+      <p class="sub-small">Tu navegador necesita JavaScript para confirmar la baja. Si quieres volver, te esperamos en <a href="https://triggui.com">triggui.com</a></p>
+    </noscript>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      // ════════════════════════════════════════════════════════════════════
+      // V19.2.5 — TWO-STEP UNSUBSCRIBE NIVEL DIOS CUÁNTICO-QUARK
+      // ════════════════════════════════════════════════════════════════════
+      //
+      // Flujo nuevo (resistente a scanners corporativos):
+      //   1. Página carga → muestra estado "confirm" con 2 botones
+      //   2. Si scanner (SafeLinks, Proofpoint, etc.) carga la página:
+      //      → NO hace click en botones → no procesa unsub
+      //      → El usuario real RECIBE el email normalmente
+      //   3. Si usuario humano realmente quiere cancelar:
+      //      → Click en "Sí, cancelar"
+      //      → fetch al Apps Script con format=json
+      //      → Muestra "Entendido, [Nombre]" con animación
+      //   4. Si usuario humano NO quiere cancelar:
+      //      → Click en "Mantenerme suscrito"
+      //      → Redirect a triggui.com
+      //
+      // Por qué es nivel quark:
+      //   • Los scanners siguen GET requests, no disparan clicks de botones
+      //   • Los humanos completan el flow conscientemente
+      //   • Idempotente: si ya está unsubscribed, repetir no rompe
+      //   • Anti-enum: se ve igual exista o no el email
+      // ════════════════════════════════════════════════════════════════════
+
+      var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec";
+      var MIN_LOADING_MS = 600;  // suaviza la transición, no se siente "flash"
+
+      function $(id) { return document.getElementById(id); }
+
+      function showState(stateId) {
+        var states = ["state-confirm", "state-loading", "state-success"];
+        for (var i = 0; i < states.length; i++) {
+          var el = $(states[i]);
+          if (!el) continue;
+          if (states[i] === stateId) el.classList.remove("hidden");
+          else el.classList.add("hidden");
+        }
+      }
+
+      function showSuccess(firstName) {
+        var nombre = (firstName || "").trim();
+        $("mensaje").textContent = nombre
+          ? (T.listo + ", " + nombre + ".")
+          : (T.listo + ".");
+        showState("state-success");
+      }
+
+      function showSuccessWithDelay(firstName, startTime) {
+        var elapsed = Date.now() - startTime;
+        var remaining = Math.max(0, MIN_LOADING_MS - elapsed);
+        setTimeout(function() { showSuccess(firstName); }, remaining);
+      }
+
+      // Parsea email + token de URL
+      var params = new URLSearchParams(window.location.search);
+      var L = (params.get("l") === "en") ? "en" : "es";
+      var T = (L === "en") ? {
+        titulo: "Switch to English?",
+        sub: "From now on you will receive Triggui in English.",
+        no: "Not now", si: "Yes, switch to English",
+        cargando: "Working\u2026", listo: "Done",
+        exito: "This week\u2019s email is on its way in English. You can switch back anytime from the bar at the top of any email.",
+        doc: "en"
+      } : {
+        titulo: "\u00bfCambiar a espa\u00f1ol?",
+        sub: "A partir de ahora recibir\u00e1s Triggui en espa\u00f1ol.",
+        no: "Mejor no", si: "S\u00ed, cambiar a espa\u00f1ol",
+        cargando: "Procesando\u2026", listo: "Listo",
+        exito: "El correo de esta semana va en camino en espa\u00f1ol. Puedes cambiarlo cuando quieras desde la barra al inicio de cualquier correo.",
+        doc: "es"
+      };
+      try {
+        document.documentElement.setAttribute("lang", T.doc);
+        var _p = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
+        _p("tituloConfirm", T.titulo); _p("subConfirm", T.sub);
+        _p("btnNo", T.no); _p("btnSi", T.si); _p("txtLoading", T.cargando); _p("subExito", T.exito);
+      } catch (e) {}
+      var email = params.get("email") || "";
+      var token = params.get("token") || "";
+
+      // Si no hay params → acceso directo sin email (acceso manual a /entendido)
+      // Comportamiento: mostrar éxito directo (anti-enum, idempotente)
+      if (!email || !token) {
+        showSuccess("");
+        return;
+      }
+
+      // Wire up botones
+      var btnConfirm = $("btn-confirm");
+      var btnStay = $("btn-stay");
+
+      btnStay.addEventListener("click", function() {
+        // Usuario decidió quedarse: regresa a triggui.com
+        window.location.href = "https://triggui.com";
+      });
+
+      btnConfirm.addEventListener("click", function() {
+        // Usuario confirmó cancelación: proceder con fetch al Apps Script
+        showState("state-loading");
+        var startTime = Date.now();
+
+        var url = APPS_SCRIPT_URL +
+          "?action=lang" +
+          "&email=" + encodeURIComponent(email) +
+          "&token=" + encodeURIComponent(token) +
+          "&l=" + encodeURIComponent(L) +
+          "&format=json";
+
+        fetch(url, { method: "GET", redirect: "follow", mode: "cors" })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            // Backend confirma (o anti-enum si email no existe — retorna ok igual)
+            showSuccessWithDelay(data && data.first_name ? data.first_name : "", startTime);
+          })
+          .catch(function(err) {
+            // Error de red: mostramos éxito igual (anti-enumeration + UX defensiva)
+            console.error("Triggui · unsubscribe fetch error:", err);
+            showSuccessWithDelay("", startTime);
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
