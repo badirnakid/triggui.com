@@ -263,8 +263,8 @@ input[type=number]{-moz-appearance:textfield}
 .pulse-dot{position:relative;width:8px;height:8px}
 .pulse-dot::before{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%;animation:pr 2s ease-out infinite}
 .pulse-dot::after{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%}
-.phone-device{width:300px;max-width:80vw;margin:0 auto;border-radius:54px;padding:5px;background:linear-gradient(155deg,#8E8E93 0%,#3A3A3C 14%,#1C1C1E 42%,#2C2C2E 74%,#7C7C80 100%);box-shadow:0 50px 100px rgba(0,0,0,.62),0 0 0 .5px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16)}
-.phone-screen{border-radius:49px;overflow:hidden;position:relative;background:#0B141A;box-shadow:inset 0 0 0 1px rgba(0,0,0,.9)}
+.phone-device{width:340px;max-width:88vw;margin:0 auto;border-radius:54px;padding:5px;background:linear-gradient(155deg,#8E8E93 0%,#3A3A3C 14%,#1C1C1E 42%,#2C2C2E 74%,#7C7C80 100%);box-shadow:0 50px 100px rgba(0,0,0,.62),0 0 0 .5px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16)}
+.phone-screen{border-radius:49px;overflow:hidden;position:relative;background:#0B141A;aspect-ratio:440/956;box-shadow:inset 0 0 0 1px rgba(0,0,0,.9)}
 .phone-screen img{width:100%;display:block}
 .phone-notch-bar{position:absolute;top:0;left:0;right:0;height:38px;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,transparent 100%);z-index:5;display:flex;align-items:flex-start;justify-content:center;padding-top:9px}
 .phone-dynamic-island{width:90px;height:24px;background:#000;border-radius:16px}
@@ -945,7 +945,7 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 <style id="wa-chat-css">
 /* ═══ MAQUETA DE WHATSAPP ═══ Reconstruida con la tarjeta ORIGINAL y las palabras
    reales de la edición. Antes era una imagen con el español horneado en píxeles. */
-.wa-chat{background:#0B141A;min-height:520px;padding:44px 8px 16px;display:flex;flex-direction:column;gap:8px;
+.wa-chat{position:absolute;inset:0;overflow:hidden;background:#0B141A;padding:44px 9px 22px;display:flex;flex-direction:column;gap:8px;
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
   background-image:radial-gradient(rgba(255,255,255,.028) 1px, transparent 1px);background-size:18px 18px}
 .wa-msg{align-self:flex-start;max-width:88%;background:#1F2C34;color:#E9EDEF;border-radius:10px;border-top-left-radius:2px;
@@ -957,7 +957,7 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 .wa-prev{display:block;margin:5px 0 0;background:#111B21;border-radius:7px;overflow:hidden;text-decoration:none}
 .wa-prev img{width:100%;display:block;aspect-ratio:1200/630;object-fit:cover;background:#0B141A}
 .wa-prev-t{display:block;padding:6px 8px 0;font-size:11px;font-weight:600;color:#E9EDEF;line-height:1.3}
-.wa-prev-d{display:block;padding:2px 8px 0;font-size:10px;color:rgba(233,237,239,.6);line-height:1.35}
+.wa-prev-d{display:block;padding:7px 8px 0;font-weight:500;font-size:10px;color:rgba(233,237,239,.6);line-height:1.35}
 .wa-prev-u{display:block;padding:3px 8px 7px;font-size:9.5px;color:rgba(233,237,239,.4)}
 .wa-link{display:block;margin:5px 2px 0;font-size:10.5px;color:#53BDEB;text-decoration:none;word-break:break-all}
 .wa-time{display:block;text-align:right;font-size:9.5px;color:rgba(233,237,239,.5);margin-top:2px;padding-right:2px}
@@ -1109,11 +1109,9 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
         '<p class="wa-cap">' + esc(f[1] || "") + "</p>" +
         '<a class="wa-prev" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
           '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async">' +
-          '<span class="wa-prev-t">' + esc(p.join(" · ")) + "</span>" +
           '<span class="wa-prev-d">' + esc(c.ogDesc) + "</span>" +
           '<span class="wa-prev-u">' + esc(dominio) + "</span>" +
         "</a>" +
-        '<a class="wa-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(corta) + "</a>" +
         '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
       "</div>";
   }
