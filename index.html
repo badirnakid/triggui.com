@@ -263,10 +263,10 @@ input[type=number]{-moz-appearance:textfield}
 .pulse-dot{position:relative;width:8px;height:8px}
 .pulse-dot::before{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%;animation:pr 2s ease-out infinite}
 .pulse-dot::after{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%}
-.phone-device{width:300px;max-width:80vw;margin:0 auto;border-radius:40px;background:#1C1C1E;padding:10px;box-shadow:0 50px 100px rgba(0,0,0,.6),0 0 0 1px rgba(245,240,232,.08),inset 0 1px 0 rgba(255,255,255,.05)}
-.phone-screen{border-radius:32px;overflow:hidden;position:relative;background:#0B141A}
+.phone-device{width:300px;max-width:80vw;margin:0 auto;border-radius:54px;padding:5px;background:linear-gradient(155deg,#8E8E93 0%,#3A3A3C 14%,#1C1C1E 42%,#2C2C2E 74%,#7C7C80 100%);box-shadow:0 50px 100px rgba(0,0,0,.62),0 0 0 .5px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16)}
+.phone-screen{border-radius:49px;overflow:hidden;position:relative;background:#0B141A;box-shadow:inset 0 0 0 1px rgba(0,0,0,.9)}
 .phone-screen img{width:100%;display:block}
-.phone-notch-bar{position:absolute;top:0;left:0;right:0;height:40px;background:linear-gradient(180deg,rgba(0,0,0,.65) 0%,transparent 100%);z-index:5;display:flex;align-items:flex-start;justify-content:center;padding-top:8px}
+.phone-notch-bar{position:absolute;top:0;left:0;right:0;height:38px;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,transparent 100%);z-index:5;display:flex;align-items:flex-start;justify-content:center;padding-top:9px}
 .phone-dynamic-island{width:90px;height:24px;background:#000;border-radius:16px}
 .phone-bottom-fade{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(0deg,rgba(11,15,26,.85) 0%,transparent 100%);z-index:5;pointer-events:none}
 .flow-step{display:flex;align-items:flex-start;gap:14px;text-align:left}
@@ -881,6 +881,11 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
     .catch(function (e) { console.warn("Triggui \u00b7 vitrina:", e); });
 })();
 </script>
+<style id="phone-17-css">
+/* iPhone actual: isla dinámica real, canto de titanio y barra de gesto */
+.phone-dynamic-island{width:78px;height:23px;border-radius:99px;background:#000;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06)}
+.phone-screen::after{content:"";position:absolute;left:50%;bottom:7px;transform:translateX(-50%);width:104px;height:4px;border-radius:99px;background:rgba(255,255,255,.32);z-index:6;pointer-events:none}
+</style>
 <style id="wa-chat-css">
 /* ═══ MAQUETA DE WHATSAPP ═══ Reconstruida con la tarjeta ORIGINAL y las palabras
    reales de la edición. Antes era una imagen con el español horneado en píxeles. */
@@ -893,6 +898,11 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 .wa-card{width:100%;display:block;border-radius:7px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover}
 .wa-cap{margin:5px 2px 0;font-size:11.5px;line-height:1.38;color:#E9EDEF}
 .wa-words{margin:0 2px;font-size:11px;line-height:1.4;font-weight:600;letter-spacing:.01em;color:#8FD9C4}
+.wa-prev{display:block;margin:5px 0 0;background:#111B21;border-radius:7px;overflow:hidden;text-decoration:none}
+.wa-prev img{width:100%;display:block;aspect-ratio:1200/630;object-fit:cover;background:#0B141A}
+.wa-prev-t{display:block;padding:6px 8px 0;font-size:11px;font-weight:600;color:#E9EDEF;line-height:1.3}
+.wa-prev-d{display:block;padding:2px 8px 0;font-size:10px;color:rgba(233,237,239,.6);line-height:1.35}
+.wa-prev-u{display:block;padding:3px 8px 7px;font-size:9.5px;color:rgba(233,237,239,.4)}
 .wa-link{display:block;margin:5px 2px 0;font-size:10.5px;color:#53BDEB;text-decoration:none;word-break:break-all}
 .wa-time{display:block;text-align:right;font-size:9.5px;color:rgba(233,237,239,.5);margin-top:2px;padding-right:2px}
 .wa-time b{color:#53BDEB;font-weight:400}
@@ -1035,6 +1045,12 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
       '<div class="wa-msg">' +
         '<p class="wa-words">' + esc((c.palabras || []).join(" · ")) + "</p>" +
         '<p class="wa-cap">' + esc(c.frase2) + "</p>" +
+        '<a class="wa-prev" href="' + esc(c.href) + '" target="_blank" rel="noopener">' +
+          '<img src="' + esc(c.og) + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="wa-prev-t">' + esc(c.ogTitulo) + "</span>" +
+          '<span class="wa-prev-d">' + esc(c.ogDesc) + "</span>" +
+          '<span class="wa-prev-u">' + esc((c.url || "").split("/")[0]) + "</span>" +
+        "</a>" +
         '<a class="wa-link" href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.url) + "</a>" +
         '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
       "</div>";
