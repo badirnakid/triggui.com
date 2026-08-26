@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" style="background-color: #0B0F1A;">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Triggui · A signal to lift your mood</title>
+<link rel="icon" type="image/png" href="https://triggui.com/favicon4.jpg" />
+<link rel="apple-touch-icon" href="https://triggui.com/favicon4.jpg" />
+<meta name="description" content="A signal to lift your mood. A message on your WhatsApp or email with an idea from a great book. At the exact moment. You read it in 30 seconds. There is also a free app for iOS and Android." />
+<meta property="og:title" content="Triggui · A signal to lift your mood" />
+<meta property="og:description" content="Un mensaje en tu WhatsApp/Correo con una idea de un gran libro. En el momento exacto. Lo lees en 30 segundos." />
+<meta property="og:image" content="https://triggui.com/imagotipo.png" />
+<meta property="og:type" content="website" />
+<meta name="theme-color" content="#0B0F1A">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-ZKG8ZNSB35');</script>
+<script>
+function getUTMParams(){const p=new URLSearchParams(window.location.search);return{source:p.get('utm_source')||'direct',medium:p.get('utm_medium')||'none',campaign:p.get('utm_campaign')||'organic',content:p.get('utm_content')||'',term:p.get('utm_term')||''}}
+function trackConversion(e,v=0){const u=getUTMParams();if(typeof gtag!=='undefined')gtag('event',e,{event_category:'conversion',event_label:u.source,value:v,currency:'MXN'})}
+function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagement',{event_category:'interaction',event_label:a})}
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script>
+// ════════════════════════════════════════════════════════════════════════
+// 🌒 V19.1 — DYNAMIC COLOR PALETTE FROM LATEST BOOK (robust + observable)
+// ════════════════════════════════════════════════════════════════════════
+//
+// Estrategia cuántico-quark para que SIEMPRE funcione:
+//   1. Intento jsdelivr CDN primero (CORS confiable, edge-cached globalmente)
+//   2. Si falla, intento raw.githubusercontent.com (canónico pero CORS variable)
+//   3. Si falla todo, queda con colores hardcoded (fallback graceful)
+//
+// Logging visible en consola del browser (F12 → Console) para debug fácil.
+// Window-level flag `__trigguiColorsApplied` para verificar desde DevTools.
+// ════════════════════════════════════════════════════════════════════════
+(function() {
+  'use strict';
+
+  const URLS = [
+    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido_edicion.json',
+    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido_edicion.json',
+    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido.json',
+    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido.json'
+  ];
+  const FETCH_TIMEOUT = 3000;
+
+  // HEX → HSL
+  function hexToHsl(hex) {
+    const h = hex.replace('#', '');
+    const r = parseInt(h.substr(0, 2), 16) / 255;
+    const g = parseInt(h.substr(2, 2), 16) / 255;
+    const b = parseInt(h.substr(4, 2), 16) / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b);
+    let hh, s, l = (max + min) / 2;
+    if (max === min) { hh = s = 0; }
+    else {
+      const d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      switch (max) {
+        case r: hh = (g - b) / d + (g < b ? 6 : 0); break;
+        case g: hh = (b - r) / d + 2; break;
+        case b: hh = (r - g) / d + 4; break;
+      }
+      hh /= 6;
+    }
+    return { h: hh * 360, s: s * 100, l: l * 100 };
+  }
+
+  function hslToHex(hsl) {
+    const h = hsl.h / 360;
+    const s = hsl.s / 100;
+    const l = hsl.l / 100;
+    function hue2rgb(p, q, t) {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q - p) * 6 * t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+      return p;
+    }
+    let r, g, b;
+    if (s === 0) { r = g = b = l; }
+    else {
+      const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+      const p = 2 * l - q;
+      r = hue2rgb(p, q, h + 1/3);
+      g = hue2rgb(p, q, h);
+      b = hue2rgb(p, q, h - 1/3);
+    }
+    const toHex = x => Math.round(x * 255).toString(16).padStart(2, '0');
+    return '#' + toHex(r) + toHex(g) + toHex(b);
+  }
+
+  function deriveCoral(accent) {
+    const hsl = hexToHsl(accent);
+    hsl.h = (hsl.h + 20) % 360;
+    hsl.s = Math.min(100, hsl.s + 8);
+    hsl.l = Math.max(45, Math.min(65, hsl.l + 5));
+    return hslToHex(hsl);
+  }
+
+  function aplicarPaleta(accent) {
+    if (!accent || !/^#[0-9a-fA-F]{6}$/.test(accent)) {
+      console.warn('🌒 Triggui: accent inválido', accent);
+      return false;
+    }
+    const coral = deriveCoral(accent);
+    const root = document.documentElement;
+    root.style.setProperty('transition', 'background-color 0.6s ease, color 0.6s ease');
+    root.style.setProperty('--t-gold', accent);
+    root.style.setProperty('--t-coral', coral);
+    root.style.setProperty('--t-fire', `linear-gradient(135deg,${accent} 0%,${coral} 50%,#FF3F6C 100%)`);
+    root.style.setProperty('--t-nuclear', `linear-gradient(135deg,${accent} 0%,${coral} 100%)`);
+
+    console.log('🌒 Triggui · Paleta dinámica aplicada:', { accent, coral });
+    window.__trigguiColorsApplied = { accent, coral, timestamp: Date.now() };
+    return true;
+  }
+
+  function extraerAccent(data) {
+    // Caso 1: Single-book canonical (contenido_edicion.json)
+    if (data && data.tarjeta && data.tarjeta.style && data.tarjeta.style.accent) {
+      console.log('  📖 Libro detectado (single-book):', data.titulo || '(sin título)');
+      return data.tarjeta.style.accent;
+    }
+
+    // Caso 2: Array de libros (contenido.json con TODOS)
+    let libros = null;
+    if (data && Array.isArray(data.libros)) {
+      libros = data.libros;
+    } else if (Array.isArray(data)) {
+      libros = data;
+    }
+
+    if (!libros || libros.length === 0) {
+      console.warn('  ⚠️ JSON sin libros válidos');
+      return null;
+    }
+
+    // Si solo hay 1, ese es
+    if (libros.length === 1) {
+      const l = libros[0];
+      console.log('  📖 Único libro:', l.titulo);
+      return (l.tarjeta && l.tarjeta.style && l.tarjeta.style.accent) || null;
+    }
+
+    // Múltiples libros: buscar el de _edicion_numero más alto (el más reciente)
+    let libroActual = null;
+    let maxEd = -Infinity;
+    for (const libro of libros) {
+      const ed = parseInt(libro._edicion_numero || libro.edicion_numero || libro.edicion || 0, 10);
+      if (!isNaN(ed) && ed > maxEd) {
+        maxEd = ed;
+        libroActual = libro;
+      }
+    }
+
+    // Fallback: si ninguno tiene _edicion_numero, usar el último del array
+    if (!libroActual) {
+      libroActual = libros[libros.length - 1];
+      console.log('  📖 Sin _edicion_numero, tomando último del array:', libroActual.titulo);
+    } else {
+      console.log('  📖 Libro de edición #' + maxEd + ':', libroActual.titulo);
+    }
+
+    return (libroActual.tarjeta && libroActual.tarjeta.style && libroActual.tarjeta.style.accent) || null;
+  }
+
+  function fetchConTimeout(url, timeout) {
+    return new Promise((resolve, reject) => {
+      const controller = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+      const timeoutId = controller ? setTimeout(() => controller.abort(), timeout) : null;
+      fetch(url, {
+        method: 'GET',
+        mode: 'cors',
+        signal: controller ? controller.signal : undefined,
+        cache: 'no-cache'
+      })
+        .then(r => {
+          if (timeoutId) clearTimeout(timeoutId);
+          if (!r.ok) throw new Error('HTTP ' + r.status);
+          return r.json();
+        })
+        .then(resolve)
+        .catch(err => {
+          if (timeoutId) clearTimeout(timeoutId);
+          reject(err);
+        });
+    });
+  }
+
+  async function intentarTodasLasURLs() {
+    console.log('🌒 Triggui · Buscando paleta dinámica del último libro...');
+    for (const url of URLS) {
+      try {
+        console.log('  → Intentando:', url);
+        const data = await fetchConTimeout(url, FETCH_TIMEOUT);
+        const accent = extraerAccent(data);
+        if (accent) {
+          console.log('  ✓ Accent encontrado:', accent, 'en', url);
+          if (aplicarPaleta(accent)) return;
+        } else {
+          console.warn('  ⚠️ Sin accent válido en respuesta de', url);
+        }
+      } catch (e) {
+        console.warn('  ✗ Falló', url, ':', e.message);
+      }
+    }
+    console.warn('🌒 Triggui · Ninguna URL respondió con accent válido. Manteniendo colores hardcoded.');
+  }
+
+  if (typeof fetch !== 'undefined') {
+    intentarTodasLasURLs();
+  } else {
+    console.warn('🌒 Triggui · fetch no disponible en este browser');
+  }
+})();
+</script>
+<style>
+:root{--t-black:#0B0F1A;--t-black2:#0E1324;--t-white:#F5F0E8;--t-gold:#E8A838;--t-coral:#FF6B4A;--t-teal:#4ECDC4;--t-green:#00FF88;--t-green2:#00BD63;--t-red:#FF3B30;--t-fire:linear-gradient(135deg,#E8A838 0%,#FF6B4A 50%,#FF3F6C 100%);--t-nuclear:linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%);--t-green-g:linear-gradient(135deg,#00FF88 0%,#00BD63 100%);--t-w3:rgba(245,240,232,.03);--t-w5:rgba(245,240,232,.05);--t-w8:rgba(245,240,232,.08);--t-w12:rgba(245,240,232,.12);--t-w15:rgba(245,240,232,.15);--t-w20:rgba(245,240,232,.2);--t-w40:rgba(245,240,232,.4);--t-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;--t-r24:24px;--t-blur:blur(12px);--t-ease:0.4s cubic-bezier(.22,1,.36,1)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:var(--t-font);background:var(--t-black)!important;color:var(--t-white);overflow-x:hidden;width:100%;max-width:100vw;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;-webkit-tap-highlight-color:transparent;scroll-behavior:smooth}
+html{scroll-padding-top:80px}
+img{display:block;max-width:100%;height:auto}
+.page-loader{position:fixed;inset:0;background:var(--t-black);z-index:9999;opacity:1;transition:opacity .5s ease-out;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.page-loader.loaded{opacity:0}
+.hero-title{font-weight:800;line-height:.95;letter-spacing:-.04em;text-align:center;font-size:clamp(2.4rem,8.5vw,8rem);padding-bottom:.1em;word-break:break-word}
+.hero-subtitle{font-weight:800;line-height:.95;letter-spacing:-.04em;text-align:center;font-size:clamp(1.7rem,6.5vw,6.5rem);padding-bottom:.1em}
+.text-fire{background:var(--t-fire);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:fm 6s ease infinite}
+.bg-grain{position:fixed;inset:0;z-index:0;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.spotlight{position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:180%;height:180%;background:radial-gradient(ellipse at center,rgba(232,168,56,.1) 0%,rgba(78,205,196,.04) 35%,transparent 65%);pointer-events:none;z-index:1;animation:sp 10s ease-in-out infinite}
+.glass-card{background:var(--t-w3);border:1px solid var(--t-w12);backdrop-filter:var(--t-blur);-webkit-backdrop-filter:var(--t-blur);border-radius:var(--t-r24);transition:all var(--t-ease);position:relative;overflow:hidden}
+.glass-card::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,var(--t-w8),transparent);transition:left .7s}
+.glass-card:hover::before{left:100%}
+.glass-card:hover{transform:translateY(-10px) scale(1.005);border-color:rgba(232,168,56,.35);box-shadow:0 30px 60px -12px rgba(232,168,56,.15)}
+.pricing-card-monthly::before,.pricing-card-featured::before,.glass-card.p-8.hover\:bg-white\/5::before,.glass-card.p-6.md\:p-8::before{content:none!important;display:none!important}
+.cards-rail-container{width:100%;overflow-x:auto;overflow-y:hidden;padding:2.5rem 0;display:flex;gap:1.5rem;scroll-snap-type:x mandatory;scroll-behavior:smooth;-ms-overflow-style:none;scrollbar-width:none;mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent)}
+.cards-rail-container::-webkit-scrollbar{display:none}
+.card-3d-wrapper{flex:0 0 auto;width:270px;perspective:1000px;scroll-snap-align:center;position:relative}
+.rail-spacer{flex:0 0 auto;width:calc(50% - 135px)}
+@media(min-width:768px){.card-3d-wrapper{width:320px}.rail-spacer{width:calc(50% - 160px)}}
+.card-3d-inner{width:100%;transition:transform .1s ease-out;transform-style:preserve-3d;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);position:relative}
+.card-3d-inner img{border-radius:12px;width:100%;display:block;pointer-events:none}
+.card-shine{position:absolute;inset:0;border-radius:12px;background:linear-gradient(135deg,rgba(232,168,56,.18) 0%,rgba(255,255,255,0) 60%);opacity:0;transition:opacity .3s;pointer-events:none;z-index:10}
+.card-3d-wrapper:hover .card-shine{opacity:1}
+.btn-nuclear{position:relative;background:var(--t-nuclear);background-size:200% 200%;color:#fff;font-weight:700;border:none;overflow:hidden;cursor:pointer;box-shadow:0 10px 30px rgba(232,168,56,.35);animation:fm 4s infinite;transition:all var(--t-ease);text-transform:uppercase;letter-spacing:.02em}
+.btn-nuclear::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,.25);transform:translate(-50%,-50%);transition:width .6s,height .6s}
+.btn-nuclear:hover{transform:scale(1.03);filter:brightness(1.1)}
+.btn-nuclear:hover::before{width:300px;height:300px}
+.btn-nuclear:active{transform:scale(.97)}
+.btn-monthly{background:var(--t-green-g);color:#fff;font-weight:700;border:none;transition:all var(--t-ease);box-shadow:0 4px 15px rgba(0,255,136,.35)}
+.btn-monthly:hover{transform:scale(1.03);box-shadow:0 8px 25px rgba(0,255,136,.45)}
+.input-god{background:var(--t-w5);border:1.5px solid var(--t-w12);color:var(--t-white);font-family:var(--t-font);font-weight:500;font-size:16px;transition:all var(--t-ease)}
+.input-god:focus{background:var(--t-w8);border-color:var(--t-gold);outline:none;box-shadow:0 0 0 4px rgba(232,168,56,.12)}
+.input-god::placeholder{color:var(--t-w40)}
+select.select-god{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(245,240,232,.5)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:40px;cursor:pointer;font-size:16px}
+select.select-god option{background:#1a1a2e;color:var(--t-white);padding:12px}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type=number]{-moz-appearance:textfield}
+.badge-save{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--t-green-g);color:#fff;font-weight:800;font-size:.7rem;padding:5px 14px;border-radius:9999px;text-shadow:0 1px 2px rgba(0,0,0,.3);box-shadow:0 4px 15px rgba(0,255,136,.35);white-space:nowrap;z-index:10;overflow:visible!important}
+.live-badge{display:inline-flex;align-items:center;gap:10px;padding:10px 20px;background:var(--t-w5);border:1px solid var(--t-w15);backdrop-filter:blur(16px);border-radius:9999px;font-size:.8rem;color:rgba(245,240,232,.85);margin-bottom:2rem;box-shadow:0 4px 12px rgba(0,0,0,.35);font-weight:600}
+.pulse-dot{position:relative;width:8px;height:8px}
+.pulse-dot::before{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%;animation:pr 2s ease-out infinite}
+.pulse-dot::after{content:'';position:absolute;width:100%;height:100%;background:var(--t-green);border-radius:50%}
+.phone-device{width:340px;max-width:88vw;margin:0 auto;border-radius:54px;padding:5px;background:linear-gradient(155deg,#8E8E93 0%,#3A3A3C 14%,#1C1C1E 42%,#2C2C2E 74%,#7C7C80 100%);box-shadow:0 50px 100px rgba(0,0,0,.62),0 0 0 .5px rgba(255,255,255,.10),inset 0 1px 0 rgba(255,255,255,.16)}
+.phone-screen{border-radius:49px;overflow:hidden;position:relative;background:#0B141A;aspect-ratio:440/956;box-shadow:inset 0 0 0 1px rgba(0,0,0,.9)}
+.phone-screen img{width:100%;display:block}
+.phone-notch-bar{position:absolute;top:0;left:0;right:0;height:38px;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,transparent 100%);z-index:5;display:flex;align-items:flex-start;justify-content:center;padding-top:9px}
+.phone-dynamic-island{width:90px;height:24px;background:#000;border-radius:16px}
+.phone-bottom-fade{position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(0deg,rgba(11,15,26,.85) 0%,transparent 100%);z-index:5;pointer-events:none}
+.flow-step{display:flex;align-items:flex-start;gap:14px;text-align:left}
+.flow-number{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;color:#fff}
+.flow-step-title{font-weight:700;font-size:15px;color:var(--t-white);margin-bottom:3px}
+.flow-step-desc{font-size:13px;color:rgba(245,240,232,.45);line-height:1.55}
+.pricing-container{overflow:visible!important;padding-top:2.5rem;position:relative}
+.pricing-container::before,.pricing-container::after{content:none!important;display:none!important}
+.pricing-card-featured{overflow:visible!important;position:relative}
+.pricing-card-monthly{background:linear-gradient(135deg,rgba(0,255,136,.06) 0%,rgba(0,189,99,.03) 100%)!important;border:1px solid rgba(0,255,136,.25)!important;backdrop-filter:var(--t-blur);-webkit-backdrop-filter:var(--t-blur);border-radius:var(--t-r24);position:relative;overflow:hidden;transform:none!important;transition:all .4s cubic-bezier(.22,1,.36,1)!important}
+.pricing-card-monthly::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(0,255,136,.08),transparent);transition:left .8s ease}
+.pricing-card-monthly:hover::before{left:100%}
+.pricing-card-monthly:hover{background:linear-gradient(135deg,rgba(0,255,136,.1) 0%,rgba(0,189,99,.06) 100%)!important;border-color:rgba(0,255,136,.45)!important;box-shadow:0 20px 60px rgba(0,255,136,.15)!important;transform:translateY(-8px)!important}
+.pricing-card-glow{position:relative}
+.pricing-card-glow::after{content:'';position:absolute;inset:-2px;background:var(--t-fire);border-radius:var(--t-r24);z-index:-1;opacity:0;transition:opacity .3s ease}
+.pricing-card-glow:hover::after{opacity:.4;animation:gr 3s linear infinite}
+.price-strike{position:relative;color:#9ca3af;text-decoration:none}
+.price-strike::after{content:'';position:absolute;left:0;top:50%;width:100%;height:2px;background:var(--t-red);transform:translateY(-50%) rotate(-8deg)}
+.testimonial-card{background:var(--t-w3);border:1px solid rgba(245,240,232,.08);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-radius:20px;padding:24px;transition:all var(--t-ease)}
+.testimonial-card:hover{border-color:var(--t-w20);transform:translateY(-4px);box-shadow:0 12px 40px rgba(232,168,56,.1)}
+.store-badge-container{display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap;height:56px;margin:0 auto;max-width:100%}
+.store-badge{height:100%;display:inline-flex;align-items:center;border-radius:12px;transition:transform var(--t-ease),opacity var(--t-ease)}
+.store-badge img{height:100%;width:auto;display:block}
+.store-badge.apple img{transform:scale(.78)}
+.store-badge.google img{transform:scale(1.18)}
+.store-badge:hover{transform:scale(1.05);opacity:.9}
+.wa-float{position:fixed;bottom:85px;right:20px;z-index:50;width:60px;height:60px;background:rgba(11,15,26,.85);border:1px solid rgba(0,255,136,.25);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 30px rgba(0,0,0,.5),0 0 15px rgba(0,255,136,.08);transition:all .4s cubic-bezier(.22,1,.36,1)}
+.wa-float svg{width:30px;height:30px;fill:#00FF88;transition:fill .3s ease}
+.wa-float:hover{transform:scale(1.1) translateY(-2px);background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);border-color:transparent;box-shadow:0 10px 40px rgba(37,211,102,.4)}
+.wa-float:hover svg{fill:#fff}
+.cta-float{position:fixed;bottom:20px;right:20px;z-index:50;background:var(--t-gold);color:#0B0F1A;font-weight:800;padding:14px 28px;border-radius:50px;box-shadow:0 10px 30px rgba(232,168,56,.35);opacity:0;pointer-events:none;transform:translateY(20px);transition:all .4s cubic-bezier(.4,0,.2,1)}
+.cta-float.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+@keyframes fm{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes pr{0%{transform:scale(1);opacity:1}100%{transform:scale(2.5);opacity:0}}
+@keyframes sp{0%,100%{opacity:1}50%{opacity:.7}}
+@keyframes gr{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(360deg)}}
+@keyframes fg{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.container-safe{max-width:1200px;width:100%;margin:0 auto;padding-left:1.5rem;padding-right:1.5rem}
+.hover-lift{transition:transform var(--t-ease)}
+.hover-lift:hover{transform:translateY(-2px)}
+@media(max-width:640px){.store-badge-container{height:52px}}
+/* ═══════════════════════════════════════════════════════════════════════
+   V19 — PROPORCIONES ÁUREAS NIVEL DIOS TODOPODEROSO
+   ═══════════════════════════════════════════════════════════════════════
+   Escala tipográfica φ-based (φ = 1.618). Cada nivel multiplicado por φ
+   respecto al anterior crea armonía matemática perceptible.
+   Spacing Fibonacci (cada # ≈ φ × anterior): 8, 13, 21, 34, 55, 89, 144px
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  --phi: 1.618;
+  --phi-h1: clamp(2.5rem, 6.875vw, 6.875rem);  /* 110px desktop */
+  --phi-h2: clamp(2rem, 4.25vw, 4.25rem);      /* 68px desktop */
+  --phi-h3: clamp(1.5rem, 2.625vw, 2.625rem);  /* 42px desktop */
+  --phi-h4: clamp(1.25rem, 1.625vw, 1.625rem); /* 26px desktop */
+  --phi-h5: 1.25rem;                            /* 20px */
+  --phi-h6: 1rem;                               /* 16px */
+  --fib-3: 8px;
+  --fib-4: 13px;
+  --fib-5: 21px;
+  --fib-6: 34px;
+  --fib-7: 55px;
+  --fib-8: 89px;
+  --fib-9: 144px;
+}
+/* H1 áureo solo en hero principal (clase específica para no romper otros) */
+h1.font-extrabold[class*="text-5xl"],
+h1.font-extrabold[class*="text-6xl"],
+h1.font-extrabold[class*="text-7xl"] {
+  font-size: var(--phi-h1) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.04em !important;
+}
+/* H2 áureo en sección titles */
+h2[class*="text-4xl"],
+h2[class*="text-5xl"] {
+  font-size: var(--phi-h2) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+}
+/* Subtle: h3 con armonía áurea */
+h3[class*="text-3xl"],
+h3[class*="text-2xl"] {
+  font-size: var(--phi-h3) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.02em !important;
+}
+/* Spacing armónico Fibonacci en secciones principales */
+section, .section-padding {
+  padding-top: var(--fib-8) !important;     /* 89px desktop */
+  padding-bottom: var(--fib-8) !important;
+}
+@media (max-width: 768px) {
+  section, .section-padding {
+    padding-top: var(--fib-6) !important;   /* 34px mobile (más respiración) */
+    padding-bottom: var(--fib-6) !important;
+  }
+}
+/* Card padding áureo */
+.glass-card, .pricing-card-monthly, .pricing-card-featured {
+  padding: var(--fib-6) !important;          /* 34px */
+}
+@media (min-width: 768px) {
+  .glass-card.p-8, .pricing-card-featured.p-8 {
+    padding: 2.625rem !important;            /* 42px = φ-h3 desktop */
+  }
+}
+@media (max-width: 767px) {
+  /* En mobile: cards más compactos para dejar más espacio a inputs */
+  .glass-card, .pricing-card-monthly, .pricing-card-featured {
+    padding: 1.25rem !important;             /* 20px = más espacio interior útil */
+  }
+}
+/* ═══ ECO-MENU · ECOSISTEMA (réplica idéntica, branding dinámico Triggui) ═══ */
+.eco-menu{padding:140px 24px 110px!important;background:radial-gradient(ellipse 80% 60% at 50% 35%,color-mix(in srgb,var(--t-gold) 14%,transparent),transparent 72%);position:relative;z-index:20;}
+.eco-inner{max-width:1120px;margin:0 auto;text-align:center;}
+.eco-kicker{display:inline-block;font-family:var(--t-font);font-size:.74rem;font-weight:700;letter-spacing:.32em;text-transform:uppercase;color:var(--t-coral);margin-bottom:22px;}
+.eco-frame{font-family:var(--t-font);font-weight:800;font-size:clamp(1.6rem,4.2vw,2.4rem);line-height:1.2;letter-spacing:-.5px;color:var(--t-white);max-width:720px;margin:0 auto 60px;}
+.eco-frame em{font-style:normal;color:var(--t-coral);}
+.eco-track{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;}
+.eco-card{display:flex;flex-direction:column;align-items:center;text-align:center;text-decoration:none;padding:44px 30px 38px;border-radius:24px;border:1px solid var(--t-w12);background:var(--t-w3);transition:border-color .45s cubic-bezier(.25,1,.5,1),background .45s cubic-bezier(.25,1,.5,1),transform .45s cubic-bezier(.25,1,.5,1);}
+.eco-card:hover{border-color:rgba(245,240,232,.4);background:var(--t-w5);transform:translateY(-6px);}
+.eco-card--current{border-color:var(--t-gold);background:color-mix(in srgb,var(--t-gold) 12%,transparent);}
+.eco-tag{font-family:var(--t-font);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,240,232,.45);margin-bottom:20px;}
+.eco-hook{font-family:var(--t-font);font-size:1rem;line-height:1.55;color:rgba(245,240,232,.72);max-width:30ch;margin:0 auto 30px;}
+.eco-hook b{color:var(--t-white);font-weight:700;}
+.jm{width:84px;height:84px;margin-bottom:22px;filter:drop-shadow(0 0 12px rgba(188,217,230,.20));transition:filter .45s ease;}
+.jm-moon{width:100%;height:100%;display:block;}
+.jm-lit{fill:url(#jm-glow);}
+.jm-shadow{fill:#0a1620;}
+.jm-rim{fill:none;stroke:rgba(255,255,255,.16);stroke-width:1;}
+.jm--full{filter:drop-shadow(0 0 16px rgba(188,217,230,.30));}
+.eco-card:hover .jm{filter:drop-shadow(0 0 18px rgba(200,228,240,.34));}
+.eco-card--current .jm{filter:drop-shadow(0 0 20px color-mix(in srgb,var(--t-gold) 50%,transparent));}
+.eco-logo{height:auto;width:auto;max-height:34px;max-width:160px;object-fit:contain;display:block;margin:0 auto 16px;}
+.eco-go{margin-top:auto;display:inline-block;padding:11px 24px;border-radius:999px;border:1px solid color-mix(in srgb,var(--t-gold) 50%,transparent);background:transparent;font-family:var(--t-font);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t-gold);transition:background .4s cubic-bezier(.25,1,.5,1),border-color .4s cubic-bezier(.25,1,.5,1),color .4s cubic-bezier(.25,1,.5,1),box-shadow .4s cubic-bezier(.25,1,.5,1);}
+.eco-go-arrow{display:inline-block;margin-left:6px;transition:transform .4s cubic-bezier(.25,1,.5,1);}
+.eco-card:hover .eco-go,.eco-card:active .eco-go{background:var(--t-gold);border-color:var(--t-gold);color:var(--t-black);box-shadow:0 10px 26px color-mix(in srgb,var(--t-gold) 38%,transparent);}
+.eco-card:hover .eco-go-arrow,.eco-card:active .eco-go-arrow{transform:translateX(3px);}
+.eco-card:focus-visible{outline:2px solid var(--t-gold);outline-offset:4px;}
+@media(max-width:860px){.eco-track{grid-template-columns:1fr;gap:18px;max-width:430px;margin:0 auto;}.eco-frame{margin-bottom:44px;}.eco-menu{padding:110px 20px 80px!important;}.eco-hook{max-width:34ch;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<style id="tv-card-css">
+/* Riel vivo: las tarjetas ORIGINALES del pipeline (tarjeta.png / tarjeta_en.png).
+   No son recreaciones: son exactamente las mismas que se envían por WhatsApp. */
+.card-3d-inner{transition:transform .28s cubic-bezier(.19,1,.22,1),box-shadow .28s ease}
+.card-3d-wrapper:hover .card-3d-inner{transform:translateY(-8px) scale(1.015);box-shadow:0 22px 48px rgba(0,0,0,.6),0 0 0 1px var(--acc,#E8A838)}
+.card-3d-inner .tv-link{display:block;border-radius:12px;overflow:hidden;line-height:0;position:relative}
+.tv-abrir{position:absolute;left:50%;bottom:12px;transform:translateX(-50%) translateY(8px);opacity:0;
+  background:var(--acc,#E8A838);color:#0B0F1A;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.03em;
+  padding:8px 14px;border-radius:99px;white-space:nowrap;transition:all .28s cubic-bezier(.19,1,.22,1);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.card-3d-wrapper:hover .tv-abrir{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (hover:none){.tv-abrir{opacity:.96;transform:translateX(-50%)}}
+.rail-invita{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font:700 12px/1 'Plus Jakarta Sans',sans-serif;
+  letter-spacing:.14em;text-transform:uppercase;color:#E8A838}
+.rail-invita span{display:inline-block;animation:railDedo 1.8s ease-in-out infinite}
+@keyframes railDedo{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+
+.card-3d-inner .tv-link img{width:100%;display:block;border-radius:12px;aspect-ratio:1066/1600;object-fit:cover;background:#F2F2F2}
+/* El texto real de cada tarjeta viaja para buscadores y lectores de pantalla */
+.tv-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+</style>
+<link rel="alternate" hreflang="es" href="https://triggui.com/" /><link rel="alternate" hreflang="en" href="https://triggui.com/en/" /><link rel="alternate" hreflang="x-default" href="https://triggui.com/" />
+</head>
+<body>
+
+<!-- 🧸 Banner top — Triggui Kids (v3 simple universal) -->
+<a href="https://app.triggui.com/kids"
+   target="_blank"
+   onclick="trackEngagement('kids_banner_top')"
+   class="kids-banner-top"
+   style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 12px 16px; background: linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16)); border-bottom: 1px solid rgba(232,168,56,0.35); color: #F5F0E8; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s ease; white-space: nowrap;"
+   onmouseover="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.30), rgba(255,107,107,0.26))'"
+   onmouseout="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16))'">
+  <span style="font-size: 18px; line-height: 1;">🧸</span>
+  <span>Conoce <strong style="color: #FFE5A8;">Triggui Kids</strong></span>
+  <span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; background: rgba(232,168,56,0.32); border: 1px solid rgba(232,168,56,0.55); border-radius: 999px; font-size: 11px; font-weight: 700; color: #FFE5A8; text-transform: uppercase; letter-spacing: 0.7px;">
+    Ir <span style="font-size: 13px;">→</span>
+  </span>
+</a>
+
+
+<div class="page-loader" id="pageLoader"><img src="https://triggui.com/trigguiletrasblanco.png" alt="Triggui" class="h-8 animate-pulse opacity-80"/></div>
+<div class="bg-grain"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-8 px-4">
+  <div class="spotlight"></div>
+  <div class="relative z-10 text-center max-w-5xl mx-auto w-full">
+    <div class="mb-8">
+      <img src="https://triggui.com/trigguiletrasblanco.png" alt="Triggui" class="h-10 md:h-12 w-auto mx-auto" style="max-width:220px;filter:drop-shadow(0 0 10px rgba(245,240,232,.15))" loading="eager"/>
+    </div>
+    <div class="live-badge hover-lift">
+      <span class="pulse-dot"></span>
+      <span id="liveCounter">127 lectores ahora</span>
+    </div>
+    <div class="px-2">
+      <h1 class="hero-title mb-3 text-fire">Una señal para</h1>
+      <h2 class="hero-subtitle mb-6" style="color:var(--t-white)">mejorar tu ánimo.</h2>
+    </div>
+    <p class="text-lg md:text-xl mb-4 max-w-2xl mx-auto leading-relaxed px-4" style="color:rgba(245,240,232,.7)">
+      Recibe por correo y WhatsApp una idea de un gran libro, en el momento exacto. Si mejoró tu ánimo, <a href="#espiral" style="color:var(--t-gold);font-weight:600;text-decoration:none">guárdala en tu Espiral 🌀</a>.
+    </p>
+    <p class="text-base mb-10 px-4" style="color:rgba(245,240,232,.32)">
+      30 segundos.
+    </p>
+    <a href="#preview" class="inline-block mb-4 opacity-40 hover:opacity-80 transition-opacity" style="animation:fg 3s ease-in-out infinite">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--t-gold)"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ═══ PREVIEW ═══ -->
+<section id="preview" class="py-20 relative scroll-mt-20" style="background:linear-gradient(180deg,var(--t-black) 0%,var(--t-black2) 50%,var(--t-black) 100%)">
+  <div class="container-safe mx-auto">
+    <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-14 tracking-tight leading-tight" style="color:var(--t-white)">Llega a tu WhatsApp o correo, una vez por semana. Tú decides qué hacer con ella.</h2>
+    <div class="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16">
+      <div style="animation:fg 6s ease-in-out infinite">
+        <div class="phone-device">
+          <div class="phone-screen">
+            <div class="phone-notch-bar"><div class="phone-dynamic-island"></div></div>
+            <div id="waChat" class="wa-chat" aria-label="Así se ve Triggui en tu WhatsApp"></div>
+            <div class="phone-bottom-fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-7 max-w-sm">
+        <div class="flow-step">
+          <div class="flow-number" style="background:var(--t-gold)">1</div>
+          <div>
+            <div class="flow-step-title">La tarjeta: una idea que te mueve</div>
+            <div class="flow-step-desc">Un párrafo que conecta un gran libro con lo que estás viviendo. Una perspectiva que no esperabas.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number" style="background:var(--t-coral)">2</div>
+          <div>
+            <div class="flow-step-title">El empujón</div>
+            <div class="flow-step-desc">Lo que necesitabas leer hoy. Directo y sin rodeos. Si no lo lees ahora, el mensaje te espera en tu chat.</div>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-number" style="background:var(--t-teal)">3</div>
+          <div>
+            <div class="flow-step-title">El link: cambia según tu hora</div>
+            <div class="flow-step-desc">Abres el link y el contenido se adapta a tu momento del día. Incluye una acción concreta que puedes hacer ahora mismo.</div>
+          </div>
+        </div>
+        <div style="margin-top:4px;padding:14px 16px;border-radius:14px;background:rgba(232,168,56,.06);border:1px solid rgba(232,168,56,.15)">
+          <p style="font-weight:700;font-size:14px;color:var(--t-gold);margin-bottom:4px">30 segundos que te dan ganas de abrir un libro físico.</p>
+          <p style="font-size:12.5px;color:rgba(245,240,232,.4);line-height:1.55">Si la idea te atrapa, ya sabes qué libro buscar. Si no es tu momento, el mensaje te espera.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CARD RAIL + FORM ═══ -->
+<section class="py-16 relative">
+  <div class="container-safe mx-auto text-center">
+    <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:rgba(245,240,232,.30)">Algunas ediciones recientes</p>
+        <p class="rail-invita">🔥 Toca una y ábrela <span>→</span></p>
+    <div class="cards-rail-container" id="cardRail">
+      <div class="rail-spacer"></div>
+      <!-- 🌀 Riel vivo: las tarjetas se dibujan desde vitrina.json (ES/EN), no son imágenes.
+           Antes: 6 PNG de ~2.5 MB cada una (≈15 MB) con el texto horneado en píxeles. -->
+      <div class="rail-spacer"></div>
+    </div>
+    <p class="text-xs mt-1 flex items-center justify-center gap-2" style="color:rgba(245,240,232,.16)"><span class="animate-pulse">←</span> Desliza <span class="animate-pulse">→</span></p>
+
+    <div id="form" class="max-w-xl mx-auto mt-14 mb-12 w-full px-3 sm:px-2">
+      <div class="glass-card p-5 sm:p-6 md:p-8">
+        <p class="text-center mb-6" style="font-weight:700;font-size:18px;color:var(--t-white)">Empieza a recibir las señales</p>
+        <form onsubmit="handleCapture(event)" class="space-y-4 sm:space-y-5">
+          <div class="grid grid-cols-2 gap-3 sm:gap-4">
+            <input type="text" id="hp_web" name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;opacity:0" aria-hidden="true"><script>window.__t0=Date.now();</script><input type="text" id="fname" placeholder="Nombre" required class="input-god w-full px-4 sm:px-5 py-4 rounded-xl"/>
+            <input type="text" id="lname" placeholder="Apellido" required class="input-god w-full px-4 sm:px-5 py-4 rounded-xl"/>
+          </div>
+          <input type="email" id="email" placeholder="Email" required class="input-god w-full px-4 sm:px-5 py-4 rounded-xl"/>
+          <div class="flex gap-2 sm:gap-3">
+            <select id="country" class="input-god select-god px-2 sm:px-3 py-4 rounded-xl text-sm sm:text-base" style="width:104px;flex-shrink:0;">
+              <option value="+52">🇲🇽 +52</option><option value="+1">🇺🇸 +1</option><option value="+34">🇪🇸 +34</option><option value="+54">🇦🇷 +54</option><option value="+57">🇨🇴 +57</option><option value="+51">🇵🇪 +51</option><option value="+56">🇨🇱 +56</option><option value="+593">🇪🇨 +593</option><option value="+58">🇻🇪 +58</option><option value="+506">🇨🇷 +506</option><option value="+507">🇵🇦 +507</option><option value="+503">🇸🇻 +503</option><option value="+502">🇬🇹 +502</option><option value="+504">🇭🇳 +504</option><option value="+505">🇳🇮 +505</option><option value="+591">🇧🇴 +591</option><option value="+595">🇵🇾 +595</option><option value="+598">🇺🇾 +598</option><option value="+55">🇧🇷 +55</option><option value="+1">🇨🇦 +1</option><option value="+44">🇬🇧 +44</option><option value="+49">🇩🇪 +49</option><option value="+33">🇫🇷 +33</option><option value="+39">🇮🇹 +39</option><option value="+351">🇵🇹 +351</option>
+            </select>
+            <input type="tel" id="phone" placeholder="5512345678" required maxlength="10" inputmode="numeric" pattern="[0-9]{10}" class="input-god flex-1 min-w-0 px-4 sm:px-5 py-4 rounded-xl"/>
+          </div>
+          <button type="submit" id="submitBtn" class="btn-nuclear w-full py-4 rounded-xl text-sm sm:text-base font-bold whitespace-nowrap">Probar gratis por correo</button>
+        </form>
+      </div>
+    </div>
+
+    <p class="text-sm mb-4" style="color:rgba(245,240,232,.32)">También hay app gratuita para iOS y Android</p>
+    <div class="store-badge-container mb-8">
+      <a href="https://apps.apple.com/mx/app/triggui/id6752839016" target="_blank" class="store-badge apple" onclick="trackEngagement('app_store')"><img src="https://triggui.com/downloadappstore.png" alt="App Store" loading="lazy"/></a>
+      <a href="https://play.google.com/store/apps/details?id=com.triggui.app" target="_blank" class="store-badge google" onclick="trackEngagement('play_store')"><img src="https://triggui.com/getitonplaystore.png" alt="Google Play" loading="lazy"/></a>
+    </div>
+    <p class="text-sm mt-8" style="color:rgba(245,240,232,.25)">
+      <span id="numeroImpacto" class="text-fire font-bold text-2xl">+8,000</span><br>
+      <span style="color:rgba(245,240,232,.28)">libros que hemos abierto juntos</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ TU ESPIRAL ═══ -->
+<section id="espiral" class="py-24 relative scroll-mt-2" style="border-top:1px solid rgba(245,240,232,.05)">
+  <div class="container-safe mx-auto text-center">
+    <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--t-gold)">Nuevo · Solo miembros</p>
+    <h2 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight" style="color:var(--t-white)">Tu Espiral 🌀</h2>
+    <p class="text-lg mb-10 max-w-xl mx-auto" style="color:rgba(245,240,232,.55)">Los libros que mejoraron tu ánimo, <span style="color:var(--t-white);font-weight:600">se quedan contigo.</span></p>
+    <div class="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12 text-sm" style="color:rgba(245,240,232,.65)">
+      <div><span class="text-2xl block mb-2">📬</span>Te llega tu tarjeta.</div>
+      <div><span class="text-2xl block mb-2">😍</span>Si el libro mejora tu ánimo, tocas este botón.</div>
+      <div><span class="text-2xl block mb-2">🌀</span>Se guarda en tu Espiral: tu colección personal, lista para cuando la necesites.</div>
+    </div>
+    <div id="espPanel" class="esp-panel" aria-label="Tu Espiral"></div>
+    <p class="text-xs mt-6" style="color:rgba(245,240,232,.35)">Incluida en todos los planes. <a href="#planes" style="color:var(--t-gold);font-weight:700;text-decoration:none">Ver planes →</a></p>
+  </div>
+</section>
+
+<!-- ═══ PROBLEMA ═══ -->
+<section class="py-24 relative">
+  <div class="container-safe mx-auto">
+    <div class="max-w-3xl mx-auto text-center mb-16">
+      <h2 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight leading-none" style="color:var(--t-white)">Cuando el impulso llega,<br><span class="text-fire">el libro ya te espera.</span></h2>
+      <p class="text-lg leading-relaxed" style="color:rgba(245,240,232,.4)">No es magia. Es la idea exacta en el momento exacto.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      <div class="glass-card p-8">
+        <div class="text-4xl mb-5">💭</div>
+        <h3 class="text-xl font-bold mb-3" style="color:var(--t-white)">El problema no es falta de tiempo</h3>
+        <p class="leading-relaxed text-[15px]" style="color:rgba(245,240,232,.45)">Son esos 3 minutos donde piensas "¿qué leo?"... y terminas en otras pantallas. <span style="color:var(--t-white);font-weight:600">La señal te llega ya. No tienes que decidir.</span></p>
+      </div>
+      <div class="glass-card p-8">
+        <div class="text-4xl mb-5">💬</div>
+        <h3 class="text-xl font-bold mb-3" style="color:var(--t-white)">El mensaje espera por ti</h3>
+        <p class="leading-relaxed text-[15px]" style="color:rgba(245,240,232,.45)">Un mensaje sin leer es una promesa. Si no es tu momento, ahí se queda. <span style="color:var(--t-white);font-weight:600">No se pierde en un feed. Cuando lo abras, ahí sigue.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DOS FUERZAS ═══ -->
+<section class="py-24" style="background:linear-gradient(180deg,var(--t-black) 0%,var(--t-black2) 50%,var(--t-black) 100%)">
+  <div class="container-safe mx-auto">
+    <h2 class="text-4xl md:text-6xl font-extrabold text-center mb-6 tracking-tight leading-none" style="color:var(--t-white)">Si el impulso nace de ti,<br><span class="text-fire">el libro ya está ahí.</span></h2>
+    <p class="text-lg text-center mb-16 max-w-3xl mx-auto leading-relaxed" style="color:rgba(245,240,232,.4)">Si el impulso lo generamos nosotros, te damos la idea que te hace abrirlo.<br><span style="color:var(--t-white);font-weight:600">Dos caminos. Un resultado: abres el libro.</span></p>
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      <div class="text-center hover-lift">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg" style="background:linear-gradient(135deg,var(--t-gold),var(--t-coral))">💬</div>
+        <h3 class="text-lg font-bold mb-2" style="color:var(--t-white)">Llega entre tus chats</h3>
+        <p class="text-[14px] leading-relaxed" style="color:rgba(245,240,232,.4)">Una idea. 30 segundos. Ahí, entre tus conversaciones de siempre.</p>
+      </div>
+      <div class="text-center hover-lift">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg" style="background:linear-gradient(135deg,var(--t-coral),#FF3F6C)">⏳</div>
+        <h3 class="text-lg font-bold mb-2" style="color:var(--t-white)">Se queda esperándote</h3>
+        <p class="text-[14px] leading-relaxed" style="color:rgba(245,240,232,.4)">Si no es tu momento, el mensaje no desaparece. Cuando estés listo, ahí sigue.</p>
+      </div>
+      <div class="text-center hover-lift">
+        <div class="w-14 h-14 mx-auto mb-5 rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg" style="background:linear-gradient(135deg,var(--t-teal),#2DD4BF)">🚀</div>
+        <h3 class="text-lg font-bold mb-2" style="color:var(--t-white)">Solo abre y lee</h3>
+        <p class="text-[14px] leading-relaxed" style="color:rgba(245,240,232,.4)">Abres el mensaje y lees. Si te dan ganas de más, el libro físico te espera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section id="planes" class="py-24 relative scroll-mt-20">
+  <div class="container-safe mx-auto">
+    <h2 class="text-4xl md:text-5xl font-extrabold text-center mb-6 tracking-tight" style="color:var(--t-white)">La señal exacta.<br><span class="text-fire">El momento exacto.</span></h2>
+    <p class="text-center mb-16 text-base max-w-2xl mx-auto" style="color:rgba(245,240,232,.4)">Cronobiología aplicada.<br><span style="color:var(--t-white);font-weight:600">Llega cuando tu mente lo necesita.</span></p>
+    <div class="pricing-container grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-center">
+
+      <div class="glass-card p-8 hover:bg-white/5 transition-all opacity-95 hover:opacity-100 order-1">
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center" style="color:var(--t-teal)">Mensual Básico</h3>
+        <div class="text-center mb-1"><span class="text-4xl font-bold" style="color:var(--t-white)">$129</span><span class="text-sm" style="color:rgba(245,240,232,.35)"> MXN/mes</span></div>
+        <ul class="text-sm space-y-2 mb-8" style="color:rgba(245,240,232,.65)">
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>1 tarjeta a la semana, por correo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span><strong>Tu Espiral 🌀</strong>: tu colección personal de libros que mejoraron tu ánimo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-teal)">✓</span><span>App incluida gratis</span></li>
+        </ul>
+        <a href="https://buy.stripe.com/7sYeVfgIebeAbqEdHn24007" class="block w-full py-3 text-center rounded-xl border-2 font-bold text-sm transition-all" style="border-color:rgba(78,205,196,.35);color:var(--t-teal)" onmouseover="this.style.background='rgba(78,205,196,.08)'" onmouseout="this.style.background='transparent'" onclick="trackConversion('mensual_basico',129)">Empezar</a>
+      </div>
+
+      <div class="pricing-card-featured pricing-card-glow glass-card p-8 relative transform md:scale-110 shadow-2xl order-2" style="background:linear-gradient(180deg,rgba(232,168,56,.07) 0%,rgba(245,240,232,.02) 100%);border-color:rgba(232,168,56,.35)">
+        <div class="badge-save">MÁS POPULAR</div>
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center pt-6" style="color:var(--t-gold)">Mensual Completo</h3>
+        <div class="text-center mb-6"><span class="text-5xl font-extrabold" style="color:var(--t-white)">$149</span><span class="text-sm" style="color:rgba(245,240,232,.35)"> MXN/mes</span></div>
+        <ul class="text-sm space-y-2 mb-8" style="color:rgba(245,240,232,.75)">
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-gold)">✓</span><span>2 tarjetas a la semana, por correo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-gold)">✓</span><span><strong>Las mismas 2 también por WhatsApp</strong></span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-gold)">✓</span><span><strong>Tu Espiral 🌀</strong>: tu colección personal de libros que mejoraron tu ánimo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:var(--t-gold)">✓</span><span>App incluida gratis</span></li>
+        </ul>
+        <a href="https://buy.stripe.com/8x2dRb4Zw6YkcuIbzf24003" class="btn-nuclear block w-full py-4 text-center rounded-xl font-bold shadow-xl" onclick="trackConversion('mensual',149)">Empezar ya</a>
+      </div>
+
+      <div class="pricing-card-monthly p-8 order-3">
+        <h3 class="font-bold uppercase text-xs tracking-widest mb-4 text-center" style="color:#00FF88">Anual Pro</h3>
+        <div class="text-center mb-2"><span class="text-4xl font-bold" style="color:var(--t-white)">$1,490</span><span class="text-sm" style="color:rgba(245,240,232,.35)"> MXN/año</span></div>
+        <div class="text-center mb-6"><span class="price-strike text-sm inline-block mr-2">$1,788</span><span class="text-xs font-bold px-3 py-1 rounded-full" style="color:#00FF88;background:rgba(0,255,136,.08)">Ahorras $298</span></div>
+        <ul class="text-sm space-y-2 mb-8" style="color:rgba(245,240,232,.75)">
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:#00FF88">✓</span><span>Todo lo del plan Completo</span></li>
+          <li class="flex gap-2 items-center"><span class="font-bold" style="color:#00FF88">✓</span><span><strong>2 meses gratis</strong> (pagas 10, recibes 12)</span></li>
+        </ul>
+        <a href="https://buy.stripe.com/00w7sN2Ro96s0M0fPv24004" class="btn-monthly block w-full py-3 text-center rounded-xl font-bold text-sm" onclick="trackConversion('anual',1490)">Pagar el año</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section class="py-24" style="border-top:1px solid rgba(245,240,232,.05)">
+  <div class="container-safe mx-auto">
+    <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-16 tracking-tight" style="color:var(--t-white)">Lo que dicen los que ya lo reciben</h2>
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+      <div class="testimonial-card">
+        <div class="flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-base shrink-0" style="background:linear-gradient(135deg,var(--t-gold),var(--t-coral));color:#fff">L</div>
+          <div class="flex-1">
+            <p class="text-[15px] mb-3 leading-relaxed italic" style="color:rgba(245,240,232,.55)">"Me llegó un lunes entre chats del trabajo. Lo leí en 30 segundos. <strong style="color:var(--t-white)">Esa tarde abrí el libro que tenía meses juntando polvo en mi buró.</strong>"</p>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:rgba(245,240,232,.22)">Laura M.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-base shrink-0" style="background:linear-gradient(135deg,var(--t-teal),#2DD4BF);color:#fff">C</div>
+          <div class="flex-1">
+            <p class="text-[15px] mb-3 leading-relaxed italic" style="color:rgba(245,240,232,.55)">"Lo mejor es cuando llega el mensaje inesperado entre semana. <strong style="color:var(--t-white)">No sabes qué día va a ser, y eso lo hace bonito.</strong>"</p>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:rgba(245,240,232,.22)">Carlos R.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-base shrink-0" style="background:linear-gradient(135deg,var(--t-coral),#FF3F6C);color:#fff">A</div>
+          <div class="flex-1">
+            <p class="text-[15px] mb-3 leading-relaxed italic" style="color:rgba(245,240,232,.55)">"No tengo tiempo de leer. O eso creía. <strong style="color:var(--t-white)">Triggui no me pide tiempo. Me da ganas.</strong>"</p>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:rgba(245,240,232,.22)">Ana G.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="flex gap-4 items-start">
+          <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-base shrink-0" style="background:linear-gradient(135deg,#E8A838,#FFD700);color:#0B0F1A">J</div>
+          <div class="flex-1">
+            <p class="text-[15px] mb-3 leading-relaxed italic" style="color:rgba(245,240,232,.55)">"Llevo 3 meses suscrito. <strong style="color:var(--t-white)">He abierto más libros físicos que en todo el año pasado.</strong> Y solo leo el mensaje de WhatsApp."</p>
+            <p class="text-xs uppercase tracking-widest font-bold" style="color:rgba(245,240,232,.22)">Jorge M.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAMILIA TRIGGUI — kids + adulto ═══ -->
+<section class="py-20 px-4" style="border-top: 1px solid rgba(245,240,232,.05)">
+  <div class="container-safe mx-auto" style="max-width: 1100px">
+    <p class="text-xs font-bold uppercase tracking-widest mb-3 text-center" style="color:rgba(245,240,232,.22)">Familia Triggui</p>
+    <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-4 tracking-tight leading-tight" style="color:var(--t-white)">
+      Dos productos.<br class="md:hidden"> <span class="text-fire">Una sola misión.</span>
+    </h2>
+    <p class="text-center mb-12 text-base max-w-2xl mx-auto" style="color:rgba(245,240,232,.4)">
+      Que los libros se abran.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+
+      <!-- Triggui adulto -->
+      <div class="glass-card p-8 hover:bg-white/5 transition-all">
+        <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--t-teal)">Para ti</p>
+        <h3 class="text-2xl font-bold mb-3" style="color:var(--t-white)">Triggui</h3>
+        <p class="text-[15px] leading-relaxed mb-6" style="color:rgba(245,240,232,.55)">
+          Una señal para mejorar tu ánimo. Una idea de un gran libro, lista en 30 segundos. Llega cuando tu mente lo necesita.
+        </p>
+        <a href="#planes"
+           onclick="trackEngagement('familia_adulto')"
+           class="inline-block px-5 py-2 rounded-xl border-2 font-bold text-sm transition-all"
+           style="border-color:rgba(78,205,196,.35); color:var(--t-teal); text-decoration: none;"
+           onmouseover="this.style.background='rgba(78,205,196,.08)'"
+           onmouseout="this.style.background='transparent'">
+          Ver planes →
+        </a>
+      </div>
+
+      <!-- Triggui Kids -->
+      <div class="glass-card p-8 hover:bg-white/5 transition-all"
+           style="border-color: rgba(232,168,56,0.25); background: linear-gradient(180deg, rgba(232,168,56,.04) 0%, rgba(245,240,232,.02) 100%);">
+        <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:var(--t-gold)">Para tus hijos</p>
+        <h3 class="text-2xl font-bold mb-3" style="color:var(--t-white)">Triggui Kids</h3>
+        <p class="text-[15px] leading-relaxed mb-6" style="color:rgba(245,240,232,.55)">
+          Una virtud, un valor, una moraleja en 30 segundos. La lee un adulto en voz alta, o el niño solo si ya lee. Para 4 a 12 años.
+        </p>
+        <a href="https://app.triggui.com/kids"
+           target="_blank"
+           onclick="trackEngagement('familia_kids')"
+           class="inline-block px-5 py-2 rounded-xl border-2 font-bold text-sm transition-all"
+           style="border-color:rgba(232,168,56,.45); color:var(--t-gold); text-decoration: none;"
+           onmouseover="this.style.background='rgba(232,168,56,.08)'"
+           onmouseout="this.style.background='transparent'">
+          Conocer Triggui Kids →
+        </a>
+      </div>
+
+    </div>
+
+    <p class="text-center mt-10 text-xs" style="color:rgba(245,240,232,.22)">
+      Triggui Kids es gratis · iOS y Android · sin login · sin ads
+    </p>
+  </div>
+</section>
+
+<!-- ═══ ECO-MENU · ECOSISTEMA ═══ -->
+<section class="eco-menu">
+  <div class="eco-inner">
+    <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs><radialGradient id="jm-glow" cx="40%" cy="34%" r="78%"><stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#e8f4fa"/><stop offset="100%" stop-color="#bcd9e6"/></radialGradient><clipPath id="jm-disk"><circle cx="50" cy="50" r="45"/></clipPath></defs></svg>
+    <span class="eco-kicker">El ecosistema</span>
+    <h2 class="eco-frame">3 etapas: <em>desatorar, crecer, respirar</em>.</h2>
+    <div class="eco-track">
+
+      <a class="eco-card" href="https://trestme.com/moonshot" target="_blank" rel="noopener" onclick="trackEngagement('eco_moonshot')">
+        <span class="jm"><svg class="jm-moon" viewBox="0 0 100 100" aria-hidden="true"><circle class="jm-lit" cx="50" cy="50" r="45"/><g clip-path="url(#jm-disk)"><circle class="jm-shadow" cx="30" cy="50" r="45"/></g><circle class="jm-rim" cx="50" cy="50" r="45"/></svg></span>
+        <img class="eco-logo" src="https://triggui.com/moonshot-wordmark.png" alt="Moonshot" />
+        <span class="eco-tag">La estrategia</span>
+        <p class="eco-hook">Si tienes una decisión importante que tomar y aún no la tomas, <b>necesitas una mente neutral con quién pensarla.</b></p>
+        <span class="eco-go">Desatorar<span class="eco-go-arrow">&rarr;</span></span>
+      </a>
+
+      <a class="eco-card" href="https://trestme.com" target="_blank" rel="noopener" onclick="trackEngagement('eco_trestme')">
+        <span class="jm"><svg class="jm-moon" viewBox="0 0 100 100" aria-hidden="true"><circle class="jm-lit" cx="50" cy="50" r="45"/><g clip-path="url(#jm-disk)"><rect class="jm-shadow" x="0" y="0" width="50" height="100"/></g><circle class="jm-rim" cx="50" cy="50" r="45"/></svg></span>
+        <img class="eco-logo" src="https://triggui.com/logo_trestme.png" alt="Trestme" />
+        <span class="eco-tag">El sistema de crecimiento</span>
+        <p class="eco-hook">Leemos tu negocio, conectamos tus cuentas y movemos lo que haga falta. Cada semana, un paso arriba.</p>
+        <span class="eco-go">Crecer<span class="eco-go-arrow">&rarr;</span></span>
+      </a>
+
+      <a class="eco-card eco-card--current" href="https://app.triggui.com" onclick="trackEngagement('eco_triggui')">
+        <span class="jm jm--full"><svg class="jm-moon" viewBox="0 0 100 100" aria-hidden="true"><circle class="jm-lit" cx="50" cy="50" r="45"/><circle class="jm-rim" cx="50" cy="50" r="45"/></svg></span>
+        <img class="eco-logo" src="https://triggui.com/trigguiletrasblanco.png" alt="Triggui" />
+        <span class="eco-tag">El día a día</span>
+        <p class="eco-hook">Si te desanimas y cuesta volver, <b>te levanta en 30 segundos</b> y te regresa las ganas de abrir un libro.</p>
+        <span class="eco-go">Respirar<span class="eco-go-arrow">&rarr;</span></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="py-32 text-center relative" style="background:linear-gradient(180deg,var(--t-black) 0%,var(--t-black2) 50%,var(--t-black) 100%)">
+  <div class="container-safe mx-auto px-6">
+    <h2 class="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-none" style="color:var(--t-white)">CUANDO EL IMPULSO LLEGA,<br><span class="text-fire">EL LIBRO YA TE ESPERA.</span></h2>
+    <p class="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed" style="color:rgba(245,240,232,.4)">Un mensaje cada lunes. Otro cuando menos lo esperas. 30 segundos.<br><span style="color:var(--t-white);font-weight:600">Si no es tu momento, el mensaje te espera.</span></p>
+    <a href="#form" class="btn-nuclear inline-block px-12 py-6 rounded-2xl text-xl font-bold shadow-2xl" onclick="trackEngagement('footer_cta')">Probar gratis</a>
+    <div class="mt-16 text-xs space-y-4" style="color:rgba(245,240,232,.15)">
+      <img src="https://triggui.com/trigguiletrasblanco.png" alt="Triggui" class="h-6 w-auto mx-auto opacity-30 hover:opacity-50 transition-opacity" loading="lazy"/>
+      <p>© 2026 Triggui</p>
+      <div class="flex items-center justify-center gap-4" style="color:rgba(245,240,232,.18)"><a href="#" class="hover:text-white transition-colors">Privacidad</a><span>·</span><a href="#" class="hover:text-white transition-colors">Términos</a></div>
+    </div>
+  </div>
+</section>
+
+<a href="https://wa.me/5215532394017?text=¡Hola!%20Quiero%20que%20el%20libro%20me%20encuentre" target="_blank" class="wa-float" id="whatsappFloat" onclick="trackEngagement('whatsapp_float')"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+<a href="#form" class="cta-float" id="floatingCTA" onclick="trackEngagement('floating_cta')">Probar gratis</a>
+
+<script>
+window.addEventListener('load',function(){setTimeout(function(){document.getElementById('pageLoader').classList.add('loaded')},500)});
+const cards=document.querySelectorAll('.card-3d-wrapper');
+if(window.matchMedia("(hover: hover)").matches){cards.forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top,cx=r.width/2,cy=r.height/2,rx=((y-cy)/cy)*-10,ry=((x-cx)/cx)*10;c.querySelector('.card-3d-inner').style.transform=`perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.02,1.02,1.02)`});c.addEventListener('mouseleave',()=>{c.querySelector('.card-3d-inner').style.transform='perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)'})})}
+async function handleCapture(event){event.preventDefault();const btn=document.getElementById('submitBtn'),original=btn.innerHTML;btn.disabled=true;btn.innerHTML='⚡ Activando...';btn.style.opacity='0.7';const fname=document.getElementById('fname').value.trim(),lname=document.getElementById('lname').value.trim(),email=document.getElementById('email').value.trim(),phone=document.getElementById('phone').value.replace(/\D/g,''),code=document.getElementById('country').value,fullPhone=code+phone,utm=getUTMParams();if(phone.length!==10){btn.innerHTML='⚠️ Teléfono: 10 dígitos';btn.style.background='#ef4444';setTimeout(()=>{btn.innerHTML=original;btn.disabled=false;btn.style.opacity='1';btn.style.background=''},2500);return}if(!fname||!lname||!email||!phone){btn.innerHTML='⚠️ Completa todos los campos';btn.style.background='#ef4444';setTimeout(()=>{btn.innerHTML=original;btn.disabled=false;btn.style.opacity='1';btn.style.background=''},2500);return}const url="https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec";try{const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:`first_name=${encodeURIComponent(fname)}&last_name=${encodeURIComponent(lname)}&email=${encodeURIComponent(email)}&phone=${encodeURIComponent(fullPhone)}&source=triggui_god_v18k_form&website=${encodeURIComponent((document.getElementById('hp_web')||{value:''}).value)}&t0=${window.__t0||''}&utm_source=${encodeURIComponent(utm.source)}&utm_medium=${encodeURIComponent(utm.medium)}&utm_campaign=${encodeURIComponent(utm.campaign)}`});const data=await response.json().catch(()=>({result:"new",first_name:fname}));const greenBg='linear-gradient(135deg,#00FF88 0%,#00BD63 100%)',goldBg='linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%)',tealBg='linear-gradient(135deg,#4ECDC4 0%,#2DD4BF 100%)';if(data.result==='reactivated'){trackConversion('lead_reactivated',50);btn.style.background=goldBg;btn.innerHTML=data.first_name?`🌒 ¡Bienvenido de vuelta, ${data.first_name}! Revisa tu correo`:'🌒 ¡Bienvenido de vuelta! Revisa tu correo'}else if(data.result==='already_active'){trackEngagement('lead_duplicate');btn.style.background=tealBg;btn.innerHTML=data.first_name?`✓ Ya estás suscrito, ${data.first_name}. Revisa tu correo`:'✓ Ya estás suscrito. Revisa tu correo'}else if(data.result==='invalid_email'){btn.style.background='#ef4444';btn.innerHTML='⚠️ Email inválido';setTimeout(()=>{btn.innerHTML=original;btn.disabled=false;btn.style.opacity='1';btn.style.background=''},2500);return}else{trackConversion('lead_captured',100);btn.style.background=greenBg;btn.innerHTML=data.first_name?`✨ Listo, ${data.first_name}. Revisa tu correo`:'✨ Listo. Revisa tu correo'}setTimeout(()=>{['fname','lname','email','phone'].forEach(id=>document.getElementById(id).value='');btn.innerHTML=original;btn.disabled=false;btn.style.opacity='1';btn.style.background=''},3500)}catch(error){console.error('Error:',error);btn.innerHTML='❌ Error. Intenta de nuevo';btn.style.background='#ef4444';setTimeout(()=>{btn.innerHTML=original;btn.disabled=false;btn.style.opacity='1';btn.style.background=''},3000)}}
+function updateLiveCounter(){const el=document.getElementById("liveCounter");if(!el)return;fetch("https://triggui-api.vercel.app/api/get?cb="+Date.now()).then(r=>r.json()).then(d=>{const total=d.total||8000,activeNow=Math.max(1,Math.floor(total/100));el.textContent=`${activeNow} lectores ahora`;const counterEl=document.getElementById("numeroImpacto");if(counterEl){let cur=0;const tgt=total,inc=Math.ceil(tgt/40);const step=()=>{cur+=inc;if(cur>=tgt)cur=tgt;counterEl.textContent="+"+cur.toLocaleString("es-MX");if(cur<tgt)requestAnimationFrame(step)};requestAnimationFrame(step)}}).catch(()=>{el.textContent="127 lectores ahora";const counterEl=document.getElementById("numeroImpacto");if(counterEl)counterEl.textContent="+8,000"})}
+updateLiveCounter();setInterval(updateLiveCounter,30000);
+const isWebView=(function(){const ua=navigator.userAgent||navigator.vendor||window.opera;if(/wv|WebView/i.test(ua))return true;if(/Instagram|FBAN|FBAV/i.test(ua))return true;if(/iPhone|iPad|iPod/.test(ua)){if(/Safari/i.test(ua)&&!window.navigator.standalone)return false;if(!(/Safari/i.test(ua))||window.navigator.standalone)return true}return false})();
+if(isWebView){const w=document.getElementById('whatsappFloat'),f=document.getElementById('floatingCTA');if(w)w.style.display='none';if(f)f.style.display='none'}
+let scrollTimer,lastScrollY=0;
+window.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const cta=document.getElementById('floatingCTA');if(!cta||isWebView)return;const y=window.scrollY;if(y>600&&y>lastScrollY)cta.classList.add('visible');else if(y<lastScrollY)cta.classList.remove('visible');lastScrollY=y},100)},{passive:true});
+const phoneInput=document.getElementById('phone');
+if(phoneInput){phoneInput.addEventListener('input',function(e){let v=e.target.value.replace(/\D/g,'');if(v.length>10)v=v.slice(0,10);e.target.value=v});phoneInput.addEventListener('paste',function(e){e.preventDefault();e.target.value=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,10)})}
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .6s ease-out,transform .6s ease-out';obs.observe(el)});
+</script>
+<script id="tv-rail-js">
+/* ═══ RIEL VIVO ═══ Seis ediciones AL AZAR en cada visita (orden aleatorio: nadie
+   depende de deslizar), con las tarjetas originales en miniatura WebP y enlace a
+   la edición en su idioma. El texto real viaja oculto para buscadores. */
+(function () {
+  var riel = document.getElementById("cardRail");
+  if (!riel) return;
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function baraja(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  function tarjetaHTML(t, lang) {
+    var c = t[lang] || t.es || {};
+    var acc = (t.colores && t.colores[0]) || "#E8A838";
+    return '<div class="card-3d-wrapper"><div class="card-3d-inner" style="--acc:' + esc(acc) + '"><div class="card-shine"></div>' +
+      '<a class="tv-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
+        '<img src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="' + esc(c.titulo) + '" width="640" height="960" loading="lazy" decoding="async">' +
+        '<span class="tv-abrir">' + (lang === "en" ? "Open edition" : "Abrir edición") + " &rarr;</span>" +
+      "</a>" +
+      '<p class="tv-seo">' + esc(c.titulo) + ". " + esc((c.frases || [])[0] || "") + "</p>" +
+      "</div></div>";
+  }
+  function pintar(datos, lang) {
+    var t = datos && datos.tarjetas;
+    if (!t || !t.length) return;
+    if (!window.__TV_ORDEN) window.__TV_ORDEN = baraja(t).slice(0, 6);
+    var sel = window.__TV_ORDEN;
+    var html = '<div class="rail-spacer"></div>';
+    for (var i = 0; i < sel.length; i++) html += tarjetaHTML(sel[i], lang);
+    html += '<div class="rail-spacer"></div>';
+    riel.innerHTML = html;
+  }
+  var LANG = (window.TRIGGUI_LANG === "en") ? "en" : "es";
+  fetch("https://triggui.com/vitrina.json", { cache: "no-store" })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      window.__TV_VITRINA = d;
+      pintar(d, LANG);
+      window.__tvRepintarRiel = function (l) { pintar(window.__TV_VITRINA, (l === "en") ? "en" : "es"); };
+    })
+    .catch(function (e) { console.warn("Triggui \u00b7 vitrina:", e); });
+})();
+</script>
+<style id="esp-panel-css">
+/* ═══ PANEL DE LA EDICIÓN ═══ Calco vivo de la pantalla real: barra superior, tarjeta
+   original a la izquierda, bloques de palabras y frases, y la pieza de compartir.
+   Antes era una captura JPG con el español horneado. */
+.esp-panel{max-width:900px;width:100%;margin:0 auto;border:1px solid rgba(245,240,232,.08);border-radius:16px;
+  background:radial-gradient(120% 120% at 12% 0%, #0F2A26 0%, #0A1418 55%, #080D10 100%);
+  padding:14px;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;container-type:inline-size}
+.esp-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.esp-marca{font-family:'Noto Serif Display',Georgia,serif;font-weight:700;font-size:15px;color:#F5F0E8;
+  background:rgba(245,240,232,.08);border-radius:99px;padding:4px 12px;letter-spacing:-.02em}
+.esp-libro{font-family:'Noto Serif Display',Georgia,serif;font-style:italic;font-size:16px;color:#F5F0E8;letter-spacing:-.01em}
+.esp-autor{font-size:11px;font-weight:600;color:#0B0F1A;background:#7FE3C4;border-radius:99px;padding:3px 9px}
+.esp-hola{margin-left:auto;font-size:11px;font-weight:600;color:#F5F0E8;background:rgba(245,240,232,.09);border-radius:99px;padding:4px 11px}
+.esp-cuerpo{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:12px;align-items:stretch}
+.esp-tarjeta{width:100%;display:block;border-radius:10px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover;
+  box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.esp-bloques{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px;height:100%;align-self:stretch}
+.esp-b{border-radius:12px;min-height:96px;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:12px;color:#0B0F1A;font-weight:700;letter-spacing:-.01em}
+.esp-b.pal{font-size:20px}
+.esp-b.fra{font-size:12.5px;line-height:1.35;font-weight:600}
+.esp-b1{background:linear-gradient(150deg,#E9B7C6 0%,#C9C3E8 100%)}
+.esp-b2{background:linear-gradient(150deg,#A9CFC6 0%,#8FB6B0 100%)}
+.esp-b3{background:linear-gradient(150deg,#E7B6B0 0%,#C7A9C9 100%)}
+.esp-b4{background:linear-gradient(150deg,#C6CFC0 0%,#9FB0A2 100%)}
+.esp-share{grid-column:1 / -1;display:flex;gap:12px;align-items:center;background:#0C1114;border-radius:12px;padding:12px 14px;
+  border:1px solid rgba(245,240,232,.07)}
+.esp-share p{margin:0;flex:1;font-family:'Noto Serif Display',Georgia,serif;font-size:15px;line-height:1.28;color:#F5F0E8}
+.esp-share img{width:74px;border-radius:4px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.esp-tira{grid-column:1 / -1;display:flex;align-items:center;gap:12px;text-decoration:none;
+  background:linear-gradient(90deg,var(--esp-acc,#7FE3C4) 0%,rgba(11,15,26,.16) 120%);
+  border-radius:12px;padding:13px 16px;transition:transform .25s cubic-bezier(.19,1,.22,1),box-shadow .25s ease}
+.esp-tira:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.esp-tira-t{font:800 15px/1.15 'Plus Jakarta Sans',sans-serif;color:#0B0F1A;letter-spacing:-.01em}
+.esp-tira-s{flex:1;font-size:11.5px;color:rgba(11,15,26,.72)}
+.esp-tira-b{font:700 12px/1 'Plus Jakarta Sans',sans-serif;background:#0B0F1A;color:#F5F0E8;border-radius:99px;padding:8px 14px;white-space:nowrap}
+@container (max-width: 640px){.esp-tira{flex-wrap:wrap;gap:6px}.esp-tira-s{flex:1 0 100%}}
+@container (max-width: 640px){
+  .esp-cuerpo{grid-template-columns:1fr}
+  .esp-b.pal{font-size:17px}
+}
+</style>
+<style id="phone-17-css">
+/* iPhone actual: isla dinámica real, canto de titanio y barra de gesto */
+.phone-dynamic-island{width:78px;height:23px;border-radius:99px;background:#000;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06)}
+.phone-screen::after{content:"";position:absolute;left:50%;bottom:7px;transform:translateX(-50%);width:104px;height:4px;border-radius:99px;background:rgba(255,255,255,.32);z-index:6;pointer-events:none}
+</style>
+<style id="wa-chat-css">
+/* ═══ MAQUETA DE WHATSAPP ═══ Reconstruida con la tarjeta ORIGINAL y las palabras
+   reales de la edición. Antes era una imagen con el español horneado en píxeles. */
+.wa-chat{position:absolute;inset:0;overflow:hidden;background:#0B141A;padding:44px 9px 22px;display:flex;flex-direction:column;gap:8px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  background-image:radial-gradient(rgba(255,255,255,.028) 1px, transparent 1px);background-size:18px 18px}
+.wa-msg{align-self:flex-start;max-width:88%;background:#1F2C34;color:#E9EDEF;border-radius:10px;border-top-left-radius:2px;
+  padding:5px 6px 4px;box-shadow:0 1px 1px rgba(0,0,0,.28);position:relative}
+.wa-msg.mia{align-self:flex-end;background:#005C4B;border-top-left-radius:10px;border-top-right-radius:2px}
+.wa-card{width:100%;display:block;border-radius:7px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover}
+.wa-cap{margin:5px 2px 0;font-size:11.5px;line-height:1.38;color:#E9EDEF}
+.wa-words{margin:0 2px;font-size:11px;line-height:1.4;font-weight:600;letter-spacing:.01em;color:#8FD9C4}
+.wa-prev{display:block;margin:5px 0 0;background:#111B21;border-radius:7px;overflow:hidden;text-decoration:none}
+.wa-prev img{width:100%;display:block;aspect-ratio:1200/630;object-fit:cover;background:#0B141A}
+.wa-prev-t{display:block;padding:6px 8px 0;font-size:11px;font-weight:600;color:#E9EDEF;line-height:1.3}
+.wa-prev-d{display:block;padding:7px 8px 0;font-weight:500;font-size:10px;color:rgba(233,237,239,.6);line-height:1.35}
+.wa-prev-u{display:block;padding:3px 8px 7px;font-size:9.5px;color:rgba(233,237,239,.4)}
+.wa-link{display:block;margin:5px 2px 0;font-size:10.5px;color:#53BDEB;text-decoration:none;word-break:break-all}
+.wa-time{display:block;text-align:right;font-size:9.5px;color:rgba(233,237,239,.5);margin-top:2px;padding-right:2px}
+.wa-time b{color:#53BDEB;font-weight:400}
+</style>
+<style id="tg-fix-descendentes">
+/* 🔠 La "g" mordida: .text-fire recorta el degradado al alto de línea (.95), que es
+   más corto que la letra, así que los rabitos (g, y, p, j) quedaban fuera del área
+   pintada. En español no se veía porque "Una señal para" no tiene descendentes.
+   Cura: se le da aire al descendente sin mover ni un pixel del diseño. */
+/* El degradado se recorta a la caja del elemento: si el rabito de la "g" cae fuera,
+   se pinta transparente y se ve el fondo oscuro (parece mordido). Se agranda la caja
+   pintada y se compensa el margen para que NADA se mueva de sitio. */
+.hero-title{padding-bottom:.30em;margin-bottom:calc(0.75rem - 0.20em)}
+h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-block;margin-bottom:-.14em}
+</style>
+<style id="tg-lang-css">
+/* Debajo del banner de Kids y centrada: en móvil se encimaba con "Conoce Triggui Kids".
+   El desplazamiento vertical lo calcula el JS midiendo el banner en vivo. */
+#tgLangPill{position:fixed;top:calc(var(--tg-pill-top, 66px) + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:9000;display:flex;
+  background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);border-radius:99px;padding:3px;
+  font:600 11px/1 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#tgLangPill span{padding:5px 11px;border-radius:99px;transition:all .35s cubic-bezier(.19,1,.22,1);color:rgba(245,240,232,.45)}
+#tgLangPill span.lang-active{color:#0B0F1A;background:#F5F0E8;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+#tgLangPill:active{transform:translateX(-50%) scale(.97)}
+@media (min-width:900px){#tgLangPill{left:auto;right:16px;transform:none}#tgLangPill:active{transform:scale(.97)}}
+</style>
+<script id="tg-lang-js">
+/* ═══ IDIOMA DEL SITIO ═══ Traducción EN SITIO, sin recargar: camina los nodos de texto
+   y los cambia por su gemelo. El español no se toca — es la fuente. La preferencia usa
+   la MISMA llave que la app y las ediciones, así que el idioma viaja con la persona. */
+(function () {
+  var DIC = {"Triggui · Una señal para mejorar tu ánimo": "Triggui · A signal to lift your mood", "Conoce": "Meet", "Ir": "Go", "Desliza": "Swipe", "Empezar": "Start", "Empezar ya": "Start now", "Una señal para": "A signal to", "mejorar tu ánimo.": "lift your mood.", "Recibe por correo y WhatsApp una idea de un gran libro, en el momento exacto. Si mejoró tu ánimo,": "Receive an idea from a great book by email and WhatsApp, at the exact moment. If it lifted your mood,", "guárdala en tu Espiral 🌀": "save it to your Spiral 🌀", "30 segundos.": "30 seconds.", "Llega a tu WhatsApp o correo, una vez por semana. Tú decides qué hacer con ella.": "It arrives on your WhatsApp or email, once a week. You decide what to do with it.", "La tarjeta: una idea que te mueve": "The card: an idea that moves you", "Un párrafo que conecta un gran libro con lo que estás viviendo. Una perspectiva que no esperabas.": "A paragraph that connects a great book with what you are living. A perspective you did not expect.", "El empujón": "The nudge", "Lo que necesitabas leer hoy. Directo y sin rodeos. Si no lo lees ahora, el mensaje te espera en tu chat.": "What you needed to read today. Direct, with no detours. If you do not read it now, the message waits in your chat.", "El link: cambia según tu hora": "The link: it changes with your hour", "Abres el link y el contenido se adapta a tu momento del día. Incluye una acción concreta que puedes hacer ahora mismo.": "You open the link and the content adapts to your moment of the day. It includes one concrete action you can take right now.", "30 segundos que te dan ganas de abrir un libro físico.": "30 seconds that make you want to open a physical book.", "Si la idea te atrapa, ya sabes qué libro buscar. Si no es tu momento, el mensaje te espera.": "If the idea catches you, you already know which book to look for. If it is not your moment, the message waits.", "Algunas ediciones recientes": "Some recent editions", "Empieza a recibir las señales": "Start receiving the signals", "Probar gratis por correo": "Try it free by email", "Probar gratis": "Try it free", "También hay app gratuita para iOS y Android": "There is also a free app for iOS and Android", "libros que hemos abierto juntos": "books we have opened together", "Nuevo · Solo miembros": "New · Members only", "Tu Espiral 🌀": "Your Spiral 🌀", "Los libros que mejoraron tu ánimo,": "The books that lifted your mood", "se quedan contigo.": "stay with you.", "Te llega tu tarjeta.": "Your card arrives.", "Si el libro mejora tu ánimo, tocas este botón.": "If the book lifts your mood, you tap this button.", "Se guarda en tu Espiral: tu colección personal, lista para cuando la necesites.": "It is saved to your Spiral: your personal collection, ready for when you need it.", "Incluida en todos los planes.": "Included in every plan.", "Ver planes →": "See plans →", "Cuando el impulso llega,": "When the impulse arrives,", "el libro ya te espera.": "the book is already waiting.", "No es magia. Es la idea exacta en el momento exacto.": "It is not magic. It is the exact idea at the exact moment.", "El problema no es falta de tiempo": "The problem is not a lack of time", "Son esos 3 minutos donde piensas \"¿qué leo?\"... y terminas en otras pantallas.": "It is those 3 minutes when you think \"what do I read?\" and end up on other screens.", "La señal te llega ya. No tienes que decidir.": "The signal reaches you already. You do not have to decide.", "El mensaje espera por ti": "The message waits for you", "Un mensaje sin leer es una promesa. Si no es tu momento, ahí se queda.": "An unread message is a promise. If it is not your moment, it stays there.", "No se pierde en un feed. Cuando lo abras, ahí sigue.": "It does not get lost in a feed. When you open it, it is still there.", "Si el impulso nace de ti,": "If the impulse comes from you,", "el libro ya está ahí.": "the book is already there.", "Si el impulso lo generamos nosotros, te damos la idea que te hace abrirlo.": "If we create the impulse, we give you the idea that makes you open it.", "Dos caminos. Un resultado: abres el libro.": "Two paths. One result: you open the book.", "Llega entre tus chats": "It arrives among your chats", "Una idea. 30 segundos. Ahí, entre tus conversaciones de siempre.": "One idea. 30 seconds. Right there, among your everyday conversations.", "Se queda esperándote": "It stays waiting for you", "Si no es tu momento, el mensaje no desaparece. Cuando estés listo, ahí sigue.": "If it is not your moment, the message does not disappear. When you are ready, it is still there.", "Solo abre y lee": "Just open and read", "Abres el mensaje y lees. Si te dan ganas de más, el libro físico te espera.": "You open the message and read. If you want more, the physical book is waiting.", "La señal exacta.": "The exact signal.", "El momento exacto.": "The exact moment.", "Cronobiología aplicada.": "Applied chronobiology.", "Llega cuando tu mente lo necesita.": "It arrives when your mind needs it.", "Mensual Básico": "Monthly Basic", "Mensual Completo": "Monthly Complete", "Anual Pro": "Annual Pro", "MXN/mes": "MXN/month", "MXN/año": "MXN/year", "Ahorras $298": "You save $298", "1 tarjeta a la semana, por correo": "1 card a week, by email", "2 tarjetas a la semana, por correo": "2 cards a week, by email", "Las mismas 2 también por WhatsApp": "The same 2 also on WhatsApp", ": tu colección personal de libros que mejoraron tu ánimo": ": your personal collection of books that lifted your mood", "App incluida gratis": "App included free", "MÁS POPULAR": "MOST POPULAR", "Todo lo del plan Completo": "Everything in the Complete plan", "2 meses gratis": "2 months free", "(pagas 10, recibes 12)": "(pay for 10, receive 12)", "Pagar el año": "Pay for the year", "Lo que dicen los que ya lo reciben": "What the people already receiving it say", "\"Me llegó un lunes entre chats del trabajo. Lo leí en 30 segundos.": "\"It reached me on a Monday among work chats. I read it in 30 seconds.", "Esa tarde abrí el libro que tenía meses juntando polvo en mi buró.": "That afternoon I opened the book that had spent months gathering dust on my nightstand.", "\"Lo mejor es cuando llega el mensaje inesperado entre semana.": "\"The best part is when the unexpected message arrives midweek.", "No sabes qué día va a ser, y eso lo hace bonito.": "You never know which day it will be, and that is what makes it lovely.", "\"No tengo tiempo de leer. O eso creía.": "\"I have no time to read. Or so I believed.", "Triggui no me pide tiempo. Me da ganas.": "Triggui does not ask me for time. It gives me the desire.", "\"Llevo 3 meses suscrito.": "\"I have been subscribed for 3 months.", "He abierto más libros físicos que en todo el año pasado.": "I have opened more physical books than in all of last year.", "Y solo leo el mensaje de WhatsApp.\"": "And I only read the WhatsApp message.\"", "Familia Triggui": "The Triggui family", "Dos productos.": "Two products.", "Una sola misión.": "One single mission.", "Que los libros se abran.": "That books get opened.", "Para ti": "For you", "Para tus hijos": "For your children", "Una señal para mejorar tu ánimo. Una idea de un gran libro, lista en 30 segundos. Llega cuando tu mente lo necesita.": "A signal to lift your mood. An idea from a great book, ready in 30 seconds. It arrives when your mind needs it.", "Una virtud, un valor, una moraleja en 30 segundos. La lee un adulto en voz alta, o el niño solo si ya lee. Para 4 a 12 años.": "A virtue, a value, a lesson in 30 seconds. An adult reads it aloud, or the child alone if they already read. For ages 4 to 12.", "Conocer Triggui Kids →": "Meet Triggui Kids →", "Triggui Kids es gratis · iOS y Android · sin login · sin ads": "Triggui Kids is free · iOS and Android · no login · no ads", "El ecosistema": "The ecosystem", "3 etapas:": "3 stages:", "desatorar, crecer, respirar": "unblock, grow, breathe", "La estrategia": "The strategy", "Si tienes una decisión importante que tomar y aún no la tomas,": "If you have an important decision to make and have not made it yet,", "necesitas una mente neutral con quién pensarla.": "you need a neutral mind to think it through with.", "Desatorar": "Unblock", "Crecer": "Grow", "Respirar": "Breathe", "El sistema de crecimiento": "The growth system", "Leemos tu negocio, conectamos tus cuentas y movemos lo que haga falta. Cada semana, un paso arriba.": "We read your business, connect your accounts and move whatever is needed. Every week, one step up.", "El día a día": "The everyday", "Si te desanimas y cuesta volver,": "If you lose heart and it is hard to come back,", "te levanta en 30 segundos": "it lifts you in 30 seconds", "y te regresa las ganas de abrir un libro.": "and gives you back the desire to open a book.", "CUANDO EL IMPULSO LLEGA,": "WHEN THE IMPULSE ARRIVES,", "EL LIBRO YA TE ESPERA.": "THE BOOK IS ALREADY WAITING.", "Un mensaje cada lunes. Otro cuando menos lo esperas. 30 segundos.": "One message every Monday. Another when you least expect it. 30 seconds.", "Si no es tu momento, el mensaje te espera.": "If it is not your moment, the message waits for you.", "© 2026 Triggui": "© 2026 Triggui", "Privacidad": "Privacy", "Términos": "Terms", "Así se ve Triggui en tu WhatsApp": "This is how Triggui looks on your WhatsApp", "Tu Espiral: tu colección personal de libros que mejoraron tu ánimo": "Your Spiral: your personal collection of books that lifted your mood", "Nombre": "First name", "Apellido": "Last name", "Email": "Email", "🌒 ¡Bienvenido de vuelta! Revisa tu correo": "🌒 Welcome back. Check your email", "✓ Ya estás suscrito. Revisa tu correo": "✓ You are already subscribed. Check your email", "✨ Listo. Revisa tu correo": "✨ Done. Check your email"};
+  var INV = {}; for (var k in DIC) INV[DIC[k]] = k;
+  var LS = "triggui_lang";
+  function guardado() {
+    try { var v = JSON.parse(localStorage.getItem(LS) || "null"); if (v === "en" || v === "es") return v; } catch (e) {}
+    return null;
+  }
+  var lang = "en";   /* gemela /en/: siempre arranca en inglés */
+  window.TRIGGUI_LANG = lang;
+  function traducirNodo(n, hacia) {
+    var t = n.nodeValue; if (!t) return;
+    var limpio = t.trim(); if (!limpio) return;
+    var tabla = (hacia === "en") ? DIC : INV;
+    if (tabla[limpio]) { n.nodeValue = t.replace(limpio, tabla[limpio]); return; }
+    var m = limpio.match(/^(\d[\d,\.]*)\s+(lectores ahora|readers now)$/);
+    if (m) n.nodeValue = t.replace(limpio, m[1] + (hacia === "en" ? " readers now" : " lectores ahora"));
+  }
+  function caminar(raiz, hacia) {
+    var it = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p) return NodeFilter.FILTER_REJECT;
+        var tag = p.nodeName;
+        if (tag === "SCRIPT" || tag === "STYLE") return NodeFilter.FILTER_REJECT;
+        if (p.closest && p.closest("#tgLangPill")) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var n; while ((n = it.nextNode())) traducirNodo(n, hacia);
+  }
+  function atributos(hacia) {
+    var tabla = (hacia === "en") ? DIC : INV;
+    ["alt", "placeholder", "aria-label", "title"].forEach(function (a) {
+      var els = document.querySelectorAll("[" + a + "]");
+      for (var i = 0; i < els.length; i++) {
+        var v = (els[i].getAttribute(a) || "").trim();
+        if (tabla[v]) els[i].setAttribute(a, tabla[v]);
+      }
+    });
+    var t = document.querySelector("title");
+    if (t && tabla[t.textContent.trim()]) t.textContent = tabla[t.textContent.trim()];
+  }
+  function aplicar(hacia) {
+    caminar(document.body, hacia);
+    atributos(hacia);
+    document.documentElement.setAttribute("lang", hacia);
+    window.TRIGGUI_LANG = hacia;
+    try { if (window.__tvRepintarRiel) window.__tvRepintarRiel(hacia); } catch (e) {}
+    /* registro abierto: cualquier pieza puede pedir que la repinten al cambiar de idioma */
+    try {
+      var lista = window.__TG_REPINTORES || [];
+      for (var q = 0; q < lista.length; q++) { try { lista[q](hacia); } catch (e) {} }
+    } catch (e) {}
+    pintaPill();
+  }
+  function pintaPill() {
+    var p = document.getElementById("tgLangPill"); if (!p) return;
+    var en = (window.TRIGGUI_LANG === "en");
+    p.querySelector("#tgLangEs").className = en ? "" : "lang-active";
+    p.querySelector("#tgLangEn").className = en ? "lang-active" : "";
+  }
+  function nacePill() {
+    if (document.getElementById("tgLangPill")) return;
+    var b = document.createElement("button");
+    b.id = "tgLangPill"; b.type = "button"; b.setAttribute("aria-label", "Toggle language");
+    b.innerHTML = '<span id="tgLangEs">Español</span><span id="tgLangEn">English</span>';
+    b.addEventListener("click", function (e) {
+      e.preventDefault();
+      var nuevo = (window.TRIGGUI_LANG === "en") ? "es" : "en";
+      try { localStorage.setItem(LS, JSON.stringify(nuevo)); } catch (x) {}
+      try { gtag("event", "sitio_idioma", { idioma: nuevo }); } catch (x) {}
+      aplicar(nuevo);
+    });
+    document.body.appendChild(b);
+    pintaPill();
+  }
+  function colocaPill() {
+    try {
+      var banner = document.querySelector(".kids-banner-top");
+      var alto = banner ? Math.round(banner.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty("--tg-pill-top", (alto > 0 ? alto + 10 : 16) + "px");
+    } catch (e) {}
+  }
+  function arranca() {
+    nacePill(); colocaPill();
+    window.addEventListener("resize", colocaPill);
+    setTimeout(colocaPill, 500); setTimeout(colocaPill, 1500);
+    if (lang === "en") aplicar("en");
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", arranca);
+  else arranca();
+})();
+</script>
+<script id="wa-chat-js">
+/* ═══ CHAT DE WHATSAPP ═══ Una edición AL AZAR por visita, con su tarjeta original,
+   sus palabras reales y la previsualización del enlace con el OG. Bilingüe. */
+(function () {
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function pinta(d, lang) {
+    var caja = document.getElementById("waChat");
+    if (!caja || !d || !d.tarjetas || !d.tarjetas.length) return;
+    if (!window.__WA_ELEGIDA) window.__WA_ELEGIDA = d.tarjetas[Math.floor(Math.random() * d.tarjetas.length)];
+    var t = window.__WA_ELEGIDA;
+    var c = t[lang] || t.es;
+    var f = c.frases || [], p = c.palabras || [];
+    var dominio = String(c.url || "").replace(/^https?:\/\//, "").split("/")[0];
+    var corta = String(c.url || "").replace(/^https?:\/\//, "");
+    caja.innerHTML =
+      '<div class="wa-msg">' +
+        '<img class="wa-card" src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="" width="640" height="960" loading="lazy" decoding="async">' +
+        '<p class="wa-cap">' + esc(f[0] || "") + "</p>" +
+        '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
+      "</div>" +
+      '<div class="wa-msg">' +
+        '<p class="wa-words">' + esc(p.join(" · ")) + "</p>" +
+        '<p class="wa-cap">' + esc(f[1] || "") + "</p>" +
+        '<a class="wa-prev" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
+          '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="wa-prev-d">' + esc(c.ogDesc) + "</span>" +
+          '<span class="wa-prev-u">' + esc(dominio) + "</span>" +
+        "</a>" +
+        '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
+      "</div>";
+  }
+  function arranca(d) {
+    window.__TV_VITRINA = d;
+    pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
+    window.__TG_REPINTORES = window.__TG_REPINTORES || [];
+    window.__TG_REPINTORES.push(function (l) { pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es"); });
+  }
+  if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
+  else fetch("https://triggui.com/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 wa:", e); });
+})();
+</script>
+<script id="esp-panel-js">
+/* ═══ PANEL DE LA EDICIÓN ═══ Una edición AL AZAR por visita, con los colores reales
+   del libro. Todo el panel lleva al portal: quien lo ve, quiere entrar. */
+(function () {
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function suave(hex, a) {
+    var m = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(String(hex || "")); 
+    if (!m) return "rgba(232,168,56," + a + ")";
+    return "rgba(" + parseInt(m[1],16) + "," + parseInt(m[2],16) + "," + parseInt(m[3],16) + "," + a + ")";
+  }
+  function grad(c1, c2) { return "linear-gradient(150deg," + suave(c1,.92) + " 0%," + suave(c2,.86) + " 100%)"; }
+  function pinta(d, lang) {
+    var caja = document.getElementById("espPanel");
+    if (!caja || !d || !d.tarjetas || !d.tarjetas.length) return;
+    if (!window.__ESP_ELEGIDA) window.__ESP_ELEGIDA = d.tarjetas[Math.floor(Math.random() * d.tarjetas.length)];
+    var t = window.__ESP_ELEGIDA;
+    var c = t[lang] || t.es;
+    var p = c.palabras || [], f = c.frases || [];
+    var col = t.colores || ["#E9B7C6","#A9CFC6","#E7B6B0","#C6CFC0"];
+    var tx = t.textColors || ["#0B0F1A","#0B0F1A","#0B0F1A","#0B0F1A"];
+    var acc = col[0];
+    caja.style.setProperty("--esp-acc", acc);
+    var bloque = function (cls, txt, ci, cj) {
+      return '<div class="esp-b ' + cls + '" style="background:' + grad(col[ci], col[cj]) +
+             ";color:" + esc(tx[ci] || "#0B0F1A") + '">' + esc(txt) + "</div>";
+    };
+    caja.innerHTML =
+      '<div class="esp-top">' +
+        '<span class="esp-marca">triggui</span>' +
+        '<span class="esp-libro">' + esc(c.libro) + "</span>" +
+        '<span class="esp-autor" style="background:' + esc(acc) + ';color:' + esc(tx[0] || "#0B0F1A") + '">' + esc(t.autor) + "</span>" +
+        '<span class="esp-hola">' + esc(c.saludo) + "</span>" +
+      "</div>" +
+      '<div class="esp-cuerpo">' +
+        '<img class="esp-tarjeta" src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="" width="640" height="960" loading="lazy" decoding="async">' +
+        '<div class="esp-bloques">' +
+          bloque("pal", p[0] || "", 0, 1) + bloque("pal", p[1] || "", 1, 2) +
+          bloque("fra", f[0] || "", 2, 3) + bloque("pal", p[2] || "", 3, 0) +
+          bloque("pal", p[3] || "", 1, 3) + bloque("fra", f[2] || f[1] || "", 0, 2) +
+        "</div>" +
+        '<div class="esp-share">' +
+          "<p>" + esc(c.ogDesc) + "</p>" +
+          '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async">' +
+        "</div>" +
+        '<a class="esp-tira" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener">' +
+          '<span class="esp-tira-t">' + (lang === "en" ? "Enter your Spiral" : "Entra a tu Espiral") + "</span>" +
+          '<span class="esp-tira-s">' + (lang === "en" ? "Members only · your personal collection" : "Solo miembros · tu colección personal") + "</span>" +
+          '<span class="esp-tira-b">' + (lang === "en" ? "Enter &rarr;" : "Entrar &rarr;") + "</span>" +
+        "</a>" +
+      "</div>";
+  }
+  function arranca(d) {
+    window.__TV_VITRINA = d;
+    pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
+    window.__TG_REPINTORES = window.__TG_REPINTORES || [];
+    window.__TG_REPINTORES.push(function (l) { pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es"); });
+  }
+  if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
+  else fetch("https://triggui.com/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 panel:", e); });
+})();
+</script>
+</body>
+</html>
