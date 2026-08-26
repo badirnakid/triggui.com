@@ -1199,5 +1199,46 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
         .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 panel:", e); });
 })();
 </script>
+<script id="tg-eventos-vercel">
+/* ═══ EVENTOS DE VERCEL ═══ Se sirven desde tu propio dominio, así que los
+   bloqueadores de rastreo casi nunca los detienen — a diferencia de GA4.
+   Solo se miden acciones con intención real, no vanidad. */
+(function () {
+  function ev(nombre, datos) {
+    try { if (window.va) window.va("event", { name: nombre, data: datos || {} }); } catch (e) {}
+  }
+  window.__tgEvento = ev;
+
+  document.addEventListener("DOMContentLoaded", function () {
+    /* ① Suscripción: la conversión que importa */
+    var f = document.getElementById("form");
+    if (f) f.addEventListener("submit", function () {
+      ev("suscripcion_intento", { idioma: window.TRIGGUI_LANG || "es" });
+    });
+
+    /* ② WhatsApp: intención de contacto directo */
+    document.addEventListener("click", function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me"]') : null;
+      if (a) ev("whatsapp_click", { origen: a.id || a.className || "enlace" });
+    }, true);
+
+    /* ③ Tocar una edición del riel: interés real en el contenido */
+    document.addEventListener("click", function (e) {
+      var t = e.target && e.target.closest ? e.target.closest("#cardRail .tv-link") : null;
+      if (t) ev("edicion_abierta", { idioma: window.TRIGGUI_LANG || "es" });
+    }, true);
+
+    /* ④ Entrar al portal: la puerta de los miembros */
+    document.addEventListener("click", function (e) {
+      var p = e.target && e.target.closest ? e.target.closest('a[href*="/espiral/"]') : null;
+      if (p) ev("portal_click", {});
+    }, true);
+  });
+
+  /* ⑤ Cambio de idioma: mide si el bilingüe se usa de verdad */
+  var repintar = window.__TG_REPINTORES = window.__TG_REPINTORES || [];
+  repintar.push(function (l) { ev("idioma_cambiado", { a: l }); });
+})();
+</script>
 </body>
 </html>
