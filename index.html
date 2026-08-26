@@ -1085,40 +1085,43 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
 })();
 </script>
 <script id="wa-chat-js">
-/* Pinta la conversación con la tarjeta original y las palabras reales del idioma activo. */
+/* ═══ CHAT DE WHATSAPP ═══ Una edición AL AZAR por visita, con su tarjeta original,
+   sus palabras reales y la previsualización del enlace con el OG. Bilingüe. */
 (function () {
   function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
   function pinta(d, lang) {
     var caja = document.getElementById("waChat");
-    if (!caja || !d || !d.demo) return;
-    var c = d.demo[lang] || d.demo.es;
+    if (!caja || !d || !d.tarjetas || !d.tarjetas.length) return;
+    if (!window.__WA_ELEGIDA) window.__WA_ELEGIDA = d.tarjetas[Math.floor(Math.random() * d.tarjetas.length)];
+    var t = window.__WA_ELEGIDA;
+    var c = t[lang] || t.es;
+    var f = c.frases || [], p = c.palabras || [];
+    var dominio = String(c.url || "").replace(/^https?:\/\//, "").split("/")[0];
+    var corta = String(c.url || "").replace(/^https?:\/\//, "");
     caja.innerHTML =
       '<div class="wa-msg">' +
-        '<img class="wa-card" src="' + esc(c.img) + '" alt="" loading="lazy" decoding="async">' +
-        '<p class="wa-cap">' + esc(c.frase1) + "</p>" +
+        '<img class="wa-card" src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="" width="640" height="960" loading="lazy" decoding="async">' +
+        '<p class="wa-cap">' + esc(f[0] || "") + "</p>" +
         '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
       "</div>" +
       '<div class="wa-msg">' +
-        '<p class="wa-words">' + esc((c.palabras || []).join(" · ")) + "</p>" +
-        '<p class="wa-cap">' + esc(c.frase2) + "</p>" +
-        '<a class="wa-prev" href="' + esc(c.href) + '" target="_blank" rel="noopener">' +
-          '<img src="' + esc(c.og) + '" alt="" loading="lazy" decoding="async">' +
-          '<span class="wa-prev-t">' + esc(c.ogTitulo) + "</span>" +
+        '<p class="wa-words">' + esc(p.join(" · ")) + "</p>" +
+        '<p class="wa-cap">' + esc(f[1] || "") + "</p>" +
+        '<a class="wa-prev" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
+          '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async">' +
+          '<span class="wa-prev-t">' + esc(p.join(" · ")) + "</span>" +
           '<span class="wa-prev-d">' + esc(c.ogDesc) + "</span>" +
-          '<span class="wa-prev-u">' + esc((c.url || "").split("/")[0]) + "</span>" +
+          '<span class="wa-prev-u">' + esc(dominio) + "</span>" +
         "</a>" +
-        '<a class="wa-link" href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.url) + "</a>" +
+        '<a class="wa-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">' + esc(corta) + "</a>" +
         '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
       "</div>";
   }
-  var LANG = (window.TRIGGUI_LANG === "en") ? "en" : "es";
   function arranca(d) {
     window.__TV_VITRINA = d;
     pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
     window.__TG_REPINTORES = window.__TG_REPINTORES || [];
-    window.__TG_REPINTORES.push(function (l) {
-      pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es");
-    });
+    window.__TG_REPINTORES.push(function (l) { pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es"); });
   }
   if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
   else fetch("/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
