@@ -924,8 +924,14 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
   border:1px solid rgba(245,240,232,.07)}
 .esp-share p{margin:0;flex:1;font-family:'Noto Serif Display',Georgia,serif;font-size:15px;line-height:1.28;color:#F5F0E8}
 .esp-share img{width:74px;border-radius:4px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.5)}
-.esp-tira{grid-column:1 / -1;background:linear-gradient(90deg,rgba(127,227,196,.10),rgba(127,227,196,.03));
-  border-radius:12px;padding:11px 14px;text-align:center;font-size:12px;color:rgba(245,240,232,.8)}
+.esp-tira{grid-column:1 / -1;display:flex;align-items:center;gap:12px;text-decoration:none;
+  background:linear-gradient(90deg,var(--esp-acc,#7FE3C4) 0%,rgba(11,15,26,.16) 120%);
+  border-radius:12px;padding:13px 16px;transition:transform .25s cubic-bezier(.19,1,.22,1),box-shadow .25s ease}
+.esp-tira:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.esp-tira-t{font:800 15px/1.15 'Plus Jakarta Sans',sans-serif;color:#0B0F1A;letter-spacing:-.01em}
+.esp-tira-s{flex:1;font-size:11.5px;color:rgba(11,15,26,.72)}
+.esp-tira-b{font:700 12px/1 'Plus Jakarta Sans',sans-serif;background:#0B0F1A;color:#F5F0E8;border-radius:99px;padding:8px 14px;white-space:nowrap}
+@container (max-width: 640px){.esp-tira{flex-wrap:wrap;gap:6px}.esp-tira-s{flex:1 0 100%}}
 @container (max-width: 640px){
   .esp-cuerpo{grid-template-columns:1fr}
   .esp-b.pal{font-size:17px}
@@ -1120,36 +1126,54 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
 })();
 </script>
 <script id="esp-panel-js">
-/* Dibuja el panel de la edición con la tarjeta original y las palabras/frases reales. */
+/* ═══ PANEL DE LA EDICIÓN ═══ Una edición AL AZAR por visita, con los colores reales
+   del libro. Todo el panel lleva al portal: quien lo ve, quiere entrar. */
 (function () {
   function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function suave(hex, a) {
+    var m = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(String(hex || "")); 
+    if (!m) return "rgba(232,168,56," + a + ")";
+    return "rgba(" + parseInt(m[1],16) + "," + parseInt(m[2],16) + "," + parseInt(m[3],16) + "," + a + ")";
+  }
+  function grad(c1, c2) { return "linear-gradient(150deg," + suave(c1,.92) + " 0%," + suave(c2,.86) + " 100%)"; }
   function pinta(d, lang) {
     var caja = document.getElementById("espPanel");
-    if (!caja || !d || !d.demo) return;
-    var c = d.demo[lang] || d.demo.es;
-    var p = c.palabras || [];
+    if (!caja || !d || !d.tarjetas || !d.tarjetas.length) return;
+    if (!window.__ESP_ELEGIDA) window.__ESP_ELEGIDA = d.tarjetas[Math.floor(Math.random() * d.tarjetas.length)];
+    var t = window.__ESP_ELEGIDA;
+    var c = t[lang] || t.es;
+    var p = c.palabras || [], f = c.frases || [];
+    var col = t.colores || ["#E9B7C6","#A9CFC6","#E7B6B0","#C6CFC0"];
+    var tx = t.textColors || ["#0B0F1A","#0B0F1A","#0B0F1A","#0B0F1A"];
+    var acc = col[0];
+    caja.style.setProperty("--esp-acc", acc);
+    var bloque = function (cls, txt, ci, cj) {
+      return '<div class="esp-b ' + cls + '" style="background:' + grad(col[ci], col[cj]) +
+             ";color:" + esc(tx[ci] || "#0B0F1A") + '">' + esc(txt) + "</div>";
+    };
     caja.innerHTML =
       '<div class="esp-top">' +
         '<span class="esp-marca">triggui</span>' +
         '<span class="esp-libro">' + esc(c.libro) + "</span>" +
-        '<span class="esp-autor">' + esc(d.demo.autor) + "</span>" +
+        '<span class="esp-autor" style="background:' + esc(acc) + ';color:' + esc(tx[0] || "#0B0F1A") + '">' + esc(t.autor) + "</span>" +
         '<span class="esp-hola">' + esc(c.saludo) + "</span>" +
       "</div>" +
       '<div class="esp-cuerpo">' +
-        '<img class="esp-tarjeta" src="' + esc(c.img) + '" alt="" loading="lazy" decoding="async">' +
+        '<img class="esp-tarjeta" src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="" width="640" height="960" loading="lazy" decoding="async">' +
         '<div class="esp-bloques">' +
-          '<div class="esp-b pal esp-b1">' + esc(p[0] || "") + "</div>" +
-          '<div class="esp-b pal esp-b2">' + esc(p[1] || "") + "</div>" +
-          '<div class="esp-b fra esp-b3">' + esc(c.frase1) + "</div>" +
-          '<div class="esp-b pal esp-b4">' + esc(p[2] || "") + "</div>" +
-          '<div class="esp-b pal esp-b2">' + esc(p[3] || "") + "</div>" +
-          '<div class="esp-b fra esp-b1">' + esc(c.frase3 || c.frase2) + "</div>" +
+          bloque("pal", p[0] || "", 0, 1) + bloque("pal", p[1] || "", 1, 2) +
+          bloque("fra", f[0] || "", 2, 3) + bloque("pal", p[2] || "", 3, 0) +
+          bloque("pal", p[3] || "", 1, 3) + bloque("fra", f[2] || f[1] || "", 0, 2) +
         "</div>" +
         '<div class="esp-share">' +
           "<p>" + esc(c.ogDesc) + "</p>" +
-          '<img src="' + esc(c.og) + '" alt="" loading="lazy" decoding="async">' +
+          '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async">' +
         "</div>" +
-        '<div class="esp-tira">' + esc(c.frase2) + "</div>" +
+        '<a class="esp-tira" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener">' +
+          '<span class="esp-tira-t">' + (lang === "en" ? "Enter your Spiral" : "Entra a tu Espiral") + "</span>" +
+          '<span class="esp-tira-s">' + (lang === "en" ? "Members only · your personal collection" : "Solo miembros · tu colección personal") + "</span>" +
+          '<span class="esp-tira-b">' + (lang === "en" ? "Enter &rarr;" : "Entrar &rarr;") + "</span>" +
+        "</a>" +
       "</div>";
   }
   function arranca(d) {
