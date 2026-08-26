@@ -45,12 +45,7 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
 (function() {
   'use strict';
 
-  const URLS = [
-    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido_edicion.json',
-    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido_edicion.json',
-    'https://cdn.jsdelivr.net/gh/badirnakid/triggui-content@main/contenido.json',
-    'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido.json'
-  ];
+  const URLS = ['https://triggui.com/vitrina.json'];   /* la vitrina ya vive en el sitio: 39 KB, mismo origen, cero peticiones fallidas */
   const FETCH_TIMEOUT = 3000;
 
   // HEX → HSL
@@ -839,7 +834,7 @@ section, .section-padding {
     <div class="mt-16 text-xs space-y-4" style="color:rgba(245,240,232,.15)">
       <img src="https://triggui.com/trigguiletrasblanco.png" alt="Triggui" class="h-6 w-auto mx-auto opacity-30 hover:opacity-50 transition-opacity" loading="lazy"/>
       <p>© 2026 Triggui</p>
-      <div class="flex items-center justify-center gap-4" style="color:rgba(245,240,232,.18)"><a href="#" class="hover:text-white transition-colors">Privacidad</a><span>·</span><a href="#" class="hover:text-white transition-colors">Términos</a></div>
+      <div class="flex items-center justify-center gap-4" style="color:rgba(245,240,232,.18)"><a href="https://triggui.com/privacy.html" class="hover:text-white transition-colors">Privacidad</a><span>·</span><a href="https://triggui.com/privacy.html#terminos" class="hover:text-white transition-colors">Términos</a></div>
     </div>
   </div>
 </section>
