@@ -96,6 +96,7 @@
  ],
  "demo": {
   "slug": "101-reflexiones-que-cambiaran-tu-forma-de-pensar",
+  "autor": "Brianna Wiest",
   "es": {
    "palabras": [
     "introspección",
@@ -105,9 +106,17 @@
    ],
    "frase1": "🕰 Pausa y reflexiona: ¿qué aspectos de tu vida realmente resuenan con tu propósito?",
    "frase2": "🌌 ¿Qué pensamientos negativos has estado evitando que podrían llevarte a tu propósito?",
+   "frase3": "👁 Imagina un camino iluminado por tu propósito, donde cada paso tiene significado.",
+   "frase4": "🕯 La claridad en el propósito es la luz que guía en la oscuridad.",
    "img": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/tarjeta.png",
+   "og": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/og.jpg",
+   "ogTitulo": "introspección · desafío · claridad · propósito",
+   "ogDesc": "¿Estamos persiguiendo lo que realmente importa?",
+   "libro": "101 reflexiones que cambiarán tu forma de pensar",
    "url": "app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/",
-   "href": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/"
+   "href": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/",
+   "saludo": "Hola, Badir",
+   "edicion": "EDICIÓN"
   },
   "en": {
    "palabras": [
@@ -118,9 +127,17 @@
    ],
    "frase1": "🗺 Feel the weight of your decisions. Are they grounded in purpose or passion?",
    "frase2": "🌓 Ask yourself: What truly matters to me at this moment?",
+   "frase3": "☀ Purpose illuminates the path; passion merely flickers.",
+   "frase4": "🔭 Picture a compass guiding you through the fog of indecision; that is purpose.",
    "img": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/tarjeta_en.png",
+   "og": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/og_en.jpg",
+   "ogTitulo": "fulfillment · purpose · clarity · understanding",
+   "ogDesc": "Are we chasing what truly matters?",
+   "libro": "101 Reflections That Will Change Your Way of Thinking",
    "url": "app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/en/",
-   "href": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/en/"
+   "href": "https://app.triggui.com/t/101-reflexiones-que-cambiaran-tu-forma-de-pensar/en/",
+   "saludo": "Hi, Badir",
+   "edicion": "EDITION"
   }
  }
 }
