@@ -894,11 +894,11 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 .esp-libro{font-family:'Noto Serif Display',Georgia,serif;font-style:italic;font-size:16px;color:#F5F0E8;letter-spacing:-.01em}
 .esp-autor{font-size:11px;font-weight:600;color:#0B0F1A;background:#7FE3C4;border-radius:99px;padding:3px 9px}
 .esp-hola{margin-left:auto;font-size:11px;font-weight:600;color:#F5F0E8;background:rgba(245,240,232,.09);border-radius:99px;padding:4px 11px}
-.esp-cuerpo{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:12px;align-items:start}
+.esp-cuerpo{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:12px;align-items:stretch}
 .esp-tarjeta{width:100%;display:block;border-radius:10px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover;
   box-shadow:0 14px 34px rgba(0,0,0,.45)}
-.esp-bloques{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.esp-b{border-radius:12px;min-height:104px;display:flex;align-items:center;justify-content:center;text-align:center;
+.esp-bloques{display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px;height:100%;align-self:stretch}
+.esp-b{border-radius:12px;min-height:96px;display:flex;align-items:center;justify-content:center;text-align:center;
   padding:12px;color:#0B0F1A;font-weight:700;letter-spacing:-.01em}
 .esp-b.pal{font-size:20px}
 .esp-b.fra{font-size:12.5px;line-height:1.35;font-weight:600}
@@ -1128,6 +1128,8 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
           '<div class="esp-b pal esp-b2">' + esc(p[1] || "") + "</div>" +
           '<div class="esp-b fra esp-b3">' + esc(c.frase1) + "</div>" +
           '<div class="esp-b pal esp-b4">' + esc(p[2] || "") + "</div>" +
+          '<div class="esp-b pal esp-b2">' + esc(p[3] || "") + "</div>" +
+          '<div class="esp-b fra esp-b1">' + esc(c.frase3 || c.frase2) + "</div>" +
         "</div>" +
         '<div class="esp-share">' +
           "<p>" + esc(c.ogDesc) + "</p>" +
