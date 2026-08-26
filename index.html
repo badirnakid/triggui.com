@@ -886,8 +886,11 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
    más corto que la letra, así que los rabitos (g, y, p, j) quedaban fuera del área
    pintada. En español no se veía porque "Una señal para" no tiene descendentes.
    Cura: se le da aire al descendente sin mover ni un pixel del diseño. */
-.hero-title{line-height:1.02;padding-bottom:.14em}
-.text-fire{padding-bottom:.06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+/* El degradado se recorta a la caja del elemento: si el rabito de la "g" cae fuera,
+   se pinta transparente y se ve el fondo oscuro (parece mordido). Se agranda la caja
+   pintada y se compensa el margen para que NADA se mueva de sitio. */
+.hero-title{padding-bottom:.30em;margin-bottom:calc(0.75rem - 0.20em)}
+h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-block;margin-bottom:-.14em}
 </style>
 <style id="tg-lang-css">
 #tgLangPill{position:fixed;top:max(16px, calc(env(safe-area-inset-top,0px) + 12px));right:14px;z-index:9000;display:flex;
