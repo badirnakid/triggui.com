@@ -566,7 +566,7 @@ section, .section-padding {
       <div><span class="text-2xl block mb-2">😍</span>Si el libro mejora tu ánimo, tocas este botón.</div>
       <div><span class="text-2xl block mb-2">🌀</span>Se guarda en tu Espiral: tu colección personal, lista para cuando la necesites.</div>
     </div>
-    <img src="espiral.jpg" alt="Tu Espiral: tu colección personal de libros que mejoraron tu ánimo" loading="lazy" class="rounded-2xl mx-auto shadow-2xl" style="max-width:900px;width:100%;border:1px solid rgba(245,240,232,.08)"/>
+    <div id="espPanel" class="esp-panel" aria-label="Tu Espiral"></div>
     <p class="text-xs mt-6" style="color:rgba(245,240,232,.35)">Incluida en todos los planes. <a href="#planes" style="color:var(--t-gold);font-weight:700;text-decoration:none">Ver planes →</a></p>
   </div>
 </section>
@@ -881,6 +881,42 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
     .catch(function (e) { console.warn("Triggui \u00b7 vitrina:", e); });
 })();
 </script>
+<style id="esp-panel-css">
+/* ═══ PANEL DE LA EDICIÓN ═══ Calco vivo de la pantalla real: barra superior, tarjeta
+   original a la izquierda, bloques de palabras y frases, y la pieza de compartir.
+   Antes era una captura JPG con el español horneado. */
+.esp-panel{max-width:900px;width:100%;margin:0 auto;border:1px solid rgba(245,240,232,.08);border-radius:16px;
+  background:radial-gradient(120% 120% at 12% 0%, #0F2A26 0%, #0A1418 55%, #080D10 100%);
+  padding:14px;box-shadow:0 30px 70px rgba(0,0,0,.5);overflow:hidden;container-type:inline-size}
+.esp-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.esp-marca{font-family:'Noto Serif Display',Georgia,serif;font-weight:700;font-size:15px;color:#F5F0E8;
+  background:rgba(245,240,232,.08);border-radius:99px;padding:4px 12px;letter-spacing:-.02em}
+.esp-libro{font-family:'Noto Serif Display',Georgia,serif;font-style:italic;font-size:16px;color:#F5F0E8;letter-spacing:-.01em}
+.esp-autor{font-size:11px;font-weight:600;color:#0B0F1A;background:#7FE3C4;border-radius:99px;padding:3px 9px}
+.esp-hola{margin-left:auto;font-size:11px;font-weight:600;color:#F5F0E8;background:rgba(245,240,232,.09);border-radius:99px;padding:4px 11px}
+.esp-cuerpo{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:12px;align-items:start}
+.esp-tarjeta{width:100%;display:block;border-radius:10px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover;
+  box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.esp-bloques{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.esp-b{border-radius:12px;min-height:104px;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:12px;color:#0B0F1A;font-weight:700;letter-spacing:-.01em}
+.esp-b.pal{font-size:20px}
+.esp-b.fra{font-size:12.5px;line-height:1.35;font-weight:600}
+.esp-b1{background:linear-gradient(150deg,#E9B7C6 0%,#C9C3E8 100%)}
+.esp-b2{background:linear-gradient(150deg,#A9CFC6 0%,#8FB6B0 100%)}
+.esp-b3{background:linear-gradient(150deg,#E7B6B0 0%,#C7A9C9 100%)}
+.esp-b4{background:linear-gradient(150deg,#C6CFC0 0%,#9FB0A2 100%)}
+.esp-share{grid-column:1 / -1;display:flex;gap:12px;align-items:center;background:#0C1114;border-radius:12px;padding:12px 14px;
+  border:1px solid rgba(245,240,232,.07)}
+.esp-share p{margin:0;flex:1;font-family:'Noto Serif Display',Georgia,serif;font-size:15px;line-height:1.28;color:#F5F0E8}
+.esp-share img{width:74px;border-radius:4px;display:block;box-shadow:0 6px 16px rgba(0,0,0,.5)}
+.esp-tira{grid-column:1 / -1;background:linear-gradient(90deg,rgba(127,227,196,.10),rgba(127,227,196,.03));
+  border-radius:12px;padding:11px 14px;text-align:center;font-size:12px;color:rgba(245,240,232,.8)}
+@container (max-width: 640px){
+  .esp-cuerpo{grid-template-columns:1fr}
+  .esp-b.pal{font-size:17px}
+}
+</style>
 <style id="phone-17-css">
 /* iPhone actual: isla dinámica real, canto de titanio y barra de gesto */
 .phone-dynamic-island{width:78px;height:23px;border-radius:99px;background:#000;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.06)}
@@ -1067,6 +1103,48 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
   if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
   else fetch("/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
         .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 wa:", e); });
+})();
+</script>
+<script id="esp-panel-js">
+/* Dibuja el panel de la edición con la tarjeta original y las palabras/frases reales. */
+(function () {
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function pinta(d, lang) {
+    var caja = document.getElementById("espPanel");
+    if (!caja || !d || !d.demo) return;
+    var c = d.demo[lang] || d.demo.es;
+    var p = c.palabras || [];
+    caja.innerHTML =
+      '<div class="esp-top">' +
+        '<span class="esp-marca">triggui</span>' +
+        '<span class="esp-libro">' + esc(c.libro) + "</span>" +
+        '<span class="esp-autor">' + esc(d.demo.autor) + "</span>" +
+        '<span class="esp-hola">' + esc(c.saludo) + "</span>" +
+      "</div>" +
+      '<div class="esp-cuerpo">' +
+        '<img class="esp-tarjeta" src="' + esc(c.img) + '" alt="" loading="lazy" decoding="async">' +
+        '<div class="esp-bloques">' +
+          '<div class="esp-b pal esp-b1">' + esc(p[0] || "") + "</div>" +
+          '<div class="esp-b pal esp-b2">' + esc(p[1] || "") + "</div>" +
+          '<div class="esp-b fra esp-b3">' + esc(c.frase1) + "</div>" +
+          '<div class="esp-b pal esp-b4">' + esc(p[2] || "") + "</div>" +
+        "</div>" +
+        '<div class="esp-share">' +
+          "<p>" + esc(c.ogDesc) + "</p>" +
+          '<img src="' + esc(c.og) + '" alt="" loading="lazy" decoding="async">' +
+        "</div>" +
+        '<div class="esp-tira">' + esc(c.frase2) + "</div>" +
+      "</div>";
+  }
+  function arranca(d) {
+    window.__TV_VITRINA = d;
+    pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
+    window.__TG_REPINTORES = window.__TG_REPINTORES || [];
+    window.__TG_REPINTORES.push(function (l) { pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es"); });
+  }
+  if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
+  else fetch("/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 panel:", e); });
 })();
 </script>
 </body>
