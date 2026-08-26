@@ -893,13 +893,16 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-block;margin-bottom:-.14em}
 </style>
 <style id="tg-lang-css">
-#tgLangPill{position:fixed;top:max(16px, calc(env(safe-area-inset-top,0px) + 12px));right:14px;z-index:9000;display:flex;
+/* Debajo del banner de Kids y centrada: en móvil se encimaba con "Conoce Triggui Kids".
+   El desplazamiento vertical lo calcula el JS midiendo el banner en vivo. */
+#tgLangPill{position:fixed;top:calc(var(--tg-pill-top, 66px) + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);z-index:9000;display:flex;
   background:rgba(255,255,255,.06);border:.5px solid rgba(255,255,255,.12);border-radius:99px;padding:3px;
   font:600 11px/1 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent;
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 #tgLangPill span{padding:5px 11px;border-radius:99px;transition:all .35s cubic-bezier(.19,1,.22,1);color:rgba(245,240,232,.45)}
 #tgLangPill span.lang-active{color:#0B0F1A;background:#F5F0E8;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-#tgLangPill:active{transform:scale(.97)}
+#tgLangPill:active{transform:translateX(-50%) scale(.97)}
+@media (min-width:900px){#tgLangPill{left:auto;right:16px;transform:none}#tgLangPill:active{transform:scale(.97)}}
 </style>
 <script id="tg-lang-js">
 /* ═══ IDIOMA DEL SITIO ═══ Traducción EN SITIO, sin recargar: camina los nodos de texto
@@ -977,7 +980,19 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
     document.body.appendChild(b);
     pintaPill();
   }
-  function arranca() { nacePill(); if (lang === "en") aplicar("en"); }
+  function colocaPill() {
+    try {
+      var banner = document.querySelector(".kids-banner-top");
+      var alto = banner ? Math.round(banner.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty("--tg-pill-top", (alto > 0 ? alto + 10 : 16) + "px");
+    } catch (e) {}
+  }
+  function arranca() {
+    nacePill(); colocaPill();
+    window.addEventListener("resize", colocaPill);
+    setTimeout(colocaPill, 500); setTimeout(colocaPill, 1500);
+    if (lang === "en") aplicar("en");
+  }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", arranca);
   else arranca();
 })();
