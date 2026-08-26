@@ -973,6 +973,11 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
     document.documentElement.setAttribute("lang", hacia);
     window.TRIGGUI_LANG = hacia;
     try { if (window.__tvRepintarRiel) window.__tvRepintarRiel(hacia); } catch (e) {}
+    /* registro abierto: cualquier pieza puede pedir que la repinten al cambiar de idioma */
+    try {
+      var lista = window.__TG_REPINTORES || [];
+      for (var q = 0; q < lista.length; q++) { try { lista[q](hacia); } catch (e) {} }
+    } catch (e) {}
     pintaPill();
   }
   function pintaPill() {
@@ -1038,11 +1043,10 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
   function arranca(d) {
     window.__TV_VITRINA = d;
     pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
-    var anterior = window.__tvRepintarRiel;
-    window.__tvRepintarRiel = function (l) {
-      try { if (anterior) anterior(l); } catch (e) {}
+    window.__TG_REPINTORES = window.__TG_REPINTORES || [];
+    window.__TG_REPINTORES.push(function (l) {
       pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es");
-    };
+    });
   }
   if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
   else fetch("/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
