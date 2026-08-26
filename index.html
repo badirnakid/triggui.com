@@ -128,6 +128,12 @@ function trackEngagement(a){if(typeof gtag!=='undefined')gtag('event','engagemen
       return data.tarjeta.style.accent;
     }
 
+    // Caso 1.5: vitrina del sitio → una edición AL AZAR presta su color a la portada
+    if (data && Array.isArray(data.tarjetas) && data.tarjetas.length) {
+      var __t = data.tarjetas[Math.floor(Math.random() * data.tarjetas.length)];
+      var __c = (__t && __t.colores && __t.colores[0]) || null;
+      if (__c) return __c;
+    }
     // Caso 2: Array de libros (contenido.json con TODOS)
     let libros = null;
     if (data && Array.isArray(data.libros)) {
