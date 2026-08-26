@@ -412,7 +412,19 @@ section, .section-padding {
 <style id="tv-card-css">
 /* Riel vivo: las tarjetas ORIGINALES del pipeline (tarjeta.png / tarjeta_en.png).
    No son recreaciones: son exactamente las mismas que se envían por WhatsApp. */
-.card-3d-inner .tv-link{display:block;border-radius:12px;overflow:hidden;line-height:0}
+.card-3d-inner{transition:transform .28s cubic-bezier(.19,1,.22,1),box-shadow .28s ease}
+.card-3d-wrapper:hover .card-3d-inner{transform:translateY(-8px) scale(1.015);box-shadow:0 22px 48px rgba(0,0,0,.6),0 0 0 1px var(--acc,#E8A838)}
+.card-3d-inner .tv-link{display:block;border-radius:12px;overflow:hidden;line-height:0;position:relative}
+.tv-abrir{position:absolute;left:50%;bottom:12px;transform:translateX(-50%) translateY(8px);opacity:0;
+  background:var(--acc,#E8A838);color:#0B0F1A;font:700 11px/1 'Plus Jakarta Sans',sans-serif;letter-spacing:.03em;
+  padding:8px 14px;border-radius:99px;white-space:nowrap;transition:all .28s cubic-bezier(.19,1,.22,1);box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.card-3d-wrapper:hover .tv-abrir{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (hover:none){.tv-abrir{opacity:.96;transform:translateX(-50%)}}
+.rail-invita{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font:700 12px/1 'Plus Jakarta Sans',sans-serif;
+  letter-spacing:.14em;text-transform:uppercase;color:#E8A838}
+.rail-invita span{display:inline-block;animation:railDedo 1.8s ease-in-out infinite}
+@keyframes railDedo{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+
 .card-3d-inner .tv-link img{width:100%;display:block;border-radius:12px;aspect-ratio:1066/1600;object-fit:cover;background:#F2F2F2}
 /* El texto real de cada tarjeta viaja para buscadores y lectores de pantalla */
 .tv-seo{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -514,7 +526,8 @@ section, .section-padding {
 <!-- ═══ CARD RAIL + FORM ═══ -->
 <section class="py-16 relative">
   <div class="container-safe mx-auto text-center">
-    <p class="text-xs font-bold uppercase tracking-widest mb-3" style="color:rgba(245,240,232,.22)">Algunas ediciones recientes</p>
+    <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:rgba(245,240,232,.30)">Algunas ediciones recientes</p>
+        <p class="rail-invita">🔥 Toca una y ábrela <span>→</span></p>
     <div class="cards-rail-container" id="cardRail">
       <div class="rail-spacer"></div>
       <!-- 🌀 Riel vivo: las tarjetas se dibujan desde vitrina.json (ES/EN), no son imágenes.
@@ -842,31 +855,32 @@ const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersec
 document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(30px)';el.style.transition='opacity .6s ease-out,transform .6s ease-out';obs.observe(el)});
 </script>
 <script id="tv-rail-js">
-/* ═══ RIEL VIVO ═══ Muestra las tarjetas ORIGINALES generadas por el pipeline,
-   en el idioma activo, con enlace a la edición correspondiente. El texto real
-   viaja oculto para buscadores y lectores de pantalla. Antes: 6 PNG de ~2.5 MB
-   con un diseño de hace meses; ahora: los originales de hoy, 8× más ligeros. */
+/* ═══ RIEL VIVO ═══ Seis ediciones AL AZAR en cada visita (orden aleatorio: nadie
+   depende de deslizar), con las tarjetas originales en miniatura WebP y enlace a
+   la edición en su idioma. El texto real viaja oculto para buscadores. */
 (function () {
   var riel = document.getElementById("cardRail");
   if (!riel) return;
-  function esc(s) {
-    return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-  }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function baraja(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function tarjetaHTML(t, lang) {
     var c = t[lang] || t.es || {};
-    return '<div class="card-3d-wrapper"><div class="card-3d-inner"><div class="card-shine"></div>' +
+    var acc = (t.colores && t.colores[0]) || "#E8A838";
+    return '<div class="card-3d-wrapper"><div class="card-3d-inner" style="--acc:' + esc(acc) + '"><div class="card-shine"></div>' +
       '<a class="tv-link" href="' + esc(c.url) + '" target="_blank" rel="noopener">' +
-        '<img src="' + esc(c.img) + '" alt="' + esc(c.titulo) + '" loading="lazy" decoding="async">' +
+        '<img src="' + esc(t.thumb[lang] || t.thumb.es) + '" alt="' + esc(c.titulo) + '" width="640" height="960" loading="lazy" decoding="async">' +
+        '<span class="tv-abrir">' + (lang === "en" ? "Open edition" : "Abrir edición") + " &rarr;</span>" +
       "</a>" +
-      '<p class="tv-seo">' + esc(c.titulo) + ". " + esc(c.texto) + "</p>" +
+      '<p class="tv-seo">' + esc(c.titulo) + ". " + esc((c.frases || [])[0] || "") + "</p>" +
       "</div></div>";
   }
   function pintar(datos, lang) {
     var t = datos && datos.tarjetas;
     if (!t || !t.length) return;
+    if (!window.__TV_ORDEN) window.__TV_ORDEN = baraja(t).slice(0, 6);
+    var sel = window.__TV_ORDEN;
     var html = '<div class="rail-spacer"></div>';
-    for (var i = 0; i < t.length; i++) html += tarjetaHTML(t[i], lang);
+    for (var i = 0; i < sel.length; i++) html += tarjetaHTML(sel[i], lang);
     html += '<div class="rail-spacer"></div>';
     riel.innerHTML = html;
   }
