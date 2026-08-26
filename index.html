@@ -475,7 +475,7 @@ section, .section-padding {
         <div class="phone-device">
           <div class="phone-screen">
             <div class="phone-notch-bar"><div class="phone-dynamic-island"></div></div>
-            <img src="whatsapp-preview.png" alt="Así se ve Triggui en tu WhatsApp" loading="lazy"/>
+            <div id="waChat" class="wa-chat" aria-label="Así se ve Triggui en tu WhatsApp"></div>
             <div class="phone-bottom-fade"></div>
           </div>
         </div>
@@ -881,6 +881,22 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
     .catch(function (e) { console.warn("Triggui \u00b7 vitrina:", e); });
 })();
 </script>
+<style id="wa-chat-css">
+/* ═══ MAQUETA DE WHATSAPP ═══ Reconstruida con la tarjeta ORIGINAL y las palabras
+   reales de la edición. Antes era una imagen con el español horneado en píxeles. */
+.wa-chat{background:#0B141A;min-height:520px;padding:44px 8px 16px;display:flex;flex-direction:column;gap:8px;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',Arial,sans-serif;
+  background-image:radial-gradient(rgba(255,255,255,.028) 1px, transparent 1px);background-size:18px 18px}
+.wa-msg{align-self:flex-start;max-width:88%;background:#1F2C34;color:#E9EDEF;border-radius:10px;border-top-left-radius:2px;
+  padding:5px 6px 4px;box-shadow:0 1px 1px rgba(0,0,0,.28);position:relative}
+.wa-msg.mia{align-self:flex-end;background:#005C4B;border-top-left-radius:10px;border-top-right-radius:2px}
+.wa-card{width:100%;display:block;border-radius:7px;background:#F2F2F2;aspect-ratio:1066/1600;object-fit:cover}
+.wa-cap{margin:5px 2px 0;font-size:11.5px;line-height:1.38;color:#E9EDEF}
+.wa-words{margin:0 2px;font-size:11px;line-height:1.4;font-weight:600;letter-spacing:.01em;color:#8FD9C4}
+.wa-link{display:block;margin:5px 2px 0;font-size:10.5px;color:#53BDEB;text-decoration:none;word-break:break-all}
+.wa-time{display:block;text-align:right;font-size:9.5px;color:rgba(233,237,239,.5);margin-top:2px;padding-right:2px}
+.wa-time b{color:#53BDEB;font-weight:400}
+</style>
 <style id="tg-fix-descendentes">
 /* 🔠 La "g" mordida: .text-fire recorta el degradado al alto de línea (.95), que es
    más corto que la letra, así que los rabitos (g, y, p, j) quedaban fuera del área
@@ -995,6 +1011,42 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", arranca);
   else arranca();
+})();
+</script>
+<script id="wa-chat-js">
+/* Pinta la conversación con la tarjeta original y las palabras reales del idioma activo. */
+(function () {
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function pinta(d, lang) {
+    var caja = document.getElementById("waChat");
+    if (!caja || !d || !d.demo) return;
+    var c = d.demo[lang] || d.demo.es;
+    caja.innerHTML =
+      '<div class="wa-msg">' +
+        '<img class="wa-card" src="' + esc(c.img) + '" alt="" loading="lazy" decoding="async">' +
+        '<p class="wa-cap">' + esc(c.frase1) + "</p>" +
+        '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
+      "</div>" +
+      '<div class="wa-msg">' +
+        '<p class="wa-words">' + esc((c.palabras || []).join(" · ")) + "</p>" +
+        '<p class="wa-cap">' + esc(c.frase2) + "</p>" +
+        '<a class="wa-link" href="' + esc(c.href) + '" target="_blank" rel="noopener">' + esc(c.url) + "</a>" +
+        '<span class="wa-time">22:34 <b>&#10003;&#10003;</b></span>' +
+      "</div>";
+  }
+  var LANG = (window.TRIGGUI_LANG === "en") ? "en" : "es";
+  function arranca(d) {
+    window.__TV_VITRINA = d;
+    pinta(d, (window.TRIGGUI_LANG === "en") ? "en" : "es");
+    var anterior = window.__tvRepintarRiel;
+    window.__tvRepintarRiel = function (l) {
+      try { if (anterior) anterior(l); } catch (e) {}
+      pinta(window.__TV_VITRINA, (l === "en") ? "en" : "es");
+    };
+  }
+  if (window.__TV_VITRINA) arranca(window.__TV_VITRINA);
+  else fetch("/vitrina.json", { cache: "no-store" }).then(function (r) { return r.json(); })
+        .then(arranca).catch(function (e) { console.warn("Triggui \u00b7 wa:", e); });
 })();
 </script>
 </body>
