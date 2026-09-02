@@ -445,7 +445,7 @@ section, .section-padding {
 .tg-head,.tg-panel,.tg-foot{--g-h:72px;--g-h-sm:60px;
   --g-bg:rgba(11,15,26,.82);--g-ink:#F5F0E8;--g-txt:rgba(245,240,232,.62);
   --g-txt3:rgba(245,240,232,.40);--g-line:rgba(245,240,232,.12);
-  --g-acc:linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%);--g-gold:#E8A838;
+  --g-acc:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));--g-gold:var(--t-gold,#E8A838);
   --g-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
   --g-ease:cubic-bezier(.22,1,.36,1)}
 .tg-head{position:sticky;top:0;z-index:9100;height:72px;background:var(--g-bg);
@@ -462,12 +462,12 @@ section, .section-padding {
   background:var(--g-acc);transition:width .32s var(--g-ease)}
 .tg-link:hover{color:var(--g-ink)}
 .tg-link:hover::after{width:100%}
-.tg-cta{background-image:linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%);background-color:transparent;
+.tg-cta{background-image:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));background-color:transparent;
   color:#0B0F1A;font-family:var(--g-font);font-weight:800;font-size:13.5px;letter-spacing:.02em;
   padding:10px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;display:inline-block;
-  box-shadow:0 8px 20px rgba(232,168,56,.24);transition:transform .28s var(--g-ease),box-shadow .28s ease;
+  box-shadow:0 8px 20px color-mix(in srgb,var(--t-gold,#E8A838) 24%,transparent);transition:transform .28s var(--g-ease),box-shadow .28s ease;
   white-space:nowrap;text-align:center}
-.tg-cta:hover{transform:translateY(-2px);box-shadow:0 13px 28px rgba(255,107,74,.34)}
+.tg-cta:hover{transform:translateY(-2px);box-shadow:0 13px 28px color-mix(in srgb,var(--t-coral,#FF6B4A) 34%,transparent)}
 /* control de idioma, absorbido dentro del header */
 .tg-lang{display:inline-flex;background:rgba(245,240,232,.06);border:.5px solid rgba(245,240,232,.14);
   border-radius:99px;padding:3px;font-family:var(--g-font);font-size:12px;font-weight:700;flex:0 0 auto}
@@ -503,7 +503,7 @@ section, .section-padding {
   text-transform:uppercase;color:rgba(245,240,232,.38);margin:0 0 13px}
 .tg-foot a{font-family:var(--g-font);color:rgba(245,240,232,.66);text-decoration:none;font-size:14.5px;
   font-weight:500;display:block;padding:5px 0;transition:color .22s ease}
-.tg-foot a:hover{color:#E8A838}
+.tg-foot a:hover{color:var(--t-gold,#E8A838)}
 .tg-fbrand img{height:24px;width:auto;margin-bottom:13px;display:block}
 .tg-fbrand p{font-family:var(--g-font);color:rgba(245,240,232,.46);font-size:14px;line-height:1.6;margin:0;max-width:330px}
 .tg-fbar{max-width:1140px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(245,240,232,.10);
@@ -522,7 +522,7 @@ header.tg-head a.tg-logo,header.tg-head a.tg-link,div.tg-panel a.tg-plink,footer
   float:none;position:static;text-transform:none;letter-spacing:normal;background-image:none;border:0;margin:0}
 header.tg-head a.tg-cta,div.tg-panel a.tg-cta{float:none;position:static;text-transform:none;
   letter-spacing:.02em;border:0;background-color:transparent;
-  background-image:linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%);color:#0B0F1A}
+  background-image:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));color:#0B0F1A}
 header.tg-head a.tg-link::before,footer.tg-foot a::before,footer.tg-foot a::after{content:none}
 header.tg-head a.tg-link::after{content:''}
 header.tg-head button.tg-burger,header.tg-head .tg-lang button{float:none;box-shadow:none;
@@ -537,19 +537,19 @@ div.tg-panel a.tg-plink{text-align:left}
 </style>
 </head>
 <body>
-<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">El sistema de crecimiento</small></a><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div></div>
+<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><a class="tg-link" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">El sistema de crecimiento</small></a><a class="tg-plink" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot<small data-es="La decision grande, pensada en frio" data-en="The big decision, thought through cold">La decision grande, pensada en frio</small></a><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div></div>
 
 <!-- 🧸 Banner top — Triggui Kids (v3 simple universal) -->
 <a href="https://app.triggui.com/kids"
    target="_blank"
    onclick="trackEngagement('kids_banner_top')"
    class="kids-banner-top"
-   style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 12px 16px; background: linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16)); border-bottom: 1px solid rgba(232,168,56,0.35); color: #F5F0E8; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s ease; white-space: nowrap;"
-   onmouseover="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.30), rgba(255,107,107,0.26))'"
-   onmouseout="this.style.background='linear-gradient(135deg, rgba(232,168,56,0.18), rgba(255,107,107,0.16))'">
+   style="display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 12px 16px; background: linear-gradient(135deg, color-mix(in srgb,var(--t-gold) 18%,transparent), color-mix(in srgb,var(--t-coral) 16%,transparent)); border-bottom: 1px solid color-mix(in srgb,var(--t-gold) 35%,transparent); color: #F5F0E8; text-decoration: none; font-size: 15px; font-weight: 500; transition: background 0.2s ease; white-space: nowrap;"
+   onmouseover="this.style.background='linear-gradient(135deg, color-mix(in srgb,var(--t-gold) 30%,transparent), color-mix(in srgb,var(--t-coral) 26%,transparent))'"
+   onmouseout="this.style.background='linear-gradient(135deg, color-mix(in srgb,var(--t-gold) 18%,transparent), color-mix(in srgb,var(--t-coral) 16%,transparent))'">
   <span style="font-size: 18px; line-height: 1;">🧸</span>
-  <span>Conoce <strong style="color: #FFE5A8;">Triggui Kids</strong></span>
-  <span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; background: rgba(232,168,56,0.32); border: 1px solid rgba(232,168,56,0.55); border-radius: 999px; font-size: 11px; font-weight: 700; color: #FFE5A8; text-transform: uppercase; letter-spacing: 0.7px;">
+  <span>Conoce <strong style="color: color-mix(in srgb,var(--t-gold) 45%,#F5F0E8);">Triggui Kids</strong></span>
+  <span style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; background: color-mix(in srgb,var(--t-gold) 32%,transparent); border: 1px solid color-mix(in srgb,var(--t-gold) 55%,transparent); border-radius: 999px; font-size: 11px; font-weight: 700; color: color-mix(in srgb,var(--t-gold) 45%,#F5F0E8); text-transform: uppercase; letter-spacing: 0.7px;">
     Ir <span style="font-size: 13px;">→</span>
   </span>
 </a>
