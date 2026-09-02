@@ -448,7 +448,8 @@ section, .section-padding {
 .tg-head,.tg-panel,.tg-foot,.tg-velo{
   --c-bg:rgba(11,15,26,.86);--c-ink:#F5F0E8;--c-txt:rgba(245,240,232,.62);--c-txt3:rgba(245,240,232,.40);--c-line:rgba(245,240,232,.12);
   --c-acc:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));--c-som:color-mix(in srgb,var(--t-gold,#E8A838) 24%,transparent);--c-som2:color-mix(in srgb,var(--t-coral,#FF6B4A) 34%,transparent);--c-hov:var(--t-gold,#E8A838);
-  --c-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;--c-ease:cubic-bezier(.22,1,.36,1);--c-lang-bg:rgba(245,240,232,.06);--c-lang-on:#0B0F1A}
+  --c-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;--c-ease:cubic-bezier(.22,1,.36,1);--c-lang-bg:rgba(245,240,232,.06);--c-lang-on:#0B0F1A;
+  --c-lang-on-bg:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));--c-lang-on-som:color-mix(in srgb,var(--t-gold,#E8A838) 26%,transparent)}
 .tg-head{position:fixed;top:0;left:0;right:0;width:100%;z-index:9600;height:76px;
   background:var(--c-bg);-webkit-backdrop-filter:saturate(180%) blur(16px);
   backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--c-line);
@@ -510,10 +511,12 @@ section, .section-padding {
   .tg-head{height:64px}.tg-espacio{height:64px}
   .tg-nav{display:flex;gap:0;margin-right:10px}
   .tg-nav .tg-link,.tg-nav .tg-ask{display:none}
-  .tg-nav .tg-lang{display:inline-flex}
+  .tg-nav .tg-lang{display:inline-flex;transform:translateY(2.3px)}
   .tg-burger{display:block}
+  .tg-burger span{transform:translateY(1.3px)}
+  .tg-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(1.3px) rotate(45deg)}
+  .tg-burger[aria-expanded="true"] span:nth-child(2){transform:translateY(1.3px) rotate(-45deg)}
   .tg-logo img{height:20px}}
-@media(max-width:380px){.tg-lang a{padding:5px 9px;font-size:11.5px}}
 @media(min-width:1341px){.tg-panel,.tg-velo{display:none!important}}
 /* footer */
 .tg-foot{background:#070A12;color:#fff;padding:56px clamp(20px,5vw,60px) 30px;
@@ -535,16 +538,18 @@ section, .section-padding {
 
 .tg-lang{display:inline-flex;background:var(--c-lang-bg,rgba(10,10,10,.05));
   border:1px solid var(--c-line);border-radius:99px;padding:3px;font-family:var(--c-font);
-  font-size:12px;font-weight:800;flex:0 0 auto;letter-spacing:.04em}
-.tg-lang a{padding:5px 11px;border-radius:99px;color:var(--c-txt3);text-decoration:none;
-  transition:all .3s var(--c-ease);line-height:1;display:block}
+  font-size:12.5px;font-weight:700;flex:0 0 auto;letter-spacing:0;white-space:nowrap}
+.tg-lang a{padding:6px 13px;border-radius:99px;color:var(--c-txt3);text-decoration:none;
+  transition:all .3s var(--c-ease);line-height:1;display:block;white-space:nowrap}
 .tg-lang a:hover{color:var(--c-ink)}
-.tg-lang a.on{color:var(--c-lang-on,#fff);background-image:var(--c-acc);
-  box-shadow:0 2px 8px var(--c-som)}
-.tg-panel .tg-lang{margin-top:18px;align-self:center}
-header.tg-head div.tg-lang a,div.tg-panel div.tg-lang a{float:none;position:static;
-  text-transform:none;letter-spacing:.04em;border:0;margin:0}
-header.tg-head div.tg-lang a.on,div.tg-panel div.tg-lang a.on{background-color:transparent}
+.tg-lang a.on{color:var(--c-lang-on,#fff);background:var(--c-lang-on-bg);
+  box-shadow:0 2px 8px var(--c-lang-on-som)}
+header.tg-head div.tg-lang a{float:none;position:static;text-transform:none;
+  letter-spacing:0;border:0;margin:0;background-image:none}
+header.tg-head div.tg-lang a.on{background:var(--c-lang-on-bg)}
+@media(max-width:414px){.tg-lang{font-size:11.5px}.tg-lang a{padding:6px 9px}}
+@media(max-width:370px){.tg-lang{font-size:11px}.tg-lang a{padding:6px 7px}}
+@media(max-width:340px){.tg-logo img{height:18px}}
 
 @media(prefers-reduced-motion:reduce){.tg-head,.tg-panel,.tg-velo,.tg-plink,
   .tg-head *,.tg-panel *,.tg-foot *{transition:none!important}}
@@ -573,7 +578,7 @@ div.tg-panel a.tg-plink{text-align:left}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://triggui.com/#org","name":"Triggui","url":"https://triggui.com/","logo":"https://triggui.com/imagotipo.png","image":"https://triggui.com/imagotipo.png","description":"Una senal diaria con una idea de un gran libro, en el momento exacto.","sameAs":["https://www.instagram.com/triggui/","https://trestme.com"],"parentOrganization":{"@type":"Organization","name":"Trestme","url":"https://trestme.com/"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","@id":"https://triggui.com/#sitio","url":"https://triggui.com/en/","name":"Triggui","inLanguage":"en-US","publisher":{"@id":"https://triggui.com/#org"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"MobileApplication","name":"Triggui","operatingSystem":"iOS, Android","applicationCategory":"LifestyleApplication","url":"https://app.triggui.com","publisher":{"@id":"https://triggui.com/#org"},"installUrl":["https://apps.apple.com/mx/app/triggui/id6752839016","https://play.google.com/store/apps/details?id=com.triggui.app"]}</script>
 </head>
 <body>
-<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><a class="tg-link" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot</a><div class="tg-lang" role="group" aria-label="Idioma"><a href="/" hreflang="es-MX" lang="es">ES</a><a href="/en/" hreflang="en" lang="en" class="on">EN</a></div><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-espacio" aria-hidden="true"></div><div class="tg-velo" id="tgVelo" aria-hidden="true"></div><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">The growth system</small></a><a class="tg-plink" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot<small data-es="La decision grande, pensada en frio" data-en="The big decision, thought through cold">La decision grande, pensada en frio</small></a><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a><div class="tg-lang" role="group" aria-label="Idioma"><a href="/" hreflang="es-MX" lang="es">ES</a><a href="/en/" hreflang="en" lang="en" class="on">EN</a></div></div>
+<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><a class="tg-link" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot</a><div class="tg-lang" role="group" aria-label="Idioma"><a href="/" hreflang="es-MX" lang="es">Español</a><a href="/en/" hreflang="en" lang="en" class="on">English</a></div><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-espacio" aria-hidden="true"></div><div class="tg-velo" id="tgVelo" aria-hidden="true"></div><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">The growth system</small></a><a class="tg-plink" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot<small data-es="La decision grande, pensada en frio" data-en="The big decision, thought through cold">La decision grande, pensada en frio</small></a><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></div>
 
 <!-- 🧸 Banner top   Triggui Kids (v3 simple universal) -->
 <a href="https://app.triggui.com/kids"
