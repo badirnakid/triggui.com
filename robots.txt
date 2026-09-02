@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /agregar
+Disallow: /detonar
+Disallow: /idioma
+Disallow: /entendido
+Disallow: /api/
+
+Sitemap: https://triggui.com/sitemap.xml
