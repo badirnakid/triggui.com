@@ -1030,7 +1030,7 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
     html += '<div class="rail-spacer"></div>';
     riel.innerHTML = html;
   }
-  var LANG = (window.TRIGGUI_LANG === "en") ? "en" : "es";
+  var LANG = ((document.documentElement.getAttribute("lang") || "es").toLowerCase().indexOf("en") === 0) ? "en" : "es";
   fetch("/vitrina.json", { cache: "no-store" })
     .then(function (r) { return r.json(); })
     .then(function (d) {
