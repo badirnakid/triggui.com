@@ -441,103 +441,123 @@ section, .section-padding {
 </style>
 <link rel="alternate" hreflang="es" href="https://triggui.com/" /><link rel="alternate" hreflang="en" href="https://triggui.com/en/" /><link rel="alternate" hreflang="x-default" href="https://triggui.com/" />
 <style id="tg-chrome">
-/* ═══ CHROME TRIGGUI · autocontenido ═══ */
-.tg-head,.tg-panel,.tg-foot{--g-h:72px;--g-h-sm:60px;
-  --g-bg:rgba(11,15,26,.82);--g-ink:#F5F0E8;--g-txt:rgba(245,240,232,.62);
-  --g-txt3:rgba(245,240,232,.40);--g-line:rgba(245,240,232,.12);
-  --g-acc:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));--g-gold:var(--t-gold,#E8A838);
-  --g-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;
-  --g-ease:cubic-bezier(.22,1,.36,1)}
-.tg-head{position:sticky;top:0;z-index:9100;height:72px;background:var(--g-bg);
-  -webkit-backdrop-filter:saturate(180%) blur(14px);backdrop-filter:saturate(180%) blur(14px);
-  border-bottom:1px solid var(--g-line);display:flex;align-items:center;justify-content:space-between;
-  padding:0 clamp(16px,4vw,40px);font-family:var(--g-font);box-sizing:border-box}
+/* ═══ CHROME v3 · autocontenido · tema triggui ═══ */
+.tg-head,.tg-panel,.tg-foot,.tg-velo{
+  --c-bg:rgba(11,15,26,.86);--c-ink:#F5F0E8;--c-txt:rgba(245,240,232,.62);--c-txt3:rgba(245,240,232,.40);--c-line:rgba(245,240,232,.12);
+  --c-acc:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));--c-som:color-mix(in srgb,var(--t-gold,#E8A838) 24%,transparent);--c-som2:color-mix(in srgb,var(--t-coral,#FF6B4A) 34%,transparent);--c-hov:var(--t-gold,#E8A838);
+  --c-font:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,sans-serif;--c-ease:cubic-bezier(.22,1,.36,1)}
+.tg-head{position:fixed;top:0;left:0;right:0;width:100%;z-index:9600;height:76px;
+  background:var(--c-bg);-webkit-backdrop-filter:saturate(180%) blur(16px);
+  backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--c-line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,44px);
+  font-family:var(--c-font);box-sizing:border-box;
+  transition:transform .32s var(--c-ease),box-shadow .32s ease}
+.tg-head.is-oculto{transform:translateY(-100%)}
+.tg-head.is-flotando{box-shadow:0 10px 34px rgba(0,0,0,.10)}
+.tg-espacio{height:76px;width:100%;flex:none;pointer-events:none}
 .tg-head *,.tg-panel *,.tg-foot *{box-sizing:border-box}
 .tg-logo{display:flex;align-items:center;text-decoration:none;flex:0 0 auto}
-.tg-logo img{height:24px;width:auto;display:block}
-.tg-nav{display:flex;align-items:center;gap:clamp(12px,1.8vw,26px)}
-.tg-link{font-family:var(--g-font);font-size:14.5px;font-weight:600;color:var(--g-txt);
-  position:relative;text-decoration:none;padding:6px 0;transition:color .25s ease;white-space:nowrap}
+.tg-logo img{height:24px;width:auto;display:block;filter:none}
+.tg-nav{display:flex;align-items:center;gap:clamp(12px,1.7vw,26px)}
+.tg-link{font-family:var(--c-font);font-size:14.5px;font-weight:600;color:var(--c-txt);
+  letter-spacing:-.005em;position:relative;text-decoration:none;padding:6px 0;
+  transition:color .25s ease;white-space:nowrap;text-transform:none}
 .tg-link::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;border-radius:2px;
-  background:var(--g-acc);transition:width .32s var(--g-ease)}
-.tg-link:hover{color:var(--g-ink)}
+  background:var(--c-acc);transition:width .32s var(--c-ease)}
+.tg-link:hover{color:var(--c-ink)}
 .tg-link:hover::after{width:100%}
-.tg-cta{background-image:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));background-color:transparent;
-  color:#0B0F1A;font-family:var(--g-font);font-weight:800;font-size:13.5px;letter-spacing:.02em;
-  padding:10px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none;display:inline-block;
-  box-shadow:0 8px 20px color-mix(in srgb,var(--t-gold,#E8A838) 24%,transparent);transition:transform .28s var(--g-ease),box-shadow .28s ease;
+.tg-link[aria-current="page"]{color:var(--c-ink);font-weight:700}
+.tg-link[aria-current="page"]::after{width:100%}
+.tg-ask{background-image:var(--c-acc);background-color:transparent;color:#fff!important;
+  font-family:var(--c-font);font-weight:800;font-size:13.5px;letter-spacing:.02em;padding:11px 24px;
+  border-radius:999px;border:0;cursor:pointer;text-decoration:none;display:inline-block;
+  box-shadow:0 8px 22px var(--c-som);transition:transform .28s var(--c-ease),box-shadow .28s ease;
   white-space:nowrap;text-align:center}
-.tg-cta:hover{transform:translateY(-2px);box-shadow:0 13px 28px color-mix(in srgb,var(--t-coral,#FF6B4A) 34%,transparent)}
-/* control de idioma, absorbido dentro del header */
-.tg-lang{display:inline-flex;background:rgba(245,240,232,.06);border:.5px solid rgba(245,240,232,.14);
-  border-radius:99px;padding:3px;font-family:var(--g-font);font-size:12px;font-weight:700;flex:0 0 auto}
-.tg-lang button{background:none;border:0;cursor:pointer;padding:5px 11px;border-radius:99px;
-  color:rgba(245,240,232,.45);font:inherit;transition:all .3s var(--g-ease);line-height:1}
-.tg-lang button.on{color:#0B0F1A;background:#F5F0E8;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-#tgLangPill{display:none!important}
+.tg-ask:hover{transform:translateY(-2px);box-shadow:0 13px 30px var(--c-som2)}
 .tg-burger{display:none;width:44px;height:44px;border:0;background:transparent;cursor:pointer;
-  position:relative;padding:0;margin-right:-8px}
-.tg-burger span{position:absolute;right:8px;height:2px;border-radius:2px;background:var(--g-ink);display:block;
-  transition:width .34s var(--g-ease),transform .34s var(--g-ease),top .34s var(--g-ease)}
+  position:relative;padding:0;margin-right:-8px;z-index:2;-webkit-tap-highlight-color:transparent}
+.tg-burger span{position:absolute;right:8px;height:2px;border-radius:2px;background:var(--c-ink);
+  display:block;transition:width .34s var(--c-ease),transform .34s var(--c-ease),top .34s var(--c-ease)}
 .tg-burger span:nth-child(1){top:19px;width:24px}
 .tg-burger span:nth-child(2){top:25px;width:14.8328px}
 .tg-burger[aria-expanded="true"] span:nth-child(1){top:22px;width:24px;transform:rotate(45deg)}
 .tg-burger[aria-expanded="true"] span:nth-child(2){top:22px;width:24px;transform:rotate(-45deg)}
-.tg-panel{position:fixed;inset:60px 0 0 0;background:rgba(11,15,26,.98);
-  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);z-index:9099;
-  padding:18px clamp(16px,6vw,30px) 40px;display:flex;flex-direction:column;overflow-y:auto;
-  font-family:var(--g-font);opacity:0;visibility:hidden;transform:translateY(-8px);
-  transition:opacity .3s ease,transform .34s var(--g-ease),visibility .3s}
+/* velo: toque fuera para cerrar */
+.tg-velo{position:fixed;inset:0;z-index:9550;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;
+  -webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);
+  transition:opacity .3s ease,visibility .3s;pointer-events:none}
+.tg-velo.open{opacity:1;visibility:visible;pointer-events:auto}
+/* panel: scroll propio, sin arrastrar la pagina */
+.tg-panel{position:fixed;top:64px;left:0;right:0;bottom:0;z-index:9580;
+  background:rgba(11,15,26,.985);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);
+  padding:18px clamp(18px,6vw,32px) calc(40px + env(safe-area-inset-bottom,0px));
+  display:flex;flex-direction:column;font-family:var(--c-font);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;
+  transform:translateY(-10px);opacity:0;visibility:hidden;
+  transition:opacity .28s ease,transform .36s var(--c-ease),visibility .28s}
 .tg-panel.open{opacity:1;visibility:visible;transform:none}
-.tg-plink{font-family:var(--g-font);font-size:21px;font-weight:800;letter-spacing:-.03em;
-  color:#F5F0E8!important;text-decoration:none;padding:13px 0;border-bottom:1px solid var(--g-line);display:block}
-.tg-plink small{display:block;font-size:12.5px;font-weight:600;color:var(--g-txt3);margin-top:2px;letter-spacing:0}
-.tg-panel .tg-cta{margin-top:20px;display:block;font-size:15px;padding:15px}
-.tg-panel .tg-lang{margin-top:16px;align-self:center}
-@media(max-width:900px){.tg-head{height:60px}.tg-nav{display:none}.tg-burger{display:block}
-  .tg-logo img{height:21px}}
-.tg-foot{background:#070A12;color:#F5F0E8;padding:52px clamp(18px,5vw,56px) 28px;font-family:var(--g-font);margin:0}
-.tg-fgrid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:38px}
-@media(max-width:760px){.tg-fgrid{grid-template-columns:1fr;gap:26px}}
-.tg-foot h4{font-family:var(--g-font);font-size:11px;font-weight:800;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(245,240,232,.38);margin:0 0 13px}
-.tg-foot a{font-family:var(--g-font);color:rgba(245,240,232,.66);text-decoration:none;font-size:14.5px;
-  font-weight:500;display:block;padding:5px 0;transition:color .22s ease}
-.tg-foot a:hover{color:var(--t-gold,#E8A838)}
-.tg-fbrand img{height:24px;width:auto;margin-bottom:13px;display:block}
-.tg-fbrand p{font-family:var(--g-font);color:rgba(245,240,232,.46);font-size:14px;line-height:1.6;margin:0;max-width:330px}
-.tg-fbar{max-width:1140px;margin:34px auto 0;padding-top:18px;border-top:1px solid rgba(245,240,232,.10);
-  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--g-font);
+.tg-plink{font-family:var(--c-font);font-size:21px;font-weight:800;letter-spacing:-.03em;
+  color:#F5F0E8!important;text-decoration:none;padding:14px 0;
+  border-bottom:1px solid var(--c-line);display:block;text-transform:none;
+  opacity:0;transform:translateY(8px);transition:opacity .3s ease,transform .34s var(--c-ease)}
+.tg-panel.open .tg-plink{opacity:1;transform:none}
+.tg-plink small{display:block;font-size:12.5px;font-weight:600;color:var(--c-txt3);
+  letter-spacing:0;margin-top:2px;text-transform:none}
+.tg-panel .tg-ask{margin-top:22px;display:block;font-size:15px;padding:16px;flex:none}
+@media(max-width:1340px){
+  .tg-head{height:64px}.tg-espacio{height:64px}
+  .tg-nav{display:none}.tg-burger{display:block}
+  .tg-logo img{height:20px}}
+@media(min-width:1341px){.tg-panel,.tg-velo{display:none!important}}
+/* footer */
+.tg-foot{background:#070A12;color:#fff;padding:56px clamp(20px,5vw,60px) 30px;
+  font-family:var(--c-font);margin:0}
+.tg-fgrid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1.1fr .9fr;gap:40px}
+@media(max-width:760px){.tg-fgrid{grid-template-columns:1fr;gap:28px}}
+.tg-foot h4{font-family:var(--c-font);font-size:11px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(245,240,232,.38);margin:0 0 14px}
+.tg-foot a{font-family:var(--c-font);color:rgba(245,240,232,.66);text-decoration:none;font-size:14.5px;
+  font-weight:500;display:block;padding:5px 0;transition:color .22s ease;text-transform:none;letter-spacing:0}
+.tg-foot a:hover{color:var(--c-hov)}
+.tg-fbrand img{height:24px;width:auto;filter:none;margin-bottom:14px;display:block}
+.tg-fbrand p{font-family:var(--c-font);color:rgba(245,240,232,.46);font-size:14px;line-height:1.6;margin:0;max-width:340px}
+.tg-fbar{max-width:1180px;margin:38px auto 0;padding-top:20px;border-top:1px solid rgba(245,240,232,.10);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--c-font);
   font-size:11.5px;letter-spacing:.08em;color:rgba(245,240,232,.34);text-transform:uppercase;font-weight:600}
+.tg-lang{display:inline-flex;background:rgba(245,240,232,.06);border:.5px solid rgba(245,240,232,.14);
+  border-radius:99px;padding:3px;font-family:var(--c-font);font-size:12px;font-weight:700;flex:0 0 auto}
+.tg-lang button{background:none;border:0;cursor:pointer;padding:5px 11px;border-radius:99px;
+  color:var(--c-txt3);font:inherit;transition:all .3s var(--c-ease);line-height:1}
+.tg-lang button.on{color:#0B0F1A;background:#F5F0E8;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.tg-panel .tg-lang{margin-top:18px;align-self:center;flex:none}
+#tgLangPill{display:none!important}
+@media(prefers-reduced-motion:reduce){.tg-head,.tg-panel,.tg-velo,.tg-plink,
+  .tg-head *,.tg-panel *,.tg-foot *{transition:none!important}}
 /* ═══ BLINDAJE ═══ */
-header.tg-head,div.tg-panel,footer.tg-foot{position:static;float:none;clear:both;text-align:left;
-  text-transform:none;letter-spacing:normal;line-height:normal;max-width:none;min-width:0;
-  left:auto;right:auto;bottom:auto;transform:none}
-header.tg-head{position:sticky;top:0}
-div.tg-panel{position:fixed}
+header.tg-head,div.tg-panel,div.tg-velo,footer.tg-foot{float:none;clear:both;text-align:left;
+  text-transform:none;letter-spacing:normal;line-height:normal;max-width:none;min-width:0}
+header.tg-head,div.tg-panel,div.tg-velo{position:fixed}
 header.tg-head nav.tg-nav{position:static;float:none;width:auto;max-width:none;height:auto;
-  top:auto;left:auto;right:auto;bottom:auto;margin:0;padding:0;background:none;border:0;transform:none;
-  z-index:auto;opacity:1;visibility:visible;text-align:left}
+  top:auto;left:auto;right:auto;bottom:auto;margin:0;padding:0;background:none;border:0;
+  transform:none;z-index:auto;opacity:1;visibility:visible;text-align:left}
 header.tg-head a.tg-logo,header.tg-head a.tg-link,div.tg-panel a.tg-plink,footer.tg-foot a{
   float:none;position:static;text-transform:none;letter-spacing:normal;background-image:none;border:0;margin:0}
-header.tg-head a.tg-cta,div.tg-panel a.tg-cta{float:none;position:static;text-transform:none;
-  letter-spacing:.02em;border:0;background-color:transparent;
-  background-image:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));color:#0B0F1A}
+header.tg-head a.tg-ask,div.tg-panel a.tg-ask{float:none;position:static;text-transform:none;
+  letter-spacing:.02em;border:0;background-color:transparent;background-image:var(--t-nuclear,linear-gradient(135deg,#E8A838 0%,#FF6B4A 100%));color:#fff}
 header.tg-head a.tg-link::before,footer.tg-foot a::before,footer.tg-foot a::after{content:none}
 header.tg-head a.tg-link::after{content:''}
-header.tg-head button.tg-burger,header.tg-head .tg-lang button{float:none;box-shadow:none;
-  text-transform:none;letter-spacing:normal;min-width:0}
-header.tg-head button.tg-burger{position:relative;width:44px;height:44px;margin:0 -8px 0 0;padding:0;background:transparent}
-header.tg-head img,footer.tg-foot img{max-width:none;margin:0;border:0;box-shadow:none;border-radius:0;position:static;display:block}
+header.tg-head button.tg-burger{position:relative;float:none;margin:0 -8px 0 0;padding:0;border:0;
+  background:transparent;box-shadow:none;text-transform:none;letter-spacing:normal;min-width:0;width:44px;height:44px}
+header.tg-head img,footer.tg-foot img{max-width:none;margin:0;border:0;box-shadow:none;
+  border-radius:0;position:static;display:block}
 footer.tg-foot .tg-fgrid,footer.tg-foot .tg-fbar{text-align:left}
 footer.tg-foot .tg-fbrand p,footer.tg-foot h4{text-align:left;margin-top:0}
-footer.tg-foot .tg-fbrand img{margin-bottom:13px}
+footer.tg-foot .tg-fbrand img{margin-bottom:14px}
 div.tg-panel a.tg-plink{text-align:left}
-@media(prefers-reduced-motion:reduce){.tg-head *,.tg-panel *,.tg-foot *{transition:none!important}}
 </style>
 </head>
 <body>
-<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><a class="tg-link" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">El sistema de crecimiento</small></a><a class="tg-plink" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot<small data-es="La decision grande, pensada en frio" data-en="The big decision, thought through cold">La decision grande, pensada en frio</small></a><a class="tg-cta" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div></div>
+<header class="tg-head"><a class="tg-logo" href="/" aria-label="Triggui"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /></a><nav class="tg-nav" aria-label="Principal"><a class="tg-link" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a class="tg-link" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a class="tg-link" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a class="tg-link" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme</a><a class="tg-link" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a></nav><button class="tg-burger" type="button" aria-expanded="false" aria-controls="tgPanel" aria-label="Abrir menu"><span></span><span></span></button></header><div class="tg-espacio" aria-hidden="true"></div><div class="tg-velo" id="tgVelo" aria-hidden="true"></div><div class="tg-panel" id="tgPanel"><a class="tg-plink" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral<small data-es="Tus ideas guardadas" data-en="Your saved ideas">Tus ideas guardadas</small></a><a class="tg-plink" href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids<small data-es="La senal para los ninos de la casa" data-en="The signal for the kids at home">La senal para los ninos de la casa</small></a><a class="tg-plink" href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift<small data-es="Artesania mexicana y un libro" data-en="Mexican craft and a book">Artesania mexicana y un libro</small></a><a class="tg-plink" href="https://trestme.com" target="_blank" rel="noopener" data-es="Trestme" data-en="Trestme">Trestme<small data-es="El sistema de crecimiento" data-en="The growth system">El sistema de crecimiento</small></a><a class="tg-plink" href="https://trestme.com/moonshot" target="_blank" rel="noopener" data-es="Moonshot" data-en="Moonshot">Moonshot<small data-es="La decision grande, pensada en frio" data-en="The big decision, thought through cold">La decision grande, pensada en frio</small></a><a class="tg-ask" href="https://app.triggui.com" target="_blank" rel="noopener" data-es="Entrar" data-en="Enter">Entrar</a><div class="tg-lang" role="group" aria-label="Idioma"><button type="button" data-lang="es">ES</button><button type="button" data-lang="en">EN</button></div></div>
 
 <!-- 🧸 Banner top — Triggui Kids (v3 simple universal) -->
 <a href="https://app.triggui.com/kids"
@@ -1456,39 +1476,6 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
   repintar.push(function (l) { ev("idioma_cambiado", { a: l }); });
 })();
 </script>
-<footer class="tg-foot"><div class="tg-fgrid"><div class="tg-fbrand"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /><p data-es="Una senal diaria que entrena al equipo. Mejor ejecucion, mejores datos." data-en="A daily signal that trains the team. Better execution, better data.">Una senal diaria que entrena al equipo. Mejor ejecucion, mejores datos.</p></div><div><h4 data-es="Triggui" data-en="Triggui">Triggui</h4><a href="https://app.triggui.com/espiral/" target="_blank" rel="noopener" data-es="Espiral" data-en="Spiral">Espiral</a><a href="https://app.triggui.com/kids" target="_blank" rel="noopener" data-es="Kids" data-en="Kids">Kids</a><a href="/trigguift/" data-es="Trigguift" data-en="Trigguift">Trigguift</a><a href="/privacy" data-es="Privacidad" data-en="Privacy">Privacidad</a><a href="/privacy#terminos" data-es="Terminos" data-en="Terms">Terminos</a></div><div><h4 data-es="El ecosistema" data-en="The ecosystem">El ecosistema</h4><a href="https://trestme.com" target="_blank" rel="noopener">Trestme</a><a href="https://trestme.com/insights" target="_blank" rel="noopener">Insights</a><a href="https://trestme.com/pulse" target="_blank" rel="noopener">Pulse</a><a href="https://trestme.com/moonshot" target="_blank" rel="noopener">Moonshot</a></div></div><div class="tg-fbar"><span>&copy; 2026 TRIGGUI</span><span data-es="Triggui es parte del ecosistema Trestme." data-en="Triggui is part of the Trestme ecosystem.">Triggui es parte del ecosistema Trestme.</span></div></footer><script>/* TG-CHROME */(function(){
-var b=document.querySelector(".tg-burger"),p=document.getElementById("tgPanel");
-if(b&&p){b.addEventListener("click",function(){var o=b.getAttribute("aria-expanded")==="true";
-b.setAttribute("aria-expanded",String(!o));p.classList.toggle("open",!o);
-document.body.style.overflow=o?"":"hidden";});
-document.addEventListener("keydown",function(e){if(e.key==="Escape"&&b.getAttribute("aria-expanded")==="true")b.click();});}
-function pinta(l){
-  document.querySelectorAll(".tg-head [data-es],.tg-panel [data-es],.tg-foot [data-es]").forEach(function(n){
-    var v=n.getAttribute(l==="en"?"data-en":"data-es");
-    if(v==null)return;
-    var t=null,c=n.childNodes;
-    for(var k=0;k<c.length;k++){if(c[k].nodeType===3&&c[k].nodeValue.trim()){t=c[k];break;}}
-    if(t)t.nodeValue=v; else if(!n.children.length)n.textContent=v;
-  });
-  document.querySelectorAll(".tg-lang button").forEach(function(x){
-    x.classList.toggle("on",x.getAttribute("data-lang")===l);});
-  var bu=document.querySelector(".tg-burger");
-  if(bu)bu.setAttribute("aria-label",l==="en"?"Open menu":"Abrir menu");
-}
-function lang(){return window.TRIGGUI_LANG||document.documentElement.getAttribute("lang")||"es";}
-document.querySelectorAll(".tg-lang button").forEach(function(x){
-  x.addEventListener("click",function(){
-    var d=x.getAttribute("data-lang");
-    if(d===lang())return;
-    var pill=document.getElementById("tgLangPill");
-    if(pill){pill.click();}
-    else{window.location.href=(d==="en")?"/en/":"/";}
-  });
-});
-(window.__TG_REPINTORES=window.__TG_REPINTORES||[]).push(pinta);
-function arranca(){pinta(lang());}
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",arranca);else arranca();
-setTimeout(arranca,300);setTimeout(arranca,1200);
-})();</script>
+<footer class="tg-foot"><div class="tg-fgrid"><div class="tg-fbrand"><img src="/trigguiletrasblanco.webp" alt="Triggui" width="87" height="24" /><p data-es="Una senal diaria que entrena al equipo. Triggui es la Cultura del algoritmo de crecimiento." data-en="A daily signal that trains the team. Triggui is the Culture pillar of the growth algorithm.">Una senal diaria que entrena al equipo. Triggui es la Cultura del algoritmo de crecimiento.</p></div><div><h4 data-es="El algoritmo de crecimiento" data-en="The growth algorithm">El algoritmo de crecimiento</h4><a href="https://trestme.com/insights" target="_blank" rel="noopener">Insights</a><a href="https://trestme.com/marca" target="_blank" rel="noopener">Marca</a><a href="https://trestme.com/paid-media" target="_blank" rel="noopener">Paid Media</a><a href="https://trestme.com/ecommerce" target="_blank" rel="noopener">Ecommerce</a><a href="https://trestme.com/b2b" target="_blank" rel="noopener">B2B</a><a href="https://trestme.com/moonshot" target="_blank" rel="noopener">Growth Strategy (Moonshot)</a><a href="https://triggui.com" target="_blank" rel="noopener">Cultura (Triggui)</a><a href="https://trestme.com/pulse" target="_blank" rel="noopener">Pulse</a></div><div><h4 data-es="Contacto" data-en="Contact">Contacto</h4><a href="https://trestme.com/contacto" target="_blank" rel="noopener" data-es="Pregunta" data-en="Ask">Pregunta</a><a href="https://wa.me/5212224101402" target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/triggui/" target="_blank" rel="noopener">Instagram</a><a href="https://www.linkedin.com/company/trestme" target="_blank" rel="noopener">LinkedIn</a><a href="https://trestme.com/#algo-loop" target="_blank" rel="noopener" data-es="Metodologia" data-en="Methodology">Metodologia</a></div></div><div class="tg-fbar"><span>&copy; TRESTME CORP &middot; TODOS LOS DERECHOS RESERVADOS | 2026</span><span>Puebla &middot; Mexico</span></div></footer><script>/* TM-CHROME v3 */(function(){var B=document.querySelector(".tg-burger"),P=document.getElementById("tgPanel"),V=document.getElementById("tgVelo"),H=document.querySelector(".tg-head");var y=0,abierto=false;function bloquea(){y=window.pageYOffset||document.documentElement.scrollTop;document.body.style.position='fixed';document.body.style.top=(-y)+'px';document.body.style.left='0';document.body.style.right='0';document.body.style.width='100%';}function libera(){document.body.style.position='';document.body.style.top='';document.body.style.left='';document.body.style.right='';document.body.style.width='';window.scrollTo(0,y);}function abre(v){if(!B||!P)return;if(v===abierto)return;abierto=v;B.setAttribute('aria-expanded',String(v));B.setAttribute('aria-label',v?'Cerrar menu':'Abrir menu');P.classList.toggle('open',v);if(V)V.classList.toggle('open',v);if(v){bloquea();P.scrollTop=0;}else{libera();}}if(B){B.addEventListener('click',function(e){e.preventDefault();abre(!abierto);});}if(V){V.addEventListener('click',function(){abre(false);});V.addEventListener('touchmove',function(e){e.preventDefault();},{passive:false});}if(P){P.addEventListener('click',function(e){var a=e.target.closest('a');if(a){abre(false);return;}if(e.target===P)abre(false);});}document.addEventListener('keydown',function(e){if(e.key==='Escape')abre(false);});var mq=window.matchMedia('(min-width:1341px)');var onMq=function(e){if(e.matches)abre(false);};if(mq.addEventListener)mq.addEventListener('change',onMq);else mq.addListener(onMq);var prev=window.pageYOffset||0,tick=false;function scr(){var s=window.pageYOffset||document.documentElement.scrollTop;if(H){H.classList.toggle('is-flotando',s>4);if(!abierto&&s>240&&s>prev+6)H.classList.add('is-oculto');else if(s<prev-6||s<=240)H.classList.remove('is-oculto');}prev=s<0?0:s;tick=false;}window.addEventListener('scroll',function(){if(!tick){tick=true;window.requestAnimationFrame(scr);}},{passive:true});scr();function pinta(l){document.querySelectorAll('.tg-head [data-es],.tg-panel [data-es],.tg-foot [data-es]').forEach(function(n){var v=n.getAttribute(l==='en'?'data-en':'data-es');if(v==null)return;var t=null,c=n.childNodes;for(var k=0;k<c.length;k++){if(c[k].nodeType===3&&c[k].nodeValue.trim()){t=c[k];break;}}if(t)t.nodeValue=v;else if(!n.children.length)n.textContent=v;});document.querySelectorAll('.tg-lang button').forEach(function(x){x.classList.toggle('on',x.getAttribute('data-lang')===l);});if(B)B.setAttribute('aria-label',l==='en'?(abierto?'Close menu':'Open menu'):(abierto?'Cerrar menu':'Abrir menu'));}function lang(){return window.TRIGGUI_LANG||document.documentElement.getAttribute('lang')||'es';}document.querySelectorAll('.tg-lang button').forEach(function(x){x.addEventListener('click',function(ev){ev.stopPropagation();var d=x.getAttribute('data-lang');if(d===lang())return;var pill=document.getElementById('tgLangPill');if(pill){pill.click();}else{window.location.href=(d==='en')?'/en/':'/';}});});(window.__TG_REPINTORES=window.__TG_REPINTORES||[]).push(pinta);function arr(){pinta(lang());}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',arr);else arr();setTimeout(arr,300);setTimeout(arr,1200);})();</script>
 </body>
 </html>
