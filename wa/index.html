@@ -232,7 +232,7 @@ textarea{min-height:64px;resize:vertical}
     if(!p)return {tel:d,ok:false,nota:'país no reconocido',iso:'',cc:''};
     if(!p.ok)return {tel:d,ok:false,nota:'revisa: '+p.iso+' espera '+PAISES[p.cc][1].join(' o ')+' dígitos y hay '+p.nat.length,iso:p.iso,cc:p.cc};
     return {tel:d,ok:true,nota:nota,iso:p.iso,cc:p.cc};}
-  function bonito(tel){var p=pais(tel);if(!p)return '+'+tel;var nat=p.nat,g=[];if(p.cc==='52'||p.cc==='1'){g=[nat.slice(0,3),nat.slice(3,6),nat.slice(6)];}else{while(nat.length>4){g.push(nat.slice(0,3));nat=nat.slice(3);}g.push(nat);}return '+'+p.cc+' '+g.filter(Boolean).join(' ');}
+  function bonito(tel){var p=pais(tel);if(!p)return '+'+tel;var nat=p.nat,g=[];if(p.cc==='52'&&/^(55|56|33|81)/.test(nat)){g=[nat.slice(0,2),nat.slice(2,6),nat.slice(6)];}else if(p.cc==='52'||p.cc==='1'){g=[nat.slice(0,3),nat.slice(3,6),nat.slice(6)];}else{while(nat.length>4){g.push(nat.slice(0,3));nat=nat.slice(3);}g.push(nat);}return '+'+p.cc+' '+g.filter(Boolean).join(' ');}
   function parseLista(txt){var out=[];txt.split(/\n+/).forEach(function(l){l=l.trim();if(!l)return;var p=l.split(/[,;\t]/).map(function(x){return x.trim();});
     var nombre=p[0]||'',tel=p[1]||'',lang=(p[2]||'').toLowerCase().indexOf('en')===0?'en':'es',cat=(p[3]||'').toLowerCase().indexOf('kid')===0?'kids':'adultos';
     if(!tel&&/\d{8,}/.test(nombre)){tel=nombre;nombre='';}
