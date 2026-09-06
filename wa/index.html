@@ -191,6 +191,7 @@ textarea{min-height:64px;resize:vertical}
       og:{es:base+sl+'/og.jpg',en:base+sl+(en?'/og_en.jpg':'/og.jpg')},full:{es:base+sl+'/tarjeta.png',en:base+sl+(en?'/tarjeta_en.png':'/tarjeta.png')},
       musica:((b._musica||{}).candidatos||[]).filter(function(c){return c&&c.preview;}).slice(0,5),video:kids?[]:((b._video||{}).candidatos||[]).filter(function(c){return c&&c.id;}).slice(0,3)};});} // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
   var $=function(id){return document.getElementById(id);};
+  var movil=/iPhone|iPad|Android/i.test(navigator.userAgent);
   var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{}};
   var LS={lista:'tg_wa_lista',env:'tg_wa_env',prefs:'tg_wa_prefs'};
   function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2200);}
@@ -269,9 +270,10 @@ textarea{min-height:64px;resize:vertical}
   // ── lista y envíos ──
   function envDe(slug,tel){st.env[slug]=st.env[slug]||{};st.env[slug][tel]=st.env[slug][tel]||{};return st.env[slug][tel];}
   function marca(slug,tel,tipo){envDe(slug,tel)[tipo]=Date.now();guarda();pintaLista();}
-  function abre(url){var w=window.open(url,'_blank','noopener');if(!w)location.href=url;}
+  // Laptop: web.whatsapp.com/send directo (sin la página intermedia de wa.me, que además rompe los emoji de 4 bytes) y una sola pestaña reutilizada. Celular: wa.me abre el app.
+  function chatUrl(tel,msg){return movil?('https://wa.me/'+tel+'?text='+encodeURIComponent(msg)):('https://web.whatsapp.com/send?phone='+tel+'&text='+encodeURIComponent(msg));}
+  function abre(url){var w=window.open(url,movil?'_blank':'triggui_wa');if(!w)location.href=url;}
   function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
-  var movil=/iPhone|iPad|Android/i.test(navigator.userAgent);
   function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
     st.lista.forEach(function(s,i){var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho)hechos++;
       var r=document.createElement('div');r.className='row';r.setAttribute('data-i',i);
@@ -287,9 +289,9 @@ textarea{min-height:64px;resize:vertical}
       r.querySelector('[data-cat]').onclick=function(){s.cat=(s.cat==='kids'?'adultos':'kids');st.catOv[s.tel]=s.cat;try{localStorage.setItem(LS_CAT,JSON.stringify(st.catOv));}catch(e){}guarda();pintaLista();};
       r.querySelector('.ok').onclick=function(){if(e.link){delete st.env[t.slug][s.tel];}else{marca(t.slug,s.tel,'link');}guarda();pintaLista();};
       r.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){var a=b.getAttribute('data-a');
-        if(a==='link'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
-        else if(a==='pieza'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
-        else if(a==='video'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgVideo(t)));marca(t.slug,s.tel,'video');evento('video',t,s.lang,s.cat);}
+        if(a==='link'){abre(chatUrl(s.tel,msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
+        else if(a==='pieza'){abre(chatUrl(s.tel,msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
+        else if(a==='video'){abre(chatUrl(s.tel,msgVideo(t)));marca(t.slug,s.tel,'video');evento('video',t,s.lang,s.cat);}
         else if(a==='tarjeta'){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}
       };});
       L.appendChild(r);});
