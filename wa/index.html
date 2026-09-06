@@ -73,8 +73,8 @@ textarea{min-height:64px;resize:vertical}
 <div id="gate" class="gate">
   <div class="card">
     <h1>Sala de envío</h1>
-    <p class="mini" style="margin:0 0 14px">Tu clave de la espiral. Nada de aquí sale de tu navegador.</p>
-    <input id="clave" type="password" placeholder="tu clave de miembro" autocomplete="off">
+    <p class="mini" style="margin:0 0 14px">Tu clave de la sala (la misma <b>WA_ADMIN_CLAVE</b> de tu hoja) — o tu clave de miembro. Nada de aquí sale de tu navegador.</p>
+    <input id="clave" type="password" placeholder="tu clave" autocomplete="off">
     <button id="entrar" class="btn p" style="width:100%;margin-top:10px;padding:12px">Entrar</button>
     <p id="gateMsg" class="mini" style="margin:10px 0 0;min-height:18px"></p>
   </div>
@@ -287,8 +287,15 @@ textarea{min-height:64px;resize:vertical}
       pintaEdicion();pintaPrev();pintaLista();guarda();cargaHoja();
     }).catch(function(){toast('No pude cargar la vitrina');});}
   function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(h){return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');});}
-  $('entrar').onclick=function(){var clave=$('clave').value.trim();if(!clave)return;$('gateMsg').textContent='Validando…';var fd=new FormData();fd.append('accion','espiral');fd.append('clave',clave);
-    fetch(EXEC,{method:'POST',body:fd}).then(function(r){return r.ok?r.json():null;}).then(function(r){if(!r||r.ok!==true)throw new Error('clave');return ADMIN_HASHES.length?sha256(clave).then(function(h){if(ADMIN_HASHES.indexOf(h)<0)throw new Error('admin');}):null;}).then(function(){sessionStorage.setItem('tg_wa_ok','1');sessionStorage.setItem('tg_wa_clave',clave);arranca();}).catch(function(e){$('gateMsg').textContent=e.message==='admin'?'Esta sala es de administración.':'Clave no válida.';});};
+  $('entrar').onclick=function(){var clave=$('clave').value.trim();if(!clave)return;$('gateMsg').textContent='Validando…';
+    // 1) la clave de la sala = WA_ADMIN_CLAVE del cartero (abre la puerta y trae la hoja); 2) si no, clave de miembro de la espiral (lista manual)
+    fetch(CARTERO+'?action=lista_wa&format=json&clave='+encodeURIComponent(clave),{cache:'no-store'}).then(function(r){return r.json();}).catch(function(){return null;}).then(function(d){
+      if(d&&d.ok===true){return true;}
+      var fd=new FormData();fd.append('accion','espiral');fd.append('clave',clave);
+      return fetch(EXEC,{method:'POST',body:fd}).then(function(r){return r.ok?r.json():null;}).then(function(r){return !!(r&&r.ok===true);}).catch(function(){return false;});
+    }).then(function(ok){if(!ok)throw new Error('clave');return ADMIN_HASHES.length?sha256(clave).then(function(h){if(ADMIN_HASHES.indexOf(h)<0)throw new Error('admin');}):null;})
+    .then(function(){sessionStorage.setItem('tg_wa_ok','1');sessionStorage.setItem('tg_wa_clave',clave);arranca();})
+    .catch(function(e){$('gateMsg').textContent=e.message==='admin'?'Esta sala es de administración.':'Clave no válida.';});};
   $('clave').addEventListener('keydown',function(e){if(e.key==='Enter')$('entrar').click();});
   if(sessionStorage.getItem('tg_wa_ok')==='1')arranca();
 })();
