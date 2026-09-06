@@ -120,7 +120,7 @@ textarea{min-height:64px;resize:vertical}
     <div class="card">
       <h2>Qué incluir</h2>
       <div class="chk"><span class="tag" style="order:2;color:var(--acc);background:rgba(var(--accR),var(--accG),var(--accB),.14)">siempre</span><div>Frase + link con vista previa<small>Un mensaje: la frase, el OG y el link marcado</small></div></div>
-      <div class="chk"><input type="checkbox" id="incTarjeta" checked><div>Tarjeta completa (imagen)<small id="tarjetaHint">Celular: botón Tarjeta por persona · Laptop: Copiar tarjeta una vez y Ctrl+V en cada chat</small></div></div>
+      <div class="chk"><input type="checkbox" id="incTarjeta" checked><div>Tarjeta completa (imagen)<small id="tarjetaHint">Con la <b>segunda</b> frase de pie · Laptop: Copiar tarjeta una vez, 🖼 abre el chat con el pie listo, Ctrl+V</small></div></div>
       <div class="chk"><input type="checkbox" id="incPieza" checked><div>🎧 La pieza<small id="piezaHint">—</small></div></div>
       <div class="chk" id="chkVideo"><input type="checkbox" id="incVideo"><div>🎬 El video<small id="videoHint">—</small></div></div>
     </div>
@@ -236,8 +236,10 @@ textarea{min-height:64px;resize:vertical}
   function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?w=s';}
   function fraseDe(t,lang){var c=idiomaDe(t,lang);var f=(c.frases||[]);if(st.frase&&lang===st.lang)return st.frase;return f[st.fraseIdx]||f[0]||st.frase||'';}
   function msgLink(t,lang){return (fraseDe(t,lang)?fraseDe(t,lang)+'\n':'')+urlDe(t,lang);}
-  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return (lang==='en'?'🎧 Its piece, 30 seconds: ':'🎧 Su pieza, 30 segundos: ')+m.cancion+' — '+m.artista+'\n'+u+'?w=s&p=1';}
-  function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return '🎬 '+(v.titulo||'')+'\nhttps://youtu.be/'+v.id;}
+  function fraseTarjeta(t,lang){var f=(idiomaDe(t,lang).frases||[]);var i=(st.frase&&lang===st.lang)?0:st.fraseIdx;return f[(i+1)%Math.max(1,f.length)]||f[0]||'';}   // la tarjeta lleva la SIGUIENTE frase, no la misma
+  function rutaDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');return u.replace(/\/en\/?$/,'/').replace(/\/?$/,'/');}
+  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';var u=rutaDe(t,lang)+'pieza/?w=s';return '🎧 '+m.cancion+' — '+m.artista+((lang!=='en'&&m.pie)?'\n'+m.pie:'')+'\n'+u;}
+  function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return 'https://youtu.be/'+v.id;}   // solo el link: WhatsApp lo reproduce ahí mismo
   function ed(){return edDe(st.cat);}
 
   function pintaEdicion(){var t=ed();if(!t)return;var c=idiomaDe(t,st.lang);tinta(t);
@@ -245,16 +247,16 @@ textarea{min-height:64px;resize:vertical}
     $('edTit').textContent=(t.numero?'#'+t.numero+' · ':'')+(c.libro||t.slug);$('edSub').textContent=(c.autor||'')+(t.catalogo==='kids'||st.cat==='kids'?' · Kids':'');
     var m=(t.musica||[])[0],v=(t.video||[])[0];
     $('edMeta').textContent=((c.frases||[]).length)+' frases'+(m?' · 🎧 '+m.cancion+' — '+m.artista:' · sin pieza')+(v?' · 🎬 1 video':'');
-    $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+' (link a Apple Music)'):'esta edición no tiene pieza';$('incPieza').disabled=!m;
-    var hayV=!!v&&st.cat!=='kids';$('videoHint').textContent=hayV?(v.titulo||'')+' (link a YouTube)':(st.cat==='kids'?'kids no lleva video (por diseño)':'sin video');$('incVideo').disabled=!hayV;$('chkVideo').classList.toggle('off',!hayV);if(!hayV)$('incVideo').checked=false;
+    $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+' · con su justificación y su propia página'):'esta edición no tiene pieza';$('incPieza').disabled=!m;
+    var hayV=!!v&&st.cat!=='kids';$('videoHint').textContent=hayV?(v.titulo||'')+' · solo el link: se reproduce en el chat':(st.cat==='kids'?'kids no lleva video (por diseño)':'sin video');$('incVideo').disabled=!hayV;$('chkVideo').classList.toggle('off',!hayV);if(!hayV)$('incVideo').checked=false;
     var ch=$('chips');ch.innerHTML='';(c.frases||[]).forEach(function(f,i){var b=document.createElement('button');b.className='chip'+(i===st.fraseIdx&&!st.frase?' on':'');b.textContent=f;b.onclick=function(){st.fraseIdx=i;st.frase='';$('frase').value=f;guarda();pintaEdicion();pintaPrev();};ch.appendChild(b);});
     if(!st.frase)$('frase').value=(c.frases||[])[st.fraseIdx]||'';}
   function pintaPrev(){var t=ed();if(!t)return;var lang=st.lang,c=idiomaDe(t,lang),h='',hora='8:31';
     var og=(t.og&&(t.og[lang]||t.og.es))||'',full=(t.full&&(t.full[lang]||t.full.es))||'',fr=fraseDe(t,lang),url=urlDe(t,lang);
     h+='<div class="wb"><div class="wb-og"><img src="'+esc(og)+'" alt=""><div class="wb-og-m"><b>'+esc(c.libro||t.slug)+' · Triggui</b><span>'+esc(c.ogDesc||(lang==='en'?'A signal to lift your mood. Open it and listen.':'Una señal para mejorar tu ánimo. Ábrela y escúchala.'))+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(fr)+(fr?'\n':'')+'<span class="wb-link">'+esc(url)+'</span><span class="wb-h">'+hora+'</span></div></div>';
-    if($('incTarjeta').checked&&full)h+='<div class="wb wb-img"><img src="'+esc(full)+'" alt="" loading="lazy"><div class="wb-t">'+esc(fr)+'<span class="wb-h">'+hora+'</span></div></div>';
-    var m=(t.musica||[])[0];if($('incPieza').checked&&!$('incPieza').disabled&&m)h+='<div class="wb"><div class="wb-sm">'+(m.art?'<img src="'+esc(m.art)+'" alt="">':'<div class="wb-yt">🎧</div>')+'<div><b>'+esc(m.cancion)+'</b><span>'+esc(m.artista)+' · '+(lang==='en'?'30 seconds':'30 segundos')+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(msgPieza(t,lang)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
-    var v=(t.video||[])[0];if($('incVideo').checked&&!$('incVideo').disabled&&v)h+='<div class="wb"><div class="wb-sm"><img src="https://i.ytimg.com/vi/'+esc(v.id)+'/hqdefault.jpg" alt=""><div><b>'+esc(v.titulo||'')+'</b><span>YouTube</span><i>youtube.com</i></div></div><div class="wb-t">'+esc(msgVideo(t)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
+    if($('incTarjeta').checked&&full)h+='<div class="wb wb-img"><img src="'+esc(full)+'" alt="" loading="lazy"><div class="wb-t">'+esc(fraseTarjeta(t,lang))+'<span class="wb-h">'+hora+'</span></div></div>';
+    var m=(t.musica||[])[0];if($('incPieza').checked&&!$('incPieza').disabled&&m)h+='<div class="wb"><div class="wb-og"><img src="'+esc(rutaDe(t,lang)+'pieza_og.jpg')+'" alt="" onerror="this.style.display=\'none\'"><div class="wb-og-m"><b>🎧 '+esc(m.cancion)+' — '+esc(m.artista)+'</b><span>'+esc(m.pie||'')+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(msgPieza(t,lang)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
+    var v=(t.video||[])[0];if($('incVideo').checked&&!$('incVideo').disabled&&v)h+='<div class="wb"><div class="wb-og"><img src="https://i.ytimg.com/vi/'+esc(v.id)+'/hqdefault.jpg" alt=""><div class="wb-og-m"><b>'+esc(v.titulo||'')+'</b><span>YouTube · '+(lang==='en'?'plays here':'se reproduce aquí')+'</span><i>youtube.com</i></div></div><div class="wb-t"><span class="wb-link">'+esc(msgVideo(t))+'</span><span class="wb-h">'+hora+'</span></div></div>';
     $('prevs').innerHTML=h;}
 
   // ── la hoja es la verdad: lista_wa del cartero (misma elegibilidad del lunes) ──
@@ -302,7 +304,7 @@ textarea{min-height:64px;resize:vertical}
         if(a==='link'){abre(chatUrl(s.tel,msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
         else if(a==='pieza'){abre(chatUrl(s.tel,msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
         else if(a==='video'){abre(chatUrl(s.tel,msgVideo(t)));marca(t.slug,s.tel,'video');evento('video',t,s.lang,s.cat);}
-        else if(a==='tarjeta'){if(movil){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}else{abre(chatUrl(s.tel,''));marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);toast('Chat abierto vacío: Ctrl+V y Enter');}}
+        else if(a==='tarjeta'){if(movil){compartirTarjeta(t,s.lang,fraseTarjeta(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}else{abre(chatUrl(s.tel,fraseTarjeta(t,s.lang)));marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);toast('Ctrl+V pega la tarjeta con el pie ya escrito · Enter');}}
       };});
       L.appendChild(r);});
     $('ayuda').style.display=st.lista.length?'none':'block';
