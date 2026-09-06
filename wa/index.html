@@ -11,47 +11,58 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZKG8ZNSB35');</script>
 <style>
-:root{--n:#0B0F1A;--n2:#0E1324;--c:#F5F0E8;--g:#E8A838;--co:#FF6B4A;--t:#4ECDC4;--gr:#00FF88;--w6:rgba(255,255,255,.06);--w10:rgba(255,255,255,.10);--w16:rgba(255,255,255,.16);--dim:rgba(245,240,232,.62)}
+:root{--n:#0B0F1A;--n2:#0E1324;--c:#F5F0E8;--g:#E8A838;--co:#FF6B4A;--t:#4ECDC4;--gr:#00FF88;--w6:rgba(255,255,255,.06);--w10:rgba(255,255,255,.10);--w16:rgba(255,255,255,.16);--dim:rgba(245,240,232,.62);--acc:#E8A838;--acc2:#FF6B4A;--accR:232;--accG:168;--accB:56}
+*::-webkit-scrollbar{width:8px;height:8px}*::-webkit-scrollbar-track{background:transparent}*::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}*::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.24)}*{scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.16) transparent}
 *{box-sizing:border-box}html{background:var(--n)}body{margin:0;background:var(--n);color:var(--c);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
 a{color:inherit}button{font:inherit;cursor:pointer}
 .wrap{max-width:1180px;margin:0 auto;padding:16px 14px 110px}
 .hd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
-.hd h1{margin:0;font-size:22px;font-weight:800;background:linear-gradient(90deg,var(--g),var(--co));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hd h1{margin:0;font-size:22px;font-weight:800;background:linear-gradient(90deg,var(--acc),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent;transition:background .4s}
+.logo{height:20px;display:block;margin-bottom:8px;opacity:.95}
 .hd small{color:var(--dim)}
 .pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
 .pill{display:inline-flex;border:1px solid var(--w16);border-radius:999px;overflow:hidden;font-size:12px;font-weight:700}
 .pill button{background:transparent;border:0;color:var(--dim);padding:8px 13px}.pill button.on{background:var(--c);color:var(--n)}
 select{background:var(--n2);color:var(--c);border:1px solid var(--w16);border-radius:12px;padding:9px 12px;font:inherit;font-size:13px;max-width:100%}
 .card{background:var(--w6);border:1px solid var(--w16);border-radius:18px;padding:14px;margin-bottom:14px}
-h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:0 0 10px;font-weight:800}
+h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);margin:0 0 10px;font-weight:800;transition:color .4s}
 .ed{display:flex;gap:12px;align-items:center}.ed img{width:76px;height:76px;border-radius:10px;object-fit:cover;background:#111}
 .ed b{display:block;font-size:15px}.ed span{color:var(--dim);font-size:12px;display:block}
 .chk{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--w6)}.chk:last-child{border:0}
 .chk input{width:20px;height:20px;accent-color:var(--gr);flex:none}.chk small{display:block;color:var(--dim);font-size:12px}.chk.off{opacity:.45}
 .chips{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
 .chip{text-align:left;border:1px solid var(--w16);border-radius:12px;padding:9px 11px;font-size:13px;color:rgba(245,240,232,.85);background:transparent}
-.chip.on{border-color:var(--t);background:rgba(78,205,196,.12);color:var(--c)}
+.chip.on{border-color:var(--acc);background:rgba(var(--accR),var(--accG),var(--accB),.14);color:var(--c)}
+.chip:hover{border-color:var(--w16);background:var(--w6)}
 textarea,input[type=text],input[type=password]{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--w16);border-radius:12px;color:var(--c);padding:10px 12px;font:inherit;font-size:13px}
 textarea{min-height:64px;resize:vertical}
 .prev{background:#0b141a;border-radius:12px;padding:10px 12px;font-size:13px;white-space:pre-wrap;word-break:break-word;border:1px solid var(--w10)}
 .prev+.prev{margin-top:8px}
 .btn{font-size:12px;font-weight:800;padding:9px 12px;border-radius:10px;border:1px solid var(--w16);background:transparent;color:var(--c);white-space:nowrap}
-.btn.p{background:var(--c);color:var(--n);border-color:var(--c)}.btn.g{background:var(--g);color:var(--n);border-color:var(--g)}.btn.gr{background:var(--gr);color:var(--n);border-color:var(--gr)}
+.btn.p{background:var(--c);color:var(--n);border-color:var(--c)}.btn.g{background:var(--acc);color:var(--n);border-color:var(--acc)}.btn:hover{border-color:rgba(255,255,255,.3)}.btn.p:hover{background:#fff}.btn.gr{background:var(--gr);color:var(--n);border-color:var(--gr)}
 .btn:disabled{opacity:.4;cursor:default}
-.row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--w6)}.row:last-child{border:0}
+.row{display:flex;align-items:center;gap:8px;padding:10px 6px;margin:0 -6px;border-bottom:1px solid var(--w6);border-radius:10px;transition:background .15s}.row:hover{background:var(--w6)}.row:last-child{border-bottom:0}
+.flag{width:20px;height:15px;border-radius:2px;vertical-align:-2px;margin-right:7px;box-shadow:0 0 0 1px rgba(255,255,255,.12);object-fit:cover}
+.flag-txt{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.06em;color:var(--dim);margin-right:7px;vertical-align:1px}
+.ok.no{background:transparent;border:1.5px solid var(--w16);color:transparent}
+.dd{position:relative}.dd-b{width:100%;text-align:left;background:var(--n2);color:var(--c);border:1px solid var(--w16);border-radius:12px;padding:9px 34px 9px 12px;font:inherit;font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;position:relative}.dd-b:after{content:'';position:absolute;right:13px;top:50%;width:7px;height:7px;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:translateY(-70%) rotate(45deg)}.dd-b:focus{outline:none;border-color:var(--acc)}
+.dd-m{position:absolute;z-index:30;left:0;min-width:340px;max-width:min(92vw,460px);top:calc(100% + 6px);background:#0f1526;border:1px solid var(--w16);border-radius:14px;padding:6px;max-height:320px;overflow:auto;box-shadow:0 18px 50px rgba(0,0,0,.55);display:none}.dd.open .dd-m{display:block}
+.dd-i{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;font-size:13px;cursor:pointer;color:rgba(245,240,232,.85);white-space:nowrap}.dd-i>span:last-child{overflow:hidden;text-overflow:ellipsis}.dd-i:hover{background:var(--w10);color:var(--c)}.dd-i.on{background:rgba(var(--accR),var(--accG),var(--accB),.16);color:var(--c)}.dd-n{font-size:11px;font-weight:800;color:var(--acc);min-width:34px}.dd-sw{width:10px;height:10px;border-radius:3px;flex:none}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:4px;width:84px;height:84px;flex:none;border-radius:12px;overflow:hidden}.mini span{display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;letter-spacing:.02em;text-align:center;padding:2px;line-height:1.1;overflow:hidden}
+@media(min-width:1180px){.sticky{position:sticky;top:16px}}
 .row .who{flex:1;min-width:0}.row .who b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .who span{font-size:12px;color:var(--dim)}
 .row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .tag{font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:var(--w10);color:rgba(245,240,232,.8)}
 .tag.k{background:rgba(255,107,74,.18);color:var(--co)}.tag.w{background:rgba(232,168,56,.2);color:var(--g)}.tag.x{background:rgba(255,80,80,.2);color:#ff8a8a}
 .ok{width:26px;height:26px;border-radius:50%;background:var(--gr);color:var(--n);display:flex;align-items:center;justify-content:center;font-weight:900;flex:none;border:0}
 .ok.no{background:var(--w10);color:var(--dim)}
-.prog{height:8px;background:var(--w10);border-radius:99px;overflow:hidden;margin:6px 0 12px}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--co));transition:width .3s}
-.mini{font-size:12px;color:var(--dim)}
+.prog{height:8px;background:var(--w10);border-radius:99px;overflow:hidden;margin:6px 0 12px}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc),var(--acc2));transition:width .3s,background .4s}
+.mini-txt{font-size:12px;color:var(--dim)}
 .foot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,15,26,.94);backdrop-filter:blur(10px);border-top:1px solid var(--w16);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
 .gate .card{width:100%;max-width:420px}
 .gate h1{font-size:24px;margin:0 0 6px;font-weight:800;background:linear-gradient(90deg,var(--g),var(--co));-webkit-background-clip:text;background-clip:text;color:transparent}
-.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--c);color:var(--n);padding:10px 14px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--acc);color:var(--n);padding:10px 14px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
 .toast.on{opacity:1}
 .hide{display:none !important}
 .wchat{max-width:440px;background:#0b141a;border-radius:14px;padding:12px 10px;display:flex;flex-direction:column;gap:8px;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:20px 20px}
@@ -73,15 +84,15 @@ textarea{min-height:64px;resize:vertical}
 <div id="gate" class="gate">
   <div class="card">
     <h1>Sala de envío</h1>
-    <p class="mini" style="margin:0 0 14px">Tu clave de la sala (la misma <b>WA_ADMIN_CLAVE</b> de tu hoja) — o tu clave de miembro. Nada de aquí sale de tu navegador.</p>
+    <p class="mini-txt" style="margin:0 0 14px">Tu clave de la sala (la misma <b>WA_ADMIN_CLAVE</b> de tu hoja) — o tu clave de miembro. Nada de aquí sale de tu navegador.</p>
     <input id="clave" type="password" placeholder="tu clave" autocomplete="off">
     <button id="entrar" class="btn p" style="width:100%;margin-top:10px;padding:12px">Entrar</button>
-    <p id="gateMsg" class="mini" style="margin:10px 0 0;min-height:18px"></p>
+    <p id="gateMsg" class="mini-txt" style="margin:10px 0 0;min-height:18px"></p>
   </div>
 </div>
 
 <div id="app" class="wrap hide">
-  <div class="hd"><div><h1>Sala de envío</h1><small id="fecha"></small></div>
+  <div class="hd"><div><img class="logo" src="/trigguiletrasblanco.webp" alt="Triggui"><h1>Sala de envío</h1><small id="fecha"></small></div>
     <div class="pills">
       <div class="pill" id="pLang"><button data-v="es" class="on">ES</button><button data-v="en">EN</button></div>
       <div class="pill" id="pCat"><button data-v="adultos" class="on">Adultos</button><button data-v="kids">Kids</button></div>
@@ -93,10 +104,10 @@ textarea{min-height:64px;resize:vertical}
     <div class="card">
       <h2>Edición</h2>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
-        <label class="mini" style="flex:1;min-width:160px">Adultos<br><select id="selA" style="width:100%"></select></label>
-        <label class="mini" style="flex:1;min-width:160px">Kids<br><select id="selK" style="width:100%"></select></label>
+        <div style="flex:1;min-width:160px"><div class="mini-lbl" style="font-size:12px;color:var(--dim);margin-bottom:4px">Adultos</div><select id="selA" class="hide"></select><div class="dd" id="ddA"><button type="button" class="dd-b">—</button><div class="dd-m" role="listbox"></div></div></div>
+        <div style="flex:1;min-width:160px"><div style="font-size:12px;color:var(--dim);margin-bottom:4px">Kids</div><select id="selK" class="hide"></select><div class="dd" id="ddK"><button type="button" class="dd-b">—</button><div class="dd-m" role="listbox"></div></div></div>
       </div>
-      <div class="ed"><img id="edImg" alt=""><div><b id="edTit">—</b><span id="edSub"></span><span id="edMeta"></span></div></div>
+      <div class="ed"><div class="mini" id="edMini"></div><div><b id="edTit">—</b><span id="edSub"></span><span id="edMeta"></span></div></div>
     </div>
 
     <div class="card">
@@ -111,12 +122,12 @@ textarea{min-height:64px;resize:vertical}
       <h2>Frase del mensaje</h2>
       <div class="chips" id="chips"></div>
       <textarea id="frase" placeholder="o escribe la tuya…"></textarea>
-      <p class="mini" style="margin:8px 0 0">Las filas en el otro idioma usan la misma frase (por número) en su idioma.</p>
+      <p class="mini-txt" style="margin:8px 0 0">Las filas en el otro idioma usan la misma frase (por número) en su idioma.</p>
     </div>
 
   </div>
 
-  <div>
+  <div class="sticky">
     <div class="card">
       <h2>Vista previa · así lo verá</h2>
       <div class="wchat" id="prevs"></div>
@@ -129,14 +140,14 @@ textarea{min-height:64px;resize:vertical}
   <div>
     <div class="card">
       <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
-      <div class="fuente"><span id="fuenteTxt" class="mini">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
-      <div id="ayuda" class="mini" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
+      <div class="fuente"><span id="fuenteTxt" class="mini-txt">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
+      <div id="ayuda" class="mini-txt" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
         <b style="color:var(--g)">Primera vez</b> · La lista llega sola desde tu hoja (col. Teléfono, mismas reglas que el correo del lunes) cuando tu Apps Script tenga <b>lista_wa</b> y la propiedad <b>WA_ADMIN_CLAVE</b>. Mientras, puedes pegar filas en <b>Editar lista</b>. Por persona: <b>Abrir chat</b> → Enter. Laptop: <b>Copiar tarjeta</b> una vez y Ctrl+V en cada chat. Celular: botón <b>Tarjeta</b>. Toca la etiqueta <b>Adultos/Kids</b> de una fila para cambiarla.
       </div>
       <div class="prog"><i id="bar"></i></div>
       <div id="lista"></div>
-      <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Editar lista (pegar filas)</summary>
-        <p class="mini" style="margin:8px 0">Una por línea: <b>Nombre, número, es|en, adultos|kids</b> — idioma y catálogo son opcionales.</p>
+      <details style="margin-top:12px"><summary class="mini-txt" style="cursor:pointer">Editar lista (pegar filas)</summary>
+        <p class="mini-txt" style="margin:8px 0">Una por línea: <b>Nombre, número, es|en, adultos|kids</b> — idioma y catálogo son opcionales.</p>
         <textarea id="pegar" placeholder="Andrea M., +52 55 1234 5678, es, adultos&#10;Elena, 2221112233, es, kids&#10;Diego, +52 81 2233 4455, en"></textarea>
         <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
           <button id="guardarLista" class="btn p">Guardar lista</button>
@@ -168,8 +179,8 @@ textarea{min-height:64px;resize:vertical}
   // Del catálogo (la misma fuente del cartero: libros[0] = la más reciente) a la forma que usa la sala
   function desdeCatalogo(libros,kids){var base=APP+(kids?'kids/t/':'t/');return (libros||[]).filter(function(b){return b&&b._slug;}).map(function(b){var sl=b._slug,en=!!(b.tarjeta_en&&(b.frases_en||[]).length);var tj=b.tarjeta||{};
     return {slug:sl,catalogo:kids?'kids':'adultos',numero:b._edicion_numero||null,colores:b.colores||[],textColors:b.textColors||[],
-      es:{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases||[],ogDesc:(tj.titulo||''),url:base+sl+'/'},
-      en:en?{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases_en||[],ogDesc:((b.tarjeta_en||{}).titulo||''),url:base+sl+'/en/'}:null,
+      es:{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases||[],palabras:b.palabras||[],ogDesc:(tj.titulo||''),url:base+sl+'/'},
+      en:en?{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases_en||[],palabras:b.palabras_en||b.palabras||[],ogDesc:((b.tarjeta_en||{}).titulo||''),url:base+sl+'/en/'}:null,
       og:{es:base+sl+'/og.jpg',en:base+sl+(en?'/og_en.jpg':'/og.jpg')},full:{es:base+sl+'/tarjeta.png',en:base+sl+(en?'/tarjeta_en.png':'/tarjeta.png')},
       musica:((b._musica||{}).candidatos||[]).filter(function(c){return c&&c.preview;}).slice(0,5),video:kids?[]:((b._video||{}).candidatos||[]).filter(function(c){return c&&c.id;}).slice(0,3)};});} // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
   var $=function(id){return document.getElementById(id);};
@@ -185,7 +196,9 @@ textarea{min-height:64px;resize:vertical}
   var PAISES={'52':['MX',[10]],'1':['US',[10]],'34':['ES',[9]],'54':['AR',[10,11]],'55':['BR',[10,11]],'56':['CL',[9]],'57':['CO',[10]],'58':['VE',[10]],'51':['PE',[9]],'593':['EC',[9]],'591':['BO',[8]],'595':['PY',[9]],'598':['UY',[8,9]],'506':['CR',[8]],'507':['PA',[8]],'502':['GT',[8]],'503':['SV',[8]],'504':['HN',[8]],'505':['NI',[8]],'53':['CU',[8]],'44':['GB',[10]],'33':['FR',[9]],'49':['DE',[10,11]],'39':['IT',[9,10]],'351':['PT',[9]],'41':['CH',[9]],'31':['NL',[9]],'32':['BE',[9]],'43':['AT',[10,11]],'46':['SE',[9]],'47':['NO',[8]],'45':['DK',[8]],'358':['FI',[9,10]],'353':['IE',[9]],'48':['PL',[9]],'30':['GR',[10]],'7':['RU',[10]],'81':['JP',[10]],'82':['KR',[9,10]],'86':['CN',[11]],'91':['IN',[10]],'61':['AU',[9]],'64':['NZ',[8,9]],'972':['IL',[9]],'971':['AE',[9]],'966':['SA',[9]],'90':['TR',[10]],'27':['ZA',[9]],'20':['EG',[10]],'212':['MA',[9]],'65':['SG',[8]],'63':['PH',[10]],'62':['ID',[9,10,11]],'60':['MY',[9,10]],'66':['TH',[9]],'84':['VN',[9]],'92':['PK',[10]],'880':['BD',[10]],'94':['LK',[9]],'234':['NG',[10]],'254':['KE',[9]],'233':['GH',[9]]};
   var CA_AREAS={'204':1,'226':1,'236':1,'249':1,'250':1,'263':1,'289':1,'306':1,'343':1,'354':1,'365':1,'367':1,'368':1,'382':1,'403':1,'416':1,'418':1,'428':1,'431':1,'437':1,'438':1,'450':1,'460':1,'468':1,'474':1,'506':1,'514':1,'519':1,'548':1,'579':1,'581':1,'584':1,'587':1,'604':1,'613':1,'639':1,'647':1,'672':1,'683':1,'705':1,'709':1,'742':1,'753':1,'778':1,'780':1,'782':1,'807':1,'819':1,'825':1,'867':1,'873':1,'879':1,'902':1,'905':1};
   var NANP_ISO={'787':'PR','939':'PR','809':'DO','829':'DO','849':'DO','876':'JM','658':'JM','242':'BS','246':'BB','264':'AI','268':'AG','284':'VG','340':'VI','345':'KY','441':'BM','473':'GD','649':'TC','664':'MS','670':'MP','671':'GU','684':'AS','721':'SX','758':'LC','767':'DM','784':'VC','868':'TT','869':'KN','758':'LC'};
-  function bandera(iso){return iso?String.fromCodePoint.apply(null,iso.toUpperCase().split('').map(function(c){return 127397+c.charCodeAt(0);})):'🌐';}
+  function bandera(iso){if(!iso)return '<span class="flag-txt">??</span>';var i=iso.toLowerCase();return '<img class="flag" src="https://flagcdn.com/40x30/'+i+'.png" alt="'+iso+'" onerror="this.outerHTML=\'<span class=\\\'flag-txt\\\'>'+iso+'</span>\'">';}
+  function hex2rgb(h){var m=/^#?([0-9a-f]{6})$/i.exec(String(h||''));if(!m)return null;var v=parseInt(m[1],16);return [v>>16&255,v>>8&255,v&255];}
+  function tinta(t){var c=(t&&t.colores)||[];var a=c[0]||'#E8A838',b=c[1]||c[0]||'#FF6B4A',r=hex2rgb(a)||[232,168,56];var R=document.documentElement.style;R.setProperty('--acc',a);R.setProperty('--acc2',b);R.setProperty('--accR',r[0]);R.setProperty('--accG',r[1]);R.setProperty('--accB',r[2]);}
   function pais(d){var cc='';for(var L=3;L>=1;L--){var pre=d.slice(0,L);if(PAISES[pre]){cc=pre;break;}}if(!cc)return null;var nat=d.slice(cc.length),iso=PAISES[cc][0],lens=PAISES[cc][1];
     if(cc==='1'){var area=nat.slice(0,3);if(NANP_ISO[area])iso=NANP_ISO[area];else if(CA_AREAS[area])iso='CA';}
     return {cc:cc,iso:iso,nat:nat,ok:lens.indexOf(nat.length)>=0};}
@@ -215,8 +228,9 @@ textarea{min-height:64px;resize:vertical}
   function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return '🎬 '+(v.titulo||'')+'\nhttps://youtu.be/'+v.id;}
   function ed(){return edDe(st.cat);}
 
-  function pintaEdicion(){var t=ed();if(!t)return;var c=idiomaDe(t,st.lang);
-    $('edImg').src=(t.og&&(t.og[st.lang]||t.og.es))||'';$('edTit').textContent=c.libro||t.slug;$('edSub').textContent=(c.autor||'')+(t.catalogo==='kids'||st.cat==='kids'?' · Kids':'');
+  function pintaEdicion(){var t=ed();if(!t)return;var c=idiomaDe(t,st.lang);tinta(t);
+    var mi=$('edMini');mi.innerHTML='';for(var k=0;k<4;k++){var sp=document.createElement('span');sp.style.background=(t.colores||[])[k]||'#333';sp.style.color=(t.textColors||[])[k]||'#fff';sp.textContent=((c.palabras||[])[k]||'');mi.appendChild(sp);}
+    $('edTit').textContent=(t.numero?'#'+t.numero+' · ':'')+(c.libro||t.slug);$('edSub').textContent=(c.autor||'')+(t.catalogo==='kids'||st.cat==='kids'?' · Kids':'');
     var m=(t.musica||[])[0],v=(t.video||[])[0];
     $('edMeta').textContent=((c.frases||[]).length)+' frases'+(m?' · 🎧 '+m.cancion+' — '+m.artista:' · sin pieza')+(v?' · 🎬 1 video':'');
     $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+' (link a Apple Music)'):'esta edición no tiene pieza';$('incPieza').disabled=!m;
@@ -297,7 +311,12 @@ textarea{min-height:64px;resize:vertical}
   $('salir').onclick=function(){sessionStorage.removeItem('tg_wa_ok');sessionStorage.removeItem('tg_wa_clave');location.reload();};
 
   // ── arranque ──
-  function llenaSelect(sel,ts,cur){sel.innerHTML='';ts.forEach(function(t){var o=document.createElement('option');o.value=t.slug;o.textContent=(t.numero?'#'+t.numero+' · ':'')+(t.es.libro||t.slug);sel.appendChild(o);});if(cur&&ts.some(function(t){return t.slug===cur;}))sel.value=cur;}
+  function llenaSelect(sel,ts,cur){sel.innerHTML='';ts.forEach(function(t){var o=document.createElement('option');o.value=t.slug;o.textContent=(t.numero?'#'+t.numero+' · ':'')+(t.es.libro||t.slug);sel.appendChild(o);});if(cur&&ts.some(function(t){return t.slug===cur;}))sel.value=cur;pintaDD(sel,ts);}
+  function pintaDD(sel,ts){var dd=$(sel.id==='selA'?'ddA':'ddK'),b=dd.querySelector('.dd-b'),m=dd.querySelector('.dd-m');var cur=ts.filter(function(t){return t.slug===sel.value;})[0];
+    b.textContent=cur?((cur.numero?'#'+cur.numero+' · ':'')+(cur.es.libro||cur.slug)):'—';m.innerHTML='';
+    ts.forEach(function(t){var i=document.createElement('div');i.className='dd-i'+(t.slug===sel.value?' on':'');i.setAttribute('role','option');i.innerHTML='<span class="dd-sw" style="background:'+esc((t.colores||[])[0]||'#666')+'"></span><span class="dd-n">'+(t.numero?'#'+t.numero:'')+'</span><span>'+esc(t.es.libro||t.slug)+'</span>';i.onclick=function(){sel.value=t.slug;dd.classList.remove('open');sel.onchange&&sel.onchange();pintaDD(sel,ts);};m.appendChild(i);});
+    b.onclick=function(ev){ev.stopPropagation();document.querySelectorAll('.dd.open').forEach(function(x){if(x!==dd)x.classList.remove('open');});dd.classList.toggle('open');if(dd.classList.contains('open')){var on=m.querySelector('.dd-i.on');if(on)on.scrollIntoView({block:'nearest'});}};}
+  document.addEventListener('click',function(){document.querySelectorAll('.dd.open').forEach(function(x){x.classList.remove('open');});});
   function arranca(){$('gate').classList.add('hide');$('app').classList.remove('hide');$('foot').classList.remove('hide');
     $('fecha').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'short'});
     carga();$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
