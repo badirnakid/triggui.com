@@ -1,0 +1,1295 @@
+{
+ "generado": "2026-09-06",
+ "tarjetas": [
+  {
+   "slug": "alicia-en-el-pais-de-las-maravillas",
+   "catalogo": "kids",
+   "colores": [
+    "#7EF1EE",
+    "#E83035",
+    "#138BAE",
+    "#65200B"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Alicia en el país de las maravillas",
+    "autor": "Lewis Carroll",
+    "frases": [
+     "🌅 Mira a tu alrededor, busca lo absurdo en lo cotidiano.",
+     "🏛 ¿Qué objetos o palabras te hacen reír en tu vida diaria?",
+     "🌊 Imagina un conejo con un sombrero que habla de tiempo y locura.",
+     "🌓 Los límites de la lógica son los límites de la imaginación."
+    ],
+    "url": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/"
+   },
+   "en": {
+    "libro": "Alicia en el país de las maravillas",
+    "autor": "Lewis Carroll",
+    "frases": [
+     "🌅 Peer closely into the looking glass and watch as the familiar twists into the extraordinary.",
+     "🏛 Dare to step through the rabbit hole and see where your curiosity leads you!",
+     "🌊 Picture a world where flowers converse and time runs backward; how would you navigate such a place?",
+     "🌓 In a realm of whimsy, reality bends; those who play are the true masters of their fate."
+    ],
+    "url": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/og.jpg",
+    "en": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/alicia-en-el-pais-de-las-maravillas/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1739855702",
+     "cancion": "Carnival Of The Animals ( Il Cigno )",
+     "artista": "Gdansk Philharmonic Orchestra & Camille Saint-Saëns",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c3/71/12/c371121e-b3aa-9caa-a4ee-adc22410b4b3/mzaf_7012273397368130746.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/97/f7/66/97f766c1-4aa7-6331-213b-2b27c3efc852/CY014.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/carnival-of-the-animals-il-cigno/1739855692?i=1739855702&uo=4",
+     "pie": "El Cisne de Saint-Saëns aporta una atmósfera de calma y belleza, aunque no es lo más vibrante para el cuento.",
+     "rol": "profundizar",
+     "armonia": 6
+    },
+    {
+     "id": "101266637",
+     "cancion": "The Carnival of the Animals - the Swan",
+     "artista": "Güher Pekinel & Süher Pekinel",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/2d/92/3e/2d923e64-7507-28e9-21a7-62c242066d0c/mzaf_13596696892110406656.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/23/cc/23/mzi.giwnaype.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-carnival-of-the-animals-the-swan/101266820?i=101266637&uo=4",
+     "pie": "El Cisne de Saint-Saëns evoca una sensación de transformación, aunque su ritmo es más suave que el clima del cuento.",
+     "rol": "resonar",
+     "armonia": 6
+    },
+    {
+     "id": "292471143",
+     "cancion": "The Nutcracker Suite, Op. 71a: II. March",
+     "artista": "Marko Munih & RTV Slovenia Symphony Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fe/f6/3b/fef63b41-53c7-9590-7a31-ad0b4fc18669/mzaf_4786650316141239725.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/70/1a/20/mzi.wtonmyvf.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-nutcracker-suite-op-71a-ii-march/292471137?i=292471143&uo=4",
+     "pie": "La Marcha de El Cascanueces despierta la curiosidad, aunque su ritmo es un poco convencional.",
+     "rol": "abrir",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "cenicienta-original",
+   "catalogo": "kids",
+   "colores": [
+    "#EBF17E",
+    "#3A30E8",
+    "#80AE13",
+    "#260B65"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Cenicienta",
+    "autor": "Disney Books",
+    "frases": [
+     "🚶 Tómate un momento para reflexionar sobre tus propios sueños y cómo se cruzan con los de tus amigos.",
+     "🕰 ¿Qué harías si tu mejor amigo compitiera por lo mismo que tú?",
+     "🌅 Imagina un escenario lleno de marionetas danzantes, donde los sueños se entrelazan con risas y aplau.",
+     "🎧 Los sueños compartidos crean la melodía más hermosa: la de la amistad."
+    ],
+    "url": "https://app.triggui.com/kids/t/cenicienta-original/"
+   },
+   "en": {
+    "libro": "Cenicienta",
+    "autor": "Disney Books",
+    "frases": [
+     "👁 Picture the vibrant colors of the Summer Festival, where dreams come alive and friendships bloom.",
+     "🗺 Choose to uplift your friends. How will you support their dreams today?",
+     "🌓 In the end, the threads we weave in friendship are stronger than any trophy.",
+     "☀ Imagine the glow of lanterns illuminating the faces of friends, each sharing their dreams under the stars at the Festival de Verano."
+    ],
+    "url": "https://app.triggui.com/kids/t/cenicienta-original/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/cenicienta-original/og.jpg",
+    "en": "https://app.triggui.com/kids/t/cenicienta-original/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/cenicienta-original/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/cenicienta-original/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1452395023",
+     "cancion": "Cinderella - Overture",
+     "artista": "Hollywood Bowl Orchestra & John Mauceri",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/e9/90/64/e9906406-b5ae-dfa6-2ab9-3261ffebe69d/mzaf_6162866044082623407.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/52/2b/21/522b21cc-8ffa-01f6-c3bb-ef91ca85b84e/00028947867005.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/cinderella-overture/1452395009?i=1452395023&uo=4",
+     "pie": "La Obertura de Cenicienta evoca la magia y la ternura del cuento, invitando a soñar juntos.",
+     "rol": "abrir",
+     "armonia": 10
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "charlie-y-la-fabrica-de-chocolate",
+   "catalogo": "kids",
+   "colores": [
+    "#DC7EF1",
+    "#52E830",
+    "#AE13A4",
+    "#0B6511"
+   ],
+   "textColors": [
+    "#FFFFFF",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Charlie y la fábrica de chocolate",
+    "autor": "Roald Dahl",
+    "frases": [
+     "👁 Imagina abrir una caja de chocolates y encontrar un billete dorado.",
+     "🔔 ¿Qué harías si fueras uno de los afortunados en encontrar un billete dorado?",
+     "🌅 Los colores brillantes de la fábrica contrastan con la vida gris de Charlie.",
+     "🏛 La magia de los dulces esconde verdades sobre el deseo y la avaricia."
+    ],
+    "url": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/"
+   },
+   "en": {
+    "libro": "Charlie y la fábrica de chocolate",
+    "autor": "Roald Dahl",
+    "frases": [
+     "👁 Imagine the glimmer of golden tickets hidden among the chocolate bars, each one a portal to wonder.",
+     "🕰 What would you sacrifice to taste the sweetness of your dreams?",
+     "💫 Picture the factory, a whirlwind of colors, each corner bursting with surprises just waiting to be unwrapped by the lucky children who find the golden tickets.",
+     "🏛 Every choice is a sweet temptation, leading us toward our true selves."
+    ],
+    "url": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/og.jpg",
+    "en": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/charlie-y-la-fabrica-de-chocolate/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1440841718",
+     "cancion": "Wonkavator / End Title (Pure Imagination)",
+     "artista": "Leslie Bricusse & Anthony Newley",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/62/72/72/627272af-27ca-b044-079e-bc657bd187b8/mzaf_5963163436324275794.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/76/b1/92/76b1922c-694b-f3b4-b33c-3da6a709f1a6/00602547585851.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/wonkavator-end-title-pure-imagination/1440840990?i=1440841718&uo=4",
+     "pie": "La música de 'Wonkavator' evoca la magia y los secretos de la fábrica, iluminando el viaje de los niños.",
+     "rol": "resonar",
+     "armonia": 10
+    },
+    {
+     "id": "1440841163",
+     "cancion": "Main Title (Golden Ticket / Pure Imagination)",
+     "artista": "Leslie Bricusse & Anthony Newley",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/99/41/be/9941bece-ff17-0e37-b6ae-99b8739cb5b4/mzaf_4188747460029927299.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/76/b1/92/76b1922c-694b-f3b4-b33c-3da6a709f1a6/00602547585851.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/main-title-golden-ticket-pure-imagination/1440840990?i=1440841163&uo=4",
+     "pie": "El 'Main Title' invita a la aventura y a la curiosidad, reflejando el deseo de los niños por descubrir.",
+     "rol": "abrir",
+     "armonia": 10
+    },
+    {
+     "id": "1440841709",
+     "cancion": "The Bubble Machine",
+     "artista": "Leslie Bricusse & Anthony Newley",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/55/ca/2a/55ca2a52-ea14-c6db-57a1-77ed957726ae/mzaf_11355042626672349633.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/76/b1/92/76b1922c-694b-f3b4-b33c-3da6a709f1a6/00602547585851.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-bubble-machine/1440840990?i=1440841709&uo=4",
+     "pie": "'The Bubble Machine' añade un toque de diversión y asombro, ideal para el clima de la historia.",
+     "rol": "aterrizar",
+     "armonia": 9
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "el-monstruo-de-colores",
+   "catalogo": "kids",
+   "colores": [
+    "#CAF17E",
+    "#7CE830",
+    "#13AE21",
+    "#0B652A"
+   ],
+   "textColors": [
+    "#000000",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "El monstruo de colores",
+    "autor": "Anna Llenas",
+    "frases": [
+     "🚶 Tómate un momento para respirar y siente qué emoción está presente ahora mismo.",
+     "🕰 ¿Qué color te gustaría que te acompañara hoy en tus emociones?",
+     "🌅 Imagina a tu monstruo de colores rodeado de los matices que representan tus emociones.",
+     "🏛 Conocer tus emociones es el primer paso para vivir en armonía."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-monstruo-de-colores/"
+   },
+   "en": {
+    "libro": "El monstruo de colores",
+    "autor": "Anna Llenas",
+    "frases": [
+     "👁 Visualize your emotions as colors swirling around you, each one telling a story.",
+     "🌊 How does your heart express its colors today?",
+     "🌌 Picture the red of anger boiling, the blue of sadness flowing gently, and the yellow of joy shining.",
+     "⏳ Understanding emotions is like painting — it requires both color and clarity."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-monstruo-de-colores/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/el-monstruo-de-colores/og.jpg",
+    "en": "https://app.triggui.com/kids/t/el-monstruo-de-colores/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/el-monstruo-de-colores/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/el-monstruo-de-colores/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1817177304",
+     "cancion": "3 Gymnopédies: No. 1, Lent et douloureux (Olivia Belli Rework)",
+     "artista": "Olivia Belli",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/1a/1c/3e/1a1c3ef1-926e-880e-b8ad-d75fe2717b3b/mzaf_14102025561603908083.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/98/08/a7/9808a771-1a76-262a-0876-92ac36742bd2/196873163048.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/3-gymnop%C3%A9dies-no-1-lent-et-douloureux-olivia-belli-rework/1817177127?i=1817177304&uo=4",
+     "pie": "La pieza evoca una calma que puede ayudar a reflexionar sobre las emociones, pero su tono es algo genérico.",
+     "rol": "profundizar",
+     "armonia": 6
+    },
+    {
+     "id": "1579898712",
+     "cancion": "The Swan",
+     "artista": "Òscar Senén",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/64/70/dd/6470dd69-cf3c-5e5e-606c-270889d601fb/mzaf_11807156349070631815.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/3a/e4/68/3ae46898-f42d-a7cc-1ac6-c983e9c1395e/5056495348887_1.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-swan/1579897247?i=1579898712&uo=4",
+     "pie": "El Cisne de Saint-Saëns aporta una calma que puede ayudar a reflexionar sobre las emociones, aunque es un poco melancólico.",
+     "rol": "profundizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "el-pequeno-nicolas",
+   "catalogo": "kids",
+   "colores": [
+    "#7EF194",
+    "#30E881",
+    "#13AEA5",
+    "#0B5465"
+   ],
+   "textColors": [
+    "#000000",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "El pequeño Nicolás",
+    "autor": "René Goscinny y Jean-Jacques Sempé",
+    "frases": [
+     "🔭 Observa cómo el sol ilumina cada juego en el parque.",
+     "🌓 ¿Cuánto tiempo hace que no juegas como un niño?",
+     "🎧 Risas y gritos llenan el aire durante el recreo.",
+     "🌊 La inocencia es el motor de la aventura diaria."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-pequeno-nicolas/"
+   },
+   "en": {
+    "libro": "El pequeño Nicolás",
+    "autor": "René Goscinny y Jean-Jacques Sempé",
+    "frases": [
+     "🌊 Turn the page to discover the laughter of childhood adventures.",
+     "💡 What stories do your own childhood memories hold?",
+     "👁 Imagine a world where every day brings a new game to play.",
+     "🕰 In the echoes of laughter, friendships are built to last."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-pequeno-nicolas/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/el-pequeno-nicolas/og.jpg",
+    "en": "https://app.triggui.com/kids/t/el-pequeno-nicolas/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/el-pequeno-nicolas/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/el-pequeno-nicolas/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1843178698",
+     "cancion": "Obertura del \"Barbero de Sevilla\" de Rossini en Tiempo de Polca.Flac",
+     "artista": "Carmelo D'Amico y su gran orquesta gurani",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/c5/6a/42/c56a42af-eee9-5c1f-1a56-cd788f8d424b/mzaf_15575165712703371996.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e6/80/5a/e6805ad4-0f66-c82f-0310-0d055e385bd0/4040741090966.png/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/obertura-del-barbero-de-sevilla-de-rossini-en/1843178473?i=1843178698&uo=4",
+     "pie": "La Obertura en Tiempo de Polca aporta un aire juguetón, aunque su energía puede no ser suficiente para encender la lectura.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "513883616",
+     "cancion": "The Sorcerer's Apprentice",
+     "artista": "Leopold Stokowski & The Philadelphia Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/7c/b5/4c/7cb54ce7-8f75-c1b8-2f2a-84a676cb8908/mzaf_12915298239474508606.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/v4/58/bb/a0/58bba0d0-a65c-4e27-21bb-3e9875819e3c/cover.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-sorcerers-apprentice/513883487?i=513883616&uo=4",
+     "pie": "La música de 'El aprendiz de brujo' despierta la imaginación y la curiosidad, acompañando las travesuras del pequeño Nicolás.",
+     "rol": "resonar",
+     "armonia": 8
+    },
+    {
+     "id": "646242078",
+     "cancion": "The Entertainer",
+     "artista": "Scott Joplin",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/c7/2d/9a/c72d9ae0-f9a5-e6a0-a0f2-aebe1c6048d2/mzaf_6110020907960306942.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e6/de/be/e6debe0d-5a94-1a3c-b2c8-210ad610d854/888002141804.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-entertainer/646242077?i=646242078&uo=4",
+     "pie": "El Ragtime de Joplin evoca un aire de diversión y travesura, ideal para el espíritu del pequeño Nicolás.",
+     "rol": "abrir",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "el-principito",
+   "catalogo": "kids",
+   "colores": [
+    "#F17EB8",
+    "#30E88C",
+    "#AE133B",
+    "#0B654E"
+   ],
+   "textColors": [
+    "#FFFFFF",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "frases": [
+     "🔭 Observa a tu alrededor con atención. Pregúntate qué es lo realmente importante.",
+     "🌓 ¿Te has tomado un momento para valorar lo que realmente amas?",
+     "🏛 Imagina a un niño observando las estrellas, buscando respuestas en su belleza.",
+     "🕰 Amar es ver con el corazón y no con los ojos: la esencia de lo que somos."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-principito/"
+   },
+   "en": {
+    "libro": "El Principito",
+    "autor": "Antoine de Saint-Exupéry",
+    "frases": [
+     "🕯 The essence of friendship lies in the unseen bonds we create.",
+     "🌓 Pause and reflect on the connections that give your life meaning.",
+     "🏛 What do you hold dear in your heart? Observe it closely.",
+     "🔭 Imagine the invisible threads weaving your life together."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-principito/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/el-principito/og.jpg",
+    "en": "https://app.triggui.com/kids/t/el-principito/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/el-principito/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/el-principito/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1738289940",
+     "cancion": "Camille Saint-Saëns: The Swan",
+     "artista": "Sophia Graziani",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/34/ef/6c/34ef6cec-4dd6-a4d4-d39a-38e9878c4599/mzaf_13275362379785356176.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f1/76/18/f1761850-2e10-3a4b-b88b-4ddbeda2323d/1582.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/camille-saint-sa%C3%ABns-the-swan/1738289934?i=1738289940&uo=4",
+     "pie": "La interpretación es delicada y aporta una atmósfera de reflexión, aunque no es del todo vibrante.",
+     "rol": "profundizar",
+     "armonia": 7
+    },
+    {
+     "id": "1679912807",
+     "cancion": "CAMILLE SAINT- SAËNS: The Swan (Le Cygne)- Carnival of the Animals",
+     "artista": "Ephraim van IJzerlooij",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/84/4a/02/844a0291-1491-8b66-c1b9-b55141e8bbd8/mzaf_3521835161597726355.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/c5/67/fa/c567fae4-59ae-5722-fa6b-db3966a3c35b/Cello_Fever_s_Candlelight_concert_v2_def.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/camille-saint-sa%C3%ABns-the-swan-le-cygne-carnival/1679912498?i=1679912807&uo=4",
+     "pie": "La melodía es suave y melancólica, pero no logra elevar el ánimo de manera significativa.",
+     "rol": "profundizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "el-rey-leon",
+   "catalogo": "kids",
+   "colores": [
+    "#7EF1ED",
+    "#E83037",
+    "#138DAE",
+    "#651F0B"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "El Rey Leon",
+    "autor": "Disney Books",
+    "frases": [
+     "🗺 Imagina el vasto reino que Simba debe proteger. Siente el peso de sus decisiones en cada paso que da.",
+     "🌓 ¿Qué harías si tu pasado te persiguiera y las decisiones de hoy afectaran tu futuro?",
+     "👁 Visualiza a Simba en la cima de la roca del rey, enfrentando su destino con determinación en sus miradas, mientras acepta su herencia y la responsabilidad de su reinado.",
+     "🕰 La verdad personal es la brújula que guía en la oscuridad."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-rey-leon/"
+   },
+   "en": {
+    "libro": "El Rey Leon",
+    "autor": "Disney Books",
+    "frases": [
+     "🕯 Every shadow has a source, and within it lies the truth of who we are.",
+     "🌓 Embrace your fears. What legacy will you choose to uphold?",
+     "👁 Picture a young lion, standing at the edge of the savannah, heart racing as he contemplates his path.",
+     "🫁 Take a moment to breathe deeply and reflect on your own journey of acceptance."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-rey-leon/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/el-rey-leon/og.jpg",
+    "en": "https://app.triggui.com/kids/t/el-rey-leon/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/el-rey-leon/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/el-rey-leon/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1445732940",
+     "cancion": "Circle of Life",
+     "artista": "Elton John",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/bc/84/da/bc84da28-51b4-ce85-9359-baa37d8fc305/mzaf_1966543977384056213.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/ce/80/89/ce808921-d594-fa7f-03e8-adcc92a69de8/06PNDIM00020.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/circle-of-life/1445732923?i=1445732940&uo=4",
+     "pie": "La canción 'Circle of Life' evoca el viaje de Simba hacia su identidad y legado familiar, llenando de energía a ambos.",
+     "rol": "abrir",
+     "armonia": 10
+    },
+    {
+     "id": "1567862632",
+     "cancion": "Hakuna Matata (from \"the Lion King\")",
+     "artista": "Leonardo Holmes",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/12/ce/50/12ce504c-34db-2bf8-9ff6-5743161272db/mzaf_4168247297553237223.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/5c/ad/b5/5cadb5e7-dd45-1bba-18e4-cb39686de0fc/13489.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/hakuna-matata-from-the-lion-king/1567862619?i=1567862632&uo=4",
+     "pie": "'Hakuna Matata' ofrece un respiro divertido y ligero, ideal para que el adulto y el niño se conecten con la historia de Simba.",
+     "rol": "resonar",
+     "armonia": 9
+    },
+    {
+     "id": "1514621768",
+     "cancion": "Can You Feel the Love Tonight (From \"The Lion King\")",
+     "artista": "Royal Philharmonic Orchestra & Matteo Bocelli",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/bc/1f/c8/bc1fc81f-0814-9c0b-fc7b-1c202292e67b/mzaf_11835871242367982305.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/e8/46/68/e8466895-34a8-fd99-3862-3ecc42ad6b43/20UMGIM36288.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/can-you-feel-the-love-tonight-from-the-lion-king/1514621519?i=1514621768&uo=4",
+     "pie": "'Can You Feel the Love Tonight' encapsula la conexión emocional de Simba con su legado, ideal para momentos de reflexión.",
+     "rol": "aterrizar",
+     "armonia": 9
+    },
+    {
+     "id": "1594115443",
+     "cancion": "Circle of Life / I Just Can't Wait to Be King / Hakuna Matata / Can You Feel the Love Toni",
+     "artista": "Orchestra da Camera Fiorentina & Giuseppe Lanzetta",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/51/f4/9b/51f49bbd-03df-2c7e-ddba-6d63e4af1faa/mzaf_8907823330409208121.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/59/ba/f2/59baf2b4-2e49-e4fc-196e-770b10865fc7/cover.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/circle-of-life-i-just-cant-wait-to-be-king-hakuna/1594114703?i=1594115443&uo=4",
+     "pie": "Esta pieza orquestal entrelaza momentos clave de la historia, apoyando la narrativa de valentía y autodescubrimiento.",
+     "rol": "profundizar",
+     "armonia": 8
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "el-ruisenor-del-emperador",
+   "catalogo": "kids",
+   "colores": [
+    "#F1DE7E",
+    "#304EE8",
+    "#A1AE13",
+    "#130B65"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "El Ruisenor del Emperador",
+    "autor": "Hans Christian Andersen",
+    "frases": [
+     "🔔 Escucha el canto del ruiseñor en tu mente. Permite que su melodía te envuelva.",
+     "🌅 ¿Qué ves cuando cierras los ojos y escuchas el canto de un ruiseñor?",
+     "🏛 Imagina un jardín donde el ruiseñor canta libremente, mientras el emperador escucha en silencio.",
+     "🕰 La autenticidad florece en el silencio del alma."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/"
+   },
+   "en": {
+    "libro": "El Ruisenor del Emperador",
+    "autor": "Hans Christian Andersen",
+    "frases": [
+     "🔔 Listen closely, for the nightingale's melody carries the weight of a thousand truths.",
+     "🌅 What do you see when the nightingale sings in the moonlight?",
+     "☀ A garden illuminated by the dawn, where the nightingale's song awakens the world.",
+     "🕰 In the race for the artificial, we lose touch with the essence of life."
+    ],
+    "url": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/og.jpg",
+    "en": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/el-ruisenor-del-emperador/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1619651746",
+     "cancion": "The Carnival of the Animals: I. Introduction and Royal March of the Lion (Arr. for Two Pia",
+     "artista": "Sharlene Hsu",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview122/v4/d4/b8/ff/d4b8ff8f-7e28-7a11-5b71-b9a05f2b1d4d/mzaf_10886099715762001693.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/07/08/e9/0708e996-a6cd-71e7-6806-9224de699e83/198003551183.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-carnival-of-the-animals-i-introduction-and/1619651745?i=1619651746&uo=4",
+     "pie": "La introducción y marcha real del león evocan majestuosidad, conectando con la belleza del canto auténtico.",
+     "rol": "resonar",
+     "armonia": 7
+    },
+    {
+     "id": "306149302",
+     "cancion": "Overture to the Barber of Seville",
+     "artista": "Rico Saccani & Budapest Philharmonic Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/7c/6f/97/mzm.ngfivtda.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/e4/49/0f/mzi.uqupyaaz.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/overture-to-the-barber-of-seville/306149130?i=306149302&uo=4",
+     "pie": "Esta obertura es animada y divertida, pero no logra profundizar en la conexión emocional del cuento.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "344594512",
+     "cancion": "Eine kleine Nachtmusik, K.525: I. Allegro",
+     "artista": "Bobby McFerrin & The Saint Paul Chamber Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f5/d0/ed/f5d0ed5b-8bf9-2b99-9097-147615e1991c/mzaf_7025914798563049924.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/f3/0c/28/mzi.sggsbity.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/eine-kleine-nachtmusik-k-525-i-allegro/344594410?i=344594512&uo=4",
+     "pie": "La interpretación de McFerrin añade un toque especial, aunque no alcanza la profundidad del canto auténtico del ruiseñor.",
+     "rol": "resonar",
+     "armonia": 7
+    },
+    {
+     "id": "352321439",
+     "cancion": "Eine kleine Nachtmusik K. 525: I. Allegro",
+     "artista": "Andrew Watkinson",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/4c/b2/a1/4cb2a1ee-d7f0-40e8-2809-3aa0da0b31f8/mzaf_1381224392751955746.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/f9/b5/d0/mzi.mubsgpgi.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/eine-kleine-nachtmusik-k-525-i-allegro/352321420?i=352321439&uo=4",
+     "pie": "La obra de Mozart es hermosa, pero su energía no se alinea con la soledad del emperador ni con el canto del ruiseñor.",
+     "rol": "profundizar",
+     "armonia": 6
+    },
+    {
+     "id": "1504110656",
+     "cancion": "Eine Kleine Nachtmusik K 525: I. Allegro",
+     "artista": "Alexander Briger & Orquesta Sinfónica Haydn",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/fb/b2/8b/fbb28bd4-089c-ad40-508b-fdb9b247eafb/mzaf_11045837946987312279.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/c9/48/7b/c9487bdf-01dd-ad82-b84d-a952bb14d059/195081107660.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/eine-kleine-nachtmusik-k-525-i-allegro/1504110393?i=1504110656&uo=4",
+     "pie": "La pieza es encantadora, pero no logra transmitir la conexión emocional que se busca en el cuento.",
+     "rol": "profundizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "emil-de-lonneberga",
+   "catalogo": "kids",
+   "colores": [
+    "#8F7EF1",
+    "#CDE830",
+    "#5113AE",
+    "#41650B"
+   ],
+   "textColors": [
+    "#FFFFFF",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Emil de Lönneberga",
+    "autor": "Astrid Lindgren",
+    "frases": [
+     "👁 Observa cómo Emil convierte el campo en su patio de juegos.",
+     "🕰 ¿Qué travesura de Emil recuerdas con más cariño?",
+     "🌌 Emil corre libre por los campos de Katthult, descubriendo secretos.",
+     "☀ La travesura es el primer paso hacia el descubrimiento."
+    ],
+    "url": "https://app.triggui.com/kids/t/emil-de-lonneberga/"
+   },
+   "en": {
+    "libro": "Emil de Lönneberga",
+    "autor": "Astrid Lindgren",
+    "frases": [
+     "🚶 Emil runs through the fields, each sprint a new adventure waiting to unfold.",
+     "🔭 Watch closely! What mischief might Emil conjure next?",
+     "🌌 Picture Emil, cheeks flushed with excitement, plotting his next prank in the barn.",
+     "⏳ In mischief lies the heartbeat of childhood, where every moment counts."
+    ],
+    "url": "https://app.triggui.com/kids/t/emil-de-lonneberga/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/emil-de-lonneberga/og.jpg",
+    "en": "https://app.triggui.com/kids/t/emil-de-lonneberga/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/emil-de-lonneberga/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/emil-de-lonneberga/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1650319530",
+     "cancion": "Linus And Lucy",
+     "artista": "Vince Guaraldi Trio",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/d2/0f/27/d20f271c-0b0a-2f33-399a-517d7a00544c/mzaf_7482065445527904681.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/69/09/b6/6909b604-c967-e6cf-6b9b-dba54e42a2f2/22CRGIM33543.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/linus-and-lucy/1650319526?i=1650319530&uo=4",
+     "pie": "La energía de 'Linus And Lucy' invita a la travesura y la alegría, reflejando el espíritu curioso de Emil.",
+     "rol": "abrir",
+     "armonia": 7
+    },
+    {
+     "id": "306376324",
+     "cancion": "El Barbero de Sevilla \"Obertura\" - Rossini",
+     "artista": "Viena Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/26/b5/49/26b5492b-7624-7833-c62e-4b136bde8bb9/mzaf_3114044044002934750.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/4d/09/2f/mzi.owcsioua.tif/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/el-barbero-de-sevilla-obertura-rossini/306376319?i=306376324&uo=4",
+     "pie": "La 'Obertura' de Rossini tiene un aire juguetón que puede resonar con las travesuras de Emil, aunque no siempre acompaña la lectura.",
+     "rol": "aterrizar",
+     "armonia": 6
+    },
+    {
+     "id": "1395817066",
+     "cancion": "Danza del Hada de Azúcar",
+     "artista": "Ensamble de Música Antigua",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/c0/50/06/c0500627-e1a2-8a49-f9ff-ccbc219026e3/mzaf_7743232785775200565.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/6f/db/74/6fdb7480-dc4c-8c93-0618-49771e532c40/cover_10138221.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/danza-del-hada-de-az%C3%BAcar/1395816969?i=1395817066&uo=4",
+     "pie": "La Danza del Hada de Azúcar tiene un aire de ternura, pero no logra encender el ánimo.",
+     "rol": "aterrizar",
+     "armonia": 6
+    },
+    {
+     "id": "1615424315",
+     "cancion": "La Danza del Hada de Azúcar",
+     "artista": "Agnese Sat",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/6c/57/30/6c5730f2-628b-5c8a-8ac2-d6fbd1f9f4f9/mzaf_8873697786746851350.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/9d/03/cd/9d03cdd2-9c3d-e8fc-64e8-70b40aae9d76/0.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/la-danza-del-hada-de-az%C3%BAcar/1615424314?i=1615424315&uo=4",
+     "pie": "La Danza del Hada de Azúcar sugiere magia, pero le falta chispa para el cuento.",
+     "rol": "profundizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "heidi",
+   "catalogo": "kids",
+   "colores": [
+    "#D77EF1",
+    "#E830E3",
+    "#AE135D",
+    "#650B1F"
+   ],
+   "textColors": [
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Heidi",
+    "autor": "Johanna Spyri",
+    "frases": [
+     "👁 Mira a tu alrededor y observa cómo la naturaleza habla en silencio.",
+     "🕰 ¿Qué momentos de tu vida te han hecho sentir como Heidi en los Alpes?",
+     "🌌 Imagina a Heidi corriendo libre en los prados, con las montañas de fondo, sintiendo el viento en su rostro y disfrutando de la belleza de la naturaleza.",
+     "☀ La luz que irradias es el reflejo de tu conexión con la vida."
+    ],
+    "url": "https://app.triggui.com/kids/t/heidi/"
+   },
+   "en": {
+    "libro": "Heidi",
+    "autor": "Johanna Spyri",
+    "frases": [
+     "👁 Picture Heidi running through the meadows, her laughter echoing in the crisp mountain air.",
+     "🕰 Each sunset over the Alps paints a promise of new beginnings, reminding us of the beauty in change.",
+     "🌌 How can the love of a child reshape the world around them?",
+     "🚶 Friendship is a gentle breeze that carries the heart home."
+    ],
+    "url": "https://app.triggui.com/kids/t/heidi/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/heidi/og.jpg",
+    "en": "https://app.triggui.com/kids/t/heidi/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/heidi/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/heidi/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "201436514",
+     "cancion": "The Nutcracker Suite, Op. 71a: I. Overture",
+     "artista": "Royal Philharmonic Orchestra & Yuri Simonov",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/c4/ec/73/c4ec7357-0840-164a-31ae-b9509e16b28a/mzaf_3419667046130265498.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/89/8a/6d/mzi.pzfmoxqr.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-nutcracker-suite-op-71a-i-overture/201436513?i=201436514&uo=4",
+     "pie": "La Obertura del Cascanueces despierta la magia de la naturaleza y la amistad en Heidi.",
+     "rol": "abrir",
+     "armonia": 7
+    },
+    {
+     "id": "305698865",
+     "cancion": "Peer Gynt Suite No. 1, Op. 46: I. Morning Mood",
+     "artista": "Utah Symphony & Maurice Abravanel",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/53/e7/38/53e73856-7415-fa2b-61a3-64475965fcdb/mzaf_14181165189396538835.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e1/3d/79/e13d7974-c00f-3fbc-c6c2-a1438bc5c1eb/dj.pmkorcph.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/peer-gynt-suite-no-1-op-46-i-morning-mood/305698710?i=305698865&uo=4",
+     "pie": "El 'Morning Mood' de Grieg despierta la alegría de la naturaleza, ideal para el espíritu de Heidi.",
+     "rol": "abrir",
+     "armonia": 8
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "la-gran-fabrica-de-las-palabras",
+   "catalogo": "kids",
+   "colores": [
+    "#F1C87E",
+    "#3071E8",
+    "#AE9E13",
+    "#0B1465"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "La gran fábrica de las palabras",
+    "autor": "Agnès de Lestrade",
+    "frases": [
+     "⏳ ¿Cuánto tiempo dedicarías a encontrar las palabras adecuadas para expresar tu amor?",
+     "🔭 Imagina un mundo donde cada palabra que pronuncias tiene un valor especial, como un regalo.",
+     "📻 Escucha el murmullo de las palabras que flotan en el aire cuando amas.",
+     "🏛 Decir lo que sientes es un acto de valentía que transforma el espacio entre las almas."
+    ],
+    "url": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/"
+   },
+   "en": {
+    "libro": "La gran fábrica de las palabras",
+    "autor": "Agnès de Lestrade",
+    "frases": [
+     "🚶 Feel the weight of unspoken words pressing against your chest.",
+     "🗺 Imagine a world where every word is a precious gift. What would you say?",
+     "🌓 In silence, the heart often cries for expression, longing to be heard.",
+     "👁 Picture Philéas, eyes full of hope, counting his words like coins."
+    ],
+    "url": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/og.jpg",
+    "en": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/la-gran-fabrica-de-las-palabras/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "692062666",
+     "cancion": "Peter and the Wolf, Op. 67 (Complete Version with English Narrator)",
+     "artista": "Academy of London, Andrew Skirrow, Angela Malsbury, David Thomas, Domi",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/Music4/v4/1c/a1/e6/1ca1e629-2b0b-825a-201a-e57c0c17fb31/mzaf_6905568928532980844.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/v4/d5/a9/9f/d5a99f25-e35a-1a92-e557-b2e5b5824d3e/0724356249752_1417x1417_300dpi.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/peter-and-the-wolf-op-67-complete-version/692062495?i=692062666&uo=4",
+     "pie": "La narración musical de Prokofiev aporta un sentido de aventura y conexión, aunque su duración puede distraer.",
+     "rol": "profundizar",
+     "armonia": 7
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "la-sastreria-de-gloucester",
+   "catalogo": "kids",
+   "colores": [
+    "#7ED8F1",
+    "#E85930",
+    "#1366AE",
+    "#65350B"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "La sastrería de Gloucester",
+    "autor": "Beatrix Potter",
+    "frases": [
+     "🪨 Siente la textura de la seda entre tus dedos. La suavidad es un recordatorio de la dedicación del sastre en la creación de una prenda.",
+     "🌅 ¿Has visto alguna vez cómo un sastre da vida a una prenda con sus manos?",
+     "🏛 Imagina el taller del sastre, lleno de hilos de colores y patrones de telas esperando ser transformados en hermosas prendas.",
+     "🕰 La amistad entre el hombre y los animales es un hilo que nunca se rompe."
+    ],
+    "url": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/"
+   },
+   "en": {
+    "libro": "La sastrería de Gloucester",
+    "autor": "Beatrix Potter",
+    "frases": [
+     "🌊 Feel the tension of each stitch as the tailor works against the clock.",
+     "🌌 Embrace assistance when the burden feels too heavy to bear.",
+     "👁 Imagine the cherry silk coat, shimmering under the warm light.",
+     "🕰 True artistry reveals itself through perseverance and heart."
+    ],
+    "url": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/og.jpg",
+    "en": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/la-sastreria-de-gloucester/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1705052563",
+     "cancion": "Merrie Melodies: Main Title",
+     "artista": "Christian Schumann & Danish National Symphony Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/5a/81/4b/5a814b6d-dd83-d338-3b36-b55b41c81d1e/mzaf_563086674109014467.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/46/17/30/4617308e-15f3-c9cb-144c-0587d865ae58/880242699879.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/merrie-melodies-main-title/1705052105?i=1705052563&uo=4",
+     "pie": "La melodía de Merrie Melodies despierta curiosidad, aunque no se alinea del todo con el valor del cuento.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "6802246727",
+     "cancion": "Man lebt nur einmal! Walzer, Op. 167: Introduction. Andantino - Walzer No. 1",
+     "artista": "Claudio Colombo",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/21/68/d3/2168d3dd-f3ca-b970-07d3-31be8f95a753/mzaf_7493649900439542806.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/54/c5/b6/54c5b60c-71a6-3d04-b917-741bd5e21926/885288322828.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/man-lebt-nur-einmal-walzer-op-167-introduction-andantino/6802246456?i=6802246727&uo=4",
+     "pie": "El vals tiene un toque de sofisticación, pero carece de la calidez necesaria para el cuento.",
+     "rol": "profundizar",
+     "armonia": 6
+    },
+    {
+     "id": "1440723930",
+     "cancion": "Peer Gynt Suite No. 1, Op. 46: I. Morning Mood",
+     "artista": "Berliner Philharmoniker & Herbert von Karajan",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/c2/ad/41/c2ad41a2-e746-b4dd-49fa-dd1a1d2cda3b/mzaf_9350281355505641797.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/81/84/79/818479e6-106b-8190-eea8-63452e93a86b/23UMGIM41254.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/peer-gynt-suite-no-1-op-46-i-morning-mood/1440723920?i=1440723930&uo=4",
+     "pie": "La atmósfera de la pieza puede evocar un sentido de calma, pero no resuena con la esencia del cuento.",
+     "rol": "aterrizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "los-cinco-famosos",
+   "catalogo": "kids",
+   "colores": [
+    "#F17EA6",
+    "#70E830",
+    "#1349AE",
+    "#65190B"
+   ],
+   "textColors": [
+    "#FFFFFF",
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Los cinco famosos",
+    "autor": "Enid Blyton",
+    "frases": [
+     "🔭 ¿Qué misterios puede revelar el próximo rincón del bosque?",
+     "💫 Explora cada sombra y descubre lo que te espera.",
+     "👁 Cada aventura es un nuevo capítulo en la historia de la amistad.",
+     "🔔 Los Cinco siempre encuentran el valor en la amistad."
+    ],
+    "url": "https://app.triggui.com/kids/t/los-cinco-famosos/"
+   },
+   "en": {
+    "libro": "Los cinco famosos",
+    "autor": "Enid Blyton",
+    "frases": [
+     "🔭 Notice the way the trees whisper secrets to those who listen closely.",
+     "📻 What sounds of adventure do you hear calling you today?",
+     "🚶 Picture the five friends racing through the forest, laughter echoing behind them.",
+     "🕰 Friendship is the compass guiding every adventure into the unknown."
+    ],
+    "url": "https://app.triggui.com/kids/t/los-cinco-famosos/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/los-cinco-famosos/og.jpg",
+    "en": "https://app.triggui.com/kids/t/los-cinco-famosos/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/los-cinco-famosos/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/los-cinco-famosos/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "1111724083",
+     "cancion": "Powerhouse (Carl Stalling Style)",
+     "artista": "Stu Brown",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview60/v4/ee/8a/09/ee8a092d-a974-7bc7-0219-cf077bac1cbc/mzaf_6755437115656983930.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music60/v4/3f/c5/c2/3fc5c2eb-5bab-50dd-f5fa-644d19a96e52/880992143103_3000.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/powerhouse-carl-stalling-style/1111723971?i=1111724083&uo=4",
+     "pie": "Powerhouse (Carl Stalling Style) tiene un ritmo juguetón que puede captar la atención, aunque no es del todo adecuado para la lectura.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "19676706",
+     "cancion": "Carnival of the Animals: I. Introduction and Royal March of the Lion",
+     "artista": "Czecho-Slovak Radio Symphony Orchestra, Marian Lapsansky, Ondrej Lenár",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/35/0e/bb/350ebb7f-d660-a20a-3fd3-0e62da879d10/mzaf_2613810419789239778.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/b4/81/a0/b481a0e8-14ec-24fb-1985-23b6b6812da7/s05.ejrrstuk.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/carnival-of-the-animals-i-introduction-and/19677070?i=19676706&uo=4",
+     "pie": "El Carnaval de los Animales introduce un sentido de maravilla y camaradería, perfecto para el valor de la amistad.",
+     "rol": "resonar",
+     "armonia": 8
+    },
+    {
+     "id": "339006390",
+     "cancion": "Peer Gynt Suite No. 1, Op. 46: I. Morning Mood",
+     "artista": "London Philharmonic Orchestra & David Parry",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/f8/42/36/f842369a-e906-0201-7859-ae0565d9765c/mzaf_4691844843002793432.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/8d/7f/fd/8d7ffd6d-1dca-7012-1859-0241a2a86033/7340027075005.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/peer-gynt-suite-no-1-op-46-i-morning-mood/339006385?i=339006390&uo=4",
+     "pie": "La Suite Peer Gynt trae un amanecer musical que despierta la curiosidad, aunque no es del todo vibrante.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "948774347",
+     "cancion": "The Carnival of the Animals: I. Introduction and Royal March of the Lion",
+     "artista": "South German Philharmonic Orchestra & Hanspeter Gmür",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/18/fb/54/18fb5479-9ee3-8ac5-315b-40cc93d40460/mzaf_12480106602594502758.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music3/v4/de/07/54/de075451-cdf8-44f4-53e3-bf12a2682b1e/894231679728.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-carnival-of-the-animals-i-introduction/948774342?i=948774347&uo=4",
+     "pie": "La Marcha Real del León en el Carnaval de los Animales resuena con la valentía y la unión de Los Cinco.",
+     "rol": "resonar",
+     "armonia": 8
+    },
+    {
+     "id": "339006510",
+     "cancion": "The Barber of Seville: Overture",
+     "artista": "London Philharmonic Orchestra & David Parry",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/93/d8/ca/93d8cae0-fcfc-2f04-583a-589157c99ca0/mzaf_15196330360910911556.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music122/v4/8d/7f/fd/8d7ffd6d-1dca-7012-1859-0241a2a86033/7340027075005.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-barber-of-seville-overture/339006385?i=339006510&uo=4",
+     "pie": "La Obertura de \"El Barbero de Sevilla\" es alegre y juguetona, pero le falta un poco de chispa para encender la aventura.",
+     "rol": "abrir",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "mi-vecino-totoro",
+   "catalogo": "kids",
+   "colores": [
+    "#7EF1DD",
+    "#E83050",
+    "#13A3AE",
+    "#65120B"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Mi Vecino Totoro",
+    "autor": "Hayao Miyazaki",
+    "frases": [
+     "🌅 Observa cómo los árboles susurran historias al viento.",
+     "⏳ ¿Qué secretos de la naturaleza has olvidado en tu vida adulta?",
+     "🌊 Imagina un campo lleno de flores donde los seres mágicos juegan.",
+     "💡 En cada rayo de sol, la infancia encuentra su luz."
+    ],
+    "url": "https://app.triggui.com/kids/t/mi-vecino-totoro/"
+   },
+   "en": {
+    "libro": "Mi Vecino Totoro",
+    "autor": "Hayao Miyazaki",
+    "frases": [
+     "🌅 Look closely at the world around you; magic hides in plain sight.",
+     "🌬 Pause and listen. What does nature whisper to you today?",
+     "🌊 Picture a child dancing among the trees, laughter blending with the rustle of leaves.",
+     "🌓 In every moment of simplicity, the extraordinary awaits discovery."
+    ],
+    "url": "https://app.triggui.com/kids/t/mi-vecino-totoro/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/mi-vecino-totoro/og.jpg",
+    "en": "https://app.triggui.com/kids/t/mi-vecino-totoro/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/mi-vecino-totoro/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/mi-vecino-totoro/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "882410533",
+     "cancion": "Totoro",
+     "artista": "Joe Hisaishi",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/24/68/17/246817d9-5f5a-8b7b-2529-71ae72567a33/mzaf_12833270588066119220.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/f7/46/1a/f7461a63-8b15-3b78-eb08-8116f6547ed2/TKCA-72725.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/totoro/882410520?i=882410533&uo=4",
+     "pie": "La música de Totoro evoca la magia de la naturaleza y la amistad, iluminando el alma de los niños y adultos.",
+     "rol": "resonar",
+     "armonia": 10
+    },
+    {
+     "id": "882410542",
+     "cancion": "Mi Vecino Totoro (Tema Principal - Tema Final)",
+     "artista": "Joe Hisaishi & 井上あずみ",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/a6/6d/a9/a66da9c8-3133-211a-74aa-dceb3a92c9d5/mzaf_8289863529031419500.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/f7/46/1a/f7461a63-8b15-3b78-eb08-8116f6547ed2/TKCA-72725.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/mi-vecino-totoro-tema-principal-tema-final/882410520?i=882410542&uo=4",
+     "pie": "El tema principal de Totoro invita a descubrir la magia en lo cotidiano, llenando de asombro a quien escucha.",
+     "rol": "abrir",
+     "armonia": 10
+    },
+    {
+     "id": "882410543",
+     "cancion": "¡Vamos de Paseo! (Con Coro)",
+     "artista": "Joe Hisaishi & 井上あずみ",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/b2/d9/e7/b2d9e79e-b644-84d8-0224-0634d4264dbf/mzaf_1446231055387575746.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music6/v4/f7/46/1a/f7461a63-8b15-3b78-eb08-8116f6547ed2/TKCA-72725.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/vamos-de-paseo-con-coro/882410520?i=882410543&uo=4",
+     "pie": "¡Vamos de Paseo! es un llamado a la aventura y la exploración, perfecto para encender la curiosidad infantil.",
+     "rol": "abrir",
+     "armonia": 9
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "pulgarcito",
+   "catalogo": "kids",
+   "colores": [
+    "#F1B97E",
+    "#308AE8",
+    "#AE8913",
+    "#0B2165"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Pulgarcito",
+    "autor": "Charles Perrault",
+    "frases": [
+     "💫 Imagina el bosque oscuro y espeso donde Pulgarcito se enfrenta a lo desconocido.",
+     "⏳ ¿Cómo te sentirías si tu valor dependiera de tu ingenio?",
+     "🔭 Visualiza a Pulgarcito, pequeño pero audaz, desafiando las expectativas de todos.",
+     "📻 La valentía no siempre se mide por el tamaño, sino por el corazón."
+    ],
+    "url": "https://app.triggui.com/kids/t/pulgarcito/"
+   },
+   "en": {
+    "libro": "Pulgarcito",
+    "autor": "Charles Perrault",
+    "frases": [
+     "🌅 Picture the forest where small feet tread cautiously, each step a testament to bravery.",
+     "🏛 Consider how a child's heart can conquer the shadows of despair. What would you do?",
+     "🌊 In the depths of the woods, a tiny figure stands tall, defying the odds with every clever trick.",
+     "🌓 Every small hero carries a legacy larger than life itself."
+    ],
+    "url": "https://app.triggui.com/kids/t/pulgarcito/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/pulgarcito/og.jpg",
+    "en": "https://app.triggui.com/kids/t/pulgarcito/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/pulgarcito/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/pulgarcito/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "198630480",
+     "cancion": "The Sorcerer's Apprentice",
+     "artista": "Alexander Anissimov & RTÉ National Symphony Orchestra",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/Music/00/cc/f2/mzm.hgwqrawa.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/0d/71/a2/mzi.fwgehdxv.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/the-sorcerers-apprentice/198627593?i=198630480&uo=4",
+     "pie": "El Aprendiz de Hechicero tiene un toque de magia y travesura que puede resonar con la astucia de Pulgarcito.",
+     "rol": "abrir",
+     "armonia": 7
+    },
+    {
+     "id": "1440834757",
+     "cancion": "Peer Gynt Suite No. 1, Op. 46: I. Morning Mood",
+     "artista": "Berlin Philharmonic & Herbert von Karajan",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ee/33/56/ee335621-19a0-dd42-f4b5-b37c9fa2c7fb/mzaf_13691046910817788068.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/52/e4/91/52e49147-b72a-a5b4-6bdd-523fefa4ece9/12UMGIM58444.rgb.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/us/album/peer-gynt-suite-no-1-op-46-i-morning-mood/1440833431?i=1440834757&uo=4",
+     "pie": "La Suite Peer Gynt tiene un aire de calma que puede acompañar la lectura, aunque no es del todo vibrante.",
+     "rol": "profundizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  },
+  {
+   "slug": "si-le-das-una-galletita-a-un-raton",
+   "catalogo": "kids",
+   "colores": [
+    "#7EF1DB",
+    "#E83054",
+    "#13A6AE",
+    "#65100B"
+   ],
+   "textColors": [
+    "#000000",
+    "#FFFFFF",
+    "#FFFFFF",
+    "#FFFFFF"
+   ],
+   "es": {
+    "libro": "Si le das una Galletita a un Raton",
+    "autor": "Laura Numeroff",
+    "frases": [
+     "🌅 Imagina al ratón mirando la galleta con ojos brillantes.",
+     "⏳ ¿Qué deseas tú que podría empezar un ciclo de sorpresas?",
+     "🔭 El ratón corre, salta y baila con cada nuevo deseo que surge.",
+     "🧘 Cada deseo es un nuevo viaje que comienza con una simple acción."
+    ],
+    "url": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/"
+   },
+   "en": {
+    "libro": "Si le das una Galletita a un Raton",
+    "autor": "Laura Numeroff",
+    "frases": [
+     "🌅 Imagine a little mouse discovering a world filled with tasty treats, each desire leading to the next.",
+     "🚶 Consider how a simple cookie can set off a whirlwind of wishes and actions!",
+     "🕯 Picture the mouse, wide-eyed and curious, exploring each new demand it makes!",
+     "🌓 Each wish unfolds a journey; every need sparks a new adventure!"
+    ],
+    "url": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/en/"
+   },
+   "og": {
+    "es": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/og.jpg",
+    "en": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/og_en.jpg"
+   },
+   "full": {
+    "es": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/tarjeta.png",
+    "en": "https://app.triggui.com/kids/t/si-le-das-una-galletita-a-un-raton/tarjeta_en.png"
+   },
+   "musica": [
+    {
+     "id": "299807342",
+     "cancion": "Linus and Lucy",
+     "artista": "Vince Guaraldi",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/6d/85/5a/6d855a87-b6e5-65e7-da6a-6c541bf0ac8f/mzaf_3459095518216350178.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music/77/4d/ec/mzi.erqlatmw.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/linus-and-lucy/299807334?i=299807342&uo=4",
+     "pie": "La pieza de Guaraldi es juguetona y llena de energía, perfecta para iniciar la aventura del cuento.",
+     "rol": "abrir",
+     "armonia": 9
+    },
+    {
+     "id": "254979664",
+     "cancion": "Baby Elephant Walk",
+     "artista": "Henry Mancini",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/39/19/51/3919510d-e65c-48f7-3502-744917e4cbf8/mzaf_6752729325123383108.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Features/dd/cc/11/dj.ukrytjah.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/baby-elephant-walk/254979185?i=254979664&uo=4",
+     "pie": "La melodía de Mancini evoca un juego ligero, ideal para despertar la curiosidad del niño.",
+     "rol": "abrir",
+     "armonia": 6
+    },
+    {
+     "id": "1013876849",
+     "cancion": "Hungarian Rhapsody No. 2, S. 244/2",
+     "artista": "Alfred Brendel",
+     "preview": "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview115/v4/7f/0c/ff/7f0cff9d-60e2-b5e4-dffc-c7fea1f98f08/mzaf_10546212310433311054.plus.aac.p.m4a",
+     "art": "https://is1-ssl.mzstatic.com/image/thumb/Music5/v4/ba/05/d0/ba05d08a-84bb-8ce3-64ca-d68a727e940d/889845353812.jpg/600x600bb.jpg",
+     "link": "https://music.apple.com/mx/album/hungarian-rhapsody-no-2-s-244-2/1013869858?i=1013876849&uo=4",
+     "pie": "La Rapsodia Húngara No. 2 es vibrante, pero su complejidad puede no conectar con el cuento.",
+     "rol": "aterrizar",
+     "armonia": 6
+    }
+   ],
+   "musica_juez": "gpt-4o-mini"
+  }
+ ]
+}

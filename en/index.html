@@ -1134,6 +1134,7 @@ document.querySelectorAll('.glass-card,.testimonial-card').forEach(el=>{el.style
 .esp-b2{background:linear-gradient(150deg,#A9CFC6 0%,#8FB6B0 100%)}
 .esp-b3{background:linear-gradient(150deg,#E7B6B0 0%,#C7A9C9 100%)}
 .esp-b4{background:linear-gradient(150deg,#C6CFC0 0%,#9FB0A2 100%)}
+.esp-wa{grid-column:1 / -1;justify-self:start;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:rgba(0,255,136,.12);border:1px solid rgba(0,255,136,.35);color:#00FF88;font-weight:800;font-size:13px;text-decoration:none;transition:background .2s}.esp-wa:hover{background:rgba(0,255,136,.22)}
 .esp-share{grid-column:1 / -1;display:flex;gap:12px;align-items:center;background:#0C1114;border-radius:12px;padding:12px 14px;
   border:1px solid rgba(245,240,232,.07)}
 .esp-share p{margin:0;flex:1;font-family:'Noto Serif Display',Georgia,serif;font-size:15px;line-height:1.28;color:#F5F0E8}
@@ -1439,6 +1440,7 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
           "<p>" + esc(c.ogDesc) + "</p>" +
           '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">' +
         "</div>" +
+        '<a class="esp-wa" data-slug="' + esc(t.slug || "") + '" href="https://wa.me/?text=' + encodeURIComponent((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?utm_source=whatsapp&utm_medium=compartir&utm_campaign=" + encodeURIComponent(t.slug || ""))) + '" target="_blank" rel="noopener">' + (lang === "en" ? "Share on WhatsApp &rarr;" : "Compartir por WhatsApp &rarr;") + "</a>" +
         '<a class="esp-tira" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener">' +
           '<span class="esp-tira-t">' + (lang === "en" ? "Enter your Spiral" : "Entra a tu Espiral") + "</span>" +
           '<span class="esp-tira-s">' + (lang === "en" ? "Members only · your personal collection" : "Solo miembros · tu colección personal") + "</span>" +
@@ -1446,6 +1448,7 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
         "</a>" +
       "</div>";
     if (window.__lvinMonta) { try { window.__lvinMonta(caja, t, lang); } catch (e) { console.warn("Triggui \u00b7 vinilo:", e); } }
+    if (!caja.__waTrack) { caja.__waTrack = 1; caja.addEventListener("click", function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest(".esp-wa") : null; if (a) { try { gtag("event", "share_wa", { contexto: "landing", slug: a.getAttribute("data-slug") || "" }); } catch (e) {} } }); }
   }
   function arranca(d) {
     window.__TV_VITRINA = d;

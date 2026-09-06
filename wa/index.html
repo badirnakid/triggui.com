@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Sala de envío · Triggui</title>
+<link rel="icon" href="/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZKG8ZNSB35"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZKG8ZNSB35');</script>
+<style>
+:root{--n:#0B0F1A;--n2:#0E1324;--c:#F5F0E8;--g:#E8A838;--co:#FF6B4A;--t:#4ECDC4;--gr:#00FF88;--w6:rgba(255,255,255,.06);--w10:rgba(255,255,255,.10);--w16:rgba(255,255,255,.16);--dim:rgba(245,240,232,.62)}
+*{box-sizing:border-box}html{background:var(--n)}body{margin:0;background:var(--n);color:var(--c);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit}button{font:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:16px 14px 110px}
+.hd{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.hd h1{margin:0;font-size:22px;font-weight:800;background:linear-gradient(90deg,var(--g),var(--co));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hd small{color:var(--dim)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 14px}
+.pill{display:inline-flex;border:1px solid var(--w16);border-radius:999px;overflow:hidden;font-size:12px;font-weight:700}
+.pill button{background:transparent;border:0;color:var(--dim);padding:8px 13px}.pill button.on{background:var(--c);color:var(--n)}
+select{background:var(--n2);color:var(--c);border:1px solid var(--w16);border-radius:12px;padding:9px 12px;font:inherit;font-size:13px;max-width:100%}
+.card{background:var(--w6);border:1px solid var(--w16);border-radius:18px;padding:14px;margin-bottom:14px}
+h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin:0 0 10px;font-weight:800}
+.ed{display:flex;gap:12px;align-items:center}.ed img{width:76px;height:76px;border-radius:10px;object-fit:cover;background:#111}
+.ed b{display:block;font-size:15px}.ed span{color:var(--dim);font-size:12px;display:block}
+.chk{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--w6)}.chk:last-child{border:0}
+.chk input{width:20px;height:20px;accent-color:var(--gr);flex:none}.chk small{display:block;color:var(--dim);font-size:12px}.chk.off{opacity:.45}
+.chips{display:flex;flex-direction:column;gap:6px;margin-bottom:8px}
+.chip{text-align:left;border:1px solid var(--w16);border-radius:12px;padding:9px 11px;font-size:13px;color:rgba(245,240,232,.85);background:transparent}
+.chip.on{border-color:var(--t);background:rgba(78,205,196,.12);color:var(--c)}
+textarea,input[type=text],input[type=password]{width:100%;background:rgba(0,0,0,.35);border:1px solid var(--w16);border-radius:12px;color:var(--c);padding:10px 12px;font:inherit;font-size:13px}
+textarea{min-height:64px;resize:vertical}
+.prev{background:#0b141a;border-radius:12px;padding:10px 12px;font-size:13px;white-space:pre-wrap;word-break:break-word;border:1px solid var(--w10)}
+.prev+.prev{margin-top:8px}
+.btn{font-size:12px;font-weight:800;padding:9px 12px;border-radius:10px;border:1px solid var(--w16);background:transparent;color:var(--c);white-space:nowrap}
+.btn.p{background:var(--c);color:var(--n);border-color:var(--c)}.btn.g{background:var(--g);color:var(--n);border-color:var(--g)}.btn.gr{background:var(--gr);color:var(--n);border-color:var(--gr)}
+.btn:disabled{opacity:.4;cursor:default}
+.row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--w6)}.row:last-child{border:0}
+.row .who{flex:1;min-width:0}.row .who b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .who span{font-size:12px;color:var(--dim)}
+.row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.tag{font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:var(--w10);color:rgba(245,240,232,.8)}
+.tag.k{background:rgba(255,107,74,.18);color:var(--co)}.tag.w{background:rgba(232,168,56,.2);color:var(--g)}.tag.x{background:rgba(255,80,80,.2);color:#ff8a8a}
+.ok{width:26px;height:26px;border-radius:50%;background:var(--gr);color:var(--n);display:flex;align-items:center;justify-content:center;font-weight:900;flex:none;border:0}
+.ok.no{background:var(--w10);color:var(--dim)}
+.prog{height:8px;background:var(--w10);border-radius:99px;overflow:hidden;margin:6px 0 12px}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--co));transition:width .3s}
+.mini{font-size:12px;color:var(--dim)}
+.foot{position:fixed;left:0;right:0;bottom:0;background:rgba(11,15,26,.94);backdrop-filter:blur(10px);border-top:1px solid var(--w16);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.gate{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.gate .card{width:100%;max-width:420px}
+.gate h1{font-size:24px;margin:0 0 6px;font-weight:800;background:linear-gradient(90deg,var(--g),var(--co));-webkit-background-clip:text;background-clip:text;color:transparent}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--c);color:var(--n);padding:10px 14px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
+.toast.on{opacity:1}
+.hide{display:none !important}
+@media(min-width:1024px){.grid{display:grid;grid-template-columns:440px 1fr;gap:20px;align-items:start}.wrap{padding-top:24px}.hd h1{font-size:26px}}
+</style>
+</head>
+<body>
+
+<!-- 🔒 PUERTA: tu clave de espiral, validada contra el mismo Apps Script de /mi -->
+<div id="gate" class="gate">
+  <div class="card">
+    <h1>Sala de envío</h1>
+    <p class="mini" style="margin:0 0 14px">Tu clave de la espiral. Nada de aquí sale de tu navegador.</p>
+    <input id="clave" type="password" placeholder="tu clave de miembro" autocomplete="off">
+    <button id="entrar" class="btn p" style="width:100%;margin-top:10px;padding:12px">Entrar</button>
+    <p id="gateMsg" class="mini" style="margin:10px 0 0;min-height:18px"></p>
+  </div>
+</div>
+
+<div id="app" class="wrap hide">
+  <div class="hd"><div><h1>Sala de envío</h1><small id="fecha"></small></div>
+    <div class="pills">
+      <div class="pill" id="pLang"><button data-v="es" class="on">ES</button><button data-v="en">EN</button></div>
+      <div class="pill" id="pCat"><button data-v="adultos" class="on">Adultos</button><button data-v="kids">Kids</button></div>
+    </div>
+  </div>
+
+  <div class="grid">
+  <div>
+    <div class="card">
+      <h2>Edición</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+        <label class="mini" style="flex:1;min-width:160px">Adultos<br><select id="selA" style="width:100%"></select></label>
+        <label class="mini" style="flex:1;min-width:160px">Kids<br><select id="selK" style="width:100%"></select></label>
+      </div>
+      <div class="ed"><img id="edImg" alt=""><div><b id="edTit">—</b><span id="edSub"></span><span id="edMeta"></span></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Qué incluir</h2>
+      <div class="chk"><input type="checkbox" checked disabled><div>Frase + link con vista previa<small>Un mensaje: la frase, el OG y el link marcado</small></div></div>
+      <div class="chk"><input type="checkbox" id="incTarjeta" checked><div>Tarjeta completa (imagen)<small id="tarjetaHint">Celular: botón Tarjeta por persona · Laptop: Copiar tarjeta una vez y Ctrl+V en cada chat</small></div></div>
+      <div class="chk"><input type="checkbox" id="incPieza" checked><div>🎧 La pieza<small id="piezaHint">—</small></div></div>
+      <div class="chk" id="chkVideo"><input type="checkbox" id="incVideo"><div>🎬 El video<small id="videoHint">—</small></div></div>
+    </div>
+
+    <div class="card">
+      <h2>Frase del mensaje</h2>
+      <div class="chips" id="chips"></div>
+      <textarea id="frase" placeholder="o escribe la tuya…"></textarea>
+      <p class="mini" style="margin:8px 0 0">Las filas en el otro idioma usan la misma frase (por número) en su idioma.</p>
+    </div>
+
+    <div class="card">
+      <h2>Vista previa</h2>
+      <div id="prevs"></div>
+      <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button id="copiarTarjeta" class="btn g">Copiar tarjeta (una vez)</button>
+        <button id="copiarMsg" class="btn">Copiar mensaje</button>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card">
+      <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
+      <div class="prog"><i id="bar"></i></div>
+      <div id="lista"></div>
+      <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Editar lista (pegar filas)</summary>
+        <p class="mini" style="margin:8px 0">Una por línea: <b>Nombre, número, es|en, adultos|kids</b> — idioma y catálogo son opcionales.</p>
+        <textarea id="pegar" placeholder="Andrea M., +52 55 1234 5678, es, adultos&#10;Elena, 2221112233, es, kids&#10;Diego, +52 81 2233 4455, en"></textarea>
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button id="guardarLista" class="btn p">Guardar lista</button>
+          <button id="exportar" class="btn">Exportar</button>
+          <label class="btn" style="display:inline-flex;align-items:center">Importar<input id="importar" type="file" accept="application/json" class="hide"></label>
+          <button id="reiniciar" class="btn">Reiniciar ✅ de esta edición</button>
+        </div>
+      </details>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="foot hide" id="foot">
+  <button id="siguiente" class="btn p">Siguiente pendiente →</button>
+  <button id="salir" class="btn">Salir</button>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+(function(){
+  'use strict';
+  var EXEC='https://script.google.com/macros/s/AKfycbwWcUceg333PMcmSsLbEUAsx3os8AJ3Wdmjruv7zshHTqNmoxTastOsDU1h7V8qPk0nIQ/exec';
+  var ADMIN_HASHES=[]; // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
+  var $=function(id){return document.getElementById(id);};
+  var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{}};
+  var LS={lista:'tg_wa_lista',env:'tg_wa_env',prefs:'tg_wa_prefs'};
+  function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2200);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function guarda(){try{localStorage.setItem(LS.lista,JSON.stringify(st.lista));localStorage.setItem(LS.env,JSON.stringify(st.env));localStorage.setItem(LS.prefs,JSON.stringify({lang:st.lang,cat:st.cat,edA:st.edA,edK:st.edK,frase:st.frase,fraseIdx:st.fraseIdx,inc:{t:$('incTarjeta').checked,p:$('incPieza').checked,v:$('incVideo').checked}}));}catch(e){}}
+  function carga(){try{st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.edA)st.edA=p.edA;if(p.edK)st.edK=p.edK;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
+
+  // ── números: la lista es la única verdad ──
+  function normaliza(raw){var d=String(raw||'').replace(/\D/g,'');var nota='';
+    if(d.length>=14&&d.slice(0,4)==='5252'){d=d.slice(2);nota='52 duplicado, corregido';}
+    if(d.length===13&&d.slice(0,3)==='521'){d='52'+d.slice(3);nota='sin el 1 viejo';}
+    if(d.length===10){d='52'+d;nota='+52 añadido';}
+    var ok=/^52\d{10}$/.test(d);
+    return {tel:d,ok:ok,nota:ok?nota:'revisa: no cuadra con +52 y 10 dígitos'};}
+  function bonito(tel){return tel.length===12?'+52 '+tel.slice(2,4)+' '+tel.slice(4,8)+' '+tel.slice(8):'+'+tel;}
+  function parseLista(txt){var out=[];txt.split(/\n+/).forEach(function(l){l=l.trim();if(!l)return;var p=l.split(/[,;\t]/).map(function(x){return x.trim();});
+    var nombre=p[0]||'',tel=p[1]||'',lang=(p[2]||'').toLowerCase().indexOf('en')===0?'en':'es',cat=(p[3]||'').toLowerCase().indexOf('kid')===0?'kids':'adultos';
+    if(!tel&&/\d{8,}/.test(nombre)){tel=nombre;nombre='';}
+    var n=normaliza(tel); out.push({nombre:nombre||bonito(n.tel),tel:n.tel,ok:n.ok,nota:n.nota,lang:lang,cat:cat});});return out;}
+
+  // ── edición y mensajes ──
+  function tarjetasDe(cat){return ((cat==='kids'?st.kids:st.vit)||{}).tarjetas||[];}
+  function edDe(cat){var ts=tarjetasDe(cat);var slug=cat==='kids'?st.edK:st.edA;return ts.filter(function(t){return t.slug===slug;})[0]||ts[0]||null;}
+  function idiomaDe(t,lang){return (lang==='en'&&t.en)?t.en:t.es;}
+  function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?utm_source=whatsapp&utm_medium=sala&utm_campaign='+encodeURIComponent(t.slug);}
+  function fraseDe(t,lang){var c=idiomaDe(t,lang);var f=(c.frases||[]);if(st.frase&&lang===st.lang)return st.frase;return f[st.fraseIdx]||f[0]||st.frase||'';}
+  function msgLink(t,lang){return (fraseDe(t,lang)?fraseDe(t,lang)+'\n':'')+urlDe(t,lang);}
+  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';return (lang==='en'?'🎧 The piece for this book: ':'🎧 La pieza de este libro: ')+m.cancion+' — '+m.artista+(m.link?'\n'+m.link:'');}
+  function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return '🎬 '+(v.titulo||'')+'\nhttps://youtu.be/'+v.id;}
+  function ed(){return edDe(st.cat);}
+
+  function pintaEdicion(){var t=ed();if(!t)return;var c=idiomaDe(t,st.lang);
+    $('edImg').src=(t.og&&(t.og[st.lang]||t.og.es))||'';$('edTit').textContent=c.libro||t.slug;$('edSub').textContent=(c.autor||'')+(t.catalogo==='kids'||st.cat==='kids'?' · Kids':'');
+    var m=(t.musica||[])[0],v=(t.video||[])[0];
+    $('edMeta').textContent=((c.frases||[]).length)+' frases'+(m?' · 🎧 '+m.cancion+' — '+m.artista:' · sin pieza')+(v?' · 🎬 1 video':'');
+    $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+' (link a Apple Music)'):'esta edición no tiene pieza';$('incPieza').disabled=!m;
+    var hayV=!!v&&st.cat!=='kids';$('videoHint').textContent=hayV?(v.titulo||'')+' (link a YouTube)':(st.cat==='kids'?'kids no lleva video (por diseño)':'sin video');$('incVideo').disabled=!hayV;$('chkVideo').classList.toggle('off',!hayV);if(!hayV)$('incVideo').checked=false;
+    var ch=$('chips');ch.innerHTML='';(c.frases||[]).forEach(function(f,i){var b=document.createElement('button');b.className='chip'+(i===st.fraseIdx&&!st.frase?' on':'');b.textContent=f;b.onclick=function(){st.fraseIdx=i;st.frase='';$('frase').value=f;guarda();pintaEdicion();pintaPrev();};ch.appendChild(b);});
+    if(!st.frase)$('frase').value=(c.frases||[])[st.fraseIdx]||'';}
+  function pintaPrev(){var t=ed();if(!t)return;var ps=[msgLink(t,st.lang)];if($('incTarjeta').checked)ps.push((st.lang==='en'?'[tarjeta completa como imagen]':'[tarjeta completa como imagen]')+'\n'+fraseDe(t,st.lang));if($('incPieza').checked&&!$('incPieza').disabled)ps.push(msgPieza(t,st.lang));if($('incVideo').checked&&!$('incVideo').disabled)ps.push(msgVideo(t));
+    $('prevs').innerHTML=ps.map(function(p){return '<div class="prev">'+esc(p)+'</div>';}).join('');}
+
+  // ── lista y envíos ──
+  function envDe(slug,tel){st.env[slug]=st.env[slug]||{};st.env[slug][tel]=st.env[slug][tel]||{};return st.env[slug][tel];}
+  function marca(slug,tel,tipo){envDe(slug,tel)[tipo]=Date.now();guarda();pintaLista();}
+  function abre(url){var w=window.open(url,'_blank','noopener');if(!w)location.href=url;}
+  function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
+  var movil=/iPhone|iPad|Android/i.test(navigator.userAgent);
+  function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
+    st.lista.forEach(function(s,i){var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho)hechos++;
+      var r=document.createElement('div');r.className='row';
+      r.innerHTML='<button class="ok'+(hecho?'':' no')+'" title="marcar / desmarcar">'+(hecho?'✓':'·')+'</button>'+
+        '<div class="who"><b>'+esc(s.nombre)+'</b><span>'+esc(bonito(s.tel))+(s.ok?'':' <span class="tag x">'+esc(s.nota)+'</span>')+(s.ok&&s.nota?' <span class="tag w">'+esc(s.nota)+'</span>':'')+'</span></div>'+
+        '<span class="tag'+(s.cat==='kids'?' k':'')+'">'+(s.cat==='kids'?'Kids':'')+(s.cat==='kids'&&s.lang==='en'?' · ':'')+(s.lang==='en'?'EN':(s.cat==='kids'?'':'ES'))+'</span>'+
+        '<div class="acts">'+
+          '<button class="btn p" data-a="link">'+(hecho?'Otra vez':'Abrir chat')+'</button>'+
+          (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn" data-a="pieza">🎧'+(e.pieza?' ✓':'')+'</button>':'')+
+          (($('incVideo').checked&&(t.video||[]).length&&s.cat!=='kids')?'<button class="btn" data-a="video">🎬'+(e.video?' ✓':'')+'</button>':'')+
+          (($('incTarjeta').checked&&movil)?'<button class="btn" data-a="tarjeta">Tarjeta'+(e.tarjeta?' ✓':'')+'</button>':'')+
+        '</div>';
+      r.querySelector('.ok').onclick=function(){if(e.link){delete st.env[t.slug][s.tel];}else{marca(t.slug,s.tel,'link');}guarda();pintaLista();};
+      r.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){var a=b.getAttribute('data-a');
+        if(a==='link'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
+        else if(a==='pieza'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
+        else if(a==='video'){abre('https://wa.me/'+s.tel+'?text='+encodeURIComponent(msgVideo(t)));marca(t.slug,s.tel,'video');evento('video',t,s.lang,s.cat);}
+        else if(a==='tarjeta'){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}
+      };});
+      L.appendChild(r);});
+    $('cnt').textContent=hechos+' / '+st.lista.length;$('bar').style.width=(st.lista.length?Math.round(hechos*100/st.lista.length):0)+'%';}
+
+  // ── tarjeta: copiar (laptop) / compartir (celular) ──
+  function blobTarjeta(t,lang){var u=(t.full&&(t.full[lang]||t.full.es))||'';return fetch(u,{mode:'cors',cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('tarjeta');return r.blob();});}
+  function compartirTarjeta(t,lang,pie){return blobTarjeta(t,lang).then(function(b){var f=new File([b],'triggui-tarjeta.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]}))return navigator.share({files:[f],text:pie}).then(function(){return true;},function(){return false;});toast('Este navegador no comparte imágenes; usa Copiar tarjeta');return false;}).catch(function(){toast('No pude traer la tarjeta');return false;});}
+  $('copiarTarjeta').onclick=function(){var t=ed();if(!t)return;blobTarjeta(t,st.lang).then(function(b){if(!navigator.clipboard||!window.ClipboardItem)throw new Error('clip');return navigator.clipboard.write([new ClipboardItem({'image/png':b})]);}).then(function(){toast('Tarjeta copiada · en cada chat: Ctrl+V y Enter');}).catch(function(){toast('Tu navegador no copia imágenes; usa el celular (botón Tarjeta)');});};
+  $('copiarMsg').onclick=function(){var t=ed();if(!t)return;navigator.clipboard.writeText(msgLink(t,st.lang)).then(function(){toast('Mensaje copiado');});};
+
+  // ── controles ──
+  function pill(id,key,cb){$(id).querySelectorAll('button').forEach(function(b){b.onclick=function(){$(id).querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');st[key]=b.getAttribute('data-v');st.frase='';guarda();cb();};});}
+  pill('pLang','lang',function(){pintaEdicion();pintaPrev();pintaLista();});
+  pill('pCat','cat',function(){pintaEdicion();pintaPrev();pintaLista();});
+  ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();};});
+  $('frase').oninput=function(){st.frase=$('frase').value.trim();guarda();pintaEdicion();pintaPrev();};
+  $('selA').onchange=function(){st.edA=$('selA').value;guarda();pintaEdicion();pintaPrev();pintaLista();};
+  $('selK').onchange=function(){st.edK=$('selK').value;guarda();pintaEdicion();pintaPrev();pintaLista();};
+  $('guardarLista').onclick=function(){var l=parseLista($('pegar').value);if(!l.length){toast('No leí ninguna fila');return;}st.lista=l;guarda();pintaLista();toast(l.length+' suscriptores guardados');};
+  $('exportar').onclick=function(){var a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify({lista:st.lista,env:st.env},null,1));a.download='triggui-sala.json';a.click();};
+  $('importar').onchange=function(ev){var f=ev.target.files[0];if(!f)return;f.text().then(function(txt){var d=JSON.parse(txt);if(d.lista)st.lista=d.lista;if(d.env)st.env=d.env;guarda();pintaLista();toast('Lista importada');});};
+  $('reiniciar').onclick=function(){var t=ed();if(!t)return;if(confirm('¿Reiniciar los ✅ de «'+(idiomaDe(t,st.lang).libro||t.slug)+'»?')){delete st.env[t.slug];guarda();pintaLista();}};
+  $('siguiente').onclick=function(){var t=ed();var r=null;st.lista.some(function(s,i){var tt=edDe(s.cat);if(tt&&!((st.env[tt.slug]||{})[s.tel]||{}).link){r=$('lista').children[i];return true;}});if(r){r.scrollIntoView({behavior:'smooth',block:'center'});r.style.outline='2px solid var(--g)';setTimeout(function(){r.style.outline='';},1200);}else toast('Nadie pendiente 🎉');};
+  $('salir').onclick=function(){sessionStorage.removeItem('tg_wa_ok');location.reload();};
+
+  // ── arranque ──
+  function llenaSelect(sel,ts,cur){sel.innerHTML='';ts.forEach(function(t){var o=document.createElement('option');o.value=t.slug;o.textContent=(t.es.libro||t.slug);sel.appendChild(o);});if(cur&&ts.some(function(t){return t.slug===cur;}))sel.value=cur;}
+  function arranca(){$('gate').classList.add('hide');$('app').classList.remove('hide');$('foot').classList.remove('hide');
+    $('fecha').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'short'});
+    carga();$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
+    Promise.all([fetch('/vitrina.json',{cache:'no-store'}).then(function(r){return r.json();}),fetch('/vitrina_kids.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{tarjetas:[]};}).catch(function(){return {tarjetas:[]};})]).then(function(rs){
+      st.vit=rs[0];st.kids=rs[1];var ta=st.vit.tarjetas||[],tk=st.kids.tarjetas||[];
+      if(!st.edA||!ta.some(function(t){return t.slug===st.edA;}))st.edA=(ta[0]||{}).slug||'';if(!st.edK||!tk.some(function(t){return t.slug===st.edK;}))st.edK=(tk[0]||{}).slug||'';
+      llenaSelect($('selA'),ta,st.edA);llenaSelect($('selK'),tk,st.edK);
+      if(st.lista.length)$('pegar').value=st.lista.map(function(s){return s.nombre+', +'+s.tel+', '+s.lang+', '+s.cat;}).join('\n');
+      pintaEdicion();pintaPrev();pintaLista();guarda();
+    }).catch(function(){toast('No pude cargar la vitrina');});}
+  function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(h){return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');});}
+  $('entrar').onclick=function(){var clave=$('clave').value.trim();if(!clave)return;$('gateMsg').textContent='Validando…';var fd=new FormData();fd.append('accion','espiral');fd.append('clave',clave);
+    fetch(EXEC,{method:'POST',body:fd}).then(function(r){return r.ok?r.json():null;}).then(function(r){if(!r||r.ok!==true)throw new Error('clave');return ADMIN_HASHES.length?sha256(clave).then(function(h){if(ADMIN_HASHES.indexOf(h)<0)throw new Error('admin');}):null;}).then(function(){sessionStorage.setItem('tg_wa_ok','1');arranca();}).catch(function(e){$('gateMsg').textContent=e.message==='admin'?'Esta sala es de administración.':'Clave no válida.';});};
+  $('clave').addEventListener('keydown',function(e){if(e.key==='Enter')$('entrar').click();});
+  if(sessionStorage.getItem('tg_wa_ok')==='1')arranca();
+})();
+</script>
+</body>
+</html>

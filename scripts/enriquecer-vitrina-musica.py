@@ -37,6 +37,11 @@ def main():
             con += 1
         else:
             t.pop("musica", None); t.pop("musica_juez", None); sin += 1
+        vids = [c for c in ((((b or {}).get("_video") or {}).get("candidatos")) or []) if c.get("id")]
+        if vids:
+            t["video"] = [{"id": c["id"], "titulo": (c.get("titulo") or "")[:90], "rol": c.get("rol", "")} for c in vids[:3]]
+        else:
+            t.pop("video", None)
     vit["musica_enriquecida"] = time.strftime("%Y-%m-%d")
     json.dump(vit, open("vitrina.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"vitrina.json: {con} tarjetas con música · {sin} sin música")

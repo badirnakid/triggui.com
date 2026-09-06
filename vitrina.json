@@ -105,7 +105,14 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "sw1hiCPyy6U",
+     "titulo": "Un libro, una historia con Carina Novarese",
+     "rol": "profundizar"
+    }
+   ]
   },
   {
    "slug": "las-leyes-de-la-simplicidad",
@@ -198,7 +205,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "g8HFgyPKR8s",
+     "titulo": "Espora Digital - Episodio 01 - Simplicidad",
+     "rol": "resonar"
+    },
+    {
+     "id": "q1Er5U1r4yw",
+     "titulo": "Camino a la simplicidad — designaholic ep:86 —  The Laws of Simplicity",
+     "rol": "abrir"
+    },
+    {
+     "id": "BkOlrKqLwMg",
+     "titulo": "V. Completa. Tecnología y diseño para un futuro humanista. John Maeda, diseñador y educado",
+     "rol": "profundizar"
+    }
+   ]
   },
   {
    "slug": "too-soon-old-to-late-smart",
@@ -279,7 +303,14 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "x0C9xyjrpIc",
+     "titulo": "Dr. Gordon Livingston Featured on Why Not with Shania Twain",
+     "rol": "resonar"
+    }
+   ]
   },
   {
    "slug": "frida-para-apasionados",
@@ -478,7 +509,24 @@
      "armonia": 7
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "6ohVUh5sIm0",
+     "titulo": "SUPERA LOS PROBLEMAS EN LA VIDA | El Obstaculo Es El Camino (Ryan Holiday)",
+     "rol": "abrir"
+    },
+    {
+     "id": "dLGv2y7Y-ro",
+     "titulo": "Heroic Interview: The Obstacle Is the Way with Ryan Holiday",
+     "rol": "profundizar"
+    },
+    {
+     "id": "zC7K-yja05M",
+     "titulo": "El OBSTÁCULO es el CAMINO Audiolibro (Ryan Holiday) 🏃‍♂ | (Vale la PENA Leerlo?) 🤔",
+     "rol": "aterrizar"
+    }
+   ]
   },
   {
    "slug": "las-conferencias-de-edimburgo",
@@ -583,7 +631,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "UTqW-thdSxg",
+     "titulo": "LAS CONFERENCIAS DE DORÉ THOMAS TROWARD  CAP 6    EL PODER CREADOR DEL PENSAMIENTO",
+     "rol": "profundizar"
+    },
+    {
+     "id": "Yyc7ckxdsfs",
+     "titulo": "LAS CONFERENCIAS DE DORÉ THOMAS TROWARD CAP 2  INDIVIDUALIDAD",
+     "rol": "aterrizar"
+    },
+    {
+     "id": "jPwmPhrpQr4",
+     "titulo": "Thomas Troward, Conferencias de Edimburgo",
+     "rol": "resonar"
+    }
+   ]
   },
   {
    "slug": "the-next-conversation",
@@ -664,7 +729,24 @@
      "armonia": 8
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "uRQAhWZ1bxs",
+     "titulo": "#1 Blueprint for Mastering Every Conversation (This is How to Communicate with Confidence!",
+     "rol": "abrir"
+    },
+    {
+     "id": "J2-lC70KsbQ",
+     "titulo": "The Next Conversation Starts Here",
+     "rol": "resonar"
+    },
+    {
+     "id": "ZUCB3M_1Qp4",
+     "titulo": "Communicate with Confidence: The Blueprint for Mastering Every Conversation",
+     "rol": "profundizar"
+    }
+   ]
   },
   {
    "slug": "piensalo-otra-vez",
@@ -745,7 +827,24 @@
      "armonia": 4
     }
    ],
-   "musica_juez": "gpt-4o-mini+rescate"
+   "musica_juez": "gpt-4o-mini+rescate",
+   "video": [
+    {
+     "id": "tLACqbCbeDk",
+     "titulo": "374 | Piénsalo otra vez, de Adam Grant",
+     "rol": "profundizar"
+    },
+    {
+     "id": "R8y50TsMuys",
+     "titulo": "Reseña/Resumen Piénsalo Otra Vez (Think Again) | Libros Para Cambiar de Vida",
+     "rol": "resonar"
+    },
+    {
+     "id": "32vr8qeSP1M",
+     "titulo": "Piénsalo otra vez - Adam Grant | Audiolibro resumen",
+     "rol": "aterrizar"
+    }
+   ]
   },
   {
    "slug": "goodbye-things",
@@ -826,7 +925,24 @@
      "armonia": 8
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "s8HiVi9RB6M",
+     "titulo": "Goodbye, Things: The New Japanese Minimalism",
+     "rol": "profundizar"
+    },
+    {
+     "id": "LnmkreQE8UQ",
+     "titulo": "The Ultimate Life Reset: How Less Stuff Changes EVERYTHING",
+     "rol": "resonar"
+    },
+    {
+     "id": "XOXf8TKNliU",
+     "titulo": "Meet The Most Famous Minimalist In Japan: Fumio Sasaki | EVERYDAY BOSSES #8",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "ganbatte",
@@ -907,7 +1023,14 @@
      "armonia": 5
     }
    ],
-   "musica_juez": "gpt-4o-mini+rescate"
+   "musica_juez": "gpt-4o-mini+rescate",
+   "video": [
+    {
+     "id": "GWpt3EfcEGo",
+     "titulo": "Program : BOOK SHARING@UTMKL 4/2024",
+     "rol": "aterrizar"
+    }
+   ]
   },
   {
    "slug": "el-libro-de-elon",
@@ -988,7 +1111,19 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "mP9JUAXcgbE",
+     "titulo": "The Billionaire Operating System: How Elon Musk Actually Thinks | Eric Jorgenson",
+     "rol": "profundizar"
+    },
+    {
+     "id": "nqiuSshC9GA",
+     "titulo": "How Elon Thinks",
+     "rol": "profundizar"
+    }
+   ]
   },
   {
    "slug": "the-5-types-of-wealth",
@@ -1093,7 +1228,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "NegTHmVuepk",
+     "titulo": "Sahil Bloom | The 5 Types of Wealth | Talks at Google",
+     "rol": "profundizar"
+    },
+    {
+     "id": "kNHtdBvgAN8",
+     "titulo": "Author Sahil Bloom shares tips on building wealth beyond money",
+     "rol": "aterrizar"
+    },
+    {
+     "id": "YNavxaDNUGQ",
+     "titulo": "The 5 Types of Wealth",
+     "rol": "resonar"
+    }
+   ]
   },
   {
    "slug": "amor-libertad-y-soledad",
@@ -1198,7 +1350,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "AEwXo1-oCbs",
+     "titulo": "Osho ...los cuatro pasos hacia el amor....La voz del Universo",
+     "rol": "abrir"
+    },
+    {
+     "id": "hFt47b4qxjk",
+     "titulo": "La CLAVE ÚNICA de LAO TSE que Ni BUDA Ni JESÚS ALCANZARON | OSHO",
+     "rol": "profundizar"
+    },
+    {
+     "id": "LS3XyMiZ3ZI",
+     "titulo": "Osho – La Libertad de Ser Nada “ABANDONA LA IDENTIDAD.”",
+     "rol": "resonar"
+    }
+   ]
   },
   {
    "slug": "networking-for-introverts",
@@ -1279,7 +1448,24 @@
      "armonia": 5
     }
    ],
-   "musica_juez": "gpt-4o-mini+rescate"
+   "musica_juez": "gpt-4o-mini+rescate",
+   "video": [
+    {
+     "id": "aEloTxRTpdo",
+     "titulo": "Helen Nicholson: \"You've got it all wrong about introverts and networking\"",
+     "rol": "abrir"
+    },
+    {
+     "id": "lXQEVr5jpA4",
+     "titulo": "Networking for Introverts - Book Launch",
+     "rol": "profundizar"
+    },
+    {
+     "id": "mTPX7nOEE-k",
+     "titulo": "Helen Nicholson: CEO The Networking Company - Networking for Introverts",
+     "rol": "resonar"
+    }
+   ]
   },
   {
    "slug": "the-last-lecture",
@@ -1360,7 +1546,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "ji5_MqicxSo",
+     "titulo": "Randy Pausch's Last Lecture: Achieving Your Childhood Dreams",
+     "rol": "resonar"
+    },
+    {
+     "id": "trMSLXYjNf4",
+     "titulo": "Randy Pausch - Interview Highlights - 10 Minutes - Inspirational - Meaningful - The Last L",
+     "rol": "profundizar"
+    },
+    {
+     "id": "j-a7LRwqwNw",
+     "titulo": "Randy Pausch ABC Special about the \"Last Lecture\", April 2008",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "the-5-resets",
@@ -1453,7 +1656,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "Tob_DDLXImM",
+     "titulo": "Stressed? “Just Relax” Isn't the Answer | Aditi Nerurkar | TED",
+     "rol": "aterrizar"
+    },
+    {
+     "id": "CuCptHYw_-c",
+     "titulo": "Harvard’s stress expert on how to be more resilient | Dr. Aditi Nerurkar",
+     "rol": "profundizar"
+    },
+    {
+     "id": "bfEg7EWtrIw",
+     "titulo": "Five Small Mental Shifts That Can Shift Your Mindset Away From Stress",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "the-algorithm",
@@ -1534,7 +1754,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "Aim-aPd_cys",
+     "titulo": "From $2B to $20B: Jon McNeill on Tesla’s Hypergrowth Algorithm | Technoventure 16",
+     "rol": "profundizar"
+    },
+    {
+     "id": "o1Z_PzdsFZY",
+     "titulo": "Inside the Algorithm: A Conversation with Tesla's Former President, Jon McNeill",
+     "rol": "resonar"
+    },
+    {
+     "id": "FV6_cWuxVmk",
+     "titulo": "Former Tesla President: The Hypergrowth Formula Behind GM and Lululemon",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "ok",
@@ -1615,7 +1852,24 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "4AXTmL4TC6c",
+     "titulo": "Naval Ravikant | The Most Important Skill To Get Rich - And Debunking The Lies [with Charl",
+     "rol": "profundizar"
+    },
+    {
+     "id": "ugqVaSOfR5g",
+     "titulo": "This Will Change How You See Your Thoughts - Naval Ravikant",
+     "rol": "resonar"
+    },
+    {
+     "id": "QVfxLw8l_a4",
+     "titulo": "Lauren Presutti Talks with Eric Jorgensen, Founder of Special Needs Navigator",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "conciencia",
@@ -1749,7 +2003,19 @@
      "canon": true
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "T7CSeU3YDB4",
+     "titulo": "OSHO: Con la Meditación la vida será pura dicha",
+     "rol": "profundizar"
+    },
+    {
+     "id": "4Z3dOvEM0Kw",
+     "titulo": "OSHO: Conocer la verdad es experimentar la existencia tal como es. (Trailer)",
+     "rol": "abrir"
+    }
+   ]
   },
   {
    "slug": "el-poder-del-ahora",
@@ -1878,7 +2144,24 @@
      "armonia": 4
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "3x5zd7fGrPg",
+     "titulo": "ACEPTA EL AHORA | Este Es El Mayor TERROR DEL EGO | Eckhart Tolle",
+     "rol": "profundizar"
+    },
+    {
+     "id": "yZbzzRXWU2Y",
+     "titulo": "✔️ECKHART TOLLE ENTREVISTA  \"EL PODER DEL AHORA\" (PARTE 1)  -  ECKHART TOLLE EN ESPAÑOL✔️",
+     "rol": "resonar"
+    },
+    {
+     "id": "1QsBeYUww_A",
+     "titulo": "El poder del ahora 🙌 Eckhart Tolle | Resumen audiolibro completo en español",
+     "rol": "aterrizar"
+    }
+   ]
   },
   {
    "slug": "grit",
@@ -1971,7 +2254,24 @@
      "armonia": 3
     }
    ],
-   "musica_juez": "gpt-4o-mini+rescate"
+   "musica_juez": "gpt-4o-mini+rescate",
+   "video": [
+    {
+     "id": "H14bBuluwB8",
+     "titulo": "Grit: The Power of Passion and Perseverance | Angela Lee Duckworth | TED",
+     "rol": "resonar"
+    },
+    {
+     "id": "W-ONEAcBeTk",
+     "titulo": "Grit: The Power of Passion and Perseverance | Angela Duckworth | Talks at Google",
+     "rol": "profundizar"
+    },
+    {
+     "id": "19CS4L8v4TE",
+     "titulo": "Angela Duckworth on her new book, the limits of grit, and her advice to founders | Masters",
+     "rol": "profundizar"
+    }
+   ]
   },
   {
    "slug": "nonzero",
@@ -2052,8 +2352,25 @@
      "armonia": 6
     }
    ],
-   "musica_juez": "gpt-4o-mini"
+   "musica_juez": "gpt-4o-mini",
+   "video": [
+    {
+     "id": "wcZFIy2mfyE",
+     "titulo": "Robert Wright: The logic of non-zero-sum progress",
+     "rol": "profundizar"
+    },
+    {
+     "id": "S3FJ045uVmU",
+     "titulo": "Nonzero and The End of History | Robert Wright & Francis Fukuyama",
+     "rol": "resonar"
+    },
+    {
+     "id": "SBbKNaFsDhI",
+     "titulo": "The Dharma of Bob 2: Nonzero | Robert Wright & Josh Summers [The Wright Show]",
+     "rol": "aterrizar"
+    }
+   ]
   }
  ],
- "musica_enriquecida": "2026-09-01"
+ "musica_enriquecida": "2026-09-06"
 }
