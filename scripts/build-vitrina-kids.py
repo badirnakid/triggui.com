@@ -6,12 +6,12 @@ kids_json = sys.argv[1] if len(sys.argv)>1 else "/home/claude/work/content/conte
 app_dir   = sys.argv[2] if len(sys.argv)>2 else "/home/claude/work/app/public/kids/t"
 BASE="https://app.triggui.com/kids/t/"
 K=json.load(open(kids_json,encoding="utf-8"))["libros"]; m={sg(b["titulo"]):b for b in K}; m["cenicienta-original"]=next(b for b in K if b["titulo"]=="Cenicienta")
-out=[]
-for d in sorted(glob.glob(os.path.join(app_dir,"*"))):
-    sl=os.path.basename(d)
-    if not (os.path.exists(f"{d}/tarjeta.png") and os.path.exists(f"{d}/og.jpg")): continue
-    b=m.get(sl) or next((v for k,v in m.items() if sl in k or k in sl), None)
-    if not b: continue
+out=[]; vistos=set()
+# Orden del catálogo (libros[0] = la más reciente), no alfabético: la sala abre en la última edición kids
+for b in K:
+    sl=b.get("_slug") or sg(b["titulo"]); d=os.path.join(app_dir,sl)
+    if sl in vistos or not (os.path.exists(f"{d}/tarjeta.png") and os.path.exists(f"{d}/og.jpg")): continue
+    vistos.add(sl)
     mus=[{k:c.get(k) for k in ("id","cancion","artista","preview","art","link","pie","rol","armonia") if c.get(k) not in (None,"")} for c in ((b.get("_musica") or {}).get("candidatos") or []) if c.get("preview")][:5]
     en_ok=os.path.exists(f"{d}/en/index.html")
     out.append({"slug":sl,"catalogo":"kids","colores":b.get("colores") or [],"textColors":b.get("textColors") or [],

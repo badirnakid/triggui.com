@@ -162,14 +162,23 @@ textarea{min-height:64px;resize:vertical}
   var EXEC='https://script.google.com/macros/s/AKfycbwWcUceg333PMcmSsLbEUAsx3os8AJ3Wdmjruv7zshHTqNmoxTastOsDU1h7V8qPk0nIQ/exec';
   var ADMIN_HASHES=[];
   var CARTERO='https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec';
-  var LS_CAT='tg_wa_cat'; // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
+  var LS_CAT='tg_wa_cat';
+  var RAW='https://raw.githubusercontent.com/badirnakid/triggui-content/main/';
+  var APP='https://app.triggui.com/';
+  // Del catálogo (la misma fuente del cartero: libros[0] = la más reciente) a la forma que usa la sala
+  function desdeCatalogo(libros,kids){var base=APP+(kids?'kids/t/':'t/');return (libros||[]).filter(function(b){return b&&b._slug;}).map(function(b){var sl=b._slug,en=!!(b.tarjeta_en&&(b.frases_en||[]).length);var tj=b.tarjeta||{};
+    return {slug:sl,catalogo:kids?'kids':'adultos',numero:b._edicion_numero||null,colores:b.colores||[],textColors:b.textColors||[],
+      es:{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases||[],ogDesc:(tj.titulo||''),url:base+sl+'/'},
+      en:en?{libro:b.titulo||sl,autor:b.autor||'',frases:b.frases_en||[],ogDesc:((b.tarjeta_en||{}).titulo||''),url:base+sl+'/en/'}:null,
+      og:{es:base+sl+'/og.jpg',en:base+sl+(en?'/og_en.jpg':'/og.jpg')},full:{es:base+sl+'/tarjeta.png',en:base+sl+(en?'/tarjeta_en.png':'/tarjeta.png')},
+      musica:((b._musica||{}).candidatos||[]).filter(function(c){return c&&c.preview;}).slice(0,5),video:kids?[]:((b._video||{}).candidatos||[]).filter(function(c){return c&&c.id;}).slice(0,3)};});} // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
   var $=function(id){return document.getElementById(id);};
   var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{}};
   var LS={lista:'tg_wa_lista',env:'tg_wa_env',prefs:'tg_wa_prefs'};
   function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2200);}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function guarda(){try{localStorage.setItem(LS.lista,JSON.stringify(st.lista));localStorage.setItem(LS.env,JSON.stringify(st.env));localStorage.setItem(LS.prefs,JSON.stringify({lang:st.lang,cat:st.cat,edA:st.edA,edK:st.edK,frase:st.frase,fraseIdx:st.fraseIdx,inc:{t:$('incTarjeta').checked,p:$('incPieza').checked,v:$('incVideo').checked}}));}catch(e){}}
-  function carga(){try{st.catOv=JSON.parse(localStorage.getItem(LS_CAT)||'{}');st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.edA)st.edA=p.edA;if(p.edK)st.edK=p.edK;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
+  function carga(){try{st.catOv=JSON.parse(localStorage.getItem(LS_CAT)||'{}');st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
 
   // ── números: la lista es la única verdad ──
   function normaliza(raw){var d=String(raw||'').replace(/\D/g,'');var nota='';
@@ -219,10 +228,12 @@ textarea{min-height:64px;resize:vertical}
       var manual=st.lista.filter(function(s){return s.fuente==='manual';});
       var filas=(d.filas||[]).map(function(f){var nn=normaliza(f.tel);return {nombre:f.nombre||bonito(nn.tel),tel:nn.tel,ok:nn.ok,nota:nn.nota,lang:(f.lang==='en'?'en':'es'),cat:st.catOv[nn.tel]||'adultos',fuente:'hoja',status:f.status||''};});
       var vistos={};filas.forEach(function(f){vistos[f.tel]=1;});manual=manual.filter(function(m){return !vistos[m.tel];});
-      st.lista=filas.concat(manual);st.hoja={n:filas.length,resumen:d.resumen||{},cuando:Date.now()};guarda();pintaLista();
+      st.lista=filas.concat(manual);st.hoja={n:filas.length,resumen:d.resumen||{},cuando:Date.now()};guarda();pintaLista();if(st.lista.some(function(x){return x.cat==='kids';}))cargaKidsVivo();
       var r=d.resumen||{};$('fuenteTxt').textContent=filas.length+' desde tu hoja · sin teléfono '+(r.sinTel||0)+' · bajas '+(r.unsub||0)+' · expirados '+(r.expirados||0)+(manual.length?' · +'+manual.length+' manual':'');
     }).catch(function(e){var m=String(e&&e.message||'');$('fuenteTxt').textContent=m==='clave'?'La hoja rechazó la clave: revisa WA_ADMIN_CLAVE en el Apps Script':'Tu Apps Script aún no responde lista_wa · lista manual';});}
   $('recargarHoja').onclick=function(){cargaHoja();};
+  var kidsVivo=null;
+  function cargaKidsVivo(){if(kidsVivo)return kidsVivo;kidsVivo=fetch(RAW+'contenido_kids.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){var ts=desdeCatalogo(d.libros,true);if(ts.length){st.kids={tarjetas:ts,fuente:'catálogo'};st.edK=ts[0].slug;llenaSelect($('selK'),ts,st.edK);pintaEdicion();pintaPrev();pintaLista();}}).catch(function(){});return kidsVivo;}
   // ── lista y envíos ──
   function envDe(slug,tel){st.env[slug]=st.env[slug]||{};st.env[slug][tel]=st.env[slug][tel]||{};return st.env[slug][tel];}
   function marca(slug,tel,tipo){envDe(slug,tel)[tipo]=Date.now();guarda();pintaLista();}
@@ -262,7 +273,7 @@ textarea{min-height:64px;resize:vertical}
   // ── controles ──
   function pill(id,key,cb){$(id).querySelectorAll('button').forEach(function(b){b.onclick=function(){$(id).querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');st[key]=b.getAttribute('data-v');st.frase='';guarda();cb();};});}
   pill('pLang','lang',function(){pintaEdicion();pintaPrev();pintaLista();});
-  pill('pCat','cat',function(){pintaEdicion();pintaPrev();pintaLista();});
+  pill('pCat','cat',function(){if(st.cat==='kids')cargaKidsVivo();pintaEdicion();pintaPrev();pintaLista();});
   ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();};});
   $('frase').oninput=function(){st.frase=$('frase').value.trim();guarda();pintaEdicion();pintaPrev();};
   $('selA').onchange=function(){st.edA=$('selA').value;guarda();pintaEdicion();pintaPrev();pintaLista();};
@@ -275,13 +286,17 @@ textarea{min-height:64px;resize:vertical}
   $('salir').onclick=function(){sessionStorage.removeItem('tg_wa_ok');sessionStorage.removeItem('tg_wa_clave');location.reload();};
 
   // ── arranque ──
-  function llenaSelect(sel,ts,cur){sel.innerHTML='';ts.forEach(function(t){var o=document.createElement('option');o.value=t.slug;o.textContent=(t.es.libro||t.slug);sel.appendChild(o);});if(cur&&ts.some(function(t){return t.slug===cur;}))sel.value=cur;}
+  function llenaSelect(sel,ts,cur){sel.innerHTML='';ts.forEach(function(t){var o=document.createElement('option');o.value=t.slug;o.textContent=(t.numero?'#'+t.numero+' · ':'')+(t.es.libro||t.slug);sel.appendChild(o);});if(cur&&ts.some(function(t){return t.slug===cur;}))sel.value=cur;}
   function arranca(){$('gate').classList.add('hide');$('app').classList.remove('hide');$('foot').classList.remove('hide');
     $('fecha').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'short'});
     carga();$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
-    Promise.all([fetch('/vitrina.json',{cache:'no-store'}).then(function(r){return r.json();}),fetch('/vitrina_kids.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{tarjetas:[]};}).catch(function(){return {tarjetas:[]};})]).then(function(rs){
+    var pA=fetch(RAW+'contenido_manual.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){return {tarjetas:desdeCatalogo(d.libros,false),fuente:'catálogo'};})
+      .catch(function(){return fetch('/vitrina.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){v.fuente='vitrina';return v;});});
+    var pK=fetch('/vitrina_kids.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{tarjetas:[]};}).catch(function(){return {tarjetas:[]};});
+    Promise.all([pA,pK]).then(function(rs){
       st.vit=rs[0];st.kids=rs[1];var ta=st.vit.tarjetas||[],tk=st.kids.tarjetas||[];
-      if(!st.edA||!ta.some(function(t){return t.slug===st.edA;}))st.edA=(ta[0]||{}).slug||'';if(!st.edK||!tk.some(function(t){return t.slug===st.edK;}))st.edK=(tk[0]||{}).slug||'';
+      st.edA=(ta[0]||{}).slug||'';st.edK=(tk[0]||{}).slug||'';   // siempre la más reciente al entrar (como el cartero)
+      if(st.vit.fuente==='vitrina')toast('Catálogo en vivo no disponible: usando la vitrina');
       llenaSelect($('selA'),ta,st.edA);llenaSelect($('selK'),tk,st.edK);
       var man=st.lista.filter(function(s){return s.fuente!=='hoja';});if(man.length)$('pegar').value=man.map(function(s){return s.nombre+', +'+s.tel+', '+s.lang+', '+s.cat;}).join('\n');
       pintaEdicion();pintaPrev();pintaLista();guarda();cargaHoja();
