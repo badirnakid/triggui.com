@@ -142,6 +142,7 @@ textarea{min-height:64px;resize:vertical}
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
         <button id="copiarTarjeta" class="btn g">Copiar tarjeta (una vez)</button>
         <button id="copiarMsg" class="btn" title="Solo el texto, por si lo pegas a mano en otro lado">Copiar solo texto</button>
+        <button id="renovar" class="btn" title="Cambia la llave del link para que WhatsApp genere la vista previa de nuevo (si se cacheó chica)">Renovar vista previa</button>
       </div>
     </div>
   </div>
@@ -150,7 +151,7 @@ textarea{min-height:64px;resize:vertical}
       <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
       <div class="fuente"><span id="fuenteTxt" class="mini-txt">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
       <div class="fuente" id="destBox"><span class="mini-txt">Abrir chats en</span><div class="pill" id="pDest" style="font-size:11px"><button data-v="web" class="on">WhatsApp Web</button><button data-v="app">App de escritorio</button></div><span class="mini-txt" id="destHint">una sola ventana de WhatsApp Web</span></div>
-      <div id="ritmo" class="ritmo"><span>Deja que aparezca la <b>vista previa grande</b> → Enter → espera <b>2 s</b> (WhatsApp sube la imagen en grande después de enviar)</span><span class="n" id="ritmoN">3</span></div>
+      <div id="ritmo" class="ritmo"><span>Deja que aparezca la <b>vista previa grande</b> → Enter → espera <b>2 s</b>. En el <b>primer</b> envío del día es crucial: los demás heredan esa vista previa.</span><span class="n" id="ritmoN">3</span></div>
       <div id="ayuda" class="mini-txt" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
         <b style="color:var(--g)">Primera vez</b> · La lista llega sola desde tu hoja (col. Teléfono, mismas reglas que el correo del lunes) cuando tu Apps Script tenga <b>lista_wa</b> y la propiedad <b>WA_ADMIN_CLAVE</b>. Mientras, puedes pegar filas en <b>Editar lista</b>. Por persona: <b>Abrir chat</b> → Enter. Laptop: <b>Copiar tarjeta</b> una vez y Ctrl+V en cada chat. Celular: botón <b>Tarjeta</b>. Toca la etiqueta <b>Adultos/Kids</b> de una fila para cambiarla.
       </div>
@@ -196,7 +197,9 @@ textarea{min-height:64px;resize:vertical}
       musica:((b._musica||{}).candidatos||[]).filter(function(c){return c&&c.preview;}).slice(0,5),video:kids?[]:((b._video||{}).candidatos||[]).filter(function(c){return c&&c.id;}).slice(0,3)};});} // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
   var $=function(id){return document.getElementById(id);};
   var movil=/iPhone|iPad|Android/i.test(navigator.userAgent);
-  var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{},dest:'web',waWin:null};
+  var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{},dest:'web',waWin:null,k:''};
+  // 🔑 llave de vista previa: WhatsApp Web cachea la preview por URL exacta; una llave por día (o renovada a mano) obliga a generarla fresca
+  function llave(){if(!st.k){var d=new Date();st.k=''+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0');}return st.k;}
   var LS={lista:'tg_wa_lista',env:'tg_wa_env',prefs:'tg_wa_prefs'};
   function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2200);}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -233,12 +236,12 @@ textarea{min-height:64px;resize:vertical}
   function tarjetasDe(cat){return ((cat==='kids'?st.kids:st.vit)||{}).tarjetas||[];}
   function edDe(cat){var ts=tarjetasDe(cat);var slug=cat==='kids'?st.edK:st.edA;return ts.filter(function(t){return t.slug===slug;})[0]||ts[0]||null;}
   function idiomaDe(t,lang){return (lang==='en'&&t.en)?t.en:t.es;}
-  function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?w=s';}
+  function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?w=s&k='+llave();}
   function fraseDe(t,lang){var c=idiomaDe(t,lang);var f=(c.frases||[]);if(st.frase&&lang===st.lang)return st.frase;return f[st.fraseIdx]||f[0]||st.frase||'';}
   function msgLink(t,lang){return (fraseDe(t,lang)?fraseDe(t,lang)+'\n':'')+urlDe(t,lang);}
   function fraseTarjeta(t,lang){var f=(idiomaDe(t,lang).frases||[]);var i=(st.frase&&lang===st.lang)?0:st.fraseIdx;return f[(i+1)%Math.max(1,f.length)]||f[0]||'';}   // la tarjeta lleva la SIGUIENTE frase, no la misma
   function rutaDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');return u.replace(/\/en\/?$/,'/').replace(/\/?$/,'/');}
-  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';var u=rutaDe(t,lang)+'pieza/?w=s';return '🎧 '+m.cancion+' — '+m.artista+((lang!=='en'&&m.pie)?'\n'+m.pie:'')+'\n'+u;}
+  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';var u=rutaDe(t,lang)+'pieza/?w=s&k='+llave();return '🎧 '+m.cancion+' — '+m.artista+((lang!=='en'&&m.pie)?'\n'+m.pie:'')+'\n'+u;}
   function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return 'https://youtu.be/'+v.id;}   // solo el link: WhatsApp lo reproduce ahí mismo
   function ed(){return edDe(st.cat);}
 
@@ -314,6 +317,7 @@ textarea{min-height:64px;resize:vertical}
   function blobTarjeta(t,lang){var u=(t.full&&(t.full[lang]||t.full.es))||'';return fetch(u,{mode:'cors',cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('tarjeta');return r.blob();});}
   function compartirTarjeta(t,lang,pie){return blobTarjeta(t,lang).then(function(b){var f=new File([b],'triggui-tarjeta.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]}))return navigator.share({files:[f],text:pie}).then(function(){return true;},function(){return false;});toast('Este navegador no comparte imágenes; usa Copiar tarjeta');return false;}).catch(function(){toast('No pude traer la tarjeta');return false;});}
   $('copiarTarjeta').onclick=function(){var t=ed();if(!t)return;blobTarjeta(t,st.lang).then(function(b){if(!navigator.clipboard||!window.ClipboardItem)throw new Error('clip');return navigator.clipboard.write([new ClipboardItem({'image/png':b})]);}).then(function(){toast('Tarjeta copiada · en cada chat: Ctrl+V y Enter');}).catch(function(){toast('Tu navegador no copia imágenes; usa el celular (botón Tarjeta)');});};
+  $('renovar').onclick=function(){st.k=Date.now().toString(36);pintaPrev();toast('Link renovado: en el primer envío espera a ver la imagen grande antes de Enter');};
   $('copiarMsg').onclick=function(){var t=ed();if(!t)return;navigator.clipboard.writeText(msgLink(t,st.lang)).then(function(){toast('Mensaje copiado');});};
 
   // ── controles ──
