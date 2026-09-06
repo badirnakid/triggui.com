@@ -54,6 +54,14 @@ textarea{min-height:64px;resize:vertical}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--c);color:var(--n);padding:10px 14px;border-radius:12px;font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}
 .toast.on{opacity:1}
 .hide{display:none !important}
+.wchat{max-width:440px;background:#0b141a;border-radius:14px;padding:12px 10px;display:flex;flex-direction:column;gap:8px;background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);background-size:20px 20px}
+.wb{background:#005c4b;color:#e9edef;border-radius:10px;border-top-right-radius:2px;max-width:92%;align-self:flex-end;padding:5px;font-size:13px;line-height:1.38;position:relative;box-shadow:0 1px 1px rgba(0,0,0,.25)}
+.wb-t{padding:3px 7px 14px;white-space:pre-line;word-break:break-word}.wb-h{position:absolute;right:8px;bottom:3px;font-size:10px;color:rgba(233,237,239,.6)}
+.wb-link{color:#53bdeb;word-break:break-all}
+.wb-og{background:#025144;border-radius:7px;overflow:hidden;margin-bottom:4px}.wb-og img{width:100%;display:block}.wb-og-m{padding:7px 9px}.wb-og-m b{display:block;font-size:12.5px}.wb-og-m span{display:block;font-size:12px;color:rgba(233,237,239,.78)}.wb-og-m i{display:block;font-size:11px;color:rgba(233,237,239,.55);font-style:normal;margin-top:2px}
+.wb-img img{width:100%;display:block;border-radius:7px}
+.wb-sm{display:flex;gap:9px;align-items:center;background:#025144;border-radius:7px;padding:7px;margin-bottom:4px}.wb-sm img,.wb-yt{width:54px;height:54px;border-radius:6px;object-fit:cover;flex:none}.wb-yt{background:#111;display:flex;align-items:center;justify-content:center;font-size:18px}
+.wb-sm b{display:block;font-size:12.5px}.wb-sm span{display:block;font-size:12px;color:rgba(233,237,239,.78)}.wb-sm i{display:block;font-size:11px;color:rgba(233,237,239,.55);font-style:normal}
 @media(min-width:1024px){.grid{display:grid;grid-template-columns:440px 1fr;gap:20px;align-items:start}.wrap{padding-top:24px}.hd h1{font-size:26px}}
 </style>
 </head>
@@ -104,19 +112,22 @@ textarea{min-height:64px;resize:vertical}
       <p class="mini" style="margin:8px 0 0">Las filas en el otro idioma usan la misma frase (por número) en su idioma.</p>
     </div>
 
+  </div>
+
+  <div>
     <div class="card">
-      <h2>Vista previa</h2>
-      <div id="prevs"></div>
+      <h2>Vista previa · así lo verá</h2>
+      <div class="wchat" id="prevs"></div>
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
         <button id="copiarTarjeta" class="btn g">Copiar tarjeta (una vez)</button>
         <button id="copiarMsg" class="btn">Copiar mensaje</button>
       </div>
     </div>
-  </div>
-
-  <div>
     <div class="card">
       <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
+      <div id="ayuda" class="mini" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
+        <b style="color:var(--g)">Primera vez</b> · 1) Abre <b>Editar lista</b>, pega una fila por persona y <b>Guardar lista</b> (queda en este navegador). 2) Elige la frase y qué incluir. 3) Por persona: <b>Abrir chat</b> → Enter. Laptop: <b>Copiar tarjeta</b> una vez y Ctrl+V en cada chat. Celular: botón <b>Tarjeta</b>. Los ✅ se marcan solos.
+      </div>
       <div class="prog"><i id="bar"></i></div>
       <div id="lista"></div>
       <details style="margin-top:12px"><summary class="mini" style="cursor:pointer">Editar lista (pegar filas)</summary>
@@ -185,8 +196,13 @@ textarea{min-height:64px;resize:vertical}
     var hayV=!!v&&st.cat!=='kids';$('videoHint').textContent=hayV?(v.titulo||'')+' (link a YouTube)':(st.cat==='kids'?'kids no lleva video (por diseño)':'sin video');$('incVideo').disabled=!hayV;$('chkVideo').classList.toggle('off',!hayV);if(!hayV)$('incVideo').checked=false;
     var ch=$('chips');ch.innerHTML='';(c.frases||[]).forEach(function(f,i){var b=document.createElement('button');b.className='chip'+(i===st.fraseIdx&&!st.frase?' on':'');b.textContent=f;b.onclick=function(){st.fraseIdx=i;st.frase='';$('frase').value=f;guarda();pintaEdicion();pintaPrev();};ch.appendChild(b);});
     if(!st.frase)$('frase').value=(c.frases||[])[st.fraseIdx]||'';}
-  function pintaPrev(){var t=ed();if(!t)return;var ps=[msgLink(t,st.lang)];if($('incTarjeta').checked)ps.push((st.lang==='en'?'[tarjeta completa como imagen]':'[tarjeta completa como imagen]')+'\n'+fraseDe(t,st.lang));if($('incPieza').checked&&!$('incPieza').disabled)ps.push(msgPieza(t,st.lang));if($('incVideo').checked&&!$('incVideo').disabled)ps.push(msgVideo(t));
-    $('prevs').innerHTML=ps.map(function(p){return '<div class="prev">'+esc(p)+'</div>';}).join('');}
+  function pintaPrev(){var t=ed();if(!t)return;var lang=st.lang,c=idiomaDe(t,lang),h='',hora='8:31';
+    var og=(t.og&&(t.og[lang]||t.og.es))||'',full=(t.full&&(t.full[lang]||t.full.es))||'',fr=fraseDe(t,lang),url=urlDe(t,lang);
+    h+='<div class="wb"><div class="wb-og"><img src="'+esc(og)+'" alt=""><div class="wb-og-m"><b>'+esc(c.libro||t.slug)+' · Triggui</b><span>'+esc(c.ogDesc||(lang==='en'?'A signal to lift your mood. Open it and listen.':'Una señal para mejorar tu ánimo. Ábrela y escúchala.'))+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(fr)+(fr?'\n':'')+'<span class="wb-link">'+esc(url)+'</span><span class="wb-h">'+hora+'</span></div></div>';
+    if($('incTarjeta').checked&&full)h+='<div class="wb wb-img"><img src="'+esc(full)+'" alt="" loading="lazy"><div class="wb-t">'+esc(fr)+'<span class="wb-h">'+hora+'</span></div></div>';
+    var m=(t.musica||[])[0];if($('incPieza').checked&&!$('incPieza').disabled&&m)h+='<div class="wb"><div class="wb-sm">'+(m.art?'<img src="'+esc(m.art)+'" alt="">':'<div class="wb-yt">🎧</div>')+'<div><b>'+esc(m.cancion)+'</b><span>'+esc(m.artista)+' · '+(lang==='en'?'Song':'Canción')+'</span><i>music.apple.com</i></div></div><div class="wb-t">'+esc(msgPieza(t,lang)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
+    var v=(t.video||[])[0];if($('incVideo').checked&&!$('incVideo').disabled&&v)h+='<div class="wb"><div class="wb-sm"><img src="https://i.ytimg.com/vi/'+esc(v.id)+'/hqdefault.jpg" alt=""><div><b>'+esc(v.titulo||'')+'</b><span>YouTube</span><i>youtube.com</i></div></div><div class="wb-t">'+esc(msgVideo(t)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
+    $('prevs').innerHTML=h;}
 
   // ── lista y envíos ──
   function envDe(slug,tel){st.env[slug]=st.env[slug]||{};st.env[slug][tel]=st.env[slug][tel]||{};return st.env[slug][tel];}
@@ -214,6 +230,7 @@ textarea{min-height:64px;resize:vertical}
         else if(a==='tarjeta'){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}
       };});
       L.appendChild(r);});
+    $('ayuda').style.display=st.lista.length?'none':'block';
     $('cnt').textContent=hechos+' / '+st.lista.length;$('bar').style.width=(st.lista.length?Math.round(hechos*100/st.lista.length):0)+'%';}
 
   // ── tarjeta: copiar (laptop) / compartir (celular) ──
