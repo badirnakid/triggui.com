@@ -55,6 +55,7 @@ textarea{min-height:64px;resize:vertical}
 .ritmo{display:none;align-items:center;gap:10px;background:rgba(var(--accR),var(--accG),var(--accB),.12);border:1px solid rgba(var(--accR),var(--accG),var(--accB),.35);border-radius:12px;padding:9px 12px;margin:0 0 10px;font-size:12px;color:var(--c)}.ritmo.on{display:flex}.ritmo b{color:var(--acc)}.ritmo .n{margin-left:auto;font-weight:900;color:var(--acc);font-variant-numeric:tabular-nums}
 .espera .row .btn{opacity:.35;pointer-events:none}
 .row.actual{background:rgba(var(--accR),var(--accG),var(--accB),.10);box-shadow:inset 3px 0 0 var(--acc)}
+.row.yo{border-bottom:1px dashed var(--w16);margin-bottom:6px;padding-bottom:12px}
 .ahora{display:none;align-items:center;gap:10px;background:rgba(var(--accR),var(--accG),var(--accB),.12);border:1px solid rgba(var(--accR),var(--accG),var(--accB),.35);border-radius:12px;padding:9px 12px;margin:0 0 10px;font-size:13px}.ahora.on{display:flex}.ahora b{color:var(--acc)}
 @media(max-width:700px){.row{flex-wrap:wrap;row-gap:8px}.row .who{flex:1 1 calc(100% - 170px)}.row .acts{flex:0 0 100%;justify-content:flex-end;padding-left:32px}}
 .row .acts{display:flex;gap:6px;flex-wrap:nowrap;justify-content:flex-end;flex:none}
@@ -154,15 +155,6 @@ textarea{min-height:64px;resize:vertical}
       <div class="fuente"><span id="fuenteTxt" class="mini-txt">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
       <div class="fuente" id="destBox"><span class="mini-txt">Chats de último recurso (↗) en</span><div class="pill" id="pDest" style="font-size:11px"><button data-v="web" class="on">WhatsApp Web</button><button data-v="app">App de escritorio</button></div><span class="mini-txt" id="destHint">—</span><button id="prepWa" class="btn" style="padding:6px 10px" title="Abre (o trae al frente) la única ventana de WhatsApp Web que usará la sala">Abrir WhatsApp Web</button></div>
       <div class="mini-txt" id="waRegla" style="margin:-4px 0 10px;color:rgba(232,168,56,.9)">WhatsApp Web abierto una vez, la sala al lado. Por persona: <b>📋 1</b> → busca su nombre en WhatsApp, Ctrl+V, espera la imagen grande, Enter · <b>🖼 🎧 🎬</b> → Ctrl+V, Enter. Sin pestañas nuevas ni recargas.</div>
-      <div class="card" style="padding:12px 14px;margin-bottom:12px;border-color:rgba(var(--accR),var(--accG),var(--accB),.35)">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <b style="font-size:13px">Yo · Triggui</b><span class="mini-txt">envío maestro: me lo mando una vez y reenvío desde el celular (sin etiqueta "reenviado")</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:8px">
-          <input id="yoTel" type="text" placeholder="mi número de Triggui (+52…)" style="max-width:220px;padding:8px 10px">
-          <div class="acts" id="yoActs"></div>
-        </div>
-      </div>
       <div id="ahora" class="ahora"><span>En WhatsApp, busca a <b id="ahoraNombre">—</b> <span class="mini-txt" id="ahoraTel"></span> y pega en ese chat (Ctrl+V · Enter) cada cosa que copies aquí.</span></div>
       <div id="ritmo" class="ritmo"><span>Deja que aparezca la <b>vista previa grande</b> → Enter → espera <b>2 s</b>. En el <b>primer</b> envío del día es crucial: los demás heredan esa vista previa.</span><span class="n" id="ritmoN">3</span></div>
       <div id="ayuda" class="mini-txt" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
@@ -199,6 +191,7 @@ textarea{min-height:64px;resize:vertical}
   var ADMIN_HASHES=[];
   var CARTERO='https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec';
   var LS_CAT='tg_wa_cat';
+  var YO_TEL='525532394017';   // el número de Triggui: primera fila fija (chat "Tú" → envío maestro para reenviar desde el celular)
   var RAW='https://raw.githubusercontent.com/badirnakid/triggui-content/main/';
   var APP='https://app.triggui.com/';
   // Del catálogo (la misma fuente del cartero: libros[0] = la más reciente) a la forma que usa la sala
@@ -304,29 +297,16 @@ textarea{min-height:64px;resize:vertical}
     if(!w){toast('Chrome bloqueó la ventana de WhatsApp. Permítela: candado de la barra de direcciones → Ventanas emergentes → Permitir');return;}
     st.waWin=w;try{w.location.href=url;}catch(e){try{w.location=url;}catch(e2){}}try{w.focus();}catch(e){}
     ritmo();}
-  // ── Yo · Triggui: los mismos 4 mensajes hacia mi propio número (chat "Tú"), para reenviar desde el celular ──
-  function pintaYo(){var tel=normaliza($('yoTel').value).tel;var t=ed();var a=$('yoActs');if(!t||!tel||!/^\d{11,13}$/.test(tel)){a.innerHTML='<span class="mini-txt">escribe tu número y aparecen los botones</span>';return;}
-    var yo={nombre:'Yo · Triggui',tel:tel,lang:st.lang,cat:st.cat};
-    a.innerHTML=(movil?'<button class="btn p" data-y="link">Abrir mi chat</button>'+($('incPieza').checked?'<button class="btn i" data-y="pieza">🎧</button>':'')+($('incVideo').checked&&!$('incVideo').disabled?'<button class="btn i" data-y="video">🎬</button>':'')+($('incTarjeta').checked?'<button class="btn i" data-y="tarjeta">🖼</button>':'')
-      :'<button class="btn p" data-y="c1">📋 1</button>'+($('incTarjeta').checked?'<button class="btn i" data-y="c2">🖼</button>':'')+($('incPieza').checked?'<button class="btn i" data-y="c3">🎧</button>':'')+($('incVideo').checked&&!$('incVideo').disabled?'<button class="btn i" data-y="c4">🎬</button>':'')+'<button class="btn i" data-y="link" title="Abrir mi chat en pestaña nueva">↗</button>');
-    a.querySelectorAll('[data-y]').forEach(function(b){b.onclick=function(){var k=b.getAttribute('data-y');
-      if(k==='link'){abre(chatUrl(tel,msgLink(t,yo.lang)));toast('Tu chat "Tú" abierto con frase + link');return;}
-      if(k==='pieza'){abre(chatUrl(tel,msgPieza(t,yo.lang)));return;} if(k==='video'){abre(chatUrl(tel,msgVideo(t)));return;}
-      if(k==='tarjeta'){compartirTarjeta(t,yo.lang,fraseTarjeta(t,yo.lang));return;}
-      if(k==='c1'||k==='c3'||k==='c4'){var txt=k==='c1'?msgLink(t,yo.lang):k==='c3'?msgPieza(t,yo.lang):msgVideo(t);navigator.clipboard.writeText(txt).then(function(){toast('Copiado → pégalo en tu chat "Tú" (mensajes a ti mismo)');});return;}
-      if(k==='c2'){blobTarjeta(t,yo.lang).then(function(bl){return navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);}).then(function(){toast('Tarjeta copiada → Ctrl+V en tu chat "Tú"');}).catch(function(){toast('Tu navegador no copia imágenes: usa el celular');});}
-    };});}
-  $('yoTel').oninput=function(){try{localStorage.setItem('tg_wa_yo',$('yoTel').value);}catch(e){}pintaYo();};
-  try{$('yoTel').value=localStorage.getItem('tg_wa_yo')||'';}catch(e){}
   function actual(s){st.actualTel=s.tel;document.querySelectorAll('#lista .row').forEach(function(r){r.classList.toggle('actual',r.getAttribute('data-tel')===s.tel);});$('ahora').classList.add('on');$('ahoraNombre').textContent=s.nombre;$('ahoraTel').textContent=bonito(s.tel);}
   var ritmoT=null;function ritmo(){var r=$('ritmo'),nn=$('ritmoN'),L=$('lista');var fin=Date.now()+3500;r.classList.add('on');L.classList.add('espera');clearInterval(ritmoT);ritmoT=setInterval(function(){var q=Math.ceil((fin-Date.now())/1000);if(q<=0){clearInterval(ritmoT);r.classList.remove('on');L.classList.remove('espera');}else nn.textContent=q;},200);}
   function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
   function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
-    st.lista.forEach(function(s,i){var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho)hechos++;
-      var r=document.createElement('div');r.className='row'+(st.actualTel===s.tel?' actual':'');r.setAttribute('data-i',i);r.setAttribute('data-tel',s.tel);
+    var yo={nombre:'Yo · Triggui',tel:YO_TEL,ok:true,nota:'',iso:'MX',lang:st.lang,cat:st.cat,fuente:'yo'};
+    [yo].concat(st.lista.filter(function(x){return x.tel!==YO_TEL;})).forEach(function(s,i0){var i=(s.fuente==='yo')?-1:i0-1;var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho&&s.fuente!=='yo')hechos++;
+      var r=document.createElement('div');r.className='row'+(st.actualTel===s.tel?' actual':'')+(s.fuente==='yo'?' yo':'');r.setAttribute('data-i',i);r.setAttribute('data-tel',s.tel);
       r.innerHTML='<button class="ok'+(hecho?'':' no')+'" title="marcar / desmarcar">'+(hecho?'✓':'·')+'</button>'+
         '<div class="who"><b><span title="'+esc(s.iso||'?')+'" style="margin-right:6px">'+bandera(s.iso)+'</span>'+esc(s.nombre)+'</b><span>'+esc(bonito(s.tel))+(s.ok?'':' <span class="tag x">'+esc(s.nota)+'</span>')+(s.ok&&s.nota?' <span class="tag w">'+esc(s.nota)+'</span>':'')+'</span></div>'+
-        '<span class="tags"><span class="tag c'+(s.cat==='kids'?' k':'')+'" data-cat="1" title="toca para cambiar adultos/kids">'+(s.cat==='kids'?'Kids':'Adultos')+' · '+(s.lang==='en'?'EN':'ES')+'</span>'+(s.fuente==='manual'?'<span class="tag w" title="agregado a mano (no está en tu hoja)">manual</span>':'')+'</span>'+
+        '<span class="tags"><span class="tag c'+(s.cat==='kids'?' k':'')+'" data-cat="1" title="toca para cambiar adultos/kids">'+(s.cat==='kids'?'Kids':'Adultos')+' · '+(s.lang==='en'?'EN':'ES')+'</span>'+(s.fuente==='manual'?'<span class="tag w" title="agregado a mano (no está en tu hoja)">manual</span>':'')+(s.fuente==='yo'?'<span class="tag" style="background:rgba(var(--accR),var(--accG),var(--accB),.16);color:var(--acc)" title="tu propio chat: mándate la secuencia y reenvía desde el celular">yo</span>':'')+'</span>'+
         '<div class="acts">'+
           (movil?
           '<button class="btn'+(hecho?'':' p')+'" data-a="link">'+(hecho?'Otra vez':'Abrir chat')+'</button>'+
@@ -354,7 +334,8 @@ textarea{min-height:64px;resize:vertical}
       };});
       L.appendChild(r);});
     $('ayuda').style.display=st.lista.length?'none':'block';
-    $('cnt').textContent=hechos+' / '+st.lista.length;$('footCnt').textContent=hechos+' / '+st.lista.length;$('bar').style.width=(st.lista.length?Math.round(hechos*100/st.lista.length):0)+'%';}
+    var total=st.lista.filter(function(x){return x.tel!==YO_TEL;}).length;
+    $('cnt').textContent=hechos+' / '+total;$('footCnt').textContent=hechos+' / '+total;$('bar').style.width=(total?Math.round(hechos*100/total):0)+'%';}
 
   // ── tarjeta: copiar (laptop) / compartir (celular) ──
   function blobTarjeta(t,lang){var u=(t.full&&(t.full[lang]||t.full.es))||'';return fetch(u,{mode:'cors',cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('tarjeta');return r.blob();});}
@@ -369,7 +350,7 @@ textarea{min-height:64px;resize:vertical}
   pill('pDest','dest',function(){$('destHint').textContent=st.dest==='app'?'⚠ vistas previas chicas':'pestaña nueva por chat';});
   if(movil)$('destBox').style.display='none';
   pill('pCat','cat',function(){if(st.cat==='kids')cargaKidsVivo();pintaEdicion();pintaPrev();pintaLista();});
-  ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();pintaYo();};});
+  ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();};});
   $('frase').oninput=function(){st.frase=$('frase').value.trim();guarda();pintaEdicion();pintaPrev();};
   $('selA').onchange=function(){st.edA=$('selA').value;guarda();pintaEdicion();pintaPrev();pintaLista();};
   $('selK').onchange=function(){st.edK=$('selK').value;guarda();pintaEdicion();pintaPrev();pintaLista();};
@@ -401,7 +382,7 @@ textarea{min-height:64px;resize:vertical}
       if(st.vit.fuente==='vitrina')toast('Catálogo en vivo no disponible: usando la vitrina');
       llenaSelect($('selA'),ta,st.edA);llenaSelect($('selK'),tk,st.edK);
       var man=st.lista.filter(function(s){return s.fuente!=='hoja';});if(man.length)$('pegar').value=man.map(function(s){return s.nombre+', +'+s.tel+', '+s.lang+', '+s.cat;}).join('\n');
-      pintaEdicion();pintaPrev();pintaLista();guarda();cargaHoja();pintaYo();
+      pintaEdicion();pintaPrev();pintaLista();guarda();cargaHoja();
     }).catch(function(){toast('No pude cargar la vitrina');});}
   function sha256(s){return crypto.subtle.digest('SHA-256',new TextEncoder().encode(s)).then(function(h){return Array.from(new Uint8Array(h)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');});}
   $('entrar').onclick=function(){var clave=$('clave').value.trim();if(!clave)return;$('gateMsg').textContent='Validando…';
