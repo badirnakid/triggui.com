@@ -323,7 +323,7 @@ textarea{min-height:64px;resize:vertical}
   // ── controles ──
   function pill(id,key,cb){$(id).querySelectorAll('button').forEach(function(b){b.onclick=function(){$(id).querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');st[key]=b.getAttribute('data-v');if(key!=='dest')st.frase='';guarda();cb();};});}
   pill('pLang','lang',function(){pintaEdicion();pintaPrev();pintaLista();});
-  pill('pDest','dest',function(){$('destHint').textContent=st.dest==='app'?'cambio de chat instantáneo, sin recargar (la app debe estar vinculada a Triggui)':'una sola ventana de WhatsApp Web';});
+  pill('pDest','dest',function(){$('destHint').textContent=st.dest==='app'?'⚠ la app de Windows genera vistas previas CHICAS: úsala solo para pegar tarjetas; los links van mejor por Web':'recomendado: vistas previas grandes · una sola ventana';});
   if(movil)$('destBox').style.display='none';
   pill('pCat','cat',function(){if(st.cat==='kids')cargaKidsVivo();pintaEdicion();pintaPrev();pintaLista();});
   ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();};});
@@ -348,7 +348,7 @@ textarea{min-height:64px;resize:vertical}
   document.addEventListener('click',function(){document.querySelectorAll('.dd.open').forEach(function(x){x.classList.remove('open');});});
   function arranca(){$('gate').classList.add('hide');$('app').classList.remove('hide');$('foot').classList.remove('hide');
     $('fecha').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'short'});
-    carga();$('pDest').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.dest);});$('destHint').textContent=st.dest==='app'?'cambio de chat instantáneo, sin recargar (la app debe estar vinculada a Triggui)':'una sola ventana de WhatsApp Web';$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
+    carga();$('pDest').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.dest);});$('destHint').textContent=st.dest==='app'?'⚠ la app de Windows genera vistas previas CHICAS: úsala solo para pegar tarjetas; los links van mejor por Web':'recomendado: vistas previas grandes · una sola ventana';$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
     var pA=fetch(RAW+'contenido_manual.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){return {tarjetas:desdeCatalogo(d.libros,false),fuente:'catálogo'};})
       .catch(function(){return fetch('/vitrina.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){v.fuente='vitrina';return v;});});
     var pK=fetch('/vitrina_kids.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{tarjetas:[]};}).catch(function(){return {tarjetas:[]};});
