@@ -229,7 +229,7 @@ textarea{min-height:64px;resize:vertical}
   function tarjetasDe(cat){return ((cat==='kids'?st.kids:st.vit)||{}).tarjetas||[];}
   function edDe(cat){var ts=tarjetasDe(cat);var slug=cat==='kids'?st.edK:st.edA;return ts.filter(function(t){return t.slug===slug;})[0]||ts[0]||null;}
   function idiomaDe(t,lang){return (lang==='en'&&t.en)?t.en:t.es;}
-  function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?utm_source=whatsapp&utm_medium=sala&utm_campaign='+encodeURIComponent(t.slug);}
+  function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?w=s';}
   function fraseDe(t,lang){var c=idiomaDe(t,lang);var f=(c.frases||[]);if(st.frase&&lang===st.lang)return st.frase;return f[st.fraseIdx]||f[0]||st.frase||'';}
   function msgLink(t,lang){return (fraseDe(t,lang)?fraseDe(t,lang)+'\n':'')+urlDe(t,lang);}
   function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';return (lang==='en'?'🎧 The piece for this book: ':'🎧 La pieza de este libro: ')+m.cancion+' — '+m.artista+(m.link?'\n'+m.link:'');}

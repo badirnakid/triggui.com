@@ -1440,7 +1440,7 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
           "<p>" + esc(c.ogDesc) + "</p>" +
           '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">' +
         "</div>" +
-        '<a class="esp-wa" data-slug="' + esc(t.slug || "") + '" href="https://wa.me/?text=' + encodeURIComponent((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?utm_source=whatsapp&utm_medium=compartir&utm_campaign=" + encodeURIComponent(t.slug || ""))) + '" target="_blank" rel="noopener">' + (lang === "en" ? "Share on WhatsApp &rarr;" : "Compartir por WhatsApp &rarr;") + "</a>" +
+        '<a class="esp-wa" data-slug="' + esc(t.slug || "") + '" href="https://wa.me/?text=' + encodeURIComponent((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?w=c")) + '" target="_blank" rel="noopener">' + (lang === "en" ? "Share on WhatsApp &rarr;" : "Compartir por WhatsApp &rarr;") + "</a>" +
         '<a class="esp-tira" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener">' +
           '<span class="esp-tira-t">' + (lang === "en" ? "Enter your Spiral" : "Entra a tu Espiral") + "</span>" +
           '<span class="esp-tira-s">' + (lang === "en" ? "Members only · your personal collection" : "Solo miembros · tu colección personal") + "</span>" +
