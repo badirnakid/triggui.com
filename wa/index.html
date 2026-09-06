@@ -141,7 +141,7 @@ textarea{min-height:64px;resize:vertical}
       <div class="wchat" id="prevs"></div>
       <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
         <button id="copiarTarjeta" class="btn g">Copiar tarjeta (una vez)</button>
-        <button id="copiarMsg" class="btn">Copiar mensaje</button>
+        <button id="copiarMsg" class="btn" title="Solo el texto, por si lo pegas a mano en otro lado">Copiar solo texto</button>
       </div>
     </div>
   </div>
@@ -149,6 +149,7 @@ textarea{min-height:64px;resize:vertical}
     <div class="card">
       <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
       <div class="fuente"><span id="fuenteTxt" class="mini-txt">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
+      <div class="fuente" id="destBox"><span class="mini-txt">Abrir chats en</span><div class="pill" id="pDest" style="font-size:11px"><button data-v="web" class="on">WhatsApp Web</button><button data-v="app">App de escritorio</button></div><span class="mini-txt" id="destHint">una sola ventana de WhatsApp Web</span></div>
       <div id="ritmo" class="ritmo"><span>Deja que aparezca la <b>vista previa grande</b> → Enter → espera <b>2 s</b> (WhatsApp sube la imagen en grande después de enviar)</span><span class="n" id="ritmoN">3</span></div>
       <div id="ayuda" class="mini-txt" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
         <b style="color:var(--g)">Primera vez</b> · La lista llega sola desde tu hoja (col. Teléfono, mismas reglas que el correo del lunes) cuando tu Apps Script tenga <b>lista_wa</b> y la propiedad <b>WA_ADMIN_CLAVE</b>. Mientras, puedes pegar filas en <b>Editar lista</b>. Por persona: <b>Abrir chat</b> → Enter. Laptop: <b>Copiar tarjeta</b> una vez y Ctrl+V en cada chat. Celular: botón <b>Tarjeta</b>. Toca la etiqueta <b>Adultos/Kids</b> de una fila para cambiarla.
@@ -195,12 +196,12 @@ textarea{min-height:64px;resize:vertical}
       musica:((b._musica||{}).candidatos||[]).filter(function(c){return c&&c.preview;}).slice(0,5),video:kids?[]:((b._video||{}).candidatos||[]).filter(function(c){return c&&c.id;}).slice(0,3)};});} // SHA-256 de claves admin; vacío = cualquier miembro válido entra (la sala no guarda nada sensible)
   var $=function(id){return document.getElementById(id);};
   var movil=/iPhone|iPad|Android/i.test(navigator.userAgent);
-  var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{}};
+  var st={vit:null,kids:null,lang:'es',cat:'adultos',edA:'',edK:'',frase:'',fraseIdx:0,lista:[],env:{},hoja:null,catOv:{},dest:'web',waWin:null};
   var LS={lista:'tg_wa_lista',env:'tg_wa_env',prefs:'tg_wa_prefs'};
   function toast(m){var t=$('toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('on');},2200);}
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-  function guarda(){try{localStorage.setItem(LS.lista,JSON.stringify(st.lista));localStorage.setItem(LS.env,JSON.stringify(st.env));localStorage.setItem(LS.prefs,JSON.stringify({lang:st.lang,cat:st.cat,edA:st.edA,edK:st.edK,frase:st.frase,fraseIdx:st.fraseIdx,inc:{t:$('incTarjeta').checked,p:$('incPieza').checked,v:$('incVideo').checked}}));}catch(e){}}
-  function carga(){try{st.catOv=JSON.parse(localStorage.getItem(LS_CAT)||'{}');st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
+  function guarda(){try{localStorage.setItem(LS.lista,JSON.stringify(st.lista));localStorage.setItem(LS.env,JSON.stringify(st.env));localStorage.setItem(LS.prefs,JSON.stringify({dest:st.dest,lang:st.lang,cat:st.cat,edA:st.edA,edK:st.edK,frase:st.frase,fraseIdx:st.fraseIdx,inc:{t:$('incTarjeta').checked,p:$('incPieza').checked,v:$('incVideo').checked}}));}catch(e){}}
+  function carga(){try{st.catOv=JSON.parse(localStorage.getItem(LS_CAT)||'{}');st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.dest)st.dest=p.dest;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
 
   // ── números: la lista es la única verdad ──
   // ── países: prefijo E.164 → [ISO, longitudes nacionales válidas]. El más largo que coincida gana. ──
@@ -235,7 +236,7 @@ textarea{min-height:64px;resize:vertical}
   function urlDe(t,lang){var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return u+'?w=s';}
   function fraseDe(t,lang){var c=idiomaDe(t,lang);var f=(c.frases||[]);if(st.frase&&lang===st.lang)return st.frase;return f[st.fraseIdx]||f[0]||st.frase||'';}
   function msgLink(t,lang){return (fraseDe(t,lang)?fraseDe(t,lang)+'\n':'')+urlDe(t,lang);}
-  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';return (lang==='en'?'🎧 The piece for this book: ':'🎧 La pieza de este libro: ')+m.cancion+' — '+m.artista+(m.link?'\n'+m.link:'');}
+  function msgPieza(t,lang){var m=(t.musica||[])[0];if(!m)return '';var c=idiomaDe(t,lang);var u=(c.url||t.es.url||'');if(lang==='en'&&t.en&&!/\/en\/?$/.test(u))u=u.replace(/\/?$/,'/')+'en/';return (lang==='en'?'🎧 Its piece, 30 seconds: ':'🎧 Su pieza, 30 segundos: ')+m.cancion+' — '+m.artista+'\n'+u+'?w=s&p=1';}
   function msgVideo(t){var v=(t.video||[])[0];if(!v)return '';return '🎬 '+(v.titulo||'')+'\nhttps://youtu.be/'+v.id;}
   function ed(){return edDe(st.cat);}
 
@@ -252,7 +253,7 @@ textarea{min-height:64px;resize:vertical}
     var og=(t.og&&(t.og[lang]||t.og.es))||'',full=(t.full&&(t.full[lang]||t.full.es))||'',fr=fraseDe(t,lang),url=urlDe(t,lang);
     h+='<div class="wb"><div class="wb-og"><img src="'+esc(og)+'" alt=""><div class="wb-og-m"><b>'+esc(c.libro||t.slug)+' · Triggui</b><span>'+esc(c.ogDesc||(lang==='en'?'A signal to lift your mood. Open it and listen.':'Una señal para mejorar tu ánimo. Ábrela y escúchala.'))+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(fr)+(fr?'\n':'')+'<span class="wb-link">'+esc(url)+'</span><span class="wb-h">'+hora+'</span></div></div>';
     if($('incTarjeta').checked&&full)h+='<div class="wb wb-img"><img src="'+esc(full)+'" alt="" loading="lazy"><div class="wb-t">'+esc(fr)+'<span class="wb-h">'+hora+'</span></div></div>';
-    var m=(t.musica||[])[0];if($('incPieza').checked&&!$('incPieza').disabled&&m)h+='<div class="wb"><div class="wb-sm">'+(m.art?'<img src="'+esc(m.art)+'" alt="">':'<div class="wb-yt">🎧</div>')+'<div><b>'+esc(m.cancion)+'</b><span>'+esc(m.artista)+' · '+(lang==='en'?'Song':'Canción')+'</span><i>music.apple.com</i></div></div><div class="wb-t">'+esc(msgPieza(t,lang)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
+    var m=(t.musica||[])[0];if($('incPieza').checked&&!$('incPieza').disabled&&m)h+='<div class="wb"><div class="wb-sm">'+(m.art?'<img src="'+esc(m.art)+'" alt="">':'<div class="wb-yt">🎧</div>')+'<div><b>'+esc(m.cancion)+'</b><span>'+esc(m.artista)+' · '+(lang==='en'?'30 seconds':'30 segundos')+'</span><i>app.triggui.com</i></div></div><div class="wb-t">'+esc(msgPieza(t,lang)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
     var v=(t.video||[])[0];if($('incVideo').checked&&!$('incVideo').disabled&&v)h+='<div class="wb"><div class="wb-sm"><img src="https://i.ytimg.com/vi/'+esc(v.id)+'/hqdefault.jpg" alt=""><div><b>'+esc(v.titulo||'')+'</b><span>YouTube</span><i>youtube.com</i></div></div><div class="wb-t">'+esc(msgVideo(t)).replace(/(https?:\S+)/,'<span class="wb-link">$1</span>')+'<span class="wb-h">'+hora+'</span></div></div>';
     $('prevs').innerHTML=h;}
 
@@ -274,8 +275,13 @@ textarea{min-height:64px;resize:vertical}
   function envDe(slug,tel){st.env[slug]=st.env[slug]||{};st.env[slug][tel]=st.env[slug][tel]||{};return st.env[slug][tel];}
   function marca(slug,tel,tipo){envDe(slug,tel)[tipo]=Date.now();guarda();pintaLista();}
   // Laptop: web.whatsapp.com/send directo (sin la página intermedia de wa.me, que además rompe los emoji de 4 bytes) y una sola pestaña reutilizada. Celular: wa.me abre el app.
-  function chatUrl(tel,msg){return movil?('https://wa.me/'+tel+'?text='+encodeURIComponent(msg)):('https://web.whatsapp.com/send?phone='+tel+'&text='+encodeURIComponent(msg));}
-  function abre(url){var w=window.open(url,movil?'_blank':'triggui_wa');if(!w)location.href=url;ritmo();}
+  function chatUrl(tel,msg){var q='phone='+tel+(msg?'&text='+encodeURIComponent(msg):'');if(movil)return 'https://wa.me/'+tel+(msg?'?text='+encodeURIComponent(msg):'');if(st.dest==='app')return 'whatsapp://send?'+q;return 'https://web.whatsapp.com/send?'+q;}
+  function abre(url){
+    if(movil){var w=window.open(url,'_blank');if(!w)location.href=url;ritmo();return;}
+    if(url.indexOf('whatsapp://')===0){location.href=url;ritmo();return;}          // app de escritorio: cambia de chat sin recargar, la sala se queda
+    if(st.waWin&&!st.waWin.closed){try{st.waWin.location.href=url;st.waWin.focus();}catch(e){st.waWin=window.open(url,'_blank');}}   // MISMA ventana de WhatsApp Web, por referencia (WhatsApp borra su nombre)
+    else{st.waWin=window.open(url,'_blank');}
+    if(!st.waWin)location.href=url;ritmo();}
   var ritmoT=null;function ritmo(){var r=$('ritmo'),nn=$('ritmoN'),L=$('lista');var fin=Date.now()+3500;r.classList.add('on');L.classList.add('espera');clearInterval(ritmoT);ritmoT=setInterval(function(){var q=Math.ceil((fin-Date.now())/1000);if(q<=0){clearInterval(ritmoT);r.classList.remove('on');L.classList.remove('espera');}else nn.textContent=q;},200);}
   function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
   function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
@@ -288,7 +294,7 @@ textarea{min-height:64px;resize:vertical}
           '<button class="btn'+(hecho?'':' p')+'" data-a="link">'+(hecho?'Otra vez':'Abrir chat')+'</button>'+
           (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn i" data-a="pieza" title="Mandar la pieza">'+(e.pieza?'✓':'🎧')+'</button>':'')+
           (($('incVideo').checked&&(t.video||[]).length&&s.cat!=='kids')?'<button class="btn i" data-a="video" title="Mandar el video">'+(e.video?'✓':'🎬')+'</button>':'')+
-          (($('incTarjeta').checked&&movil)?'<button class="btn i" data-a="tarjeta" title="Compartir la tarjeta">'+(e.tarjeta?'✓':'🖼')+'</button>':'')+
+          ($('incTarjeta').checked?'<button class="btn i" data-a="tarjeta" title="'+(movil?'Compartir la tarjeta':'Abrir el chat vacío para pegar la tarjeta (Ctrl+V)')+'">'+(e.tarjeta?'✓':'🖼')+'</button>':'')+
         '</div>';
       r.querySelector('[data-cat]').onclick=function(){s.cat=(s.cat==='kids'?'adultos':'kids');st.catOv[s.tel]=s.cat;try{localStorage.setItem(LS_CAT,JSON.stringify(st.catOv));}catch(e){}guarda();pintaLista();};
       r.querySelector('.ok').onclick=function(){if(e.link){delete st.env[t.slug][s.tel];}else{marca(t.slug,s.tel,'link');}guarda();pintaLista();};
@@ -296,7 +302,7 @@ textarea{min-height:64px;resize:vertical}
         if(a==='link'){abre(chatUrl(s.tel,msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
         else if(a==='pieza'){abre(chatUrl(s.tel,msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
         else if(a==='video'){abre(chatUrl(s.tel,msgVideo(t)));marca(t.slug,s.tel,'video');evento('video',t,s.lang,s.cat);}
-        else if(a==='tarjeta'){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}
+        else if(a==='tarjeta'){if(movil){compartirTarjeta(t,s.lang,fraseDe(t,s.lang)).then(function(ok){if(ok){marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);}});}else{abre(chatUrl(s.tel,''));marca(t.slug,s.tel,'tarjeta');evento('tarjeta',t,s.lang,s.cat);toast('Chat abierto vacío: Ctrl+V y Enter');}}
       };});
       L.appendChild(r);});
     $('ayuda').style.display=st.lista.length?'none':'block';
@@ -309,8 +315,10 @@ textarea{min-height:64px;resize:vertical}
   $('copiarMsg').onclick=function(){var t=ed();if(!t)return;navigator.clipboard.writeText(msgLink(t,st.lang)).then(function(){toast('Mensaje copiado');});};
 
   // ── controles ──
-  function pill(id,key,cb){$(id).querySelectorAll('button').forEach(function(b){b.onclick=function(){$(id).querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');st[key]=b.getAttribute('data-v');st.frase='';guarda();cb();};});}
+  function pill(id,key,cb){$(id).querySelectorAll('button').forEach(function(b){b.onclick=function(){$(id).querySelectorAll('button').forEach(function(x){x.classList.remove('on');});b.classList.add('on');st[key]=b.getAttribute('data-v');if(key!=='dest')st.frase='';guarda();cb();};});}
   pill('pLang','lang',function(){pintaEdicion();pintaPrev();pintaLista();});
+  pill('pDest','dest',function(){$('destHint').textContent=st.dest==='app'?'cambio de chat instantáneo, sin recargar (la app debe estar vinculada a Triggui)':'una sola ventana de WhatsApp Web';});
+  if(movil)$('destBox').style.display='none';
   pill('pCat','cat',function(){if(st.cat==='kids')cargaKidsVivo();pintaEdicion();pintaPrev();pintaLista();});
   ['incTarjeta','incPieza','incVideo'].forEach(function(id){$(id).onchange=function(){guarda();pintaPrev();pintaLista();};});
   $('frase').oninput=function(){st.frase=$('frase').value.trim();guarda();pintaEdicion();pintaPrev();};
@@ -334,7 +342,7 @@ textarea{min-height:64px;resize:vertical}
   document.addEventListener('click',function(){document.querySelectorAll('.dd.open').forEach(function(x){x.classList.remove('open');});});
   function arranca(){$('gate').classList.add('hide');$('app').classList.remove('hide');$('foot').classList.remove('hide');
     $('fecha').textContent=new Date().toLocaleDateString('es-MX',{weekday:'long',day:'numeric',month:'short'});
-    carga();$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
+    carga();$('pDest').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.dest);});$('destHint').textContent=st.dest==='app'?'cambio de chat instantáneo, sin recargar (la app debe estar vinculada a Triggui)':'una sola ventana de WhatsApp Web';$('pLang').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.lang);});$('pCat').querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-v')===st.cat);});
     var pA=fetch(RAW+'contenido_manual.json?ts='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){return {tarjetas:desdeCatalogo(d.libros,false),fuente:'catálogo'};})
       .catch(function(){return fetch('/vitrina.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(v){v.fuente='vitrina';return v;});});
     var pK=fetch('/vitrina_kids.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():{tarjetas:[]};}).catch(function(){return {tarjetas:[]};});
