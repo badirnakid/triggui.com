@@ -52,6 +52,8 @@ textarea{min-height:64px;resize:vertical}
 @media(min-width:1180px){.sticky{position:sticky;top:16px}}
 .row .who{flex:1 1 160px;min-width:0}.row .who b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .who span{font-size:12px;color:var(--dim);white-space:nowrap}
 .tags{display:flex;gap:6px;align-items:center;flex:none}
+.ritmo{display:none;align-items:center;gap:10px;background:rgba(var(--accR),var(--accG),var(--accB),.12);border:1px solid rgba(var(--accR),var(--accG),var(--accB),.35);border-radius:12px;padding:9px 12px;margin:0 0 10px;font-size:12px;color:var(--c)}.ritmo.on{display:flex}.ritmo b{color:var(--acc)}.ritmo .n{margin-left:auto;font-weight:900;color:var(--acc);font-variant-numeric:tabular-nums}
+.espera .row .btn{opacity:.35;pointer-events:none}
 @media(max-width:700px){.row{flex-wrap:wrap;row-gap:8px}.row .who{flex:1 1 calc(100% - 170px)}.row .acts{flex:0 0 100%;justify-content:flex-end;padding-left:32px}}
 .row .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 .tag{font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;background:var(--w10);color:rgba(245,240,232,.75);letter-spacing:.02em;line-height:1.3}
@@ -147,6 +149,7 @@ textarea{min-height:64px;resize:vertical}
     <div class="card">
       <h2>Suscriptores · <span id="cnt">0 / 0</span> enviados</h2>
       <div class="fuente"><span id="fuenteTxt" class="mini-txt">—</span><button id="recargarHoja" class="btn" style="padding:6px 10px">Recargar de la hoja</button></div>
+      <div id="ritmo" class="ritmo"><span>Deja que aparezca la <b>vista previa grande</b> → Enter → espera <b>2 s</b> (WhatsApp sube la imagen en grande después de enviar)</span><span class="n" id="ritmoN">3</span></div>
       <div id="ayuda" class="mini-txt" style="display:none;background:rgba(232,168,56,.08);border:1px solid rgba(232,168,56,.35);border-radius:12px;padding:10px 12px;margin-bottom:10px;line-height:1.5">
         <b style="color:var(--g)">Primera vez</b> · La lista llega sola desde tu hoja (col. Teléfono, mismas reglas que el correo del lunes) cuando tu Apps Script tenga <b>lista_wa</b> y la propiedad <b>WA_ADMIN_CLAVE</b>. Mientras, puedes pegar filas en <b>Editar lista</b>. Por persona: <b>Abrir chat</b> → Enter. Laptop: <b>Copiar tarjeta</b> una vez y Ctrl+V en cada chat. Celular: botón <b>Tarjeta</b>. Toca la etiqueta <b>Adultos/Kids</b> de una fila para cambiarla.
       </div>
@@ -272,7 +275,8 @@ textarea{min-height:64px;resize:vertical}
   function marca(slug,tel,tipo){envDe(slug,tel)[tipo]=Date.now();guarda();pintaLista();}
   // Laptop: web.whatsapp.com/send directo (sin la página intermedia de wa.me, que además rompe los emoji de 4 bytes) y una sola pestaña reutilizada. Celular: wa.me abre el app.
   function chatUrl(tel,msg){return movil?('https://wa.me/'+tel+'?text='+encodeURIComponent(msg)):('https://web.whatsapp.com/send?phone='+tel+'&text='+encodeURIComponent(msg));}
-  function abre(url){var w=window.open(url,movil?'_blank':'triggui_wa');if(!w)location.href=url;}
+  function abre(url){var w=window.open(url,movil?'_blank':'triggui_wa');if(!w)location.href=url;ritmo();}
+  var ritmoT=null;function ritmo(){var r=$('ritmo'),nn=$('ritmoN'),L=$('lista');var fin=Date.now()+3500;r.classList.add('on');L.classList.add('espera');clearInterval(ritmoT);ritmoT=setInterval(function(){var q=Math.ceil((fin-Date.now())/1000);if(q<=0){clearInterval(ritmoT);r.classList.remove('on');L.classList.remove('espera');}else nn.textContent=q;},200);}
   function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
   function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
     st.lista.forEach(function(s,i){var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho)hechos++;
