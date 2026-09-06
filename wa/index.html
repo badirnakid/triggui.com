@@ -282,11 +282,14 @@ textarea{min-height:64px;resize:vertical}
   // Laptop: web.whatsapp.com/send directo (sin la página intermedia de wa.me, que además rompe los emoji de 4 bytes) y una sola pestaña reutilizada. Celular: wa.me abre el app.
   function chatUrl(tel,msg){var q='phone='+tel+(msg?'&text='+encodeURIComponent(msg):'');if(movil)return 'https://wa.me/'+tel+(msg?'?text='+encodeURIComponent(msg):'');if(st.dest==='app')return 'whatsapp://send?'+q;return 'https://web.whatsapp.com/send?'+q;}
   function abre(url){
-    if(movil){var w=window.open(url,'_blank');if(!w)location.href=url;ritmo();return;}
-    if(url.indexOf('whatsapp://')===0){location.href=url;ritmo();return;}          // app de escritorio: cambia de chat sin recargar, la sala se queda
-    if(st.waWin&&!st.waWin.closed){try{st.waWin.location.href=url;st.waWin.focus();}catch(e){st.waWin=window.open(url,'_blank');}}   // MISMA ventana de WhatsApp Web, por referencia (WhatsApp borra su nombre)
-    else{st.waWin=window.open(url,'_blank');}
-    if(!st.waWin)location.href=url;ritmo();}
+    if(movil){var wm=window.open(url,'_blank');if(!wm)toast('Permite ventanas emergentes para triggui.com');ritmo();return;}
+    if(url.indexOf('whatsapp://')===0){location.href=url;ritmo();return;}   // app de escritorio: el esquema no mueve la sala
+    // ── Web: UNA sola ventana de WhatsApp, por nombre (sobrevive a recargas de la sala), y JAMÁS dentro de la sala ──
+    var w=null;try{if(st.waWin&&!st.waWin.closed)w=st.waWin;}catch(e){w=null;}
+    if(!w){try{w=window.open('','triggui_wa');}catch(e){w=null;}}      // existente → la devuelve sin tocarla; inexistente → la crea
+    if(!w){toast('Chrome bloqueó la ventana de WhatsApp. Permítela: candado de la barra de direcciones → Ventanas emergentes → Permitir');return;}
+    st.waWin=w;try{w.location.href=url;}catch(e){try{w.location=url;}catch(e2){}}try{w.focus();}catch(e){}
+    ritmo();}
   var ritmoT=null;function ritmo(){var r=$('ritmo'),nn=$('ritmoN'),L=$('lista');var fin=Date.now()+3500;r.classList.add('on');L.classList.add('espera');clearInterval(ritmoT);ritmoT=setInterval(function(){var q=Math.ceil((fin-Date.now())/1000);if(q<=0){clearInterval(ritmoT);r.classList.remove('on');L.classList.remove('espera');}else nn.textContent=q;},200);}
   function evento(tipo,t,lang,cat){try{gtag('event','sala_abrir_chat',{tipo:tipo,slug:t.slug,idioma:lang,catalogo:cat});}catch(e){}}
   function pintaLista(){var L=$('lista');L.innerHTML='';var hechos=0;
