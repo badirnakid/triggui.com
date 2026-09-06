@@ -181,17 +181,28 @@ textarea{min-height:64px;resize:vertical}
   function carga(){try{st.catOv=JSON.parse(localStorage.getItem(LS_CAT)||'{}');st.lista=JSON.parse(localStorage.getItem(LS.lista)||'[]');st.env=JSON.parse(localStorage.getItem(LS.env)||'{}');var p=JSON.parse(localStorage.getItem(LS.prefs)||'{}');if(p.lang)st.lang=p.lang;if(p.cat)st.cat=p.cat;if(p.frase)st.frase=p.frase;if(p.fraseIdx!=null)st.fraseIdx=p.fraseIdx;if(p.inc){$('incTarjeta').checked=!!p.inc.t;$('incPieza').checked=!!p.inc.p;$('incVideo').checked=!!p.inc.v;}}catch(e){}}
 
   // ── números: la lista es la única verdad ──
+  // ── países: prefijo E.164 → [ISO, longitudes nacionales válidas]. El más largo que coincida gana. ──
+  var PAISES={'52':['MX',[10]],'1':['US',[10]],'34':['ES',[9]],'54':['AR',[10,11]],'55':['BR',[10,11]],'56':['CL',[9]],'57':['CO',[10]],'58':['VE',[10]],'51':['PE',[9]],'593':['EC',[9]],'591':['BO',[8]],'595':['PY',[9]],'598':['UY',[8,9]],'506':['CR',[8]],'507':['PA',[8]],'502':['GT',[8]],'503':['SV',[8]],'504':['HN',[8]],'505':['NI',[8]],'53':['CU',[8]],'44':['GB',[10]],'33':['FR',[9]],'49':['DE',[10,11]],'39':['IT',[9,10]],'351':['PT',[9]],'41':['CH',[9]],'31':['NL',[9]],'32':['BE',[9]],'43':['AT',[10,11]],'46':['SE',[9]],'47':['NO',[8]],'45':['DK',[8]],'358':['FI',[9,10]],'353':['IE',[9]],'48':['PL',[9]],'30':['GR',[10]],'7':['RU',[10]],'81':['JP',[10]],'82':['KR',[9,10]],'86':['CN',[11]],'91':['IN',[10]],'61':['AU',[9]],'64':['NZ',[8,9]],'972':['IL',[9]],'971':['AE',[9]],'966':['SA',[9]],'90':['TR',[10]],'27':['ZA',[9]],'20':['EG',[10]],'212':['MA',[9]],'65':['SG',[8]],'63':['PH',[10]],'62':['ID',[9,10,11]],'60':['MY',[9,10]],'66':['TH',[9]],'84':['VN',[9]],'92':['PK',[10]],'880':['BD',[10]],'94':['LK',[9]],'234':['NG',[10]],'254':['KE',[9]],'233':['GH',[9]]};
+  var CA_AREAS={'204':1,'226':1,'236':1,'249':1,'250':1,'263':1,'289':1,'306':1,'343':1,'354':1,'365':1,'367':1,'368':1,'382':1,'403':1,'416':1,'418':1,'428':1,'431':1,'437':1,'438':1,'450':1,'460':1,'468':1,'474':1,'506':1,'514':1,'519':1,'548':1,'579':1,'581':1,'584':1,'587':1,'604':1,'613':1,'639':1,'647':1,'672':1,'683':1,'705':1,'709':1,'742':1,'753':1,'778':1,'780':1,'782':1,'807':1,'819':1,'825':1,'867':1,'873':1,'879':1,'902':1,'905':1};
+  var NANP_ISO={'787':'PR','939':'PR','809':'DO','829':'DO','849':'DO','876':'JM','658':'JM','242':'BS','246':'BB','264':'AI','268':'AG','284':'VG','340':'VI','345':'KY','441':'BM','473':'GD','649':'TC','664':'MS','670':'MP','671':'GU','684':'AS','721':'SX','758':'LC','767':'DM','784':'VC','868':'TT','869':'KN','758':'LC'};
+  function bandera(iso){return iso?String.fromCodePoint.apply(null,iso.toUpperCase().split('').map(function(c){return 127397+c.charCodeAt(0);})):'🌐';}
+  function pais(d){var cc='';for(var L=3;L>=1;L--){var pre=d.slice(0,L);if(PAISES[pre]){cc=pre;break;}}if(!cc)return null;var nat=d.slice(cc.length),iso=PAISES[cc][0],lens=PAISES[cc][1];
+    if(cc==='1'){var area=nat.slice(0,3);if(NANP_ISO[area])iso=NANP_ISO[area];else if(CA_AREAS[area])iso='CA';}
+    return {cc:cc,iso:iso,nat:nat,ok:lens.indexOf(nat.length)>=0};}
   function normaliza(raw){var d=String(raw||'').replace(/\D/g,'');var nota='';
+    if(d.slice(0,2)==='00'){d=d.slice(2);nota='00 internacional quitado';}
     if(d.length>=14&&d.slice(0,4)==='5252'){d=d.slice(2);nota='52 duplicado, corregido';}
     if(d.length===13&&d.slice(0,3)==='521'){d='52'+d.slice(3);nota='sin el 1 viejo';}
-    if(d.length===10){d='52'+d;nota='+52 añadido';}
-    var ok=/^52\d{10}$/.test(d);
-    return {tel:d,ok:ok,nota:ok?nota:'revisa: no cuadra con +52 y 10 dígitos'};}
-  function bonito(tel){return tel.length===12?'+52 '+tel.slice(2,4)+' '+tel.slice(4,8)+' '+tel.slice(8):'+'+tel;}
+    if(d.length===10){d='52'+d;nota='+52 añadido (10 dígitos)';}
+    var p=pais(d);
+    if(!p)return {tel:d,ok:false,nota:'país no reconocido',iso:'',cc:''};
+    if(!p.ok)return {tel:d,ok:false,nota:'revisa: '+p.iso+' espera '+PAISES[p.cc][1].join(' o ')+' dígitos y hay '+p.nat.length,iso:p.iso,cc:p.cc};
+    return {tel:d,ok:true,nota:nota,iso:p.iso,cc:p.cc};}
+  function bonito(tel){var p=pais(tel);if(!p)return '+'+tel;var nat=p.nat,g=[];if(p.cc==='52'||p.cc==='1'){g=[nat.slice(0,3),nat.slice(3,6),nat.slice(6)];}else{while(nat.length>4){g.push(nat.slice(0,3));nat=nat.slice(3);}g.push(nat);}return '+'+p.cc+' '+g.filter(Boolean).join(' ');}
   function parseLista(txt){var out=[];txt.split(/\n+/).forEach(function(l){l=l.trim();if(!l)return;var p=l.split(/[,;\t]/).map(function(x){return x.trim();});
     var nombre=p[0]||'',tel=p[1]||'',lang=(p[2]||'').toLowerCase().indexOf('en')===0?'en':'es',cat=(p[3]||'').toLowerCase().indexOf('kid')===0?'kids':'adultos';
     if(!tel&&/\d{8,}/.test(nombre)){tel=nombre;nombre='';}
-    var n=normaliza(tel); out.push({nombre:nombre||bonito(n.tel),tel:n.tel,ok:n.ok,nota:n.nota,lang:lang,cat:cat,fuente:'manual'});});return out;}
+    var n=normaliza(tel); out.push({nombre:nombre||bonito(n.tel),tel:n.tel,ok:n.ok,nota:n.nota,iso:n.iso,lang:lang,cat:cat,fuente:'manual'});});return out;}
 
   // ── edición y mensajes ──
   function tarjetasDe(cat){return ((cat==='kids'?st.kids:st.vit)||{}).tarjetas||[];}
@@ -226,7 +237,7 @@ textarea{min-height:64px;resize:vertical}
     return fetch(CARTERO+'?action=lista_wa&format=json&clave='+encodeURIComponent(clave),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
       if(!d||d.ok!==true){throw new Error((d&&d.error)||'formato');}
       var manual=st.lista.filter(function(s){return s.fuente==='manual';});
-      var filas=(d.filas||[]).map(function(f){var nn=normaliza(f.tel);return {nombre:f.nombre||bonito(nn.tel),tel:nn.tel,ok:nn.ok,nota:nn.nota,lang:(f.lang==='en'?'en':'es'),cat:st.catOv[nn.tel]||'adultos',fuente:'hoja',status:f.status||''};});
+      var filas=(d.filas||[]).map(function(f){var nn=normaliza(f.tel);return {nombre:f.nombre||bonito(nn.tel),tel:nn.tel,ok:nn.ok,nota:nn.nota,iso:nn.iso,lang:(f.lang==='en'?'en':'es'),cat:st.catOv[nn.tel]||'adultos',fuente:'hoja',status:f.status||''};});
       var vistos={};filas.forEach(function(f){vistos[f.tel]=1;});manual=manual.filter(function(m){return !vistos[m.tel];});
       st.lista=filas.concat(manual);st.hoja={n:filas.length,resumen:d.resumen||{},cuando:Date.now()};guarda();pintaLista();if(st.lista.some(function(x){return x.cat==='kids';}))cargaKidsVivo();
       var r=d.resumen||{};$('fuenteTxt').textContent=filas.length+' desde tu hoja · sin teléfono '+(r.sinTel||0)+' · bajas '+(r.unsub||0)+' · expirados '+(r.expirados||0)+(manual.length?' · +'+manual.length+' manual':'');
@@ -244,7 +255,7 @@ textarea{min-height:64px;resize:vertical}
     st.lista.forEach(function(s,i){var t=edDe(s.cat);if(!t)return;var e=(st.env[t.slug]||{})[s.tel]||{};var hecho=!!e.link;if(hecho)hechos++;
       var r=document.createElement('div');r.className='row';
       r.innerHTML='<button class="ok'+(hecho?'':' no')+'" title="marcar / desmarcar">'+(hecho?'✓':'·')+'</button>'+
-        '<div class="who"><b>'+esc(s.nombre)+'</b><span>'+esc(bonito(s.tel))+(s.ok?'':' <span class="tag x">'+esc(s.nota)+'</span>')+(s.ok&&s.nota?' <span class="tag w">'+esc(s.nota)+'</span>':'')+'</span></div>'+
+        '<div class="who"><b><span title="'+esc(s.iso||'?')+'" style="margin-right:6px">'+bandera(s.iso)+'</span>'+esc(s.nombre)+'</b><span>'+esc(bonito(s.tel))+(s.ok?'':' <span class="tag x">'+esc(s.nota)+'</span>')+(s.ok&&s.nota?' <span class="tag w">'+esc(s.nota)+'</span>':'')+'</span></div>'+
         '<span class="tag c'+(s.cat==='kids'?' k':'')+'" data-cat="1" title="toca para cambiar adultos/kids">'+(s.cat==='kids'?'Kids':'Adultos')+' · '+(s.lang==='en'?'EN':'ES')+'</span>'+(s.fuente==='hoja'?'<span class="tag h" title="desde tu hoja">hoja</span>':'')+
         '<div class="acts">'+
           '<button class="btn p" data-a="link">'+(hecho?'Otra vez':'Abrir chat')+'</button>'+
