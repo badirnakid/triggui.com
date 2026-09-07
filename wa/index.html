@@ -124,7 +124,7 @@ textarea{min-height:64px;resize:vertical}
       <h2>Qué incluir</h2>
       <div class="chk"><span class="tag" style="order:2;color:var(--acc);background:rgba(var(--accR),var(--accG),var(--accB),.14)">siempre</span><div>Frase + link con vista previa<small>Un mensaje: la frase, el OG y el link marcado</small></div></div>
       <div class="chk"><input type="checkbox" id="incTarjeta" checked><div>Tarjeta completa (imagen)<small id="tarjetaHint">Con la <b>segunda</b> frase de pie · Laptop: Copiar tarjeta una vez, 🖼 abre el chat con el pie listo, Ctrl+V</small></div></div>
-      <div class="chk"><input type="checkbox" id="incPieza" checked><div>🎧 La pieza<small id="piezaHint">—</small></div></div>
+      <div class="chk"><input type="checkbox" id="incPieza" checked><div>🎧 La melodía<small id="piezaHint">—</small></div></div>
       <div class="chk" id="chkVideo"><input type="checkbox" id="incVideo"><div>🎬 El video<small id="videoHint">—</small></div></div>
     </div>
 
@@ -259,7 +259,7 @@ textarea{min-height:64px;resize:vertical}
     $('edTit').textContent=(t.numero?'#'+t.numero+' · ':'')+(c.libro||t.slug);$('edSub').textContent=(c.autor||'')+(t.catalogo==='kids'||st.cat==='kids'?' · Kids':'');
     var m=(t.musica||[])[0],v=(t.video||[])[0];
     $('edMeta').textContent=((c.frases||[]).length)+' frases'+(m?' · 🎧 '+m.cancion+' — '+m.artista:' · sin pieza')+(v?' · 🎬 1 video':'');
-    $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+(t._hayPieza===false?' · ⚠ su página aún no existe: irá el link de la edición con play':' · su justificación y su propia página')):'esta edición no tiene pieza';$('incPieza').disabled=!m;
+    $('piezaHint').textContent=m?(m.cancion+' — '+m.artista+(t._hayPieza===false?' · ⚠ su página aún no existe: irá el link de la edición con play':' · su justificación y su propia página')):'esta edición no tiene melodía';$('incPieza').disabled=!m;
     var hayV=!!v&&st.cat!=='kids';$('videoHint').textContent=hayV?(v.titulo||'')+(t._hayVideo===false?' · ⚠ su página aún no existe: irá el link de YouTube':' · solo el link: su página dentro de Triggui'):(st.cat==='kids'?'kids no lleva video (por diseño)':'sin video');$('incVideo').disabled=!hayV;$('chkVideo').classList.toggle('off',!hayV);if(!hayV)$('incVideo').checked=false;
     var ch=$('chips');ch.innerHTML='';(c.frases||[]).forEach(function(f,i){var b=document.createElement('button');b.className='chip'+(i===st.fraseIdx&&!st.frase?' on':'');b.textContent=f;b.onclick=function(){st.fraseIdx=i;st.frase='';$('frase').value=f;guarda();pintaEdicion();pintaPrev();};ch.appendChild(b);});
     if(!st.frase)$('frase').value=(c.frases||[])[st.fraseIdx]||'';}
@@ -313,13 +313,13 @@ textarea{min-height:64px;resize:vertical}
         '<div class="acts">'+
           (movil?
           '<button class="btn'+(hecho?'':' p')+'" data-a="link">'+(hecho?'Otra vez':'Abrir chat')+'</button>'+
-          (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn i" data-a="pieza" title="Mandar la pieza">'+(e.pieza?'✓':'🎧')+'</button>':'')+
+          (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn i" data-a="pieza" title="Mandar la melodía">'+(e.pieza?'✓':'🎧')+'</button>':'')+
           (($('incVideo').checked&&(t.video||[]).length&&s.cat!=='kids')?'<button class="btn i" data-a="video" title="Mandar el video">'+(e.video?'✓':'🎬')+'</button>':'')+
           ($('incTarjeta').checked?'<button class="btn i" data-a="tarjeta" title="Compartir la tarjeta">'+(e.tarjeta?'✓':'🖼')+'</button>':'')
           :
           '<button class="btn'+(hecho?'':' p')+'" data-a="c1" title="Copiar frase + link · luego en WhatsApp: buscar a '+esc(s.nombre)+', Ctrl+V, esperar la imagen grande, Enter">'+(hecho?'✓ 1':'📋 1')+'</button>'+
           ($('incTarjeta').checked?'<button class="btn i" data-a="c2" title="Copiar la tarjeta (imagen) · Ctrl+V en el mismo chat">'+(e.tarjeta?'✓':'🖼')+'</button>':'')+
-          (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn i" data-a="c3" title="Copiar la pieza con su justificación · Ctrl+V">'+(e.pieza?'✓':'🎧')+'</button>':'')+
+          (($('incPieza').checked&&(t.musica||[]).length)?'<button class="btn i" data-a="c3" title="Copiar la melodía con su justificación · Ctrl+V">'+(e.pieza?'✓':'🎧')+'</button>':'')+
           (($('incVideo').checked&&(t.video||[]).length&&s.cat!=='kids')?'<button class="btn i" data-a="c4" title="Copiar el link del video · Ctrl+V">'+(e.video?'✓':'🎬')+'</button>':'')+
           '<button class="btn i" data-a="link" title="Abrir chat en pestaña nueva (solo si el contacto no aparece en tu búsqueda de WhatsApp)">↗</button>'
           )+
@@ -328,7 +328,7 @@ textarea{min-height:64px;resize:vertical}
       r.querySelector('.ok').onclick=function(){if(e.link){delete st.env[t.slug][s.tel];}else{marca(t.slug,s.tel,'link');}guarda();pintaLista();};
       r.querySelectorAll('[data-a]').forEach(function(b){b.onclick=function(){var a=b.getAttribute('data-a');
         if(a==='c1'||a==='c3'||a==='c4'){var txt=a==='c1'?msgLink(t,s.lang):a==='c3'?msgPieza(t,s.lang):msgVideo(t);var tipo=a==='c1'?'link':a==='c3'?'pieza':'video';
-          navigator.clipboard.writeText(txt).then(function(){marca(t.slug,s.tel,tipo);evento('copiar_'+tipo,t,s.lang,s.cat);actual(s);toast((a==='c1'?'Frase + link copiados → en WhatsApp busca a '+s.nombre+', Ctrl+V, espera la imagen grande, Enter':(a==='c3'?'Pieza copiada → Ctrl+V, espera la portada, Enter':'Video copiado → Ctrl+V, Enter')));},function(){toast('No pude copiar: permite el portapapeles');});return;}
+          navigator.clipboard.writeText(txt).then(function(){marca(t.slug,s.tel,tipo);evento('copiar_'+tipo,t,s.lang,s.cat);actual(s);toast((a==='c1'?'Frase + link copiados → en WhatsApp busca a '+s.nombre+', Ctrl+V, espera la imagen grande, Enter':(a==='c3'?'Melodía copiada → Ctrl+V, espera la portada, Enter':'Video copiado → Ctrl+V, Enter')));},function(){toast('No pude copiar: permite el portapapeles');});return;}
         if(a==='c2'){blobTarjeta(t,s.lang).then(function(bl){if(!navigator.clipboard||!window.ClipboardItem)throw new Error('clip');return navigator.clipboard.write([new ClipboardItem({'image/png':bl})]);}).then(function(){marca(t.slug,s.tel,'tarjeta');evento('copiar_tarjeta',t,s.lang,s.cat);actual(s);toast('Tarjeta copiada → Ctrl+V en el chat de '+s.nombre+', Enter');}).catch(function(){toast('Tu navegador no copia imágenes: usa el celular (botón Tarjeta)');});return;}
         if(a==='link'){abre(chatUrl(s.tel,msgLink(t,s.lang)));marca(t.slug,s.tel,'link');evento('link',t,s.lang,s.cat);}
         else if(a==='pieza'){abre(chatUrl(s.tel,msgPieza(t,s.lang)));marca(t.slug,s.tel,'pieza');evento('pieza',t,s.lang,s.cat);}
