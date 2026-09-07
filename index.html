@@ -1440,7 +1440,7 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
           "<p>" + esc(c.ogDesc) + "</p>" +
           '<img src="' + esc(t.og[lang] || t.og.es) + '" alt="" loading="lazy" decoding="async" onerror="this.style.display=\'none\'">' +
         "</div>" +
-        '<a class="esp-wa" data-slug="' + esc(t.slug || "") + '" href="https://wa.me/?text=' + encodeURIComponent((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?w=c")) + '" target="_blank" rel="noopener">' + (lang === "en" ? "Share on WhatsApp &rarr;" : "Compartir por WhatsApp &rarr;") + "</a>" +
+        '<a class="esp-wa" data-slug="' + esc(t.slug || "") + '" data-txt="' + esc((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?w=c")) + '" href="' + (/iPhone|iPad|Android/i.test(navigator.userAgent) ? "https://wa.me/?text=" : "https://web.whatsapp.com/send?text=") + encodeURIComponent((((c.frases && c.frases[0]) || c.ogDesc || "") + "\n" + (c.url || "") + "?w=c")) + '" target="_blank" rel="noopener">' + (lang === "en" ? "Share on WhatsApp &rarr;" : "Compartir por WhatsApp &rarr;") + "</a>" +
         '<a class="esp-tira" href="https://app.triggui.com/espiral/" target="_blank" rel="noopener">' +
           '<span class="esp-tira-t">' + (lang === "en" ? "Enter your Spiral" : "Entra a tu Espiral") + "</span>" +
           '<span class="esp-tira-s">' + (lang === "en" ? "Members only · your personal collection" : "Solo miembros · tu colección personal") + "</span>" +
@@ -1448,7 +1448,7 @@ h2.text-fire,p.text-fire,span.text-fire{padding-bottom:.14em;display:inline-bloc
         "</a>" +
       "</div>";
     if (window.__lvinMonta) { try { window.__lvinMonta(caja, t, lang); } catch (e) { console.warn("Triggui \u00b7 vinilo:", e); } }
-    if (!caja.__waTrack) { caja.__waTrack = 1; caja.addEventListener("click", function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest(".esp-wa") : null; if (a) { try { gtag("event", "share_wa", { contexto: "landing", slug: a.getAttribute("data-slug") || "" }); } catch (e) {} } }); }
+    if (!caja.__waTrack) { caja.__waTrack = 1; caja.addEventListener("click", function (ev) { var a = ev.target && ev.target.closest ? ev.target.closest(".esp-wa") : null; if (a) { try { gtag("event", "share_wa", { contexto: "landing", slug: a.getAttribute("data-slug") || "" }); } catch (e) {} if (/iPhone|iPad|Android/i.test(navigator.userAgent) && navigator.share) { ev.preventDefault(); navigator.share({ text: a.getAttribute("data-txt") || "" }).catch(function () { location.href = a.href; }); } } }); }
   }
   function arranca(d) {
     window.__TV_VITRINA = d;
