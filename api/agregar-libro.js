@@ -8,7 +8,7 @@
 //
 // Diseño nivel dios cuántico-quark:
 //   - Token GitHub NUNCA expuesto al cliente (vive en env vars de Vercel)
-//   - Llave "123" como capa anti-spam casual
+//   - Llave larga validada por api/_llave.js (vive en Vercel: AGREGAR_LLAVE)
 //   - Sanitización: comas y newlines convertidos a espacios
 //   - Detección de duplicados (case-insensitive: titulo + autor)
 //   - Optimistic concurrency con SHA + retry x3
@@ -28,11 +28,11 @@
 // ════════════════════════════════════════════════════════════════════════
 
 import { verifyBookExternal } from './verify-book.js';
+import { exigirAcceso } from './_llave.js';
 
 const OWNER = 'badirnakid';
 const REPO = 'triggui-content';
 const PATH = 'data/libros_master.csv';
-const LLAVE_VALIDA = 'nh';
 const MAX_ATTEMPTS = 3;
 
 // ════════════════════════════════════════════════════════════════════════
@@ -481,9 +481,7 @@ export default async function handler(req, res) {
   const nota = (body.nota || '').toString();
   const llave = (body.llave || '').toString();
 
-  if (llave !== LLAVE_VALIDA) {
-    return res.status(401).json({ error: 'Llave inválida.' });
-  }
+  if (!(await exigirAcceso(req, res, 'agregar', llave))) return;
 
   if (!titulo.trim() || !autor.trim()) {
     return res.status(400).json({ error: 'Título y autor son obligatorios.' });

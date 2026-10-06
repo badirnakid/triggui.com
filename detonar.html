@@ -218,6 +218,18 @@
       margin-left: auto; flex-shrink: 0; cursor: pointer; border: none; background: transparent;
       color: #997B33; font-size: 18px; line-height: 1; padding: 2px 4px; -webkit-tap-highlight-color: transparent;
     }
+
+    /* Aparato reconocido (sesión de dueño): la llave se pide una sola vez por aparato */
+    .oculto { display: none !important; }
+    .sesion-info { margin-top: 12px; font-size: 13px; color: inherit; opacity: 0.72; }
+    .sesion-info[hidden] { display: none; }
+    .sesion-info button,
+    .sesion-info button:hover:not(:disabled),
+    .sesion-info button:active:not(:disabled) {
+      background: none; border: none; padding: 10px 0; margin: 0; width: auto; min-height: 0;
+      font: inherit; font-weight: 600; color: inherit; text-decoration: underline;
+      letter-spacing: 0; border-radius: 0; box-shadow: none; transform: none; cursor: pointer;
+    }
   </style>
   <script src="/book-search.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -393,9 +405,9 @@
 
       <!-- LLAVE + DETONAR -->
       <div class="row">
-        <div class="field field-key">
+        <div class="field field-key" id="campoLlave">
           <label class="lbl" for="llave">Llave</label>
-          <input type="password" id="llave" placeholder="••" required maxlength="20">
+          <input type="password" id="llave" placeholder="••" required maxlength="200" autocomplete="current-password">
         </div>
         <div class="field field-submit">
           <label class="lbl" style="visibility:hidden">.</label>
@@ -403,6 +415,8 @@
         </div>
       </div>
     </form>
+
+    <div id="sesionInfo" class="sesion-info" hidden>Aparato reconocido · <button type="button" id="sesionCerrar">Cerrar sesión en este aparato</button></div>
 
     <div id="feedback"></div>
   </div>
@@ -600,12 +614,60 @@
       function val(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; }
       function chk(id) { var el = document.getElementById(id); return el ? !!el.checked : false; }
 
+      // Aparato reconocido: tras entrar una vez con la llave, el servidor deja una
+      // sesión en este aparato (cookie que el código de la página no puede leer).
+      // Mientras dure, el formulario no pide la llave.
+      var campoLlave = document.getElementById('campoLlave');
+      var entradaLlave = document.getElementById('llave');
+      var sesionInfo = document.getElementById('sesionInfo');
+      var sesionCerrar = document.getElementById('sesionCerrar');
+      var PISTA_SESION = 'tg_aparato_detonar';           // solo una pista para pintar sin parpadeo; no es un secreto
+      var aparatoReconocido = false;
+
+      function pintarSesion(reconocido) {
+        aparatoReconocido = !!reconocido;
+        campoLlave.classList.toggle('oculto', aparatoReconocido);
+        entradaLlave.disabled = aparatoReconocido;         // un campo deshabilitado no bloquea el envío
+        if (aparatoReconocido) entradaLlave.value = '';
+        sesionInfo.hidden = !aparatoReconocido;
+        try { localStorage.setItem(PISTA_SESION, aparatoReconocido ? '1' : '0'); } catch (_) {}
+      }
+
+      async function consultarSesion() {
+        try {
+          var r = await fetch('/api/sesion', { credentials: 'same-origin', cache: 'no-store' });
+          var d = await r.json();
+          pintarSesion(!!(d && d.detonar));
+        } catch (_) {
+          // sin respuesta: se conserva lo pintado; el envío dirá la verdad
+        }
+      }
+
+      sesionCerrar.addEventListener('click', async function () {
+        try {
+          await fetch('/api/sesion', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cerrar: true })
+          });
+        } catch (_) {}
+        pintarSesion(false);
+        entradaLlave.focus();
+      });
+
+      // Pinta de inmediato como quedó la última vez (sin parpadeo) y luego pregunta al servidor, que es quien manda.
+      var pistaSesion = false;
+      try { pistaSesion = localStorage.getItem(PISTA_SESION) === '1'; } catch (_) {}
+      pintarSesion(pistaSesion);
+      consultarSesion();
+
       form.addEventListener('submit', async function (e) {
         e.preventDefault();
         clearFeedback();
 
         var llave = val('llave');
-        if (!llave) { showFeedback('error', 'Falta la llave.'); return; }
+        if (!llave && !aparatoReconocido) { showFeedback('error', 'Falta la llave.'); return; }
 
         var esLibro = modoSel === '📘 Un libro específico';
         var esReconstruir = modoSel === '🔁 Reconstruir imágenes (sin LLM)';
@@ -657,7 +719,9 @@
             );
             document.getElementById('llave').value = '';
           } else if (res.status === 401) {
-            showFeedback('error', 'Llave incorrecta.');
+            var estabaReconocido = aparatoReconocido;
+            pintarSesion(false);
+            showFeedback('error', estabaReconocido ? 'Este aparato ya no está reconocido. Pega la llave una vez más.' : 'Llave incorrecta.');
             var lv = document.getElementById('llave'); lv.value = ''; lv.focus();
           } else {
             var msg = (data && data.error) ? data.error : 'Error al disparar. Intenta de nuevo.';
@@ -670,6 +734,7 @@
         } finally {
           btn.disabled = false;
           btn.textContent = 'Detonar';
+          if (!aparatoReconocido && llave) consultarSesion();
         }
       });
 

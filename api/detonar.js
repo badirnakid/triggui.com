@@ -8,7 +8,7 @@
 //
 // Diseño nivel dios cuántico-quark:
 //   - Token GitHub NUNCA expuesto al cliente (vive en env vars de Vercel)
-//   - Llave 'nh' validada del lado SERVIDOR (igual que /agregar)
+//   - Llave larga validada del lado SERVIDOR por api/_llave.js (vive en Vercel)
 //   - Booleanos se mandan como booleanos JSON (el workflow los usa como
 //     boolean: `if: ${{ inputs.x }}`, `!inputs.modo_prueba`,
 //     `inputs.modo_prueba != true`). Mandar "false" string sería truthy = bug.
@@ -31,14 +31,16 @@
 //
 // ════════════════════════════════════════════════════════════════════════
 
+import { exigirAcceso } from './_llave.js';
+
 const OWNER = 'badirnakid';
 const REPO = 'triggui-app';          // donde vive triggui.yml
 const WORKFLOW = 'triggui.yml';
 const REF = 'main';
-// Llave: por defecto 'nh' (igual que /agregar, funciona de una vez). RECOMENDADO:
-// define DETONAR_LLAVE en Vercel con un secreto largo → así NO vive en el repo público
-// y detonar (que cuesta $ de OpenAI) queda protegido de verdad.
-const LLAVE_VALIDA = process.env.DETONAR_LLAVE || 'nh';
+// Llave: vive SOLO en Vercel (variable DETONAR_LLAVE, mínimo 32 caracteres).
+// No hay llave por defecto: si la variable falta o es corta, la puerta queda
+// CERRADA (503). La cerradura es api/_llave.js, la misma de /agregar. Tras entrar
+// una vez con la llave, el aparato queda reconocido 90 días.
 
 // Defaults EXACTOS del workflow (on.workflow_dispatch.inputs).
 // Un campo solo se manda si su valor != default (y no está vacío).
@@ -112,9 +114,7 @@ export default async function handler(req, res) {
   const body = req.body || {};
 
   // 1. Llave (server-side)
-  if (String(body.llave || '') !== LLAVE_VALIDA) {
-    return res.status(401).json({ error: 'Llave inválida.' });
-  }
+  if (!(await exigirAcceso(req, res, 'detonar', body.llave))) return;
 
   // 2. modo (obligatorio + whitelist)
   const modo = String(body.modo || DEFAULTS.modo);

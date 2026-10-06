@@ -1,32 +1,39 @@
 // ════════════════════════════════════════════════════════════════════════
-// 🌒 /api/debug-verify — Endpoint público para diagnosticar el verify
+// 🌒 /api/debug-verify · diagnóstico INTERNO del verify (ya no es público)
 // ════════════════════════════════════════════════════════════════════════
-// URL ejemplo:
+// Usa la misma cerradura que /agregar (AGREGAR_LLAVE en Vercel).
+//
+// Con el aparato ya reconocido, basta abrir la dirección en el navegador:
 //   triggui.com/api/debug-verify?titulo=Abitus%20Tomicus&autor=James%20Claro
 //
-// Devuelve JSON crudo con:
+// Sin aparato reconocido, la llave viaja en una cabecera o en el cuerpo,
+// NUNCA en la dirección (lo que va en la dirección queda en historiales):
+//   curl -s https://triggui.com/api/debug-verify -H "x-triggui-llave: $LLAVE" -H "Content-Type: application/json" -d '{"titulo":"Abitus Tomicus","autor":"James Claro"}'
+//
+// Devuelve JSON con:
 //   - input recibido
 //   - resultado completo de verifyBookExternal
-//   - debug log de cada paso
-//
-// USO: simplemente abre la URL en el navegador. Te muestra todo el flujo.
-// Útil para diagnosticar cuando algo "pasa mantequilla".
+//   - registro de cada paso
 // ════════════════════════════════════════════════════════════════════════
 
 import { verifyBookExternal } from './verify-book.js';
+import { exigirAcceso } from './_llave.js';
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
 
-  const titulo = (req.query?.titulo || '').toString().trim();
-  const autor = (req.query?.autor || '').toString().trim();
+  const body = (req.body && typeof req.body === 'object') ? req.body : {};
+  const cabecera = req.headers ? req.headers['x-triggui-llave'] : '';
+  if (!(await exigirAcceso(req, res, 'agregar', cabecera || body.llave))) return;
+
+  const titulo = (body.titulo || req.query?.titulo || '').toString().trim();
+  const autor = (body.autor || req.query?.autor || '').toString().trim();
 
   if (!titulo || !autor) {
     return res.status(400).json({
       error: 'Faltan parámetros',
-      uso: '/api/debug-verify?titulo=...&autor=...',
-      ejemplo: '/api/debug-verify?titulo=Abitus%20Tomicus&autor=James%20Claro'
+      uso: '/api/debug-verify?titulo=...&autor=...'
     });
   }
 
@@ -46,10 +53,10 @@ export default async function handler(req, res) {
         : 'otro tipo'
     });
   } catch (err) {
+    console.error('debug-verify:', err);
     return res.status(500).json({
       error: 'Error en verifyBookExternal',
-      message: err.message,
-      stack: err.stack
+      message: err && err.message ? err.message : String(err)
     });
   }
 }
