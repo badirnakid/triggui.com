@@ -1,5 +1,5 @@
 // ════════════════════════════════════════════════════════════════════════
-// 🌒 verify-book.js v6.0 — VERSIÓN FINAL NIVEL DIOS TODOPODEROSO
+// 🌒 _verify-book.js v7.0 — VERSIÓN FINAL NIVEL DIOS TODOPODEROSO (con Claude, C278)
 // ════════════════════════════════════════════════════════════════════════
 //
 // ARQUITECTURA EN CASCADA (optimizada para latencia y costo):
@@ -13,45 +13,47 @@
 //
 //   PASO 3: Decisión algorítmica
 //           ✓ Match fuerte (combinado ≥85% o autor ≥85% + combinado ≥75%):
-//             → STRONG sin GPT (AHORRO de tokens)
+//             → STRONG sin IA (AHORRO de tokens)
 //           ✓ Match débil pero candidatos válidos: continuar a paso 4
 //           ✓ Sin candidatos relevantes: continuar a paso 4
 //
-//   PASO 4 (GPT cuarto tier): GPT-4o-mini semántico
+//   PASO 4 (IA, cuarto tier): Claude Haiku 5.5 semántico
 //           Solo se invoca si APIs no resolvieron con confianza.
-//           Costo: ~$0.0003 USD por captura (~$0.006 MXN).
+//           Costo: ~0.0001 USD por captura (~0.002 MXN).
 //
-//   PASO 5 (sanity check): Double-check GPT contra APIs
-//           SOLO si confianza GPT < 0.92 (si ≥0.92, confiar sin verificar).
+//   PASO 5 (sanity check): Double-check de la IA contra APIs
+//           SOLO si la confianza de la IA < 0.92 (si ≥0.92, confiar sin verificar).
 //           Eleva sources si APIs confirman = high confidence.
 //
 //   PASO 6: Degradación elegante
-//           Si GPT no reconoce + APIs tienen candidatos con autor decente:
+//           Si la IA no reconoce + APIs tienen candidatos con autor decente:
 //             → WEAK_MATCH (mostrar candidatos)
 //           Si nada coincide: → NO_MATCH (tarjeta "Revisa bien")
 //
 // LATENCIA TÍPICA:
 //   - Match exacto APIs:         ~700ms
 //   - Match con typo leve APIs:  ~800ms
-//   - Typo medio (GPT entra):    ~3-4s
-//   - Typo extremo (GPT+check):  ~5-6s
+//   - Typo medio (IA entra):     ~3-4s
+//   - Typo extremo (IA+check):   ~5-6s
 //
 // COSTO TÍPICO MENSUAL (10 capturas/mes):
 //   - 7 capturas resueltas por APIs:    $0.00 MXN
-//   - 3 capturas con GPT:               $0.018 MXN
+//   - 3 capturas con IA:                $0.006 MXN
 //   - TOTAL:                            <$0.02 MXN/mes
 // ════════════════════════════════════════════════════════════════════════
 
-import { identifyWithGPT } from './verify-book-gpt.js';
+// La llave es ANTHROPIC_API_KEY en Vercel. El guion bajo del nombre hace que Vercel no publique
+// este módulo como dirección (igual que _llave.js).
+import { identificaConIA } from './_verify-book-ia.js';
 
 // ─── Configuración nivel quark ──────────────────────────────────────────
 const TIMEOUT_MS = 2000;                  // ↓ de 3000ms para acelerar
-const STRONG_COMBINED_NO_GPT = 0.85;      // combinado ≥85% → sin GPT
-const STRONG_AUTHOR_NO_GPT = 0.85;        // autor ≥85% + combinado ≥75% → sin GPT
+const STRONG_COMBINED_NO_IA = 0.85;       // combinado ≥85% → sin IA
+const STRONG_AUTHOR_NO_IA = 0.85;         // autor ≥85% + combinado ≥75% → sin IA
 const STRONG_COMBINED_WITH_AUTHOR = 0.75;
 const WEAK_AUTHOR_MIN = 0.65;             // mínimo para mostrar candidatos
-const GPT_CONFIDENCE_MIN = 0.80;          // mínimo de GPT para aceptar
-const GPT_TRUST_THRESHOLD = 0.92;         // si GPT ≥0.92, saltar double-check
+const IA_CONFIDENCE_MIN = 0.80;           // mínimo de la IA para aceptar
+const IA_TRUST_THRESHOLD = 0.92;          // si la IA ≥0.92, saltar double-check
 const APIS_CONFIRM_TITLE = 0.85;          // título debe matchear ≥85% para confirmar
 const APIS_CONFIRM_AUTHOR = 0.75;         // autor debe matchear ≥75% para confirmar
 
@@ -355,9 +357,9 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
 
   log('input:', { titulo, autor });
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  const useGPT = opts.useGPT !== false && Boolean(apiKey);
-  if (!useGPT) log('warning: GPT no disponible — solo APIs');
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const useIA = opts.useIA !== false && Boolean(apiKey);
+  if (!useIA) log('warning: IA no disponible — solo APIs');
 
   // ═══ PASO 1: APIs en paralelo ═════════════════════════════════════════
   log('paso1: APIs query="' + titulo + ' ' + autor + '"');
@@ -406,8 +408,8 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
 
   // ═══ PASO 3: Decisión algorítmica nivel divino ════════════════════════
 
-  // CASO A: APIs encontraron match muy fuerte → SIN GPT
-  if (top && top.max_sim_combinado >= STRONG_COMBINED_NO_GPT) {
+  // CASO A: APIs encontraron match muy fuerte → SIN IA
+  if (top && top.max_sim_combinado >= STRONG_COMBINED_NO_IA) {
     const tituloBestN = normalize(top.titulo_canonico);
     const autorBestN = normalize(top.autor_canonico);
 
@@ -441,9 +443,9 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
     };
   }
 
-  // CASO B: Match medio con autor fuerte → SIN GPT
+  // CASO B: Match medio con autor fuerte → SIN IA
   if (top &&
-      top.max_sim_autor >= STRONG_AUTHOR_NO_GPT &&
+      top.max_sim_autor >= STRONG_AUTHOR_NO_IA &&
       top.max_sim_combinado >= STRONG_COMBINED_WITH_AUTHOR) {
     log('decision: strong_match (apis_only, medium score)', {
       sT: top.max_sim_titulo, sA: top.max_sim_autor, sC: top.max_sim_combinado
@@ -466,9 +468,9 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
     };
   }
 
-  // ═══ PASO 4: GPT-4o-mini (cuarto tier semántico) ══════════════════════
-  if (!useGPT) {
-    log('warning: APIs insuficientes y GPT no disponible');
+  // ═══ PASO 4: Claude Haiku 5.5 (cuarto tier semántico) ═════════════════
+  if (!useIA) {
+    log('warning: APIs insuficientes y la IA no disponible');
     const topByAuthor = ranked.filter(r => r.max_sim_autor >= WEAK_AUTHOR_MIN);
     if (topByAuthor.length > 0) {
       return {
@@ -482,7 +484,7 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
           sim_autor: Math.round(r.max_sim_autor * 100),
           sources: r.sources
         })),
-        via: 'apis_only_no_gpt',
+        via: 'apis_only_no_ia',
         elapsed_ms: Date.now() - startTime,
         debug: debugLog
       };
@@ -490,55 +492,55 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
     return {
       verified: false,
       tipo: 'no_match',
-      reason: 'apis_weak_no_gpt',
-      via: 'apis_only_no_gpt',
+      reason: 'apis_weak_no_ia',
+      via: 'apis_only_no_ia',
       elapsed_ms: Date.now() - startTime,
       debug: debugLog
     };
   }
 
-  log('paso4: APIs insuficientes → invoking GPT-4o-mini');
-  const gpt = await identifyWithGPT(titulo, autor, apiKey);
-  log('paso4 gpt:', {
-    available: gpt.available,
-    reconocido: gpt.reconocido,
-    confianza: gpt.confianza,
-    titulo_gpt: (gpt.titulo_canonico || '').slice(0, 50),
-    autor_gpt: (gpt.autor_canonico || '').slice(0, 30),
-    tokens: gpt.tokens,
-    elapsed_ms: gpt.elapsed_ms,
-    error: gpt.error
+  log('paso4: APIs insuficientes → invoking Claude Haiku 5.5');
+  const ia = await identificaConIA(titulo, autor, apiKey);
+  log('paso4 ia:', {
+    available: ia.available,
+    reconocido: ia.reconocido,
+    confianza: ia.confianza,
+    titulo_ia: (ia.titulo_canonico || '').slice(0, 50),
+    autor_ia: (ia.autor_canonico || '').slice(0, 30),
+    tokens: ia.tokens,
+    elapsed_ms: ia.elapsed_ms,
+    error: ia.error
   });
 
-  // CASO C: GPT reconoció con confianza suficiente
-  if (gpt.available && gpt.reconocido &&
-      gpt.confianza >= GPT_CONFIDENCE_MIN &&
-      gpt.titulo_canonico && gpt.autor_canonico) {
+  // CASO C: la IA reconoció con confianza suficiente
+  if (ia.available && ia.reconocido &&
+      ia.confianza >= IA_CONFIDENCE_MIN &&
+      ia.titulo_canonico && ia.autor_canonico) {
 
-    const gptTitN = normalize(gpt.titulo_canonico);
-    const gptAutN = normalize(gpt.autor_canonico);
+    const iaTitN = normalize(ia.titulo_canonico);
+    const iaAutN = normalize(ia.autor_canonico);
 
-    if (gptTitN === tituloInputN && gptAutN === autorInputN) {
-      log('decision: already_canonical (gpt)');
+    if (iaTitN === tituloInputN && iaAutN === autorInputN) {
+      log('decision: already_canonical (ia)');
       return {
         verified: true,
         already_canonical: true,
-        via: 'gpt',
+        via: 'ia',
         elapsed_ms: Date.now() - startTime,
         debug: debugLog
       };
     }
 
-    // ═══ PASO 5: Double-check con APIs SOLO si GPT < 0.92 ════════════════
-    // Si GPT está muy seguro (≥0.92), confiar sin verificar → ahorra ~2s
+    // ═══ PASO 5: Double-check con APIs SOLO si la IA < 0.92 ═══════════════
+    // Si la IA está muy segura (≥0.92), confiar sin verificar → ahorra ~2s
     let apisConfirmed = false;
     let confirmingSources = [];
-    let confirmedYear = gpt.year;
+    let confirmedYear = ia.year;
 
-    if (gpt.confianza < GPT_TRUST_THRESHOLD) {
-      log('paso5: double-check GPT vs APIs');
+    if (ia.confianza < IA_TRUST_THRESHOLD) {
+      log('paso5: double-check IA vs APIs');
       const validation = await searchAllAPIs(
-        `${gpt.titulo_canonico} ${gpt.autor_canonico}`.trim()
+        `${ia.titulo_canonico} ${ia.autor_canonico}`.trim()
       );
       const validationCandidates = [
         ...validation.apple,
@@ -546,8 +548,8 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
         ...validation.openlibrary
       ];
       for (const c of validationCandidates) {
-        const cT = scoreTitulo(gpt.titulo_canonico, c.titulo);
-        const cA = scoreAutor(gpt.autor_canonico, c.autor);
+        const cT = scoreTitulo(ia.titulo_canonico, c.titulo);
+        const cA = scoreAutor(ia.autor_canonico, c.autor);
         if (cT >= APIS_CONFIRM_TITLE && cA >= APIS_CONFIRM_AUTHOR) {
           apisConfirmed = true;
           if (!confirmingSources.includes(c.source)) confirmingSources.push(c.source);
@@ -556,19 +558,19 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
       }
       log('paso5 result:', { apisConfirmed, confirmingSources });
     } else {
-      log('paso5: skipped (GPT confidence ≥ ' + GPT_TRUST_THRESHOLD + ')');
+      log('paso5: skipped (IA confidence ≥ ' + IA_TRUST_THRESHOLD + ')');
     }
 
     const finalSources = apisConfirmed
-      ? ['gpt-4o-mini', ...confirmingSources]
-      : ['gpt-4o-mini'];
+      ? ['claude', ...confirmingSources]
+      : ['claude'];
     const confidenceLevel = apisConfirmed
       ? 'high'
-      : (gpt.confianza >= 0.9 ? 'high' : 'medium');
-    const via = apisConfirmed ? 'gpt+apis' : 'gpt';
+      : (ia.confianza >= 0.9 ? 'high' : 'medium');
+    const via = apisConfirmed ? 'ia+apis' : 'ia';
 
     log('decision: strong_match (' + via + ')', {
-      gpt_conf: gpt.confianza,
+      ia_conf: ia.confianza,
       apis_confirmed: apisConfirmed
     });
 
@@ -576,14 +578,14 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
       verified: true,
       tipo: 'strong_match',
       suggestion: {
-        titulo_canonico: gpt.titulo_canonico,
-        autor_canonico: gpt.autor_canonico,
-        year: confirmedYear || gpt.year,
-        sim_titulo: Math.round(gpt.confianza * 100),
-        sim_autor: Math.round(gpt.confianza * 100),
+        titulo_canonico: ia.titulo_canonico,
+        autor_canonico: ia.autor_canonico,
+        year: confirmedYear || ia.year,
+        sim_titulo: Math.round(ia.confianza * 100),
+        sim_autor: Math.round(ia.confianza * 100),
         sources: finalSources,
         confidence: confidenceLevel,
-        razon: gpt.razon,
+        razon: ia.razon,
         apis_confirmed: apisConfirmed
       },
       via,
@@ -593,12 +595,12 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
   }
 
   // ═══ PASO 6: Degradación elegante ═════════════════════════════════════
-  // GPT no reconoció → mostrar candidatos APIs si los hay, sino "Revisa bien"
-  log('paso6: GPT did not recognize, checking weak APIs fallback');
+  // La IA no reconoció → mostrar candidatos APIs si los hay, sino "Revisa bien"
+  log('paso6: IA did not recognize, checking weak APIs fallback');
 
   const topByAuthor = ranked.filter(r => r.max_sim_autor >= WEAK_AUTHOR_MIN);
   if (topByAuthor.length > 0) {
-    log('decision: weak_match (apis fallback after gpt)');
+    log('decision: weak_match (apis fallback after ia)');
     return {
       verified: true,
       tipo: 'weak_match',
@@ -610,7 +612,7 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
         sim_autor: Math.round(r.max_sim_autor * 100),
         sources: r.sources
       })),
-      gpt_razon: gpt.razon || null,
+      ia_razon: ia.razon || null,
       via: 'apis_fallback',
       elapsed_ms: Date.now() - startTime,
       debug: debugLog
@@ -622,7 +624,7 @@ export async function verifyBookExternal(titulo, autor, opts = {}) {
     verified: false,
     tipo: 'no_match',
     reason: 'no_strong_match_anywhere',
-    gpt_razon: gpt.razon || null,
+    ia_razon: ia.razon || null,
     sample: ranked.slice(0, 2).map(r => ({
       titulo: r.titulo_canonico,
       autor: r.autor_canonico,

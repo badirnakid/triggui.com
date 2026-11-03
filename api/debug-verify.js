@@ -16,7 +16,7 @@
 //   - registro de cada paso
 // ════════════════════════════════════════════════════════════════════════
 
-import { verifyBookExternal } from './verify-book.js';
+import { verifyBookExternal } from './_verify-book.js';
 import { exigirAcceso } from './_llave.js';
 
 export default async function handler(req, res) {
