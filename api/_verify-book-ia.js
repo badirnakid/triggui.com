@@ -9,7 +9,7 @@
 //     sin temperatura, salida estructurada en output_config.format y sin pensar antes
 //     de responder (thinking desactivado, como el papel «mini»).
 //   - Claude no acepta minimum ni maximum en el esquema: la confianza se valida aquí (0 a 1).
-//   - Un rechazo (stop_reason refusal) o un corte (max_tokens) nunca cuentan como
+//   - Un rechazo (stop_reason refusal) o un corte (max_tokens o model_context_window_exceeded) nunca cuentan como
 //     reconocimiento: /agregar sigue con las APIs, como cuando falta la llave.
 //   - La llave es ANTHROPIC_API_KEY en Vercel. Sin ella este paso no corre.
 //   - El guion bajo del nombre hace que Vercel no lo publique como dirección (igual que
@@ -115,7 +115,7 @@ export async function identificaConIA(titulo, autor, apiKey) {
     }
 
     const data = await res.json();
-    if (data?.stop_reason === 'refusal' || data?.stop_reason === 'max_tokens') {
+    if (data?.stop_reason === 'refusal' || data?.stop_reason === 'max_tokens' || data?.stop_reason === 'model_context_window_exceeded') {
       return { available: true, error: data.stop_reason };
     }
     const content = (data?.content || [])
