@@ -296,7 +296,8 @@
       //   • Los scanners siguen GET requests, no disparan clicks de botones
       //   • Los humanos completan el flow conscientemente
       //   • Idempotente: si ya está unsubscribed, repetir no rompe
-      //   • Anti-enum: se ve igual exista o no el email
+      //   • Dice la verdad: «Listo» solo si el cambio quedó. Con un enlace de antes de
+      //     la rotación del secreto (B20) dice que ya no sirve; el próximo correo trae uno nuevo.
       // ════════════════════════════════════════════════════════════════════
 
       var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec";
