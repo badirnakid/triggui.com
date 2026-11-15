@@ -15,6 +15,8 @@ const ENV = {
 };
 Object.assign(process.env, ENV);
 const wa = await import(path.join(AQUI, '..', 'api', 'wa.js'));
+const errores = [];
+console.error = (x) => errores.push(String(x));
 
 const LIBRO_A = {
   _slug: 'libro-de-prueba', titulo: 'Libro de prueba', _edicion_numero: 112,
@@ -26,17 +28,20 @@ const LIBRO_A = {
 const LIBRO_K = { _slug: 'cuento-de-prueba', titulo: 'Cuento', frases: ['K1', 'K2'],
   _musica: { candidatos: [{ cancion: 'KC', artista: 'KA', pie: 'KP', preview: 'https://k' }] }, _video: { candidatos: [] } };
 
-let llamadas = [], hayPaginas = true, puenteOk = true, redCaida = false;
+let llamadas, hayPaginas, faltan, puenteResp, redCaida, catalogoA, puenteLento;
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'Content-Type': 'application/json' } });
 globalThis.fetch = async (url, o = {}) => {
   url = String(url);
   llamadas.push({ url, o });
   if (redCaida && o.method === 'HEAD') throw new Error('red');
-  if (url.endsWith('contenido_manual.json')) return json({ libros: [LIBRO_A] });
+  if (url.endsWith('contenido_manual.json')) return json({ libros: catalogoA });
   if (url.endsWith('contenido_kids.json')) return json({ libros: [LIBRO_K] });
-  if (o.method === 'HEAD') return new Response(null, { status: hayPaginas ? 200 : 404 });
+  if (o.method === 'HEAD') return new Response(null, { status: (hayPaginas && !faltan.has(url)) ? 200 : 404 });
   if (url.startsWith('https://graph.facebook.com/')) return json({ messages: [{ id: 'wamid.R' }] });
-  if (url === ENV.WA_PUENTE_URL) return json({ ok: puenteOk });
+  if (url === ENV.WA_PUENTE_URL) {
+    if (puenteLento) throw new Error('tiempo');
+    return puenteResp === 'html' ? new Response('<html>error</html>', { status: 200 }) : json(puenteResp);
+  }
   throw new Error('URL inesperada: ' + url);
 };
 
@@ -49,11 +54,15 @@ async function post(cuerpo, firma = firmar(cuerpo)) {
   const r = await wa.POST(new Request('https://triggui.com/api/wa', { method: 'POST', headers: cab, body: cuerpo }));
   return { status: r.status, texto: await r.text() };
 }
-const boton = (payload, from = '5215511111111') => aviso({ messages: [{ from, id: 'wamid.IN', type: 'button', context: { id: 'wamid.T1' }, button: { payload, text: 'x' } }] });
-const texto = (body, from = '5215511111111') => aviso({ messages: [{ from, id: 'wamid.IN', type: 'text', text: { body } }] });
+let folio = 0;
+const boton = (payload, id = 'wamid.IN' + (++folio), from = '5215511111111') => aviso({ messages: [{ from, id, type: 'button', context: { id: 'wamid.T1' }, button: { payload, text: 'x' } }] });
+const texto = (body, id = 'wamid.IN' + (++folio), from = '5215511111111') => aviso({ messages: [{ from, id, type: 'text', text: { body } }] });
 const aMeta = () => llamadas.filter((l) => l.url.startsWith('https://graph.facebook.com/')).map((l) => JSON.parse(l.o.body));
 const alPuente = () => llamadas.filter((l) => l.url === ENV.WA_PUENTE_URL).map((l) => Object.fromEntries(new URLSearchParams(l.o.body.toString())));
-function limpiar() { llamadas = []; hayPaginas = true; puenteOk = true; redCaida = false; wa.limpiarCache(); }
+function limpiar() {
+  llamadas = []; hayPaginas = true; faltan = new Set(); puenteResp = { ok: true }; redCaida = false; puenteLento = false;
+  catalogoA = [LIBRO_A]; errores.length = 0; wa.limpiarCache(); wa.olvidarAtendidos();
+}
 
 let pasadas = 0;
 async function prueba(nombre, fn) {
@@ -101,13 +110,20 @@ await prueba('«La tarjeta»: la imagen de la tarjeta con la siguiente frase de 
   assert.strictEqual(meta.o.headers.Authorization, 'Bearer TOKEN-DE-PRUEBA');
 });
 
-await prueba('«La melodía»: el mismo texto de la sala, con su página y su vista previa', async () => {
+await prueba('la pieza sale aunque la hoja no conteste', async () => {
+  puenteLento = true;
+  assert.strictEqual((await post(boton('tg1|video|a|libro-de-prueba|es|0|0'))).status, 200);
+  assert.strictEqual(aMeta().length, 1);
+});
+
+await prueba('«La melodía»: el mismo texto de la sala, con su página exacta y su vista previa', async () => {
   await post(boton('tg1|melodia|a|libro-de-prueba|es|1|0'));
   assert.deepStrictEqual(aMeta()[0].text, { preview_url: true,
     body: 'Pie 2\n\n🎧 C2 — A2\nhttps://app.triggui.com/t/libro-de-prueba/pieza/1/?w=s&utm_content=lunes' });
-  limpiar(); hayPaginas = false;
-  await post(boton('tg1|melodia|a|libro-de-prueba|es|0|0'));
-  assert.strictEqual(aMeta()[0].text.body, 'Pie 1\n\n🎧 C1 — A1\nhttps://app.triggui.com/t/libro-de-prueba/?w=s&utm_content=lunes&p=1&m=0');
+  assert.ok(llamadas.some((l) => l.o.method === 'HEAD' && l.url === 'https://app.triggui.com/t/libro-de-prueba/pieza/1/'), 'mira la página que manda');
+  limpiar(); faltan = new Set(['https://app.triggui.com/t/libro-de-prueba/pieza/1/']);
+  await post(boton('tg1|melodia|a|libro-de-prueba|es|1|0'));
+  assert.strictEqual(aMeta()[0].text.body, 'Pie 2\n\n🎧 C2 — A2\nhttps://app.triggui.com/t/libro-de-prueba/?w=s&utm_content=lunes&p=1&m=1');
   limpiar(); hayPaginas = false;
   await post(boton('tg1|melodia|a|libro-de-prueba|en|0|0'));
   assert.strictEqual(aMeta()[0].text.body, '🎧 C1 — A1\nhttps://app.triggui.com/t/libro-de-prueba/en/?w=s&utm_content=lunes&p=1&m=0');
@@ -116,20 +132,26 @@ await prueba('«La melodía»: el mismo texto de la sala, con su página y su vi
   assert.ok(aMeta()[0].text.body.endsWith('/t/libro-de-prueba/pieza/?w=s&utm_content=lunes'), 'si la red falla, usa la página, como la sala');
 });
 
-await prueba('«El video»: su página dentro de Triggui; YouTube solo si la página no existe', async () => {
+await prueba('«El video»: su página exacta dentro de Triggui; YouTube solo si esa página no existe', async () => {
   await post(boton('tg1|video|a|libro-de-prueba|es|0|1'));
   assert.deepStrictEqual(aMeta()[0].text, { preview_url: true, body: 'https://app.triggui.com/t/libro-de-prueba/video/1/?w=s&utm_content=lunes' });
-  limpiar(); hayPaginas = false;
+  limpiar(); faltan = new Set(['https://app.triggui.com/t/libro-de-prueba/video/1/']);
   await post(boton('tg1|video|a|libro-de-prueba|es|0|1'));
   assert.strictEqual(aMeta()[0].text.body, 'https://youtu.be/vid2');
+  limpiar();
+  await post(boton('tg1|video|a|libro-de-prueba|es|0|0'));
+  assert.strictEqual(aMeta()[0].text.body, 'https://app.triggui.com/t/libro-de-prueba/video/?w=s&utm_content=lunes');
 });
 
-await prueba('sin la pieza pedida lo dice; sin el libro no contesta', async () => {
+await prueba('sin la pieza pedida lo dice; sin el libro no contesta; un libro recién publicado se encuentra', async () => {
   await post(boton('tg1|melodia|a|libro-de-prueba|es|5|0'));
   assert.strictEqual(aMeta()[0].text.body, 'Esta edición no trae melodía.');
   limpiar();
   await post(boton('tg1|tarjeta|a|otro-libro|es|0|0'));
   assert.strictEqual(aMeta().length, 0);
+  catalogoA = [LIBRO_A, Object.assign({}, LIBRO_A, { _slug: 'otro-libro' })];
+  await post(boton('tg1|tarjeta|a|otro-libro|es|0|0'));
+  assert.strictEqual(aMeta()[0].image.link, 'https://app.triggui.com/t/otro-libro/tarjeta.png');
 });
 
 await prueba('Niños: rutas de Niños, y nunca video', async () => {
@@ -150,22 +172,47 @@ await prueba('cargas que no son nuestras no hacen nada', async () => {
   assert.strictEqual(llamadas.length, 0);
 });
 
-await prueba('«BAJA» y «STOP»: la baja en la hoja y su confirmación; si no quedó, no promete nada', async () => {
-  await post(texto('BAJA'));
+await prueba('el mismo aviso dos veces no manda la pieza dos veces', async () => {
+  const c = boton('tg1|tarjeta|a|libro-de-prueba|es|0|0', 'wamid.REPETIDO');
+  await post(c); await post(c);
+  assert.strictEqual(aMeta().length, 1);
+});
+
+await prueba('«BAJA» y «STOP»: la baja en la hoja y su confirmación', async () => {
+  assert.strictEqual((await post(texto('BAJA'))).status, 200);
   assert.deepStrictEqual([alPuente()[0].tipo, alPuente()[0].tel], ['baja', '5215511111111']);
   assert.strictEqual(aMeta()[0].text.body, 'Listo, ya no te llegará el libro de los lunes. Gracias por leer con Triggui.');
   limpiar();
   await post(texto(' Stop! '));
   assert.ok(aMeta()[0].text.body.startsWith("Done, you won't"));
-  limpiar(); puenteOk = false;
-  await post(texto('baja.'));
-  assert.strictEqual(alPuente().length, 1);
-  assert.strictEqual(aMeta().length, 0);
   limpiar();
   for (const t of ['baja por favor', 'hola', 'no', 'Bajaaa']) await post(texto(t));
   assert.strictEqual(llamadas.length, 0);
   assert.strictEqual(wa.palabraDeBaja('Dar de baja'), 'baja');
   assert.strictEqual(wa.palabraDeBaja('BÁJA'), 'baja');
+});
+
+await prueba('una baja que no se pudo anotar por una falla pasajera pide a Meta que repita; nunca se confirma sin anotar', async () => {
+  for (const falla of [{ result: 'lock_timeout' }, 'html', { ok: false, error: 'clave' }]) {
+    limpiar(); puenteResp = falla;
+    const c = texto('BAJA', 'wamid.B1');
+    assert.strictEqual((await post(c)).status, 500, JSON.stringify(falla));
+    assert.strictEqual(aMeta().length, 0);
+    assert.ok(errores.some((e) => /Meta reintentará/.test(e)) && !errores.some((e) => /\d{8}/.test(e)), 'deja rastro, sin teléfono');
+    puenteResp = { ok: true };
+    assert.strictEqual((await post(c)).status, 200, 'cuando Meta repite, ya queda');
+    assert.strictEqual(aMeta().length, 1);
+  }
+  limpiar(); puenteLento = true;
+  assert.strictEqual((await post(texto('BAJA'))).status, 500);
+});
+
+await prueba('una baja que la hoja no puede marcar (número que no está) no se repite ni se confirma', async () => {
+  puenteResp = { ok: false, error: 'sin_fila' };
+  assert.strictEqual((await post(texto('baja.'))).status, 200);
+  assert.strictEqual(alPuente().length, 1);
+  assert.strictEqual(aMeta().length, 0);
+  assert.ok(errores.some((e) => /sin_fila/.test(e)));
 });
 
 await prueba('los estados: entregado, leído y fallido al puente; «enviado» no', async () => {
@@ -185,10 +232,16 @@ await prueba('otro número, otro campo o un JSON roto: 200 y nada más', async (
   assert.strictEqual(llamadas.length, 0);
 });
 
-await prueba('el puente manda su clave y solo cree un ok explícito', async () => {
-  assert.strictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), true);
-  puenteOk = false;
-  assert.strictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), false);
+await prueba('el puente manda su clave y distingue lo definitivo de lo pasajero', async () => {
+  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: true, definitivo: true, error: '' });
+  puenteResp = { ok: false, error: 'sin_fila' };
+  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: false, definitivo: true, error: 'sin_fila' });
+  puenteResp = { result: 'lock_timeout' };
+  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: false, definitivo: false, error: 'pasajero' });
+  puenteResp = { ok: false, error: 'clave' };
+  assert.strictEqual((await wa.puente({ tipo: 'baja', tel: '1' })).definitivo, false);
+  puenteResp = 'html';
+  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: false, definitivo: false, error: 'red' });
   assert.ok(alPuente().every((p) => p.clave === ENV.WA_PUENTE_CLAVE && p.action === 'wa_puente'));
 });
 

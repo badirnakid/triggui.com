@@ -6,7 +6,8 @@
 //   1. «La tarjeta», «La melodía», «El video»: le manda esa pieza, igual que la sala
 //      de envío (/wa), dentro de la conversación que abrió el toque: sin plantilla.
 //   2. «BAJA» o «STOP» (solo esa palabra): marca la baja en la hoja por el puente del
-//      Apps Script y, si quedó marcada, se lo confirma.
+//      Apps Script y, si quedó marcada, se lo confirma. Si no se pudo por una falla
+//      pasajera, contesta 500 para que Meta repita el aviso más tarde.
 //   3. Entregado, leído, fallido y cada botón: los anota en la hoja para el resumen.
 // Lo demás que escriban le llega a Badir en su app de WhatsApp Business: aquí no se contesta.
 //
@@ -89,29 +90,51 @@ export async function POST(request) {
       for (const s of (Array.isArray(v.statuses) ? v.statuses : [])) tareas.push(anotarEstado(s));
     }
   }
-  await Promise.allSettled(tareas);
+  const resultados = await Promise.allSettled(tareas);
+  // Una baja que no se pudo anotar por una falla pasajera (candado, red, Apps Script lento) no se pierde:
+  // se contesta 500 para que Meta vuelva a mandar el aviso más tarde.
+  if (resultados.some((r) => r.status === 'fulfilled' && r.value === REINTENTAR)) return respuesta('Reintentar.', 500);
   return respuesta('ok', 200);
 }
+
+const REINTENTAR = 'reintentar';
+const atendidos = new Map();   // ids de mensajes ya atendidos en esta instancia (Meta puede repetir un aviso)
+function yaAtendido(id) {
+  const ahora = Date.now();
+  for (const [k, t] of atendidos) if (ahora - t > CACHE_MS) atendidos.delete(k);
+  return !!id && atendidos.has(id);
+}
+function marcarAtendido(id) { if (id) atendidos.set(id, Date.now()); }
+export function olvidarAtendidos() { atendidos.clear(); }
 
 export async function atenderMensaje(m) {
   const tel = String((m && m.from) || '').replace(/\D/g, '');
   if (!/^\d{8,15}$/.test(tel)) return;
+  const id = String(m.id || '');
+  if (yaAtendido(id)) return;
   if (m.type === 'button' && m.button) {
     const p = leerCarga(m.button.payload);
     if (!p) return;
-    const [, pieza] = await Promise.all([
-      puente({ tipo: 'boton', tel, wamid: String((m.context || {}).id || ''), accion: p.accion, slug: p.slug }),
-      armarPieza(p)
-    ]);
-    if (pieza) await mandar(tel, pieza);
+    const anotar = puente({ tipo: 'boton', tel, wamid: String((m.context || {}).id || ''), accion: p.accion, slug: p.slug });
+    const pieza = await armarPieza(p);   // la pieza no espera a la hoja: sale en cuanto está lista
+    const [, salio] = await Promise.all([anotar, pieza ? mandar(tel, pieza) : Promise.resolve(false)]);
+    if (salio) marcarAtendido(id);
     return;
   }
   if (m.type === 'text' && m.text) {
     const palabra = palabraDeBaja(m.text.body);
     if (!palabra) return;
-    if (await puente({ tipo: 'baja', tel, motivo: 'BAJA' })) {
+    const r = await puente({ tipo: 'baja', tel, motivo: 'BAJA' });
+    if (r.ok) {
+      marcarAtendido(id);
       await mandar(tel, { type: 'text', text: { body: palabra === 'stop' ? ADIOS.en : ADIOS.es } });
+      return;
     }
+    if (!r.definitivo) {
+      console.error('wa: una baja no se pudo anotar en la hoja (' + r.error + '); Meta reintentará el aviso');
+      return REINTENTAR;
+    }
+    console.error('wa: una baja que la hoja no pudo marcar (' + r.error + '); le llega a Badir en su app');
   }
 }
 
@@ -153,20 +176,30 @@ const limpia = (t, max) => {
   return s;
 };
 
+async function cargarCatalogo(url) {
+  try {
+    const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    if (!r.ok) return null;
+    const j = await r.json();
+    const c = { t: Date.now(), libros: Array.isArray(j && j.libros) ? j.libros : [] };
+    cache.set(url, c);
+    return c;
+  } catch { return null; }
+}
+
+// Con la caché tibia, un slug que no aparece hace releer el catálogo una vez (puede ser una edición recién publicada).
 export async function libroPorSlug(slug, kids) {
   const url = RAW + (kids ? 'contenido_kids.json' : 'contenido_manual.json');
-  const ahora = Date.now();
   let c = cache.get(url);
-  if (!c || ahora - c.t > CACHE_MS) {
-    try {
-      const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
-      if (!r.ok) return null;
-      const j = await r.json();
-      c = { t: ahora, libros: Array.isArray(j && j.libros) ? j.libros : [] };
-      cache.set(url, c);
-    } catch { return null; }
+  let fresco = false;
+  if (!c || Date.now() - c.t > CACHE_MS) { c = await cargarCatalogo(url); fresco = true; }
+  if (!c) return null;
+  let libro = c.libros.find((b) => b && b._slug === slug) || null;
+  if (!libro && !fresco) {
+    c = await cargarCatalogo(url);
+    libro = c ? (c.libros.find((b) => b && b._slug === slug) || null) : null;
   }
-  return c.libros.find((b) => b && b._slug === slug) || null;
+  return libro;
 }
 export function limpiarCache() { cache.clear(); }
 
@@ -189,16 +222,15 @@ export async function armarPieza(p) {
   if (p.accion === 'melodia') {
     const c = musica(libro)[p.m];
     if (!c) return { type: 'text', text: { body: en ? 'This edition has no music.' : 'Esta edición no trae melodía.' } };
-    const url = (await existe(ruta + 'pieza/'))
-      ? ruta + 'pieza/' + (p.m ? p.m + '/' : '') + MARCA
-      : ruta + (en ? 'en/' : '') + MARCA + '&p=1&m=' + p.m;
+    const pagina = ruta + 'pieza/' + (p.m ? p.m + '/' : '');   // se mira la página exacta que se va a mandar
+    const url = (await existe(pagina)) ? pagina + MARCA : ruta + (en ? 'en/' : '') + MARCA + '&p=1&m=' + p.m;
     return { type: 'text', text: { preview_url: true,
       body: ((!en && c.pie) ? c.pie + '\n\n' : '') + '🎧 ' + c.cancion + ' — ' + c.artista + '\n' + url } };
   }
   const c = videos(libro)[p.v];
   if (!c) return { type: 'text', text: { body: en ? 'This edition has no video.' : 'Esta edición no trae video.' } };
-  return { type: 'text', text: { preview_url: true,
-    body: (await existe(ruta + 'video/')) ? ruta + 'video/' + (p.v ? p.v + '/' : '') + MARCA : 'https://youtu.be/' + c.id } };
+  const pagina = ruta + 'video/' + (p.v ? p.v + '/' : '');
+  return { type: 'text', text: { preview_url: true, body: (await existe(pagina)) ? pagina + MARCA : 'https://youtu.be/' + c.id } };
 }
 
 export async function mandar(tel, mensaje) {
@@ -213,14 +245,19 @@ export async function mandar(tel, mensaje) {
   } catch { return false; }
 }
 
-// El puente al Apps Script (doPost, action=wa_puente). Devuelve true solo si el Apps Script dijo ok.
+// El puente al Apps Script (doPost, action=wa_puente).
+//   ok: el Apps Script dijo ok.  definitivo: dijo que no con su razón («sin_fila», «clave», «tel»…): reintentar no cambia nada.
+//   Lo demás (red, tiempo, candado ocupado, respuesta que no es JSON) es pasajero: definitivo es false.
 export async function puente(datos) {
   const cuerpo = new URLSearchParams({ action: 'wa_puente', clave: env('WA_PUENTE_CLAVE') });
   for (const [k, v] of Object.entries(datos)) cuerpo.set(k, String(v == null ? '' : v));
   try {
     const r = await fetch(env('WA_PUENTE_URL'), { method: 'POST', body: cuerpo, signal: AbortSignal.timeout(6000) });
-    if (!r.ok) return false;
+    if (!r.ok) return { ok: false, definitivo: false, error: 'http' };
     const j = await r.json();
-    return !!(j && j.ok === true);
-  } catch { return false; }
+    if (j && j.ok === true) return { ok: true, definitivo: true, error: '' };
+    const error = (j && typeof j.error === 'string') ? j.error : '';
+    // «clave» es de configuración: se arregla en Vercel o en el Apps Script, así que tampoco es definitivo.
+    return { ok: false, definitivo: !!error && error !== 'clave', error: error || 'pasajero' };
+  } catch { return { ok: false, definitivo: false, error: 'red' }; }
 }
