@@ -218,7 +218,7 @@
       <p class="sub-small"><span id="txtLoading">Procesando…</span></p>
     </div>
 
-    <!-- Estado 3: ÉXITO (anti-enum: se muestra igual exista o no el email) -->
+    <!-- Estado 3: ÉXITO (solo si el cambio quedó) -->
     <div id="state-success" class="hidden">
       <div class="icon-circle icon-success">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -227,6 +227,37 @@
       </div>
       <h1 id="mensaje">Entendido.</h1>
       <p class="sub-small"><span id="subExito">Ya está.</span> <a href="https://triggui.com">triggui.com</a></p>
+    </div>
+
+    <!-- Estado 4: ENLACE VIEJO (la firma ya no sirve; el próximo correo trae uno nuevo) -->
+    <div id="state-viejo" class="hidden">
+      <div class="icon-circle icon-confirm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/>
+        </svg>
+      </div>
+      <h1><span id="viejoTitulo">Este enlace ya no sirve</span></h1>
+      <p class="sub-small"><span id="viejoSub">Lo cambiamos para proteger tu correo. Tu próximo correo de Triggui trae uno nuevo para cambiar el idioma.</span> <a href="https://triggui.com">triggui.com</a></p>
+    </div>
+
+    <!-- Estado 5: NO SE PUDO (se dice, con la opción de intentar otra vez) -->
+    <div id="state-error" class="hidden">
+      <div class="icon-circle icon-confirm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 7.5v6M12 16.5v.5"/>
+        </svg>
+      </div>
+      <h1><span id="errorTitulo">No pudimos guardar tu idioma</span></h1>
+      <p class="sub"><span id="errorDetalle">Intenta de nuevo en unos minutos.</span></p>
+      <div class="actions">
+        <button class="btn-confirm" id="btn-reintentar" type="button"><span id="btnReintentar">Intentar de nuevo</span></button>
+      </div>
+    </div>
+
+    <!-- Estado 6: SIN DATOS (se abrió /idioma sin el enlace de un correo) -->
+    <div id="state-sin-datos" class="hidden">
+      <h1><span id="sinDatosTitulo">Para cambiar tu idioma</span></h1>
+      <p class="sub-small"><span id="sinDatosSub">Usa la barra al inicio de cualquier correo de Triggui.</span></p>
     </div>
 
     <noscript>
@@ -265,7 +296,8 @@
       //   • Los scanners siguen GET requests, no disparan clicks de botones
       //   • Los humanos completan el flow conscientemente
       //   • Idempotente: si ya está unsubscribed, repetir no rompe
-      //   • Anti-enum: se ve igual exista o no el email
+      //   • Dice la verdad: «Listo» solo si el cambio quedó. Con un enlace de antes de
+      //     la rotación del secreto (B20) dice que ya no sirve; el próximo correo trae uno nuevo.
       // ════════════════════════════════════════════════════════════════════
 
       var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec";
@@ -274,7 +306,7 @@
       function $(id) { return document.getElementById(id); }
 
       function showState(stateId) {
-        var states = ["state-confirm", "state-loading", "state-success"];
+        var states = ["state-confirm", "state-loading", "state-success", "state-viejo", "state-error", "state-sin-datos"];
         for (var i = 0; i < states.length; i++) {
           var el = $(states[i]);
           if (!el) continue;
@@ -308,6 +340,14 @@
         cargando: "Working\u2026", listo: "Done",
         exito: "This week\u2019s email is on its way in English. You can switch back anytime from the bar at the top of any email.",
         guardado: "Your preference is saved. From now on you will receive Triggui in English.",
+        viejoTitulo: "This link no longer works",
+        viejoSub: "We changed it to protect your email. Your next Triggui email brings a new one to switch the language.",
+        errorTitulo: "We couldn't save your language",
+        errorSub: "Try again in a few minutes.",
+        errorRed: "Check your connection and try again.",
+        reintentar: "Try again",
+        sinDatosTitulo: "To change your language",
+        sinDatosSub: "Use the bar at the top of any Triggui email.",
         doc: "en"
       } : {
         titulo: "\u00bfCambiar a espa\u00f1ol?",
@@ -316,6 +356,14 @@
         cargando: "Procesando\u2026", listo: "Listo",
         exito: "El correo de esta semana va en camino en espa\u00f1ol. Puedes cambiarlo cuando quieras desde la barra al inicio de cualquier correo.",
         guardado: "Tu preferencia qued\u00f3 guardada. A partir de ahora recibes Triggui en espa\u00f1ol.",
+        viejoTitulo: "Este enlace ya no sirve",
+        viejoSub: "Lo cambiamos para proteger tu correo. Tu próximo correo de Triggui trae uno nuevo para cambiar el idioma.",
+        errorTitulo: "No pudimos guardar tu idioma",
+        errorSub: "Intenta de nuevo en unos minutos.",
+        errorRed: "Revisa tu conexión e intenta de nuevo.",
+        reintentar: "Intentar de nuevo",
+        sinDatosTitulo: "Para cambiar tu idioma",
+        sinDatosSub: "Usa la barra al inicio de cualquier correo de Triggui.",
         doc: "es"
       };
       try {
@@ -323,14 +371,16 @@
         var _p = function (id, txt) { var e = document.getElementById(id); if (e) e.textContent = txt; };
         _p("tituloConfirm", T.titulo); _p("subConfirm", T.sub);
         _p("btnNo", T.no); _p("btnSi", T.si); _p("txtLoading", T.cargando); _p("subExito", T.exito);
+        _p("viejoTitulo", T.viejoTitulo); _p("viejoSub", T.viejoSub); _p("errorTitulo", T.errorTitulo);
+        _p("errorDetalle", T.errorSub); _p("btnReintentar", T.reintentar);
+        _p("sinDatosTitulo", T.sinDatosTitulo); _p("sinDatosSub", T.sinDatosSub);
       } catch (e) {}
       var email = params.get("email") || "";
       var token = params.get("token") || "";
 
-      // Si no hay params → acceso directo sin email (acceso manual a /entendido)
-      // Comportamiento: mostrar éxito directo (anti-enum, idempotente)
+      // Si no hay params → acceso directo sin el enlace de un correo: se dice cómo cambiar el idioma.
       if (!email || !token) {
-        showSuccess("");
+        showState("state-sin-datos");
         return;
       }
 
@@ -343,8 +393,18 @@
         window.location.href = "https://triggui.com";
       });
 
-      btnConfirm.addEventListener("click", function() {
-        // Usuario confirmó cancelación: proceder con fetch al Apps Script
+      function conPausa(startTime, fn) {
+        var remaining = Math.max(0, MIN_LOADING_MS - (Date.now() - startTime));
+        setTimeout(fn, remaining);
+      }
+
+      function mostrarError(detalle) {
+        _p("errorDetalle", detalle);
+        showState("state-error");
+      }
+
+      function pedirIdioma() {
+        // Usuario confirmó el cambio: fetch al Apps Script
         showState("state-loading");
         var startTime = Date.now();
 
@@ -358,15 +418,22 @@
         fetch(url, { method: "GET", redirect: "follow", mode: "cors" })
           .then(function(r) { return r.json(); })
           .then(function(data) {
-            // Backend confirma (o anti-enum si email no existe — retorna ok igual)
-            showSuccessWithDelay(data && data.first_name ? data.first_name : "", startTime, !!(data && data.resent));
+            if (data && data.ok === true) {
+              showSuccessWithDelay(data.first_name || "", startTime, !!data.resent);
+            } else if (data && (data.error === "token" || data.error === "parametros")) {
+              conPausa(startTime, function() { showState("state-viejo"); });
+            } else {
+              conPausa(startTime, function() { mostrarError(T.errorSub); });
+            }
           })
           .catch(function(err) {
-            // Error de red: mostramos éxito igual (anti-enumeration + UX defensiva)
             console.error("Triggui · idioma fetch error:", err);
-            showSuccessWithDelay("", startTime, false);
+            conPausa(startTime, function() { mostrarError(T.errorRed); });
           });
-      });
+      }
+
+      btnConfirm.addEventListener("click", pedirIdioma);
+      $("btn-reintentar").addEventListener("click", pedirIdioma);
     })();
   </script>
 </body>

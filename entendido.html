@@ -218,7 +218,7 @@
       <p class="sub-small">Procesando…</p>
     </div>
 
-    <!-- Estado 3: ÉXITO (anti-enum: se muestra igual exista o no el email) -->
+    <!-- Estado 3: ÉXITO (solo si la baja quedó; una firma válida de un correo que ya no está también: no recibe nada) -->
     <div id="state-success" class="hidden">
       <div class="icon-circle icon-success">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -227,6 +227,52 @@
       </div>
       <h1 id="mensaje">Entendido.</h1>
       <p class="sub-small">Si quieres volver, te esperamos en <a href="https://triggui.com">triggui.com</a></p>
+    </div>
+
+    <!-- Estado 4: ENLACE VIEJO (la firma ya no sirve: se ofrece uno nuevo por correo) -->
+    <div id="state-viejo" class="hidden">
+      <div class="icon-circle icon-confirm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M10 14a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1 1M14 10a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1-1"/>
+        </svg>
+      </div>
+      <h1>Este enlace ya no sirve</h1>
+      <p class="sub">Lo cambiamos para proteger tu correo. Te mandamos uno nuevo y con él confirmas que ya no quieres recibir Triggui.</p>
+      <div class="actions">
+        <button class="btn-stay" id="btn-quedarme" type="button">Mantenerme suscrito</button>
+        <button class="btn-confirm" id="btn-nuevo" type="button">Mándame el enlace nuevo</button>
+      </div>
+    </div>
+
+    <!-- Estado 5: ENLACE NUEVO PEDIDO (se ve igual exista o no el correo en la lista) -->
+    <div id="state-enviado" class="hidden">
+      <div class="icon-circle icon-success">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12.5l4.5 4.5L19 7.5"/>
+        </svg>
+      </div>
+      <h1>Revisa tu correo</h1>
+      <p class="sub-small">Si ese correo está en Triggui, en unos minutos te llega el enlace nuevo. Con él confirmas tu baja.</p>
+    </div>
+
+    <!-- Estado 6: NO SE PUDO (se dice, y si sirve, se puede intentar otra vez) -->
+    <div id="state-error" class="hidden">
+      <div class="icon-circle icon-confirm">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 7.5v6M12 16.5v.5"/>
+        </svg>
+      </div>
+      <h1 id="error-titulo">No pudimos confirmar tu baja</h1>
+      <p class="sub" id="error-detalle">Intenta de nuevo en unos minutos.</p>
+      <div class="actions" id="error-acciones">
+        <button class="btn-confirm" id="btn-reintentar" type="button">Intentar de nuevo</button>
+      </div>
+    </div>
+
+    <!-- Estado 7: SIN DATOS (se abrió /entendido sin el enlace de un correo) -->
+    <div id="state-sin-datos" class="hidden">
+      <h1>Para dejar de recibir Triggui</h1>
+      <p class="sub-small">Usa el enlace que viene al final de cualquiera de nuestros correos.</p>
     </div>
 
     <noscript>
@@ -265,7 +311,9 @@
       //   • Los scanners siguen GET requests, no disparan clicks de botones
       //   • Los humanos completan el flow conscientemente
       //   • Idempotente: si ya está unsubscribed, repetir no rompe
-      //   • Anti-enum: se ve igual exista o no el email
+      //   • Dice la verdad: «Entendido» solo si la baja quedó. Con un enlace de
+      //     antes de la rotación del secreto (B20) ofrece mandar uno nuevo al correo,
+      //     y esa respuesta se ve igual esté o no el correo en la lista.
       // ════════════════════════════════════════════════════════════════════
 
       var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby6OJhLRDItCPo6SonyFeX48mA4OqPEd84evMj_ektG7RT67VOL3CmYpr2QrfcKAKFN0w/exec";
@@ -274,7 +322,7 @@
       function $(id) { return document.getElementById(id); }
 
       function showState(stateId) {
-        var states = ["state-confirm", "state-loading", "state-success"];
+        var states = ["state-confirm", "state-loading", "state-success", "state-viejo", "state-enviado", "state-error", "state-sin-datos"];
         for (var i = 0; i < states.length; i++) {
           var el = $(states[i]);
           if (!el) continue;
@@ -302,10 +350,9 @@
       var email = params.get("email") || "";
       var token = params.get("token") || "";
 
-      // Si no hay params → acceso directo sin email (acceso manual a /entendido)
-      // Comportamiento: mostrar éxito directo (anti-enum, idempotente)
+      // Si no hay params → acceso directo sin el enlace de un correo: se dice cómo darse de baja.
       if (!email || !token) {
-        showSuccess("");
+        showState("state-sin-datos");
         return;
       }
 
@@ -313,13 +360,30 @@
       var btnConfirm = $("btn-confirm");
       var btnStay = $("btn-stay");
 
-      btnStay.addEventListener("click", function() {
+      function irATriggui() {
         // Usuario decidió quedarse: regresa a triggui.com
         window.location.href = "https://triggui.com";
-      });
+      }
+      btnStay.addEventListener("click", irATriggui);
+      $("btn-quedarme").addEventListener("click", irATriggui);
 
-      btnConfirm.addEventListener("click", function() {
+      var ultimoIntento = null;   // la última acción, para «Intentar de nuevo»
+
+      function conPausa(startTime, fn) {
+        var remaining = Math.max(0, MIN_LOADING_MS - (Date.now() - startTime));
+        setTimeout(fn, remaining);
+      }
+
+      function mostrarError(titulo, detalle, conReintento) {
+        $("error-titulo").textContent = titulo;
+        $("error-detalle").textContent = detalle;
+        $("error-acciones").style.display = conReintento ? "" : "none";
+        showState("state-error");
+      }
+
+      function pedirBaja() {
         // Usuario confirmó cancelación: proceder con fetch al Apps Script
+        ultimoIntento = pedirBaja;
         showState("state-loading");
         var startTime = Date.now();
 
@@ -332,15 +396,52 @@
         fetch(url, { method: "GET", redirect: "follow", mode: "cors" })
           .then(function(r) { return r.json(); })
           .then(function(data) {
-            // Backend confirma (o anti-enum si email no existe — retorna ok igual)
-            showSuccessWithDelay(data && data.first_name ? data.first_name : "", startTime);
+            if (data && data.ok === true) {
+              showSuccessWithDelay(data.first_name || "", startTime);
+            } else if (data && (data.error === "token" || data.error === "parametros")) {
+              conPausa(startTime, function() { showState("state-viejo"); });
+            } else {
+              conPausa(startTime, function() { mostrarError("No pudimos confirmar tu baja", "Intenta de nuevo en unos minutos.", true); });
+            }
           })
           .catch(function(err) {
-            // Error de red: mostramos éxito igual (anti-enumeration + UX defensiva)
             console.error("Triggui · unsubscribe fetch error:", err);
-            showSuccessWithDelay("", startTime);
+            conPausa(startTime, function() { mostrarError("No pudimos confirmar tu baja", "Revisa tu conexión e intenta de nuevo.", true); });
           });
-      });
+      }
+
+      function pedirEnlaceNuevo() {
+        ultimoIntento = pedirEnlaceNuevo;
+        showState("state-loading");
+        var startTime = Date.now();
+
+        var url = APPS_SCRIPT_URL +
+          "?action=nuevo_enlace" +
+          "&email=" + encodeURIComponent(email) +
+          "&format=json";
+
+        fetch(url, { method: "GET", redirect: "follow", mode: "cors" })
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            if (data && data.ok === true) {
+              conPausa(startTime, function() { showState("state-enviado"); });
+            } else if (data && data.error === "tope") {
+              conPausa(startTime, function() { mostrarError("Hoy ya mandamos muchos enlaces", "Intenta mañana, o responde a cualquier correo de Triggui pidiendo tu baja.", false); });
+            } else if (data && data.error === "correo") {
+              conPausa(startTime, function() { mostrarError("El enlace está incompleto", "Responde a cualquier correo de Triggui pidiendo tu baja.", false); });
+            } else {
+              conPausa(startTime, function() { mostrarError("No pudimos mandar el enlace", "Intenta de nuevo en unos minutos.", true); });
+            }
+          })
+          .catch(function(err) {
+            console.error("Triggui · nuevo enlace fetch error:", err);
+            conPausa(startTime, function() { mostrarError("No pudimos mandar el enlace", "Revisa tu conexión e intenta de nuevo.", true); });
+          });
+      }
+
+      btnConfirm.addEventListener("click", pedirBaja);
+      $("btn-nuevo").addEventListener("click", pedirEnlaceNuevo);
+      $("btn-reintentar").addEventListener("click", function() { if (ultimoIntento) ultimoIntento(); });
     })();
   </script>
 </body>
