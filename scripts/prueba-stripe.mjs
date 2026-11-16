@@ -118,17 +118,45 @@ await prueba('las facturas: de alta es alta, del mes y de cambio de plan es reno
     ['renovacion', 'sub_NUEVA9', 'cus_EXP123', '149', '149.00']]);
 });
 
-await prueba('la baja y el cobro fallido', async () => {
+await prueba('la baja (cancelada, sin pago o pausada) y el cobro fallido', async () => {
   await post(evento('customer.subscription.deleted', { object: 'subscription', id: 'sub_ANA123', customer: 'cus_ANA123', status: 'canceled' }));
   await post(evento('invoice.payment_failed', Object.assign({}, FACTURA, { attempt_count: 2, next_payment_attempt: Date.UTC(2026, 10, 20, 12) / 1000 })));
+  const SUB = { object: 'subscription', id: 'sub_ANA123', customer: 'cus_ANA123' };
+  const cambio = (estado, antes) => evento('customer.subscription.updated', Object.assign({}, SUB, { status: estado }), {
+    data: { object: Object.assign({}, SUB, { status: estado }), previous_attributes: antes } });
+  await post(cambio('unpaid', { status: 'past_due' }));
+  await post(cambio('paused', { status: 'active' }));
+  await post(cambio('incomplete_expired', { status: 'incomplete' }));
+  await post(cambio('past_due', { status: 'active' }));          // reintentando: todavía no es baja
+  await post(cambio('unpaid', { cancel_at_period_end: true }));  // el estado no cambió en este aviso
+  await post(cambio('active', { status: 'unpaid' }));            // volvió a pagar: lo marca la factura, no este aviso
   const p = alPuente();
-  assert.deepStrictEqual([p[0].tipo, p[0].cliente, p[0].suscripcion, p[0].email], ['baja', 'cus_ANA123', 'sub_ANA123', undefined]);
+  assert.deepStrictEqual([p[0].tipo, p[0].motivo, p[0].cliente, p[0].suscripcion, p[0].email], ['baja', 'cancelada', 'cus_ANA123', 'sub_ANA123', undefined]);
   assert.deepStrictEqual([p[1].tipo, p[1].email, p[1].monto, p[1].moneda, p[1].intento, p[1].siguiente], ['fallo', 'ana@x.com', '149.00', 'mxn', '2', '2026-11-20']);
+  assert.deepStrictEqual(p.slice(2).map((x) => [x.tipo, x.motivo]), [['baja', 'sin_pago'], ['baja', 'pausada'], ['baja', 'sin_pago']]);
 });
 
-await prueba('el plan sale del monto en pesos: $149 al mes o $1,490 al año, $129; lo demás es «otro»', async () => {
+await prueba('solo lo de Triggui: los montos de Trestme no tocan la hoja; una suscripción nueva de otro monto es un aviso a Badir', async () => {
+  for (const monto of [2000000, 1500000, 550000, 99900]) {   // los cuatro servicios de Trestme que cobra la misma cuenta
+    await post(evento('invoice.paid', Object.assign({}, FACTURA, { subtotal: monto, amount_paid: monto })));
+    await post(evento('invoice.payment_failed', Object.assign({}, FACTURA, { subtotal: monto, amount_due: monto })));
+  }
+  assert.strictEqual(alPuente().length, 0, 'renovaciones y cobros fallidos de Trestme se ignoran');
+  await post(evento('checkout.session.completed', Object.assign({}, SESION, { amount_subtotal: 550000, amount_total: 550000 })));
+  await post(evento('checkout.session.completed', Object.assign({}, SESION, { amount_subtotal: 0, amount_total: 0 })));   // prueba gratis de Stripe
+  const p = alPuente();
+  assert.deepStrictEqual(p.map((x) => [x.tipo, x.monto, x.email, x.plan, x.nombre]), [['ajeno', '5500.00', 'ana@x.com', undefined, undefined],
+    ['ajeno', '0.00', 'ana@x.com', undefined, undefined]]);
+});
+
+await prueba('el plan sale del monto en pesos: $149 al mes o $1,490 al año, $129, el viejo de $100 como «otro»; lo demás no es de Triggui', async () => {
   assert.deepStrictEqual([st.planDe(14900, 'mxn'), st.planDe(149000, 'MXN'), st.planDe(12900, 'mxn'), st.planDe(10000, 'mxn'),
-    st.planDe(14900, 'usd'), st.planDe(undefined, 'mxn')], ['149', '149', '129', 'otro', 'otro', 'otro']);
+    st.planDe(14900, 'usd'), st.planDe(undefined, 'mxn'), st.planDe(0, 'mxn'), st.planDe(550000, 'mxn')], ['149', '149', '129', 'otro', '', '', '', '']);
+  process.env.STRIPE_TRIGGUI_MONTOS = '15900=149, 13900 = 129';
+  assert.deepStrictEqual([st.planDe(15900, 'mxn'), st.planDe(13900, 'mxn'), st.planDe(14900, 'mxn')], ['149', '129', '']);
+  process.env.STRIPE_TRIGGUI_MONTOS = 'basura,=,14900=premium';
+  assert.strictEqual(st.planDe(14900, 'mxn'), '149', 'una variable mal escrita no deja la tabla vacía');
+  process.env.STRIPE_TRIGGUI_MONTOS = '';
 });
 
 await prueba('el modo de prueba se ignora, salvo con STRIPE_ACEPTA_PRUEBA=si', async () => {

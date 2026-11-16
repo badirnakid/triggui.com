@@ -4,10 +4,16 @@
 // Stripe avisa aquí cuando alguien paga, renueva, cancela o le falla un cobro. Lo que hace:
 //   1. Comprueba la firma de Stripe (Stripe-Signature) sobre los bytes tal cual llegaron, en tiempo
 //      constante y con 5 minutos de tolerancia. Sin firma válida, 400.
-//   2. Traduce el aviso a uno de cuatro tipos y lo pasa al Apps Script por el puente (action=stripe_puente):
+//   2. Se queda solo con lo de Triggui: la cuenta de Stripe también cobra los servicios de Trestme, así que
+//      un pago cuenta como de Triggui solo si su monto en pesos está en STRIPE_TRIGGUI_MONTOS (si falta:
+//      $149, $1,490 al año, $129 y el plan viejo de $100).
+//   3. Traduce el aviso y lo pasa al Apps Script por el puente (action=stripe_puente):
 //        checkout.session.completed de una suscripción pagada, o invoice.paid de alta → alta
 //        invoice.paid del mes o de un cambio de plan → renovacion
-//        customer.subscription.deleted → baja       invoice.payment_failed → fallo
+//        customer.subscription.deleted → baja (cancelada)
+//        customer.subscription.updated a «unpaid», «incomplete_expired» o «paused» → baja (sin pago o pausada)
+//        invoice.payment_failed → fallo
+//        checkout.session.completed de una suscripción con otro monto → ajeno (solo un aviso a Badir)
 //      Lo demás se contesta 200 y no se toca nada.
 //   3. Si el Apps Script no pudo por una falla pasajera (red, tiempo, candado ocupado, clave mal puesta),
 //      contesta 500 para que Stripe repita el aviso más tarde (lo reintenta hasta 3 días). Lo definitivo
@@ -17,12 +23,15 @@
 //   1. Puerta cerrada por defecto: sin STRIPE_WEBHOOK_SECRET (whsec_…), sin STRIPE_PUENTE_URL o con una
 //      clave de menos de 32 caracteres, responde 503 y no hace nada.
 //   2. Los avisos de modo de prueba se ignoran, salvo con STRIPE_ACEPTA_PRUEBA=si (para probar contra una hoja de prueba).
-//   3. El monto define el plan: $149 (o $1,490 al año) y $129, en pesos. Otro monto o moneda llega como «otro»
-//      y el Apps Script lo deja como $149 y le avisa a Badir.
+//   3. El monto define el plan: $149 (o $1,490 al año) y $129, en pesos; el plan viejo de $100 llega como «otro»
+//      y el Apps Script lo deja como $149 y le avisa a Badir. Las bajas no traen monto: el Apps Script solo
+//      toca una fila que tenga ese cliente de Stripe guardado.
 //   4. Cada aviso lleva su id de Stripe: el Apps Script lo atiende una sola vez aunque llegue repetido.
 //
 // Variables en Vercel: STRIPE_WEBHOOK_SECRET · STRIPE_PUENTE_URL (la dirección /exec del Apps Script) ·
-//   STRIPE_PUENTE_CLAVE (la misma que en las Propiedades del script) · (opcional) STRIPE_ACEPTA_PRUEBA
+//   STRIPE_PUENTE_CLAVE (la misma que en las Propiedades del script) · (opcionales) STRIPE_ACEPTA_PRUEBA y
+//   STRIPE_TRIGGUI_MONTOS («centavos=plan» separados por comas, con plan 149, 129 u otro; por ejemplo
+//   «14900=149,149000=149,12900=129,10000=otro»)
 // ═══════════════════════════════════════════════════════════
 
 import { createHmac, timingSafeEqual } from 'crypto';
@@ -31,6 +40,8 @@ const LARGO_MINIMO = 32;
 const TOLERANCIA_S = 300;
 const MOTIVOS_DE_ALTA = ['subscription_create'];
 const MOTIVOS_DE_RENOVACION = ['subscription_cycle', 'subscription_update'];
+const MONTOS_DE_TRIGGUI = '14900=149,149000=149,12900=129,10000=otro';
+const ESTADOS_DE_BAJA = { unpaid: 'sin_pago', incomplete_expired: 'sin_pago', paused: 'pausada' };
 
 const env = (k) => String(process.env[k] || '').trim();
 
@@ -60,12 +71,26 @@ export function firmaValida(bytes, cabecera, secreto, ahora = Math.floor(Date.no
   return firmas.some((f) => f.length === esperada.length && timingSafeEqual(f, esperada));
 }
 
+// Los montos de Triggui, en centavos de peso: { '14900': '149', … }. Una variable mal escrita no deja la tabla vacía.
+export function montosDeTriggui() {
+  const leer = (texto) => {
+    const m = {};
+    for (const par of String(texto || '').split(',')) {
+      const [c, p] = par.split('=').map((s) => String(s || '').trim());
+      if (/^\d{3,9}$/.test(c) && ['149', '129', 'otro'].includes(p)) m[String(Number(c))] = p;
+    }
+    return m;
+  };
+  const propia = leer(env('STRIPE_TRIGGUI_MONTOS'));
+  return Object.keys(propia).length ? propia : leer(MONTOS_DE_TRIGGUI);
+}
+
+// '149', '129' u 'otro' si es de Triggui; vacío si no lo es (otra moneda u otro monto: un servicio de Trestme).
 export function planDe(centavos, moneda) {
-  if (String(moneda || '').toLowerCase() !== 'mxn') return 'otro';
+  if (String(moneda || '').toLowerCase() !== 'mxn') return '';
   const c = Number(centavos);
-  if (c === 14900 || c === 149000) return '149';
-  if (c === 12900) return '129';
-  return 'otro';
+  if (!Number.isInteger(c) || c <= 0) return '';
+  return montosDeTriggui()[String(c)] || '';
 }
 
 const pesos = (c) => (c === null || c === undefined || c === '' || !Number.isFinite(Number(c)) ? '' : (Number(c) / 100).toFixed(2));
@@ -81,21 +106,35 @@ export function traducir(evento) {
       if (o.mode !== 'subscription' || !['paid', 'no_payment_required'].includes(o.payment_status)) return null;
       const c = o.customer_details || {};
       const monto = o.amount_subtotal ?? o.amount_total;
-      return { tipo: 'alta', email: c.email || o.customer_email || '', nombre: c.name || '', tel: c.phone || '',
-        cliente: idDe(o.customer), suscripcion: idDe(o.subscription), plan: planDe(monto, o.currency), monto: pesos(monto), moneda: o.currency || '' };
+      const plan = planDe(monto, o.currency);
+      const datos = { email: c.email || o.customer_email || '', cliente: idDe(o.customer), suscripcion: idDe(o.subscription),
+        monto: pesos(monto), moneda: o.currency || '' };
+      if (!plan) return Object.assign({ tipo: 'ajeno' }, datos);   // no es un monto de Triggui: solo se le avisa a Badir
+      return Object.assign({ tipo: 'alta', nombre: c.name || '', tel: c.phone || '', plan }, datos);
     }
     case 'invoice.paid': {
       const alta = MOTIVOS_DE_ALTA.includes(o.billing_reason);
       if (!alta && !MOTIVOS_DE_RENOVACION.includes(o.billing_reason)) return null;   // facturas sueltas: no son de la suscripción
       const monto = o.subtotal ?? o.amount_paid;
+      const plan = planDe(monto, o.currency);
+      if (!plan) return null;   // de Trestme, no de Triggui
       return { tipo: alta ? 'alta' : 'renovacion', email: o.customer_email || '', nombre: o.customer_name || '', tel: o.customer_phone || '',
-        cliente: idDe(o.customer), suscripcion: suscripcionDeFactura(o), plan: planDe(monto, o.currency), monto: pesos(monto), moneda: o.currency || '' };
+        cliente: idDe(o.customer), suscripcion: suscripcionDeFactura(o), plan, monto: pesos(monto), moneda: o.currency || '' };
     }
     case 'customer.subscription.deleted':
-      return { tipo: 'baja', cliente: idDe(o.customer), suscripcion: String(o.id || '') };
-    case 'invoice.payment_failed':
+      return { tipo: 'baja', motivo: 'cancelada', cliente: idDe(o.customer), suscripcion: String(o.id || '') };
+    case 'customer.subscription.updated': {
+      const antes = (evento.data && evento.data.previous_attributes) || {};
+      const motivo = ESTADOS_DE_BAJA[o.status];
+      if (!motivo || !('status' in antes) || antes.status === o.status) return null;   // solo cuando el estado cambia a uno de esos
+      return { tipo: 'baja', motivo, cliente: idDe(o.customer), suscripcion: String(o.id || '') };
+    }
+    case 'invoice.payment_failed': {
+      const monto = o.subtotal ?? o.amount_due;
+      if (!planDe(monto, o.currency)) return null;   // de Trestme, no de Triggui
       return { tipo: 'fallo', email: o.customer_email || '', cliente: idDe(o.customer), suscripcion: suscripcionDeFactura(o),
         monto: pesos(o.amount_due), moneda: o.currency || '', intento: String(o.attempt_count || ''), siguiente: fechaDe(o.next_payment_attempt) };
+    }
     default:
       return null;
   }
