@@ -9,6 +9,10 @@
 //      Apps Script y, si quedó marcada, se lo confirma. Si no se pudo por una falla
 //      pasajera, contesta 500 para que Meta repita el aviso más tarde.
 //   3. Entregado, leído, fallido y cada botón: los anota en la hoja para el resumen.
+//   4. user_preferences (C485): quien deja de aceptar el marketing desde el menú de
+//      WhatsApp queda de baja en la hoja; si lo vuelve a aceptar, solo se anota.
+//   5. message_template_status_update (C485): si Meta pausa, desactiva, marca o rechaza
+//      una plantilla nuestra (triggui_…), el Apps Script le escribe a Badir.
 // Lo demás que escriban le llega a Badir en su app de WhatsApp Business: aquí no se contesta.
 //
 // Reglas (viven aquí, en el mecanismo):
@@ -16,9 +20,12 @@
 //      32 caracteres, responde 503 y no hace nada.
 //   2. Cada aviso trae la firma de Meta (X-Hub-Signature-256): se comprueba sobre los
 //      bytes tal cual llegaron, en tiempo constante. Sin firma válida, 401.
-//   3. Solo se atiende el número de WA_NUMERO_ID; lo demás se ignora.
+//   3. Solo se atiende el número de WA_NUMERO_ID; lo demás se ignora. Los avisos de
+//      plantillas no traen número: se atienden solo las que se llaman triggui_….
 //   4. La carga de cada botón la arma el Apps Script al mandar; aquí se valida campo
 //      por campo antes de usarla.
+//   5. Lo que no se pudo anotar por una falla pasajera se le devuelve a Meta con 500,
+//      para que repita el aviso (lección 559 del Cerebro).
 //
 // Variables en Vercel: WA_VERIFY_TOKEN · WA_APP_SECRET · WA_TOKEN · WA_NUMERO_ID ·
 //   WA_PUENTE_URL (la dirección /exec del Apps Script) · WA_PUENTE_CLAVE · (opcional) WA_VERSION
@@ -85,9 +92,15 @@ export async function POST(request) {
   for (const entrada of (Array.isArray(datos && datos.entry) ? datos.entry : [])) {
     for (const cambio of (Array.isArray(entrada && entrada.changes) ? entrada.changes : [])) {
       const v = (cambio && cambio.value) || {};
-      if (!cambio || cambio.field !== 'messages' || String((v.metadata || {}).phone_number_id || '') !== env('WA_NUMERO_ID')) continue;
-      for (const m of (Array.isArray(v.messages) ? v.messages : [])) tareas.push(atenderMensaje(m));
-      for (const s of (Array.isArray(v.statuses) ? v.statuses : [])) tareas.push(anotarEstado(s));
+      const nuestro = String((v.metadata || {}).phone_number_id || '') === env('WA_NUMERO_ID');
+      if (cambio && cambio.field === 'messages' && nuestro) {
+        for (const m of (Array.isArray(v.messages) ? v.messages : [])) tareas.push(atenderMensaje(m));
+        for (const s of (Array.isArray(v.statuses) ? v.statuses : [])) tareas.push(anotarEstado(s));
+      } else if (cambio && cambio.field === 'user_preferences' && nuestro) {
+        for (const u of (Array.isArray(v.user_preferences) ? v.user_preferences : [])) tareas.push(anotarPreferencia(u));
+      } else if (cambio && cambio.field === 'message_template_status_update') {
+        tareas.push(anotarPlantilla(v, entrada && entrada.id, entrada && entrada.time));
+      }
     }
   }
   const resultados = await Promise.allSettled(tareas);
@@ -144,6 +157,44 @@ export async function anotarEstado(s) {
   const err = (Array.isArray(s.errors) && s.errors[0]) || {};
   await puente({ tipo: 'estado', wamid: String(s.id || ''), tel: String(s.recipient_id || ''), estado,
     codigo: String(err.code || ''), detalle: String(err.title || err.message || '').slice(0, 200) });
+}
+
+// Lo que Meta documenta para message_template_status_update (página del 17 de noviembre de 2026).
+const EVENTOS_PLANTILLA = ['APPROVED', 'ARCHIVED', 'UNARCHIVED', 'DELETED', 'DISABLED', 'FLAGGED', 'IN_APPEAL',
+  'LIMIT_EXCEEDED', 'LOCKED', 'PAUSED', 'PENDING', 'REINSTATED', 'PENDING_DELETION', 'REJECTED'];
+
+// C485 · user_preferences: «stop» deja a la persona de baja en la hoja; «resume» solo se anota (volver a mandarle
+// lo decide Badir). Sin teléfono (nombre de usuario sin número compartido) no hay con qué buscarla en la hoja.
+export async function anotarPreferencia(u) {
+  if (!u || u.category !== 'marketing_messages' || !['stop', 'resume'].includes(u.value)) return;
+  const tel = String(u.wa_id || '').replace(/\D/g, '');
+  if (!/^\d{8,15}$/.test(tel)) { console.error('wa: una preferencia de marketing llegó sin teléfono; no se pudo anotar'); return; }
+  const id = 'up|' + tel + '|' + u.value + '|' + String(u.timestamp || '');
+  if (yaAtendido(id)) return;
+  const r = await puente({ tipo: 'preferencia', tel, valor: u.value });
+  if (r.ok || r.definitivo) {
+    marcarAtendido(id);
+    if (!r.ok) console.error('wa: una preferencia de marketing que la hoja no marcó (' + r.error + ')');
+    return;
+  }
+  console.error('wa: una preferencia de marketing no se pudo anotar (' + r.error + '); Meta reintentará el aviso');
+  return REINTENTAR;
+}
+
+// C485 · message_template_status_update: solo plantillas nuestras (triggui_…) y solo los eventos que documenta Meta.
+export async function anotarPlantilla(v, waba, cuando) {
+  const nombre = String((v && v.message_template_name) || '');
+  const evento = String((v && v.event) || '');
+  if (!/^triggui_[a-z0-9_]{1,60}$/.test(nombre) || !EVENTOS_PLANTILLA.includes(evento)) return;
+  const otro = (v.other_info && typeof v.other_info === 'object') ? v.other_info : {};
+  const id = 'pl|' + String(v.message_template_id || nombre) + '|' + String(v.message_template_language || '') + '|' + evento + '|' + String(cuando || '');
+  if (yaAtendido(id)) return;
+  const r = await puente({ tipo: 'plantilla', nombre, evento, idioma: limpia(v.message_template_language, 12),
+    motivo: limpia(v.reason, 60), titulo: limpia(otro.title, 60), descripcion: limpia(otro.description, 300),
+    waba: String(waba || '').replace(/\D/g, '').slice(0, 30) });
+  if (r.ok || r.definitivo) { marcarAtendido(id); return; }
+  console.error('wa: un aviso de plantilla no se pudo anotar (' + r.error + '); Meta reintentará el aviso');
+  return REINTENTAR;
 }
 
 // «tg1|accion|a o k|slug|es o en|melodía|video»: la arma waPayload_ del Apps Script.

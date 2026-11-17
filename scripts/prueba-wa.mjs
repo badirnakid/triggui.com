@@ -245,6 +245,72 @@ await prueba('el puente manda su clave y distingue lo definitivo de lo pasajero'
   assert.ok(alPuente().every((p) => p.clave === ENV.WA_PUENTE_CLAVE && p.action === 'wa_puente'));
 });
 
+/* ─────────────── C485: user_preferences y message_template_status_update ─────────────── */
+
+const preferencia = (value, wa_id = '5215511111111', ts = '1700000000', category = 'marketing_messages') =>
+  aviso({ contacts: [{ wa_id, profile: { name: 'x' } }], user_preferences: [{ wa_id, detail: 'x', category, value, timestamp: ts }] }, 'user_preferences');
+function plantilla(value, waba = '102290129340398', time = 1731000000) {
+  return JSON.stringify({ object: 'whatsapp_business_account', entry: [{ id: waba, time, changes: [{ field: 'message_template_status_update',
+    value: Object.assign({ message_template_id: 806312974732579, message_template_name: 'triggui_lunes', message_template_language: 'es_MX',
+      message_template_category: 'MARKETING', reason: 'NONE' }, value) }] }] });
+}
+
+await prueba('user_preferences: «stop» y «resume» al puente como preferencia; otra categoría, otro valor u otro número, nada', async () => {
+  assert.strictEqual((await post(preferencia('stop'))).status, 200);
+  assert.strictEqual((await post(preferencia('resume', '15125550101', '1700000001'))).status, 200);
+  assert.deepStrictEqual(alPuente().map((p) => [p.tipo, p.tel, p.valor]), [['preferencia', '5215511111111', 'stop'], ['preferencia', '15125550101', 'resume']]);
+  limpiar();
+  await post(preferencia('stop', '5215511111111', '1', 'otra_categoria'));
+  await post(preferencia('pause', '5215511111111', '2'));
+  const otroNumero = JSON.parse(preferencia('stop', '5215511111111', '3'));
+  otroNumero.entry[0].changes[0].value.metadata.phone_number_id = '999';
+  await post(JSON.stringify(otroNumero));
+  assert.strictEqual(llamadas.length, 0);
+  assert.strictEqual(aMeta().length, 0, 'a nadie se le contesta por WhatsApp');
+});
+
+await prueba('user_preferences: falla pasajera, 500 y Meta repite; «sin_fila», 200 con rastro; sin teléfono, nada; repetido, una vez', async () => {
+  puenteResp = { result: 'lock_timeout' };
+  const c = preferencia('stop');
+  assert.strictEqual((await post(c)).status, 500);
+  assert.ok(errores.some((e) => /preferencia de marketing no se pudo anotar/.test(e)) && !errores.some((e) => /\d{8}/.test(e)), 'rastro sin teléfono');
+  puenteResp = { ok: true };
+  assert.strictEqual((await post(c)).status, 200, 'cuando Meta repite, ya queda');
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(alPuente().length, 2, 'el mismo aviso ya atendido no vuelve al puente');
+  limpiar(); puenteResp = { ok: false, error: 'sin_fila' };
+  assert.strictEqual((await post(preferencia('stop'))).status, 200);
+  assert.ok(errores.some((e) => /que la hoja no marcó \(sin_fila\)/.test(e)));
+  limpiar();
+  const sinTel = JSON.parse(preferencia('stop'));
+  delete sinTel.entry[0].changes[0].value.user_preferences[0].wa_id;
+  sinTel.entry[0].changes[0].value.user_preferences[0].user_id = 'US.13491208655302741918';
+  assert.strictEqual((await post(JSON.stringify(sinTel))).status, 200);
+  assert.strictEqual(llamadas.length, 0);
+  assert.ok(errores.some((e) => /llegó sin teléfono/.test(e)));
+});
+
+await prueba('message_template_status_update: plantillas triggui_ y eventos de Meta al puente, con su detalle; lo demás, nada', async () => {
+  assert.strictEqual((await post(plantilla({ event: 'PAUSED', other_info: { title: 'FIRST_PAUSE', description: 'Paused\nfor 3 hours.' } }))).status, 200);
+  assert.deepStrictEqual(alPuente()[0], { action: 'wa_puente', clave: ENV.WA_PUENTE_CLAVE, tipo: 'plantilla', nombre: 'triggui_lunes',
+    evento: 'PAUSED', idioma: 'es_MX', motivo: 'NONE', titulo: 'FIRST_PAUSE', descripcion: 'Paused for 3 hours.', waba: '102290129340398' });
+  limpiar();
+  await post(plantilla({ event: 'REJECTED', reason: null, message_template_name: 'triggui_bienvenida' }));
+  assert.deepStrictEqual([alPuente()[0].nombre, alPuente()[0].evento, alPuente()[0].motivo], ['triggui_bienvenida', 'REJECTED', '']);
+  limpiar();
+  for (const v of [{ event: 'PAUSED', message_template_name: 'otra_marca' }, { event: 'RARO' }, { event: 'PAUSED', message_template_name: 'Triggui_Lunes' },
+    { event: 'PAUSED', message_template_name: 'triggui_' + 'x'.repeat(61) }]) assert.strictEqual((await post(plantilla(v))).status, 200);
+  assert.strictEqual(llamadas.length, 0);
+  limpiar(); puenteResp = 'html';
+  const c = plantilla({ event: 'DISABLED' });
+  assert.strictEqual((await post(c)).status, 500, 'falla pasajera: Meta repite');
+  puenteResp = { ok: true };
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(alPuente().length, 2, 'el mismo aviso ya atendido no manda otro correo');
+  assert.strictEqual(aMeta().length, 0);
+});
+
 const APP_DIR = process.env.TRIGGUI_APP || path.join(AQUI, '..', '..', '..', 'triggui-app');
 const AS = path.join(APP_DIR, 'apps-script', 'Triggui WhatsApp.js');
 if (fs.existsSync(AS)) {
@@ -270,6 +336,40 @@ if (fs.existsSync(AS)) {
         assert.strictEqual(p.slug, libro._slug);
       }
     }
+  });
+  await prueba('mismo contrato que el Apps Script: lo que /api/wa le manda al puente, waPuente_ lo acepta', async () => {
+    // Las llamadas reales de /api/wa (C485 y las de antes), pasadas tal cual al waPuente_ del Apps Script con dobles de Google.
+    await post(boton('tg1|tarjeta|a|libro-de-prueba|es|0|0'));
+    await post(texto('BAJA'));
+    await post(aviso({ statuses: [{ id: 'wamid.T1', status: 'delivered', recipient_id: '5215511111111' }] }));
+    await post(preferencia('stop', '5215511111111', '10'));
+    await post(preferencia('resume', '5215511111111', '11'));
+    await post(plantilla({ event: 'PAUSED', other_info: { title: 'FIRST_PAUSE', description: 'Paused for 3 hours.' } }));
+    const enviados = alPuente();
+    assert.deepStrictEqual(enviados.map((p) => p.tipo), ['boton', 'baja', 'estado', 'preferencia', 'preferencia', 'plantilla']);
+    const hoja = (filas) => ({ filas, getDataRange: () => ({ getValues: () => filas.map((f) => f.slice()) }),
+      getRange: (r, c) => ({ setValue: (v) => { filas[r - 1][c - 1] = v; }, getValue: () => filas[r - 1][c - 1] }),
+      appendRow: (f) => filas.push(f.slice()), setFrozenRows: () => {} });
+    const enc = new Array(17).fill(''); enc[16] = 'WhatsApp';
+    const persona = new Array(17).fill(''); persona[3] = '5215511111111'; persona[16] = 'sí';
+    const hojas = { Principal: hoja([enc, persona]) };
+    const correos = [];
+    const ctx = vm.createContext({
+      SHEET_NAME: 'Principal',
+      PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => (k === 'WA_PUENTE_CLAVE' ? ENV.WA_PUENTE_CLAVE : null) }) },
+      SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => hojas[n] || null,
+        insertSheet: (n) => (hojas[n] = hoja([])) }) },
+      Utilities: { formatDate: (d) => d.toISOString().slice(0, 10) }, Session: { getScriptTimeZone: () => 'UTC' },
+      MailApp: { sendEmail: (to, asunto, texto) => correos.push({ asunto, texto }) }, Logger: { log: () => {} }, DIAG_EMAIL: 'diag@ejemplo.com'
+    });
+    vm.runInContext(fs.readFileSync(AS, 'utf8'), ctx);
+    const res = enviados.map((p) => JSON.parse(JSON.stringify(ctx.waPuente_(p))));
+    assert.ok(res.every((r) => r.ok === true), JSON.stringify(res));
+    assert.ok(/^baja \d{4}-\d{2}-\d{2} \(dejó de recibir marketing\)$/.test(hojas.Principal.filas[1][16]), hojas.Principal.filas[1][16]);
+    assert.deepStrictEqual(hojas['WA eventos'].filas.slice(1).map((f) => [f[1], f[4]]),
+      [['boton', 'tarjeta'], ['baja', 'BAJA'], ['estado', 'delivered'], ['preferencia', 'stop'], ['preferencia', 'resume'], ['plantilla', 'PAUSED']]);
+    assert.strictEqual(correos.length, 1);
+    assert.strictEqual(correos[0].asunto, 'Triggui WhatsApp: la plantilla triggui_lunes (es_MX), pausada por Meta');
   });
 } else {
   console.log('  · (sin la comparación con el Apps Script: no encontré ' + AS + ')');
