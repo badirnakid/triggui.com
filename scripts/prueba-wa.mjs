@@ -359,6 +359,20 @@ await prueba('C477, apagado, sin fila o repetido: no se contesta; una falla pasa
   assert.strictEqual(aMeta().length, 1, 'el mismo aviso ya atendido no se confirma dos veces');
 });
 
+await prueba('C477, el puente tardó: Meta repite, el Apps Script da la misma respuesta (repetido) y entonces se confirma, una vez', async () => {
+  puenteLento = true;
+  const c = texto('kids', 'wamid.K2');
+  assert.strictEqual((await post(c)).status, 500, 'no alcanzó a esperar: que Meta repita');
+  assert.strictEqual(aMeta().length, 0);
+  puenteLento = false;
+  puenteResp = { ok: true, repetido: true, filas: 1, perfil: 'kids', lang: 'es', titulo: 'Cuento', liga: LIGA_K };
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(aMeta().length, 1, 'la confirmación no se pierde');
+  assert.ok(aMeta()[0].text.body.includes(LIGA_K));
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(aMeta().length, 1, 'y no se manda dos veces');
+});
+
 const APP_DIR = process.env.TRIGGUI_APP || path.join(AQUI, '..', '..', '..', 'triggui-app');
 const AS = path.join(APP_DIR, 'apps-script', 'Triggui WhatsApp.js');
 if (fs.existsSync(AS)) {
@@ -425,7 +439,7 @@ if (fs.existsSync(AS)) {
   });
   // C477: el perfil y sus funciones viven en el cartero; se toma su bloque real, como en las pruebas del Apps Script.
   const CARTERO = path.join(APP_DIR, 'apps-script', 'Triggui Correos Semanales.js');
-  const BLOQUE_PERFIL = fs.existsSync(CARTERO) ? (fs.readFileSync(CARTERO, 'utf8').match(/\/\* 👧 C477 — el perfil de cada persona[\s\S]*?\nfunction colPerfil_\(sheet, crear\) \{[\s\S]*?\n\}\n/) || [''])[0] : '';
+  const BLOQUE_PERFIL = fs.existsSync(CARTERO) ? (fs.readFileSync(CARTERO, 'utf8').match(/\/\* 👧 C477: el perfil de cada persona[\s\S]*?\nfunction colPerfil_\(sheet, crear\) \{[\s\S]*?\n\}\n/) || [''])[0] : '';
   if (BLOQUE_PERFIL) {
     await prueba('C477, mismo contrato: el cambio de perfil que manda /api/wa lo acepta waPuente_, y lo que regresa arma la confirmación', async () => {
       limpiar();
@@ -457,7 +471,7 @@ if (fs.existsSync(AS)) {
       assert.deepStrictEqual(r, { ok: true, filas: 1, perfil: 'kids', lang: 'es', titulo: 'Cuento', liga: LIGA_K });
       assert.strictEqual(filas[1][filas[0].indexOf('PERFIL')], 'kids');
       assert.ok(wa.textoPerfil(r).includes('*Cuento*\n' + LIGA_K), 'lo que regresa el Apps Script es lo que /api/wa pone en la confirmación');
-      assert.deepStrictEqual(JSON.parse(JSON.stringify(ctx.waPuente_(enviado))), { ok: true, repetido: true });
+      assert.deepStrictEqual(JSON.parse(JSON.stringify(ctx.waPuente_(enviado))), Object.assign({}, r, { repetido: true }), 'Meta repite: la misma respuesta, sin volver a escribir');
     });
   }
 } else {

@@ -162,12 +162,15 @@ async function darDeBaja(tel, id, palabra) {
 
 // C477 · escribió «kids» o «adultos»: el Apps Script cambia su perfil (solo con PERFIL_ACTIVO) y aquí se le confirma
 // con la liga del libro de esta semana de su perfil nuevo, dentro de la conversación que él abrió (sin plantilla).
-// Apagado, sin fila o repetido: no se contesta; lo que escribió le llega a Badir en su app, como hoy.
+// Si Meta repite el aviso porque la primera vez el puente tardó, el Apps Script regresa la misma respuesta (con
+// «repetido») y aquí se confirma entonces; en esta instancia, un aviso ya atendido no se confirma dos veces.
+// Apagado o sin fila: no se contesta; lo que escribió le llega a Badir en su app, como hoy.
 async function cambiarPerfil(tel, id, perfil) {
   const r = await puente({ tipo: 'perfil', tel, perfil, wamid: id });
   if (r.ok) {
     marcarAtendido(id);
-    if (r.datos && !r.datos.repetido) await mandar(tel, { type: 'text', text: { preview_url: !!r.datos.liga, body: textoPerfil(r.datos) } });
+    const d = r.datos || {};
+    if (d.perfil === 'kids' || d.perfil === 'adultos') await mandar(tel, { type: 'text', text: { preview_url: !!d.liga, body: textoPerfil(d) } });
     return;
   }
   if (!r.definitivo) {
