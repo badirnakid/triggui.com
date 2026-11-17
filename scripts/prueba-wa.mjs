@@ -258,7 +258,8 @@ function plantilla(value, waba = '102290129340398', time = 1731000000) {
 await prueba('user_preferences: «stop» y «resume» al puente como preferencia; otra categoría, otro valor u otro número, nada', async () => {
   assert.strictEqual((await post(preferencia('stop'))).status, 200);
   assert.strictEqual((await post(preferencia('resume', '15125550101', '1700000001'))).status, 200);
-  assert.deepStrictEqual(alPuente().map((p) => [p.tipo, p.tel, p.valor]), [['preferencia', '5215511111111', 'stop'], ['preferencia', '15125550101', 'resume']]);
+  assert.deepStrictEqual(alPuente().map((p) => [p.tipo, p.tel, p.valor, p.cuando]), [['preferencia', '5215511111111', 'stop', '1700000000'],
+    ['preferencia', '15125550101', 'resume', '1700000001']]);
   limpiar();
   await post(preferencia('stop', '5215511111111', '1', 'otra_categoria'));
   await post(preferencia('pause', '5215511111111', '2'));
@@ -293,7 +294,8 @@ await prueba('user_preferences: falla pasajera, 500 y Meta repite; «sin_fila»,
 await prueba('message_template_status_update: plantillas triggui_ y eventos de Meta al puente, con su detalle; lo demás, nada', async () => {
   assert.strictEqual((await post(plantilla({ event: 'PAUSED', other_info: { title: 'FIRST_PAUSE', description: 'Paused\nfor 3 hours.' } }))).status, 200);
   assert.deepStrictEqual(alPuente()[0], { action: 'wa_puente', clave: ENV.WA_PUENTE_CLAVE, tipo: 'plantilla', nombre: 'triggui_lunes',
-    evento: 'PAUSED', idioma: 'es_MX', motivo: 'NONE', titulo: 'FIRST_PAUSE', descripcion: 'Paused for 3 hours.', waba: '102290129340398' });
+    evento: 'PAUSED', idioma: 'es_MX', motivo: 'NONE', titulo: 'FIRST_PAUSE', descripcion: 'Paused for 3 hours.', waba: '102290129340398',
+    id: '806312974732579', cuando: '1731000000' });
   limpiar();
   await post(plantilla({ event: 'REJECTED', reason: null, message_template_name: 'triggui_bienvenida' }));
   assert.deepStrictEqual([alPuente()[0].nombre, alPuente()[0].evento, alPuente()[0].motivo], ['triggui_bienvenida', 'REJECTED', '']);
@@ -354,17 +356,21 @@ if (fs.existsSync(AS)) {
     const persona = new Array(17).fill(''); persona[3] = '5215511111111'; persona[16] = 'sí';
     const hojas = { Principal: hoja([enc, persona]) };
     const correos = [];
+    const cache = {};
     const ctx = vm.createContext({
       SHEET_NAME: 'Principal',
       PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => (k === 'WA_PUENTE_CLAVE' ? ENV.WA_PUENTE_CLAVE : null) }) },
       SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => hojas[n] || null,
         insertSheet: (n) => (hojas[n] = hoja([])) }) },
       Utilities: { formatDate: (d) => d.toISOString().slice(0, 10) }, Session: { getScriptTimeZone: () => 'UTC' },
+      CacheService: { getScriptCache: () => ({ get: (k) => cache[k] || null, put: (k, v) => { cache[k] = v; } }) },
       MailApp: { sendEmail: (to, asunto, texto) => correos.push({ asunto, texto }) }, Logger: { log: () => {} }, DIAG_EMAIL: 'diag@ejemplo.com'
     });
     vm.runInContext(fs.readFileSync(AS, 'utf8'), ctx);
     const res = enviados.map((p) => JSON.parse(JSON.stringify(ctx.waPuente_(p))));
-    assert.ok(res.every((r) => r.ok === true), JSON.stringify(res));
+    assert.ok(res.every((r) => r.ok === true && !r.repetido), JSON.stringify(res));
+    const plantillaOtraVez = JSON.parse(JSON.stringify(ctx.waPuente_(enviados[5])));
+    assert.deepStrictEqual(plantillaOtraVez, { ok: true, repetido: true }, 'Meta repite el aviso en otra instancia: el Apps Script no manda otro correo');
     assert.ok(/^baja \d{4}-\d{2}-\d{2} \(dejó de recibir marketing\)$/.test(hojas.Principal.filas[1][16]), hojas.Principal.filas[1][16]);
     assert.deepStrictEqual(hojas['WA eventos'].filas.slice(1).map((f) => [f[1], f[4]]),
       [['boton', 'tarjeta'], ['baja', 'BAJA'], ['estado', 'delivered'], ['preferencia', 'stop'], ['preferencia', 'resume'], ['plantilla', 'PAUSED']]);

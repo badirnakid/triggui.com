@@ -104,7 +104,8 @@ export async function POST(request) {
     }
   }
   const resultados = await Promise.allSettled(tareas);
-  // Una baja que no se pudo anotar por una falla pasajera (candado, red, Apps Script lento) no se pierde:
+  // Una baja, una preferencia o un aviso de plantilla que no se pudo anotar por una falla pasajera (candado, red,
+  // Apps Script lento) no se pierde:
   // se contesta 500 para que Meta vuelva a mandar el aviso más tarde.
   if (resultados.some((r) => r.status === 'fulfilled' && r.value === REINTENTAR)) return respuesta('Reintentar.', 500);
   return respuesta('ok', 200);
@@ -171,7 +172,8 @@ export async function anotarPreferencia(u) {
   if (!/^\d{8,15}$/.test(tel)) { console.error('wa: una preferencia de marketing llegó sin teléfono; no se pudo anotar'); return; }
   const id = 'up|' + tel + '|' + u.value + '|' + String(u.timestamp || '');
   if (yaAtendido(id)) return;
-  const r = await puente({ tipo: 'preferencia', tel, valor: u.value });
+  // «cuando» deja que el Apps Script atienda una sola vez el mismo aviso aunque Meta lo repita en otra instancia.
+  const r = await puente({ tipo: 'preferencia', tel, valor: u.value, cuando: String(u.timestamp || '').replace(/\D/g, '').slice(0, 12) });
   if (r.ok || r.definitivo) {
     marcarAtendido(id);
     if (!r.ok) console.error('wa: una preferencia de marketing que la hoja no marcó (' + r.error + ')');
@@ -191,7 +193,8 @@ export async function anotarPlantilla(v, waba, cuando) {
   if (yaAtendido(id)) return;
   const r = await puente({ tipo: 'plantilla', nombre, evento, idioma: limpia(v.message_template_language, 12),
     motivo: limpia(v.reason, 60), titulo: limpia(otro.title, 60), descripcion: limpia(otro.description, 300),
-    waba: String(waba || '').replace(/\D/g, '').slice(0, 30) });
+    waba: String(waba || '').replace(/\D/g, '').slice(0, 30), id: String(v.message_template_id || '').replace(/\D/g, '').slice(0, 30),
+    cuando: String(cuando || '').replace(/\D/g, '').slice(0, 12) });
   if (r.ok || r.definitivo) { marcarAtendido(id); return; }
   console.error('wa: un aviso de plantilla no se pudo anotar (' + r.error + '); Meta reintentará el aviso');
   return REINTENTAR;
