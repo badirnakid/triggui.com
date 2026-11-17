@@ -233,7 +233,7 @@ await prueba('otro número, otro campo o un JSON roto: 200 y nada más', async (
 });
 
 await prueba('el puente manda su clave y distingue lo definitivo de lo pasajero', async () => {
-  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: true, definitivo: true, error: '' });
+  assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: true, definitivo: true, error: '', datos: { ok: true } });
   puenteResp = { ok: false, error: 'sin_fila' };
   assert.deepStrictEqual(await wa.puente({ tipo: 'baja', tel: '1' }), { ok: false, definitivo: true, error: 'sin_fila' });
   puenteResp = { result: 'lock_timeout' };
@@ -313,6 +313,52 @@ await prueba('message_template_status_update: plantillas triggui_ y eventos de M
   assert.strictEqual(aMeta().length, 0);
 });
 
+/* ─────────────── C477: «kids» y «adultos» ─────────────── */
+
+const LIGA_K = 'https://app.triggui.com/kids/t/cuento-de-prueba/?w=s&utm_content=perfil';
+
+await prueba('C477, «kids» y «adultos»: el perfil por el puente y la confirmación con la liga de su edición', async () => {
+  puenteResp = { ok: true, filas: 1, perfil: 'kids', lang: 'es', titulo: 'Cuento', liga: LIGA_K };
+  assert.strictEqual((await post(texto('Kids'))).status, 200);
+  const p = alPuente()[0];
+  assert.deepStrictEqual([p.tipo, p.tel, p.perfil, /^wamid\.IN\d+$/.test(p.wamid)], ['perfil', '5215511111111', 'kids', true]);
+  assert.deepStrictEqual(aMeta()[0].text, { preview_url: true, body: 'Listo, ya estás en Triggui Kids: desde ahora tus libros son de Kids.' +
+    '\n\nEl libro de esta semana: *Cuento*\n' + LIGA_K + '\n\nPara volver, escribe «adultos».' });
+  limpiar();
+  puenteResp = { ok: true, filas: 1, perfil: 'adultos', lang: 'en', titulo: 'Test book', liga: 'https://app.triggui.com/t/libro-de-prueba/en/?w=s&utm_content=perfil' };
+  await post(texto(' adults. '));
+  assert.strictEqual(alPuente()[0].perfil, 'adultos');
+  assert.strictEqual(aMeta()[0].text.body, "Done, you are back on Triggui for adults.\n\nThis week's book: *Test book*\n" +
+    'https://app.triggui.com/t/libro-de-prueba/en/?w=s&utm_content=perfil\n\nFor Triggui Kids, reply "kids".');
+  limpiar();
+  puenteResp = { ok: true, filas: 1, perfil: 'kids', lang: 'es', titulo: '', liga: '' };
+  await post(texto('niños'));
+  assert.deepStrictEqual(aMeta()[0].text, { preview_url: false, body: 'Listo, ya estás en Triggui Kids: desde ahora tus libros son de Kids.\n\nPara volver, escribe «adultos».' });
+  limpiar();
+  for (const t of ['kids por favor', 'quiero kids', 'adulto mayor', 'kid s']) await post(texto(t));
+  assert.strictEqual(llamadas.length, 0, 'una frase más larga la contesta Badir');
+  assert.deepStrictEqual(['KIDS', 'Niños', 'Adultos!', 'triggui kids', 'kidz', 'baja'].map(wa.palabraDePerfil), ['kids', 'kids', 'adultos', 'kids', '', '']);
+});
+
+await prueba('C477, apagado, sin fila o repetido: no se contesta; una falla pasajera pide a Meta que repita y no confirma sin anotar', async () => {
+  for (const r of [{ ok: false, error: 'apagado' }, { ok: false, error: 'sin_fila' }, { ok: true, repetido: true }]) {
+    limpiar(); puenteResp = r;
+    assert.strictEqual((await post(texto('kids'))).status, 200, JSON.stringify(r));
+    assert.strictEqual(alPuente().length, 1);
+    assert.strictEqual(aMeta().length, 0, JSON.stringify(r));
+  }
+  limpiar(); puenteResp = 'html';
+  const c = texto('kids', 'wamid.K1');
+  assert.strictEqual((await post(c)).status, 500);
+  assert.strictEqual(aMeta().length, 0);
+  assert.ok(errores.some((e) => /cambio de perfil/.test(e)) && !errores.some((e) => /\d{8}/.test(e)), 'deja rastro, sin teléfono');
+  puenteResp = { ok: true, filas: 1, perfil: 'kids', lang: 'es', titulo: 'Cuento', liga: LIGA_K };
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(aMeta().length, 1);
+  assert.strictEqual((await post(c)).status, 200);
+  assert.strictEqual(aMeta().length, 1, 'el mismo aviso ya atendido no se confirma dos veces');
+});
+
 const APP_DIR = process.env.TRIGGUI_APP || path.join(AQUI, '..', '..', '..', 'triggui-app');
 const AS = path.join(APP_DIR, 'apps-script', 'Triggui WhatsApp.js');
 if (fs.existsSync(AS)) {
@@ -377,6 +423,43 @@ if (fs.existsSync(AS)) {
     assert.strictEqual(correos.length, 1);
     assert.strictEqual(correos[0].asunto, 'Triggui WhatsApp: la plantilla triggui_lunes (es_MX), pausada por Meta');
   });
+  // C477: el perfil y sus funciones viven en el cartero; se toma su bloque real, como en las pruebas del Apps Script.
+  const CARTERO = path.join(APP_DIR, 'apps-script', 'Triggui Correos Semanales.js');
+  const BLOQUE_PERFIL = fs.existsSync(CARTERO) ? (fs.readFileSync(CARTERO, 'utf8').match(/\/\* 👧 C477 — el perfil de cada persona[\s\S]*?\nfunction colPerfil_\(sheet, crear\) \{[\s\S]*?\n\}\n/) || [''])[0] : '';
+  if (BLOQUE_PERFIL) {
+    await prueba('C477, mismo contrato: el cambio de perfil que manda /api/wa lo acepta waPuente_, y lo que regresa arma la confirmación', async () => {
+      limpiar();
+      await post(texto('kids', 'wamid.PC1'));
+      const enviado = alPuente()[0];
+      assert.deepStrictEqual([enviado.tipo, enviado.perfil, enviado.wamid], ['perfil', 'kids', 'wamid.PC1']);
+      const filas = [['Nombre', 'Apellido', 'Email', 'Teléfono', 'IDIOMA'], ['Ana', '', 'a@x.com', "'+5215511111111", 'es']];
+      const hoja = { filas, getDataRange: () => ({ getValues: () => filas.map((f) => f.slice()) }),
+        getLastColumn: () => Math.max(...filas.map((f) => f.length)),
+        getRange: (r, c, nr, nc) => ({ setValue: (v) => { filas[r - 1][c - 1] = v; }, getValue: () => filas[r - 1][c - 1],
+          getValues: () => filas.slice(r - 1, r - 1 + (nr || 1)).map((f) => Array.from({ length: nc || 1 }, (_, j) => (f[c - 1 + j] === undefined ? '' : f[c - 1 + j]))) }),
+        appendRow: (f) => filas.push(f.slice()), setFrozenRows: () => {} };
+      const hojas = { Principal: hoja };
+      const cache = {};
+      const respJson = (o) => ({ getResponseCode: () => 200, getContentText: () => JSON.stringify(o) });
+      const ctx = vm.createContext({
+        SHEET_NAME: 'Principal', CONTENIDO_URL: 'https://raw.githubusercontent.com/badirnakid/triggui-content/main/contenido_manual.json',
+        PropertiesService: { getScriptProperties: () => ({ getProperty: (k) => ({ WA_PUENTE_CLAVE: ENV.WA_PUENTE_CLAVE, PERFIL_ACTIVO: 'si' })[k] || null }) },
+        SpreadsheetApp: { getActiveSpreadsheet: () => ({ getSheetByName: (n) => hojas[n] || null, insertSheet: (n) => (hojas[n] = Object.assign({}, hoja, { filas: [] })) }) },
+        leerIdiomaFila: (sh, r) => (String(filas[r - 1][4] || '') === 'en' ? 'en' : 'es'),
+        UrlFetchApp: { fetch: (url) => respJson({ libros: [url.endsWith('contenido_kids.json') ? LIBRO_K : LIBRO_A] }) },
+        Utilities: { formatDate: (d) => d.toISOString().slice(0, 10) }, Session: { getScriptTimeZone: () => 'UTC' },
+        CacheService: { getScriptCache: () => ({ get: (k) => cache[k] || null, put: (k, v) => { cache[k] = v; } }) },
+        MailApp: { sendEmail: () => {} }, Logger: { log: () => {} }, DIAG_EMAIL: 'diag@ejemplo.com'
+      });
+      vm.runInContext(BLOQUE_PERFIL, ctx);
+      vm.runInContext(fs.readFileSync(AS, 'utf8'), ctx);
+      const r = JSON.parse(JSON.stringify(ctx.waPuente_(enviado)));
+      assert.deepStrictEqual(r, { ok: true, filas: 1, perfil: 'kids', lang: 'es', titulo: 'Cuento', liga: LIGA_K });
+      assert.strictEqual(filas[1][filas[0].indexOf('PERFIL')], 'kids');
+      assert.ok(wa.textoPerfil(r).includes('*Cuento*\n' + LIGA_K), 'lo que regresa el Apps Script es lo que /api/wa pone en la confirmación');
+      assert.deepStrictEqual(JSON.parse(JSON.stringify(ctx.waPuente_(enviado))), { ok: true, repetido: true });
+    });
+  }
 } else {
   console.log('  · (sin la comparación con el Apps Script: no encontré ' + AS + ')');
 }

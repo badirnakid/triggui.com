@@ -13,6 +13,9 @@
 //      WhatsApp queda de baja en la hoja; si lo vuelve a aceptar, solo se anota.
 //   5. message_template_status_update (C485): si Meta pausa, desactiva, marca o rechaza
 //      una plantilla nuestra (triggui_…), el Apps Script le escribe a Badir.
+//   6. «kids» o «adultos» (solo esa palabra, C477): cambia su perfil en la hoja por el puente
+//      (solo con PERFIL_ACTIVO en el Apps Script) y se lo confirma con la liga del libro de
+//      esta semana de su perfil nuevo.
 // Lo demás que escriban le llega a Badir en su app de WhatsApp Business: aquí no se contesta.
 //
 // Reglas (viven aquí, en el mecanismo):
@@ -137,19 +140,55 @@ export async function atenderMensaje(m) {
   }
   if (m.type === 'text' && m.text) {
     const palabra = palabraDeBaja(m.text.body);
-    if (!palabra) return;
-    const r = await puente({ tipo: 'baja', tel, motivo: 'BAJA' });
-    if (r.ok) {
-      marcarAtendido(id);
-      await mandar(tel, { type: 'text', text: { body: palabra === 'stop' ? ADIOS.en : ADIOS.es } });
-      return;
-    }
-    if (!r.definitivo) {
-      console.error('wa: una baja no se pudo anotar en la hoja (' + r.error + '); Meta reintentará el aviso');
-      return REINTENTAR;
-    }
-    console.error('wa: una baja que la hoja no pudo marcar (' + r.error + '); le llega a Badir en su app');
+    if (palabra) return darDeBaja(tel, id, palabra);
+    const perfil = palabraDePerfil(m.text.body);
+    if (perfil) return cambiarPerfil(tel, id, perfil);
   }
+}
+
+async function darDeBaja(tel, id, palabra) {
+  const r = await puente({ tipo: 'baja', tel, motivo: 'BAJA' });
+  if (r.ok) {
+    marcarAtendido(id);
+    await mandar(tel, { type: 'text', text: { body: palabra === 'stop' ? ADIOS.en : ADIOS.es } });
+    return;
+  }
+  if (!r.definitivo) {
+    console.error('wa: una baja no se pudo anotar en la hoja (' + r.error + '); Meta reintentará el aviso');
+    return REINTENTAR;
+  }
+  console.error('wa: una baja que la hoja no pudo marcar (' + r.error + '); le llega a Badir en su app');
+}
+
+// C477 · escribió «kids» o «adultos»: el Apps Script cambia su perfil (solo con PERFIL_ACTIVO) y aquí se le confirma
+// con la liga del libro de esta semana de su perfil nuevo, dentro de la conversación que él abrió (sin plantilla).
+// Apagado, sin fila o repetido: no se contesta; lo que escribió le llega a Badir en su app, como hoy.
+async function cambiarPerfil(tel, id, perfil) {
+  const r = await puente({ tipo: 'perfil', tel, perfil, wamid: id });
+  if (r.ok) {
+    marcarAtendido(id);
+    if (r.datos && !r.datos.repetido) await mandar(tel, { type: 'text', text: { preview_url: !!r.datos.liga, body: textoPerfil(r.datos) } });
+    return;
+  }
+  if (!r.definitivo) {
+    console.error('wa: un cambio de perfil no se pudo anotar (' + r.error + '); Meta reintentará el aviso');
+    return REINTENTAR;
+  }
+  marcarAtendido(id);
+}
+
+// La confirmación del cambio, en el idioma de la persona; con el libro de esta semana si el Apps Script lo encontró.
+export function textoPerfil(d) {
+  const en = d && d.lang === 'en';
+  const kids = d && d.perfil === 'kids';
+  const libro = (d && d.titulo && d.liga)
+    ? (en ? "\n\nThis week's book: *" + d.titulo + '*\n' + d.liga : '\n\nEl libro de esta semana: *' + d.titulo + '*\n' + d.liga) : '';
+  if (en) {
+    return (kids ? 'Done, you are now on Triggui Kids: from now on your books are Kids books.' : 'Done, you are back on Triggui for adults.') +
+      libro + '\n\n' + (kids ? 'To switch back, reply "adults".' : 'For Triggui Kids, reply "kids".');
+  }
+  return (kids ? 'Listo, ya estás en Triggui Kids: desde ahora tus libros son de Kids.' : 'Listo, volviste a Triggui para adultos.') +
+    libro + '\n\n' + (kids ? 'Para volver, escribe «adultos».' : 'Para Triggui Kids, escribe «kids».');
 }
 
 export async function anotarEstado(s) {
@@ -209,6 +248,15 @@ export function leerCarga(texto) {
       !['es', 'en'].includes(lang) || !/^[0-9]$/.test(m) || !/^[0-9]$/.test(v)) return null;
   if (cat === 'k' && accion === 'video') return null;
   return { accion, cat, slug, lang, m: Number(m), v: Number(v) };
+}
+
+// C477 · solo la palabra sola: «kids», «Kids.», «niños» o «adultos», «adults». Una frase más larga la contesta Badir.
+export function palabraDePerfil(texto) {
+  const t = String(texto || '').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase()
+    .replace(/[^a-z ]/g, ' ').replace(/\s+/g, ' ').trim();
+  if (t === 'kids' || t === 'kid' || t === 'ninos' || t === 'triggui kids') return 'kids';
+  if (t === 'adultos' || t === 'adulto' || t === 'adults' || t === 'triggui adultos') return 'adultos';
+  return '';
 }
 
 // Solo la palabra sola: «BAJA», «baja.», «Dar de baja», «STOP». Una frase más larga la contesta Badir.
@@ -309,7 +357,7 @@ export async function puente(datos) {
     const r = await fetch(env('WA_PUENTE_URL'), { method: 'POST', body: cuerpo, signal: AbortSignal.timeout(6000) });
     if (!r.ok) return { ok: false, definitivo: false, error: 'http' };
     const j = await r.json();
-    if (j && j.ok === true) return { ok: true, definitivo: true, error: '' };
+    if (j && j.ok === true) return { ok: true, definitivo: true, error: '', datos: j };   // datos: lo que contestó (C477)
     const error = (j && typeof j.error === 'string') ? j.error : '';
     // «clave» es de configuración: se arregla en Vercel o en el Apps Script, así que tampoco es definitivo.
     return { ok: false, definitivo: !!error && error !== 'clave', error: error || 'pasajero' };
