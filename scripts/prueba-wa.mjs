@@ -181,10 +181,10 @@ await prueba('el mismo aviso dos veces no manda la pieza dos veces', async () =>
 await prueba('«BAJA» y «STOP»: la baja en la hoja y su confirmación', async () => {
   assert.strictEqual((await post(texto('BAJA'))).status, 200);
   assert.deepStrictEqual([alPuente()[0].tipo, alPuente()[0].tel], ['baja', '5215511111111']);
-  assert.strictEqual(aMeta()[0].text.body, 'Listo, ya no te llegará el libro de los lunes. Gracias por leer con Triggui.');
+  assert.strictEqual(aMeta()[0].text.body, 'Listo, ya no te llegará el libro de los lunes. Gracias por leer con Triggui 💛 Cuando se te antoje otro libro, te espera en la app: https://app.triggui.com');
   limpiar();
   await post(texto(' Stop! '));
-  assert.ok(aMeta()[0].text.body.startsWith("Done, you won't"));
+  assert.strictEqual(aMeta()[0].text.body, "Done, you won't get the Monday book anymore. Thanks for reading with Triggui 💛 Whenever you feel like another book, it's waiting for you in the app: https://app.triggui.com");
   limpiar();
   for (const t of ['baja por favor', 'hola', 'no', 'Bajaaa']) await post(texto(t));
   assert.strictEqual(llamadas.length, 0);

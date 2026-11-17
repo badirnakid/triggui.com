@@ -32,8 +32,8 @@ const RAW = 'https://raw.githubusercontent.com/badirnakid/triggui-content/main/'
 const MARCA = '?w=s&utm_content=lunes';   // la página la vuelve utm_source=whatsapp · utm_medium=sala
 const CACHE_MS = 10 * 60 * 1000;
 const ADIOS = {
-  es: 'Listo, ya no te llegará el libro de los lunes. Gracias por leer con Triggui.',
-  en: "Done, you won't get the Monday book anymore. Thanks for reading with Triggui."
+  es: 'Listo, ya no te llegará el libro de los lunes. Gracias por leer con Triggui 💛 Cuando se te antoje otro libro, te espera en la app: https://app.triggui.com',
+  en: "Done, you won't get the Monday book anymore. Thanks for reading with Triggui 💛 Whenever you feel like another book, it's waiting for you in the app: https://app.triggui.com"
 };
 const cache = new Map();
 
